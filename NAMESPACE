@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+importFrom(lda, lda.collapsed.gibbs.sampler, top.topic.words)
+import(tm)
+import(lubridate)
