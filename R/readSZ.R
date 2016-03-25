@@ -6,7 +6,7 @@ meta <- NULL
 for(i in 1:length(file)){
 (print(file[i]))
 lines <- NULL
-try(openfile <- file(paste("Daten/",folder[i],"/",file[i], sep=""), open = "rt"))
+try(openfile <- file(file[i], open = "rt")) ## Einfachere version.
 try(lines <- readLines(con = openfile))
 try(close(openfile))
 if(length(lines)==0){next}
