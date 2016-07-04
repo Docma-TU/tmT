@@ -1,22 +1,22 @@
 #' Removes XML tags and umlauts
-#' 
+#'
 #' Removes XML tags and changes umlauts to a standardized form.
-#' 
-#' 
+#'
+#'
 #' @param x List of texts.
 #' @param umlaute Logical: Should umlauts be changed?
-#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (ü
+#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (\"u
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.
 #' @return Adjusted corpus
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
-#' 
+#'
 #' ##---- Should be DIRECTLY executable !! ----
 #' ##-- ==>  Define data, use random,
 #' ##--	or do  help(data=index)  for the standard data sets.
-#' 
+#'
 #' ## The function is currently defined as
 #' removeXML <- function(x,umlaute=FALSE, u.type=c("normal", "html", "all")){
 #' (print("<[^>]*>"))
@@ -57,7 +57,7 @@
 #' }}
 #' return(x)
 #' }
-#' 
+#'
 #' @export removeXML
 removeXML <-
 function(x,umlaute=FALSE, u.type=c("normal", "html", "all")){

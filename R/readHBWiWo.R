@@ -11,14 +11,11 @@
 #' @param do.text Logical: Should the algorithm collect text data?
 #' @return \item{meta}{ id quelle datum titel abstract UB dachzeile}
 #' \item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
-#' klassifikation (mehrere möglich) thema sachgruppe serie}
+#' klassifikation (mehrere moeglich) thema sachgruppe serie}
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
 #'
-#' ##---- Should be DIRECTLY executable !! ----
-#' ##-- ==>  Define data, use random,
-#' ##--	or do  help(data=index)  for the standard data sets.
 #' @export readHBWiWo
 #'
 readHBWiWo <-

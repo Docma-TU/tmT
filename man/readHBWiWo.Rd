@@ -19,7 +19,7 @@ have same length like \code{file}.}
 \value{
 \item{meta}{ id quelle datum titel abstract UB dachzeile}
 \item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
-klassifikation (mehrere möglich) thema sachgruppe serie}
+klassifikation (mehrere moeglich) thema sachgruppe serie}
 }
 \description{
 Reads the XML-files from the HB WiWo corpus and seperates the text and meta
@@ -27,9 +27,6 @@ data.
 }
 \examples{
 
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 }
 \author{
 Lars Koppers (<koppers@statistik.tu-dortmund.de>)
