@@ -1,3 +1,23 @@
+#' Read the HB WiWo Corpus
+#'
+#' Reads the XML-files from the HB WiWo corpus and seperates the text and meta
+#' data.
+#'
+#'
+#' @param file Names of the XML files.
+#' @param en Logical: Are there english descriptions in the XML structure? Must
+#' have same length like \code{file}.
+#' @param do.meta Logical: Should the algorithm collect meta data?
+#' @param do.text Logical: Should the algorithm collect text data?
+#' @return \item{meta}{ id quelle datum titel abstract UB dachzeile}
+#' \item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
+#' klassifikation (mehrere moeglich) thema sachgruppe serie}
+#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
+#' @keywords manip
+#' @examples
+#'
+#' @export readHBWiWo
+#'
 readHBWiWo <-
 function(file , en, do.meta=TRUE, do.text=TRUE){
 text <- NULL
