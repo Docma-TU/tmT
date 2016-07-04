@@ -1,12 +1,12 @@
 #' Some data preprocessing
-#' 
+#'
 #' Removes punctuation, numbers and stopwords, change into lowercase letters
 #' and tokenization.
-#' 
+#'
 #' Removes punctuation, numbers and stopwords, change into lowercase letters
 #' and tokenization. Additional some cleaning steps: remove empty words /
 #' paragraphs / article.
-#' 
+#'
 #' @param x list containing character strings.
 #' @param sw list of stopwords.
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
@@ -14,12 +14,19 @@
 #' @return A list containing the preprocessed Article.
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
+#' @import graphics
+#' @import grDevices
+#' @import stats
+#' @import utils
+#' @import tm
+#' @import lda
+#' @import lubridate
 #' @examples
-#' 
+#'
 #' ##---- Should be DIRECTLY executable !! ----
 #' ##-- ==>  Define data, use random,
 #' ##--	or do  help(data=index)  for the standard data sets.
-#' 
+#'
 #' ## The function is currently defined as
 #' function (x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
 #'     "koennte", "ueber", "waehrend", "wuerde", "wuerden"), paragraph = TRUE)
@@ -81,7 +88,7 @@
 #'         x <- x[emptyArt]
 #'     }
 #'   }
-#' 
+#'
 #' @export make.clear
 make.clear <-
 function(x, sw=c(stopwords("german"),"dass", "fuer","koennen","koennte","ueber","waehrend","wuerde","wuerden"), paragraph=TRUE){
