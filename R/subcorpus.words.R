@@ -14,6 +14,7 @@
 #' @param fixed Option from \code{\link{grepl}}.
 #' @param useBytes Option from \code{\link{grepl}}.
 #' @param out Type of output: \code{text} filtered corpus, \code{bin} logical vector for all texts, \code{count} the number of matches (max one match per character string).
+#' @param ... additional parameters for \code{grepl}
 #' @return Filtered list of texts.
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)%% ~~who you are~~
 #' @keywords ~kwd1 ~kwd2
@@ -30,6 +31,7 @@ if(out[1]=="count"){
     for(j in wordlist){
         tmp <- cbind(tmp,sapply(text, function(x)sum(grepl(pattern=j, x=x, ignore.case = ignore.case, perl = perl, fixed = fixed, useBytes = useBytes, ...))))
     }
+        colnames(tmp) <- wordlist
 return(tmp)
 }else{
 for(i in 1:length(wordlist)){
