@@ -51,8 +51,4 @@ if(out[1]=="bin"){
 }
 
 
-## text <- list("abaabcaa", "ababc", c("aba", "aabc"), c("aa", "aab"))
-## wordlist <- c("aa")#, "bc")
-## counts <- 2
-## subcorpus.words(text,wordlist, counts, out="bin")
 
