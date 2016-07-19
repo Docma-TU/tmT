@@ -2,6 +2,8 @@ context("read SPIEGEL files")
 
 test_that("readSPIEGEL", {
 
+write.table(getwd(),"Wobinich.txt")
+
 SPIEGEL2 <- readSPIEGEL(year=2012:2013)
 text2 <- readSPIEGEL(year=2012:2013, do.meta = FALSE, do.text = TRUE)
 meta2 <- readSPIEGEL(year=2012:2013, do.meta = TRUE, do.text = FALSE)
