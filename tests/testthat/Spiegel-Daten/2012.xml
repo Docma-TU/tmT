@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE artikel-liste PUBLIC "-//hgfdd//DTD dghdde//EN" "dhdghdliste.dtd">
+<artikel-liste>
+<artikel>
+  <metadaten>
+    <artikel-id>Test-ID1</artikel-id>
+    <quelle>
+      <lieferant-id>10</lieferant-id>
+      <quelle-id>SP</quelle-id>
+      <name>DER SPIEGEL</name>
+      <jahrgang>2012</jahrgang>
+      <nummer>1</nummer>
+      <datum>02012012</datum>
+      <seite-start>1</seite-start>
+      <seite-ende>1</seite-ende>
+    </quelle>
+    <autor><autor-name></autor-name></autor>
+  </metadaten>
+  <inhalt>
+    <titel-liste>
+      <seitentitel>Titelbild</seitentitel>
+      <kurztitel>Kurztitel1; KT1</kurztitel>
+      <rubrik>Rubrik1</rubrik>
+      <ressort>Ressort1</ressort>
+      <dachzeile>Dachzeile1</dachzeile>
+      <titel>Titel 1</titel>
+    </titel-liste>
+    <vorspann>Vorspann äöü</vorspann>
+    <text>
+        <abbildung> 
+  <fotonachweis>sgshtejecgn§$</fotonachweis> 
+  </abbildung> 
+  
+      
+
+    </text>
+  </inhalt>
+</artikel>
+
+<artikel>
+  <metadaten>
+    <artikel-id>ID2</artikel-id>
+    <quelle>
+      <lieferant-id>10</lieferant-id>
+      <quelle-id>SP</quelle-id>
+      <name>DER SPIEGEL</name>
+      <jahrgang>2012</jahrgang>
+      <nummer>6</nummer>
+      <datum>06022012</datum>
+      <seite-start>64</seite-start>
+      <seite-ende>69</seite-ende>
+    </quelle>
+    <autor><autor-name>Autor, 1</autor-name></autor>   <autor><autor-name>Autor,2</autor-name></autor>
+    <firma>  Firma1 - Bet#sdfgdfh grsdf</firma>
+    <firma>  Firma2 - Bet#cdghd,grse - D#Deutschland</firma>
+
+    <person>  Person, Eins - So#Sonstiges</person>
+    <person>  Person, Zwei - So#Sonstiges</person>
+
+    <signatur>  W/10/Konz/Fus#W/Gesamt/trhrfs, ghdrr - Ch-V#C # D#D</signatur>
+    <signatur>  W/14/Inv/Ausl#W/Finanzen/aetfds/srhddhdf - Ch-V#C # D#D</signatur>
+
+    <dokumentmerkmal>  Grafik</dokumentmerkmal>
+    <dokumentmerkmal>  Statistik</dokumentmerkmal>
+
+  </metadaten>
+  <inhalt>
+    <titel-liste>
+      <seitentitel>Wirtschaft</seitentitel>
+      <kurztitel>     Kurztitzel2    </kurztitel>
+      <rubrik>Wirtschaft</rubrik>
+      <ressort>Wirtschaft</ressort>
+      <dachzeile>INDUSTRIE</dachzeile>
+      <titel>Titel2</titel>
+    </titel-liste>
+    <vorspann>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore</vorspann>
+    <text>
+        <absatz>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</absatz> 
+  <absatz>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. öäüßÖÄÜ</absatz> 
+  <absatz>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</absatz> 
+    
+  
+  <abbildung> 
+  <fotonachweis>dasgrsg fs</fotonachweis><beschriftung> 
+  <b>Bildbeschriftung: </b> "AShw RHt Dtdtjs" 
+  </beschriftung> 
+  </abbildung> 
+  
+      
+
+
+
+    </text>
+  </inhalt>
+</artikel>
