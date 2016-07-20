@@ -8,7 +8,7 @@ wordlist2 <- c("aa")
 expect_error(subcorpus.words(counts, out="text"))
 
 counts <- c(2,1)
-res <- subcorpus.words(text,wordlist1, counts, out="bin")
+res <- subcorpus.words(text,wordlist1, counts=counts, out="bin")
 expect_equal(res, c(FALSE, FALSE, FALSE, TRUE))
 
 res <- subcorpus.words(text,wordlist1, out="bin")
@@ -46,6 +46,6 @@ expect_equal(subcorpus.words(text=c("a","A"),wordlist="A", out="text", ignore.ca
 ## counts
 counts <- list(c(2,1), 3)
 text2 <- list("abc", c("a","a","b"), c("c","c","c"))
-res <- subcorpus.words(text2,wordlist=list(c("a","b"),"c"), counts, out="bin")
+res <- subcorpus.words(text2,wordlist=list(c("a","b"),"c"), counts=counts, out="bin")
 expect_equal(res, c(FALSE, TRUE, TRUE))
 })
