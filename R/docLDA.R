@@ -1,9 +1,9 @@
 #' create lda-ready dataset
-#' 
+#'
 #' This function transforms a text corpus like the result from
 #' \code{\link{make.clear}} in a form needed by the lda-package.
-#' 
-#' 
+#'
+#'
 #' @param corpus a list of tokenized texts.
 #' @param vocab a charcter vector containing all words which should beused for
 #' lda.
@@ -20,46 +20,8 @@
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
-#' 
+#'
 #' ##---- Should be DIRECTLY executable !! ----
-#' ##-- ==>  Define data, use random,
-#' ##--	or do  help(data=index)  for the standard data sets.
-#' 
-#' ## The function is currently defined as
-#' function (corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE,
-#'     reduce = TRUE)
-#' {
-#'     for (i in 1:length(corpus)) {
-#'         a <- table(corpus[[i]])
-#'         a <- rbind(as.integer(match(names(a), vocab) - 1), as.integer(a))
-#'         if (ldacorrect) {
-#'             corpus[[i]] <- matrix(as.integer(1), 2, sum(a[2,
-#'                 ]))
-#'             corpus[[i]][1, ] <- as.integer(unlist(apply(a, 2,
-#'                 function(x) {
-#'                   rep(x[1], each = x[2])
-#'                 })))
-#'         }
-#'         else {
-#'             corpus[[i]] <- a
-#'         }
-#'         if (excludeNA) {
-#'             if (any(is.na(corpus[[i]][1, ]))) {
-#'                 corpus[[i]] <- corpus[[i]][, -which(is.na(corpus[[i]][1,
-#'                   ]))]
-#'             }
-#'         }
-#'     }
-#'     if (reduce) {
-#'         DIM <- sapply(corpus, function(x) dim(x)[2])
-#'         index1 <- which(sapply(DIM, is.null))
-#'         corpus <- corpus[-index1]
-#'         DIM <- sapply(corpus, function(x) dim(x)[2])
-#'         corpus <- corpus[which(DIM > 0)]
-#'     }
-#'     return(corpus)
-#'   }
-#' 
 #' @export docLDA
 docLDA <-
 function(corpus, vocab, ldacorrect=TRUE, excludeNA=TRUE, reduce=TRUE){

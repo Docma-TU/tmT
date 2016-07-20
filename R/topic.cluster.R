@@ -1,8 +1,8 @@
 #' Cluster Analysis
-#' 
+#'
 #' Makes a cluster analysis with the hellinger distance.
-#' 
-#' 
+#'
+#'
 #' @param topics A matrix like the \code{topic} matrix from
 #' \code{lda.collapse.gibbs.sampler}
 #' @param file File for the dendogram pdf.
@@ -13,24 +13,8 @@
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords ~kwd1 ~kwd2
 #' @examples
-#' 
+#'
 #' ##---- Should be DIRECTLY executable !! ----
-#' ##-- ==>  Define data, use random,
-#' ##--	or do  help(data=index)  for the standard data sets.
-#' 
-#' ## The function is currently defined as
-#' function (topics, file, topicnames = 1:nrow(topics), method = "average")
-#' {
-#'     topics <- topics/rowSums(topics)
-#'     topics <- sqrt(topics)
-#'     Dist <- 1/sqrt(2) * dist(topics)
-#'     clust <- hclust(d = Dist, method)
-#'     pdf(file, width = 30, height = 15)
-#'     plot(clust, label = topicnames)
-#'     dev.off()
-#'     return(list(Dist, clust))
-#'   }
-#' 
 #' @export topic.cluster
 topic.cluster <-
 function(topics, file, topicnames=1:nrow(topics), method = "average"){
