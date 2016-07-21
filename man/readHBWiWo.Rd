@@ -4,7 +4,7 @@
 \alias{readHBWiWo}
 \title{Read the HB WiWo Corpus}
 \usage{
-readHBWiWo(file, en, do.meta = TRUE, do.text = TRUE)
+readHBWiWo(file, en, do.meta = TRUE, do.text = TRUE, test = FALSE)
 }
 \arguments{
 \item{file}{Names of the XML files.}
@@ -15,6 +15,8 @@ have same length like \code{file}.}
 \item{do.meta}{Logical: Should the algorithm collect meta data?}
 
 \item{do.text}{Logical: Should the algorithm collect text data?}
+
+\item{test}{logical. other directory}
 }
 \value{
 \item{meta}{ id quelle datum titel abstract UB dachzeile}

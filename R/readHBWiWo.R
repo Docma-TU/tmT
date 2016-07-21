@@ -9,6 +9,7 @@
 #' have same length like \code{file}.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
+#' @param test logical. other directory
 #' @return \item{meta}{ id quelle datum titel abstract UB dachzeile}
 #' \item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
 #' klassifikation (mehrere moeglich) thema sachgruppe serie}
@@ -19,13 +20,14 @@
 #' @export readHBWiWo
 #'
 readHBWiWo <-
-function(file , en, do.meta=TRUE, do.text=TRUE){
+function(file , en, do.meta=TRUE, do.text=TRUE, test=FALSE){
 text <- NULL
 meta <- NULL
 metamult <- NULL
 for(i in 1:length(file)){
 (print(file[i]))
-openfile <- file(paste("Daten/",file[i], sep=""), open = "rt")
+if(test){openfile <- file(file[i], open = "rt")}else{
+openfile <- file(paste("Daten/",file[i], sep=""), open = "rt")}
 lines <- readLines(con = openfile)
 close(openfile)
 

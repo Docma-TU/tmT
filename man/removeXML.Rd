@@ -11,7 +11,7 @@ removeXML(x, umlaute = FALSE, u.type = c("normal", "html", "all"))
 
 \item{umlaute}{Logical: Should umlauts be changed?}
 
-\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
+\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{<U+00FC>}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
 }
