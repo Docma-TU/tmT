@@ -1,7 +1,6 @@
 context("read SPIEGEL files")
 
 test_that("readSPIEGEL", {
-Sys.setlocale('LC_ALL','C')
 
 SPIEGEL2 <- readSPIEGEL(year=2012:2013)
 text2 <- readSPIEGEL(year=2012:2013, do.meta = FALSE, do.text = TRUE)
