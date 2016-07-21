@@ -25,19 +25,6 @@ Creates a subcorpus including a specific time span.
 \examples{
 
 ##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (text, meta, s.date = min(meta$datum), e.date = max(meta$datum))
-{
-    mtch <- match(names(text), meta$id)
-    dateID <- which(meta$datum[mtch] >= s.date & meta$datum[mtch] <=
-        e.date)
-    text <- text[dateID]
-    return(text)
-  }
-
 }
 \author{
 Lars Koppers (<koppers@statistik.tu-dortmund.de>)

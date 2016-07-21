@@ -21,6 +21,8 @@
 #' @import tm
 #' @import lda
 #' @import lubridate
+#' @import ggplot2
+#' @import ggdendro
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----

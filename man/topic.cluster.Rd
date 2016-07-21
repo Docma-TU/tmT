@@ -26,22 +26,6 @@ Makes a cluster analysis with the hellinger distance.
 \examples{
 
 ##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (topics, file, topicnames = 1:nrow(topics), method = "average")
-{
-    topics <- topics/rowSums(topics)
-    topics <- sqrt(topics)
-    Dist <- 1/sqrt(2) * dist(topics)
-    clust <- hclust(d = Dist, method)
-    pdf(file, width = 30, height = 15)
-    plot(clust, label = topicnames)
-    dev.off()
-    return(list(Dist, clust))
-  }
-
 }
 \author{
 Lars Koppers (<koppers@statistik.tu-dortmund.de>)
