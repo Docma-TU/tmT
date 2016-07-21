@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+
+<Document ID="120001126" IDNAME="AN" DB="HB" HERMESID="">
+<Source>
+HB Nr. 1 vom 31.15.1985 Seite 001
+</Source>
+<Date>
+1985-12-31
+</Date>
+<Categories>
+<Category>
+Category 1
+</Category>
+<Category>
+Category 2
+</Category>
+</Categories>
+<Title>
+Title 2
+</Title>
+<Abstract>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</Abstract>
+<Companies>
+<Company>
+<Facet>
+Company 1
+</Facet>
+</Company>
+</Companies>
+<Persons>
+<Person>
+<Name>
+Person one
+</Name>
+</Person>
+</Persons>
+</Document>
+
+<Document ID="120001126" IDNAME="AN" DB="HB" HERMESID="">
+<Source>
+HB Nr. 1 vom 31.15.1985 Seite 001
+</Source>
+<Date>
+1985-12-31
+</Date>
+<Categories>
+<Category>
+Category 1
+</Category>
+<Category>
+Category 2
+</Category>
+</Categories>
+<Title>
+Title 2
+</Title>
+<Abstract>
+Document 2 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</Abstract>
+<Companies>
+<Company>
+<Facet>
+Company 1
+</Facet>
+</Company>
+</Companies>
+<Persons>
+<Person>
+<Name>
+Person one
+</Name>
+</Person>
+</Persons>
+</Document>
+
+
+
+
+

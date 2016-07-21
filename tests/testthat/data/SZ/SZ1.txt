@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE DIZML SYSTEM "..\dtd\DIZML113.DTD">
+<DIZML CLASS="ART" SEQ="000000" ISSNAME="SZ" TARGET="SZ" VERSION="1.1.3">
+<!-- CreatedByProgram=ESS80 08.01.2000 16:39:00-->
+<ARTICLE ID="A54411458" CLASS="SZ" COLUMN="Column1" DATE="20140220" IPTC-CODE="11010000" META-COLUMN="82510000" NEWSAGENCY="no" RIGHTS="public" SECTION="Section1" SUBCLASS="SZ">
+<ART.INSTANCE INSTANCE-ID="A54411458" ARTREF="A54411458" LANG="DEU" TYPE="DIZML">
+<ISSUE PAGE="4" REGION="Deutschland" />
+<TEXT NUM.CHARS="39" NUM.LINES="1" NUM.WORDS="3">
+		<SZ.T><P ALIGN="CENTER"><FONT FACE="Arial, Helvetica" SIZE="+2">Titel1 </FONT></P></SZ.T>
+		<PICTEXT><P ALIGN="RIGHT"><FONT FACE="Arial, Helvetica">tititit:&thinsp;GZJD DZJRJ </FONT></P></PICTEXT>
+		</TEXT>
+</ART.INSTANCE>
+<COPYRIGHT>ewsjklsjhlhjrkljdzfökjdrmöl</COPYRIGHT>
+</ARTICLE>
+
+
+<ARTICLE ID="A00003966" CLASS="SZ" COLUMN="Column2" DATE="20140220" IPTC-CODE="10000000" META-COLUMN="81260000" NEWSAGENCY="no" RIGHTS="public" SECTION="Section2" SUBCLASS="SZ">
+<ART.INSTANCE INSTANCE-ID="A00003966" ARTREF="A00003966" LANG="DEU" TYPE="DIZML">
+<ISSUE PAGE="99" REGION="Deutschland" />
+<TEXT NUM.CHARS="7519" NUM.LINES="201" NUM.WORDS="1127">
+<SZ.T><P ALIGN="CENTER"><FONT FACE="Arial, Helvetica" SIZE="+2">Titel2 </FONT></P></SZ.T>
+<SZ.UT><P><FONT FACE="Arial, Helvetica">UTitel2 <BR /> Utitel2 part2 </FONT></P></SZ.UT>
+<P ALIGN="CENTER"><FONT FACE="Arial, Helvetica"><AUTHOR><B>VON <AUTHORNAME>Autor Eins </AUTHORNAME></B></AUTHOR></FONT></P>
+<P><FONT FACE="Arial, Helvetica">Absatz 1 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </FONT></P>
+<P><FONT FACE="Arial, Helvetica">Absatz 2 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </FONT></P>
+<P><FONT FACE="Arial, Helvetica">Absatz 3 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </FONT></P>
+<P><FONT FACE="Arial, Helvetica">Absatz 4 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </FONT></P>
+<SZ.ZT><P><FONT FACE="Arial, Helvetica"><B>Zwischentitel 2 </B></FONT></P></SZ.ZT>
+<PICTEXT><P><FONT FACE="Arial, Helvetica"><I>Bildunterschrift 2 </I></FONT></P>
+<P ALIGN="RIGHT"><FONT FACE="Arial, Helvetica">Bildunterschrift 2.2 </FONT></P></PICTEXT>
+<PICTEXT><P><FONT FACE="Arial, Helvetica"><I>2. Bildunterschrift . </I></FONT></P>
+<P ALIGN="RIGHT"><FONT FACE="Arial, Helvetica"> 2. Bildunterschrift 2.2 </FONT></P></PICTEXT>
+</TEXT>
+</ART.INSTANCE>
+<COPYRIGHT>jdjdhjeegfgj</COPYRIGHT>
+</ARTICLE>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VHB>
+<Dokument ID="HB000005442" IDNAME="AN" DB="HB">
+<Quelle>
+Handelsblatt Nr. 1 vom 44.07.2011 Seite 1
+</Quelle>
+<Seite>
+001
+</Seite>
+<Zeilen>
+100
+</Zeilen>
+<Seitenfolgen>
+<Seitenfolge>
+001
+</Seitenfolge>
+</Seitenfolgen>
+<Datum>
+2011-07-15
+</Datum>
+<Rubriken>
+<Rubrik>
+Thema
+<BR/>
+</Rubrik>
+<Rubrik>
+Rubrik1
+</Rubrik>
+</Rubriken>
+<Autoren>
+<Autor>
+Autor eins
+<BR/>
+</Autor>
+<Autor>
+Autor zwei
+</Autor>
+</Autoren>
+<Serien>
+<Serie>
+Serie 1
+</Serie>
+</Serien>
+<DZ>
+Dachzeile 1
+</DZ>
+<UB>
+Ueberschrift 1
+<BR/>
+</UB>
+<Abstract>
+Abstract 1
+</Abstract>
+<Text>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+<Blobs>
+<Blob>
+<Datei>
+PDFHB20111441.pdf
+</Datei>
+<Beschreibung>
+Beschreibung 1
+</Beschreibung>
+</Blob>
+</Blobs>
+<Sachgruppen>
+<Sachgruppe>
+Sachgruppe 1
+</Sachgruppe>
+<Sachgruppe>
+Sachgruppe 2
+</Sachgruppe>
+<Sachgruppe>
+Sachgruppe 3
+</Sachgruppe>
+</Sachgruppen>
+<Themen>
+<Thema>
+Thema 1
+</Thema>
+<Thema>
+Thema 2
+</Thema>
+<Thema>
+Thema 3
+</Thema>
+</Themen>
+<Klassifikationen>
+<Klassifikation>
+IWI-02
+</Klassifikation>
+<Klassifikation>
+IGFI
+</Klassifikation>
+</Klassifikationen>
+<Laender>
+<Land>
+Land 1
+</Land>
+<Land>
+Land 2
+</Land>
+</Laender>
+<Firmen>
+<Firma>
+<Firmenname>
+Firma 1
+</Firmenname>
+<Firmenfacette>
+Firmenfacette 1
+</Firmenfacette>
+<WPKN>
+DE1452032004
+</WPKN>
+<Boerse>
+bdfnv
+</Boerse>
+<SICCode>
+6112
+</SICCode>
+<NACECode>
+64121
+</NACECode>
+</Firma>
+<Firma>
+</Firmen>
+<Personen>
+<Person>
+<Personenname>
+Person, Eins
+</Personenname>
+<Personenfacette>
+Zitat
+</Personenfacette>
+</Person>
+<Person>
+<Personenname>
+Person, Zwei
+</Personenname>
+</Person>
+</Personen>
+</Dokument>
+
+<?xml version="1.0" encoding="Windows-1252"?>
+<VHB>
+<Dokument ID="HB000005442" IDNAME="AN" DB="HB">
+<Quelle>
+Handelsblatt Nr. 1 vom 44.07.2011 Seite 1
+</Quelle>
+<Seite>
+001
+</Seite>
+<Zeilen>
+100
+</Zeilen>
+<Seitenfolgen>
+<Seitenfolge>
+001
+</Seitenfolge>
+</Seitenfolgen>
+<Datum>
+2011-07-15
+</Datum>
+<Rubriken>
+<Rubrik>
+Thema
+<BR/>
+</Rubrik>
+<Rubrik>
+Rubrik1
+</Rubrik>
+</Rubriken>
+<Autoren>
+<Autor>
+Autor eins
+<BR/>
+</Autor>
+<Autor>
+Autor zwei
+</Autor>
+</Autoren>
+<Serien>
+<Serie>
+Serie 1
+</Serie>
+</Serien>
+<DZ>
+Dachzeile 1
+</DZ>
+<UB>
+Ueberschrift 1
+<BR/>
+</UB>
+<Abstract>
+Abstract 1
+</Abstract>
+<Text>
+Dokument 2 Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<BR/>
+Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+<Blobs>
+<Blob>
+<Datei>
+PDFHB20111441.pdf
+</Datei>
+<Beschreibung>
+Beschreibung 1
+</Beschreibung>
+</Blob>
+</Blobs>
+<Sachgruppen>
+<Sachgruppe>
+Sachgruppe 1
+</Sachgruppe>
+<Sachgruppe>
+Sachgruppe 2
+</Sachgruppe>
+<Sachgruppe>
+Sachgruppe 3
+</Sachgruppe>
+</Sachgruppen>
+<Themen>
+<Thema>
+Thema 1
+</Thema>
+<Thema>
+Thema 2
+</Thema>
+<Thema>
+Thema 3
+</Thema>
+</Themen>
+<Klassifikationen>
+<Klassifikation>
+IWI-02
+</Klassifikation>
+<Klassifikation>
+IGFI
+</Klassifikation>
+</Klassifikationen>
+<Laender>
+<Land>
+Land 1
+</Land>
+<Land>
+Land 2
+</Land>
+</Laender>
+<Firmen>
+<Firma>
+<Firmenname>
+Firma 1
+</Firmenname>
+<Firmenfacette>
+Firmenfacette 1
+</Firmenfacette>
+<WPKN>
+DE1452032004
+</WPKN>
+<Boerse>
+bdfnv
+</Boerse>
+<SICCode>
+6112
+</SICCode>
+<NACECode>
+64121
+</NACECode>
+</Firma>
+<Firma>
+</Firmen>
+<Personen>
+<Person>
+<Personenname>
+Person, Eins
+</Personenname>
+<Personenfacette>
+Zitat
+</Personenfacette>
+</Person>
+<Person>
+<Personenname>
+Person, Zwei
+</Personenname>
+</Person>
+</Personen>
+</Dokument>
+
+
+
