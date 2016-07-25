@@ -1,4 +1,4 @@
-#' Plotting Topics Over Time
+﻿#' Plotting Topics Over Time
 #'
 #' Creates a pdf including a plot for each topic. For each topic the number of
 #' words per month would be plotted.

@@ -1,4 +1,4 @@
-context("read HB or WiWo files")
+﻿context("read HB or WiWo files")
 
 test_that("readHBWiWo", {
 HBWiWo2 <- readHBWiWo(file="data/HBWiWo1.txt", en=FALSE, test=TRUE)

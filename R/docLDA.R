@@ -1,4 +1,4 @@
-#' create lda-ready dataset
+﻿#' create lda-ready dataset
 #'
 #' This function transforms a text corpus like the result from
 #' \code{\link{make.clear}} in a form needed by the lda-package.

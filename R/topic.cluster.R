@@ -1,4 +1,4 @@
-#' Cluster Analysis
+﻿#' Cluster Analysis
 #'
 #' Makes a cluster analysis with the hellinger distance.
 #'

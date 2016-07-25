@@ -1,4 +1,4 @@
-#' Read the HB WiWo Corpus
+﻿#' Read the HB WiWo Corpus
 #'
 #' Reads the XML-files from the HB WiWo corpus and seperates the text and meta
 #' data.

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+﻿<?xml version="1.0" encoding="Windows-1252"?>
 <VHB>
 <Dokument ID="HB000005442" IDNAME="AN" DB="HB">
 <Quelle>

@@ -1,4 +1,4 @@
-context("read SZ files")
+﻿context("read SZ files")
 
 test_that("readSZ", {
 

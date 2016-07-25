@@ -1,4 +1,4 @@
-#' Read the SZ corpus
+﻿#' Read the SZ corpus
 #'
 #' Reads the XML-files from the SZ corpus and seperates the text and meta data.
 #'

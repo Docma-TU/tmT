@@ -1,4 +1,4 @@
-#' Get The IDs Of The Most Representive Articles
+﻿#' Get The IDs Of The Most Representive Articles
 #'
 #' Extract the article IDs belonging to the articles with the most relative or
 #' absolute number of words per topic.

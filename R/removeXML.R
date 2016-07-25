@@ -1,11 +1,11 @@
-#' Removes XML tags and umlauts
+﻿#' Removes XML tags and umlauts
 #'
 #' Removes XML tags and changes umlauts to a standardized form.
 #'
 #'
 #' @param x List of texts.
 #' @param umlaute Logical: Should umlauts be changed?
-#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (\enc{�}{u}
+#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.
 #' @return Adjusted corpus

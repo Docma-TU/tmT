@@ -1,4 +1,4 @@
-#' Function to fit LDA model
+﻿#' Function to fit LDA model
 #'
 #' This function uses the \code{lda.collapsed.gibbs.sampler} from the LDA
 #' package and additional saves topwordlists and a R workspace.

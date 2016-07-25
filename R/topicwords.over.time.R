@@ -1,4 +1,4 @@
-#' Plotting Topicwords Over Time
+﻿#' Plotting Topicwords Over Time
 #'
 #' Creates a pdf including a plot for each choosen word. For each word the
 #' number of this word per month in the whole corpus and in the choosen topic

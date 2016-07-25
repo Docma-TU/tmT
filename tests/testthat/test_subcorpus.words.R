@@ -1,4 +1,4 @@
-context("subcorpus.words creates subcorpus based on keyword search")
+﻿context("subcorpus.words creates subcorpus based on keyword search")
 
 test_that("subcorpus.words", {
 text <- list("abaabcaa", "ababc", c("aba", "aabc"), c("aa", "aab", "bc"))
