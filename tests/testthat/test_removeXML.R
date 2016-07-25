@@ -1,4 +1,4 @@
-﻿context("remove XML tags and change umlauts style")
+context("remove XML tags and change umlauts style")
 
 test_that("removeXML", {
 Sys.setlocale('LC_ALL','C')

@@ -1,4 +1,4 @@
-﻿#' Read the SPIEGEL Corpus
+#' Read the SPIEGEL Corpus
 #'
 #' Reads the XML-files from the SPIEGEL corpus and seperates the text and meta
 #' data.

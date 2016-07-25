@@ -1,4 +1,4 @@
-﻿#' Removes XML tags and umlauts
+#' Removes XML tags and umlauts
 #'
 #' Removes XML tags and changes umlauts to a standardized form.
 #'

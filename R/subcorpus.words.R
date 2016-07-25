@@ -1,4 +1,4 @@
-﻿#' Subcorpus With Word Filter
+#' Subcorpus With Word Filter
 #'
 #' Creates a subcorpus including specific words.
 #'

@@ -1,4 +1,4 @@
-﻿#' Count words in text corpora
+#' Count words in text corpora
 #'
 #' Creates a wordlist and a frequency table.
 #'

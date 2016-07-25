@@ -1,4 +1,4 @@
-﻿#' Preparation of different LDAs For Clustering
+#' Preparation of different LDAs For Clustering
 #'
 #' Merges different lda-results to one matrix, including only the words which
 #' appears in all lda.

@@ -1,4 +1,4 @@
-﻿context("read SPIEGEL files")
+context("read SPIEGEL files")
 
 test_that("readSPIEGEL", {
 

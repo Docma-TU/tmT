@@ -1,4 +1,4 @@
-﻿#' Subcorpus With Date Filter
+#' Subcorpus With Date Filter
 #'
 #' Creates a subcorpus including a specific time span.
 #'

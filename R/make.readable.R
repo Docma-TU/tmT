@@ -1,4 +1,4 @@
-﻿#' Export Readable Article Lists
+#' Export Readable Article Lists
 #'
 #' Exports the article id, text, title and date.
 #'

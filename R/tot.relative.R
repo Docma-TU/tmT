@@ -1,4 +1,4 @@
-﻿#' Plotting Topics over Time relative to Corpus
+#' Plotting Topics over Time relative to Corpus
 #' 
 #' Creates a pdf including a plot for each topic. For each topic the share of
 #' words per month would be plotted. Shares can be calculated on subcorpus or corpus level.

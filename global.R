@@ -1,4 +1,4 @@
-﻿##############
+##############
 ## Roxygen2 ##
 ##############
 setwd("//STORE/koppers/Textmining/tmT/")
