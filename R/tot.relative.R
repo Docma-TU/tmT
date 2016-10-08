@@ -3,21 +3,22 @@
 #' Creates a pdf including a plot for each topic. For each topic the share of
 #' words per month would be plotted. Shares can be calculated on subcorpus or corpus level.
 #' 
-#' @param topics Numbers of the topics to be plotted. Defaults to all topics.
+#' @param topics Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
 #' @param x LDA result object.
-#' @param ldaID Character vector including IDs of the texts.
-#' @param meta Specify to analyze subcorpus. The meta data for the texts.
-#' @param corpus Specify to analyze entiere corous. The data used for normalization.
-#' @param file Name of the pdf file.
-#' @param pages Should the topics be plotted on separate pages (true) or on one page (false). Defaults to true.
-#' @param Tnames Vector with labels for the topics.
-#' @param smooth How much the output should be smoothed. Set to 0 to disable smoothing.
+#' @param ldaID Character vector containing IDs of the texts.
+#' @param meta Optional. Specify to analyze subcorpus. The meta data for the texts. One of meta or corpus has to be specified.
+#' @param corpus Optional. Specify to analyze entire copous. The data used for normalization. One of meta or corpus has to be specified.
+#' @param file Character vector containing the path and name for the pdf output file.
+#' @param pages Logical. Should the topics be plotted on separate pages (true) or on one page (false). Defaults to true.
+#' @param Tnames Character vector with labels for the topics.
+#' @param smooth How much the output should be smoothed. The higher the number, the more smoothing is performed. Set to 0 to disable smoothing.
 #' @return A pdf.
 #' @author Kira Schacht (<kira.schacht@@tu-dortmund.de>)
 #' @keywords ~kwd1 ~kwd2
 #' @examples ##
 #' @export tot.relative
-tot.relative <- function(topics = 1:nrow(x$document_sums), x, ldaID, meta = NULL, corpus = NULL,
+
+tot.relative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL, corpus = NULL,
                          file, pages=TRUE, Tnames = top.topic.words(x$topics,1), smooth = 0.05){
     #check if arguments are properly specified
     if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
@@ -59,11 +60,14 @@ tot.relative <- function(topics = 1:nrow(x$document_sums), x, ldaID, meta = NULL
     ### Normalize data ###
     normsums <- normsums[match(tmp$date, normsums$date),]
     tmp[,2:length(tmp)] <- apply(tmp[,2:length(tmp)],2,function(y) y/normsums$x)
+    #cell values are now shares in document x of topic y
+    
+    #filter for topics to be plotted
+    tmp <- tmp[, c(1,topics+1)]
     
     #convert dataframe to tidy data format for ggplot
     tmp <- cbind(expand.grid(tmp$date, colnames(tmp)[2:length(tmp)]), unlist(tmp[,2:length(tmp)]))
     names(tmp) <- c("date", "topic","docsum")
-    tmp <- tmp[grepl(paste0(paste(topics, collapse = "$|"),"$"), tmp$topic),]
     tmp <- tmp[with(tmp, order(date, topic)), ]
     
     #adjust topic names to those given in argument
