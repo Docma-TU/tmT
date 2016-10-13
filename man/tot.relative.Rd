@@ -4,28 +4,28 @@
 \alias{tot.relative}
 \title{Plotting Topics over Time relative to Corpus}
 \usage{
-tot.relative(topics = 1:nrow(x$document_sums), x, ldaID, meta = NULL,
+tot.relative(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   corpus = NULL, file, pages = TRUE, Tnames = top.topic.words(x$topics,
   1), smooth = 0.05)
 }
 \arguments{
-\item{topics}{Numbers of the topics to be plotted. Defaults to all topics.}
-
 \item{x}{LDA result object.}
 
-\item{ldaID}{Character vector including IDs of the texts.}
+\item{topics}{Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.}
 
-\item{meta}{Specify to analyze subcorpus. The meta data for the texts.}
+\item{ldaID}{Character vector containing IDs of the texts.}
 
-\item{corpus}{Specify to analyze entiere corous. The data used for normalization.}
+\item{meta}{Optional. Specify to analyze subcorpus. The meta data for the texts. One of meta or corpus has to be specified.}
 
-\item{file}{Name of the pdf file.}
+\item{corpus}{Optional. Specify to analyze entire copous. The data used for normalization. One of meta or corpus has to be specified.}
 
-\item{pages}{Should the topics be plotted on separate pages (true) or on one page (false). Defaults to true.}
+\item{file}{Character vector containing the path and name for the pdf output file.}
 
-\item{Tnames}{Vector with labels for the topics.}
+\item{pages}{Logical. Should the topics be plotted on separate pages (true) or on one page (false). Defaults to true.}
 
-\item{smooth}{How much the output should be smoothed. Set to 0 to disable smoothing.}
+\item{Tnames}{Character vector with labels for the topics.}
+
+\item{smooth}{How much the output should be smoothed. The higher the number, the more smoothing is performed. Set to 0 to disable smoothing.}
 }
 \value{
 A pdf.

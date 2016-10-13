@@ -1,10 +1,10 @@
 #' Plotting Topics over Time relative to Corpus
-#' 
+#'
 #' Creates a pdf including a plot for each topic. For each topic the share of
 #' words per month would be plotted. Shares can be calculated on subcorpus or corpus level.
-#' 
-#' @param topics Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
+#'
 #' @param x LDA result object.
+#' @param topics Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
 #' @param ldaID Character vector containing IDs of the texts.
 #' @param meta Optional. Specify to analyze subcorpus. The meta data for the texts. One of meta or corpus has to be specified.
 #' @param corpus Optional. Specify to analyze entire copous. The data used for normalization. One of meta or corpus has to be specified.
@@ -24,16 +24,16 @@ tot.relative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL
     if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
         stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
     }
-    
+
     #create data frame. rows: documents, columns: topics
     tmp <- data.frame(t(x$document_sums))
-    
+
     #get dates for all documents to be visualized
     if(!is.null(meta)) tmpdate <- meta$datum[match(ldaID, meta$id)]
     if(!is.null(corpus)) tmpdate <- corpus$meta$datum[match(ldaID, corpus$meta$id)]
     #round to months
     tmpdate <- floor_date(tmpdate, "month")
-    
+
     ### Prepare normalization data ###
     if(!is.null(meta)){
         (cat("Calculate monthly sums in subcorpus for normalization..\n"))
@@ -61,22 +61,22 @@ tot.relative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL
     normsums <- normsums[match(tmp$date, normsums$date),]
     tmp[,2:length(tmp)] <- apply(tmp[,2:length(tmp)],2,function(y) y/normsums$x)
     #cell values are now shares in document x of topic y
-    
+
     #filter for topics to be plotted
     tmp <- tmp[, c(1,topics+1)]
-    
+
     #convert dataframe to tidy data format for ggplot
     tmp <- cbind(expand.grid(tmp$date, colnames(tmp)[2:length(tmp)]), unlist(tmp[,2:length(tmp)]))
     names(tmp) <- c("date", "topic","docsum")
     tmp <- tmp[with(tmp, order(date, topic)), ]
-    
+
     #adjust topic names to those given in argument
     levels(tmp$topic)[1:length(levels(tmp$topic)) %in% topics] <- Tnames
-    
+
     #plot limits: round to next 5 years
     roundyear <- 5*round(year(range(tmpdate))/5)
     roundyear <- as.Date(paste0(roundyear, "-01-01"))
-    
+
     #plotting
     (cat("Plotting..\n"))
     if(pages){
