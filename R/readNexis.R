@@ -10,7 +10,7 @@
 #' @param encoding encoding of the input files.
 #' @return List of two \item{meta}{id url date page resource author leadtext downloadDate}
 #' \item{text}{text}
-#' @author Sakander Zirai (<tba@@tu-dortmund.de>), Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
+#' @author Sakander Zirai (<s.zirai@@live.de>), Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
 #'

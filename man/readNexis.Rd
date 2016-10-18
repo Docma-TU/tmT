@@ -27,7 +27,7 @@ data.
 
 }
 \author{
-Sakander Zirai (<tba@tu-dortmund.de>), Lars Koppers (<koppers@statistik.tu-dortmund.de>)
+Sakander Zirai (<s.zirai@live.de>), Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \keyword{manip}
 

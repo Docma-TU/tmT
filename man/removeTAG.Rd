@@ -16,7 +16,7 @@ Removes XML Tags
 
 }
 \author{
-Sakander Zirai (<koppers@statistik.tu-dortmund.de>)
+Sakander Zirai (<s.zirai@live.de>)
 }
 \keyword{manip}
 

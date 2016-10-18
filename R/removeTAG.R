@@ -2,7 +2,7 @@
 #'
 #'
 #' @param text character string including XML-Tags.
-#' @author Sakander Zirai (<koppers@@statistik.tu-dortmund.de>)
+#' @author Sakander Zirai (<s.zirai@@live.de>)
 #' @keywords manip
 #' @examples
 #'
