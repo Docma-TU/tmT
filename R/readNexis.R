@@ -57,7 +57,7 @@ readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding="utf-8")
 
     leadtext <-  str_extract(fulldata, "<leadtext>(.*?)</leadtext>")
     leadtext <- removeTAG(leadtext)
-    leadtext <- remoceMISC(leadtext)
+    leadtext <- removeMISC(leadtext)
 
     downloadDate <- str_extract(downloadDate, "[0-9-]+")
     downloadDate <- as.Date(downloadDate, format = "%Y-%m-%d")
@@ -69,7 +69,7 @@ readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding="utf-8")
     if (do.text) {
     fulltext <-  str_extract(fulldata, "(<fulltext>(.*?)</fulltext>)|(<fulltext(.*?)/>)")
     fulltext <- removeTAG(fulltext)
-    leadtext <- remoceMISC(fulltext)
+    leadtext <- removeMISC(fulltext)
     text <- c(text, fulltext)
     names(text) <- id
     }
