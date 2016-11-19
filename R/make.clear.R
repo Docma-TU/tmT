@@ -45,19 +45,23 @@ x <- lapply(x,strsplit," ")
 (print("remove empty words"))
 x <- lapply(x, function(x){lapply(x, function(y){if(length(which(y=="")>0)){y[-which(y=="")]}else{y}})}) # remove empty words
 (print("remove empty article"))
-x <- x[!(lengths(x)==0)]
+emptyArt <- which(lengths(x) == 0)
+(print(length(emptyArt)))
+if(length(emptyArt) > 0) {x <- x[-emptyArt]}
 (print("remove empty paragraphs"))
 x <- lapply(x, function(x)x[!(lengths(x)==0)])
 ## x <- lapply(x, function(y){y[sapply(y,function(z){length(z)>0})]}) # remove empty paragraphs
 (print("remove empty article 2"))
-x <- x[!(lengths(x)==0)]
+emptyArt <- which(lengths(x) == 0)
+(print(length(emptyArt)))
+if(length(emptyArt) > 0) {x <- x[-emptyArt]}
 }else{
 (print("tokenization"))
 x <- sapply(x,strsplit," ")
 (print("remove empty words"))
 x <- lapply(x, function(y){if(length(which(y=="")>0)){y[-which(y=="")]}else{y}}) # remove empty words
 (print("remove empty article"))
-emptyArt <- which(sapply(x,function(x){length(x)==0}))
+emptyArt <- which(lengths(x) == 0) # lengths() for lists does sapply with length
 (print(length(emptyArt)))
 if(length(emptyArt)>0){
 x <- x[-emptyArt]}
