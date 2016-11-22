@@ -4,7 +4,7 @@
 \alias{make.wordlist}
 \title{Count words in text corpora}
 \usage{
-make.wordlist(x, k = 1e+05)
+make.wordlist(x, k = 100000L)
 }
 \arguments{
 \item{x}{List of texts.}
