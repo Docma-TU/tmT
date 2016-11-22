@@ -22,39 +22,46 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export subcorpus.words
-subcorpus.words <-
-function(text, wordlist, counts=1, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE, out=c("text", "bin", "count"), ...){
-subid <- numeric(length(text))
-
-if(out[1]=="count"){
-        tmp <- NULL
-    for(j in wordlist){
-        tmp <- cbind(tmp,sapply(text, function(x)sum(grepl(pattern=j, x=x, ignore.case = ignore.case, perl = perl, fixed = fixed, useBytes = useBytes, ...))))
-    }
-        colnames(tmp) <- wordlist
-return(tmp)
-    }else{
-        if(!is.list(wordlist)){wordlist <- list(wordlist)}
-        if(!is.list(counts)){counts <- list(counts)}
-        if(length(counts)==1L){counts[1:length(wordlist)] <- counts[1]}
-
-for(i in 1:length(wordlist)){
+subcorpus.words <- function(text, wordlist, counts = 1L, ignore.case = FALSE,
+                            perl = FALSE, fixed = FALSE, useBytes = FALSE,
+                            out = c("text", "bin", "count"), ...){
+  stopifnot(is.list(text), all(sapply(wordlist, is.character)),
+            all(sapply(counts, is.numeric)),
+            all.equal(sapply(counts, as.integer), counts),
+            is.logical(ignore.case), is.logical(perl), is.logical(fixed),
+            is.logical(useBytes), length(ignore.case) == 1, length(perl) == 1,
+            length(fixed) == 1, length(useBytes) == 1, is.character(out))
+  subid <- numeric(length(text))
+  
+  if(out[1] == "count"){
     tmp <- NULL
-    for(j in 1:length(wordlist[[i]])){
-        if(length(counts[[i]])==1){co <- counts[[i]]}
-        else{co <- counts[[i]][j]}
-        tmp <- cbind(tmp,sapply(text, function(x)sum(grepl(pattern=wordlist[[i]][j], x=x, ignore.case = ignore.case, perl = perl, fixed = fixed, useBytes = useBytes))>=co))
+    for(j in wordlist){
+      tmp <- cbind(tmp, sapply(text, function(x)
+        sum(grepl(pattern = j, x = x, ignore.case = ignore.case, perl = perl,
+                  fixed = fixed, useBytes = useBytes, ...))))
     }
-    subid <- subid + apply(tmp,1,prod)
+    colnames(tmp) <- wordlist
+    return(tmp)
+  }else{
+    if(!is.list(wordlist)){wordlist <- list(wordlist)}
+    if(!is.list(counts)){counts <- list(counts)}
+    if(length(counts) == 1L){counts[1:length(wordlist)] <- counts[1]}
+    
+    for(i in 1:length(wordlist)){
+      tmp <- NULL
+      for(j in 1:length(wordlist[[i]])){
+        if(length(counts[[i]]) == 1){co <- counts[[i]]}
+        else{co <- counts[[i]][j]}
+        tmp <- cbind(tmp, sapply(text, function(x)
+          sum(grepl(pattern = wordlist[[i]][j], x = x, ignore.case = ignore.case,
+                    perl = perl, fixed = fixed, useBytes = useBytes)) >= co))
+      }
+      subid <- subid + apply(tmp, 1, prod)
+    }
+    subid <- subid>0
+    if(out[1] == "text"){
+      return(text[subid])}
+    if(out[1] == "bin"){
+      return(subid)}
+  }
 }
-subid <- subid>0
-if(out[1]=="text"){
-    return(text[subid])}
-if(out[1]=="bin"){
-    return(subid)}
-}
-}
-
-
-
-

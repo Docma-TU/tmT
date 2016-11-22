@@ -16,15 +16,17 @@
 #'
 #' @export readNexis
 #'
-readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding="utf-8")
-{
+readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding = "utf-8"){
+  stopifnot(is.character(file), is.logical(do.meta), is.logical(do.text),
+            is.character(encoding), length(do.meta) == 1, length(do.text) == 1,
+            length(encoding) == 1)
   text <- NULL
   meta <- NULL
   for (i in 1:length(file)) {
     (print(file[i]))
     lines <- NULL
 
-    try(openfile <- file(file[i], open = "rt", encoding=encoding))
+    try(openfile <- file(file[i], open = "rt", encoding = encoding))
     try(lines <- readLines(con = openfile))
     try(close(openfile))
     if (length(lines) == 0) {
@@ -61,9 +63,10 @@ readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding="utf-8")
 
     downloadDate <- str_extract(downloadDate, "[0-9-]+")
     downloadDate <- as.Date(downloadDate, format = "%Y-%m-%d")
-    downloadDate <- rep(downloadDate, times=length(id))
+    downloadDate <- rep(downloadDate, times = length(id))
 
-      mData <- data.frame(id,url, date, page, resource, author, leadtext, downloadDate,stringsAsFactors = FALSE)
+      mData <- data.frame(id, url, date, page, resource, author, leadtext,
+                          downloadDate, stringsAsFactors = FALSE)
       meta <- rbind(meta, mData)
     }
     if (do.text) {

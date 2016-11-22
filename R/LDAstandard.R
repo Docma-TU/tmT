@@ -30,18 +30,36 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export LDAstandard
-LDAstandard <-
-function(documents,K=100,vocab, num.iterations=200, burnin=70, alpha=0.1, eta=0.1, seed, folder, num.words=50, LDA=TRUE){
-    if(LDA){set.seed(seed)
-result <- lda.collapsed.gibbs.sampler(documents=documents, K=K, vocab=vocab,
-                                      num.iterations = num.iterations,
-                                      burnin = burnin,
-                                      alpha = alpha,
-                                      eta = eta,
-                                      compute.log.likelihood=TRUE)
-ldaID <- names(documents)
-save(list=c("result","ldaID"),file=paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed, ".Rdata", sep=""))}else{
-load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed, ".Rdata", sep=""))
-}
-write.csv(top.topic.words(result$topics, num.words=num.words, by.score=TRUE),file=paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed, ".csv", sep=""))
+LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
+                        burnin = 70L, alpha = 0.1, eta = 0.1, seed, folder,
+                        num.words = 50L, LDA = TRUE){
+  stopifnot(is.list(documents), as.integer(K) == K, length(K) == 1,
+            is.character(vocab), as.integer(num.iterations) == num.iterations,
+            length(num.iterations) == 1, as.integer(burnin) == burnin,
+            length(burnin) == 1, is.numeric(alpha), length(alpha) == 1,
+            is.numeric(eta), length(eta) == 1, is.numeric(seed),
+            length(seed) == 1, is.character(folder), length(folder) == 1,
+            as.integer(num.words) == num.words, length(num.words) == 1,
+            is.logical(LDA), length(LDA) == 1)
+  if(LDA){
+    set.seed(seed)
+    result <- lda.collapsed.gibbs.sampler(documents = documents, K = K,
+                                          vocab = vocab,
+                                          num.iterations = num.iterations,
+                                          burnin = burnin,
+                                          alpha = alpha, eta = eta,
+                                          compute.log.likelihood = TRUE)
+    ldaID <- names(documents)
+    save(list = c("result", "ldaID"), file = paste(folder, "-k", K,
+                                                   "i", num.iterations,
+                                                   "b", burnin, "s", seed,
+                                                   ".Rdata", sep = ""))
+  }
+  else{
+    load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed,
+               ".Rdata", sep = ""))
+  }
+  write.csv(top.topic.words(result$topics, num.words = num.words, by.score = TRUE),
+            file = paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s",
+                         seed, ".csv", sep = ""))
 }

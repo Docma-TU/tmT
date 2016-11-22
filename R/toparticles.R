@@ -20,19 +20,26 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export toparticles
-toparticles <-
-function(x, id, limit=20, rel=TRUE, topn=TRUE, themes=1:nrow(x$document_sums), minlength=30){ # returns for every theme the article ID of the article containing more than minwords words of this theme
-small <- which(apply(x$document_sums, 2, sum)<minlength)
-if(length(small>0)){x$document_sums <- x$document_sums[,-small]
-id <- id[-small]}
-if(rel){
-res <- t(t(x$document_sums) / apply(x$document_sums,2,sum))
-}else{res <- x$document_sums}
-if(topn){
-top <- apply(res,1,function(x)order(x,decreasing=TRUE)[1:limit])
-}
-## else{
-## }
-res <- apply(top,2,function(x)id[x])
-return(res)
+toparticles <- function(x, id, limit = 20L, rel = TRUE, topn = TRUE,
+                        themes = 1:nrow(x$document_sums), minlength=30L){
+  # returns for every theme the article ID of the article containing
+  # more than minwords words of this theme
+  # themes is not accessed in the function, delete?
+  stopifnot(is.character(id), as.integer(limit) == limit, length(limit) == 1,
+            is.logical(rel), length(rel) == 1, is.logical(topn),
+            length(topn) == 1, as.integer(minlength) == minlength,
+            length(minlength) == 1)
+  small <- which(apply(x$document_sums, 2, sum) < minlength)
+  if(length(small > 0)){x$document_sums <- x$document_sums[,-small]
+  id <- id[-small]}
+  if(rel){
+    res <- t(t(x$document_sums) / apply(x$document_sums,2,sum))
+  }else{res <- x$document_sums}
+  if(topn){
+    top <- apply(res, 1, function(x) order(x,decreasing=TRUE)[1:limit])
+  }
+  ## else{
+  ## }
+  res <- apply(top, 2, function(x) id[x])
+  return(res)
 }
