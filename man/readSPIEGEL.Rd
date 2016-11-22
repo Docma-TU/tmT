@@ -4,7 +4,7 @@
 \alias{readSPIEGEL}
 \title{Read the SPIEGEL Corpus}
 \usage{
-readSPIEGEL(year = c(1947:2014), do.meta = TRUE, do.text = TRUE)
+readSPIEGEL(year = 1947L:2014L, do.meta = TRUE, do.text = TRUE)
 }
 \arguments{
 \item{year}{Vector of years that should be read.}
