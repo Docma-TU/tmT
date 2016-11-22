@@ -16,7 +16,7 @@
 #' @export subcorpus.date
 subcorpus.date <- function(text, meta, s.date = min(meta$datum),
                            e.date = max(meta$datum)){
-  stopifnot(is.list(text), is.data.frame(meta),
+  stopifnot((is.list(text) || is.character(text)), is.data.frame(meta),
             length(s.date) == 1, length(e.date) == 1)
   mtch <- match(names(text), meta$id)
   dateID <- which(meta$datum[mtch] >= s.date & meta$datum[mtch] <= e.date)

@@ -25,7 +25,8 @@
 subcorpus.words <- function(text, wordlist, counts = 1L, ignore.case = FALSE,
                             perl = FALSE, fixed = FALSE, useBytes = FALSE,
                             out = c("text", "bin", "count"), ...){
-  stopifnot(is.list(text), all(sapply(wordlist, is.character)),
+  stopifnot((is.list(text) || is.character(text)),
+            all(sapply(wordlist, is.character)),
             all(sapply(counts, is.numeric)),
             all.equal(sapply(counts, as.integer), counts),
             is.logical(ignore.case), is.logical(perl), is.logical(fixed),

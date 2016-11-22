@@ -31,7 +31,7 @@ make.clear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
                                  "koennte", "ueber", "waehrend", "wuerde",
                                  "wuerden"), paragraph = TRUE){
   stopifnot(is.list(x), is.character(sw), is.logical(paragraph),
-            length(paragraph == 1))
+            length(paragraph) == 1)
   (print("punctuation"))
   x <- lapply(x, removePunctuation, preserve_intra_word_dashes = FALSE)
   (print("numbers"))

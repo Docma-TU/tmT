@@ -18,9 +18,8 @@
 #' @export readSZ
 readSZ <- function(file, folder, do.meta = TRUE, do.text = TRUE){
   # folder is not accessed in the function, delete?
-  stopifnot(is.character(file), is.character(folder), length(file) == length(folder),
-            is.logical(do.meta), is.logical(do.text), length(do.meta) == 1,
-            length(do.text) == 1)
+  stopifnot(is.character(file), is.character(folder), is.logical(do.meta),
+            is.logical(do.text), length(do.meta) == 1, length(do.text) == 1)
   text <- NULL
   meta <- NULL
   
