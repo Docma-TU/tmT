@@ -72,7 +72,7 @@ readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding = "utf-8")
     if (do.text) {
     fulltext <-  str_extract(fulldata, "(<fulltext>(.*?)</fulltext>)|(<fulltext(.*?)/>)")
     fulltext <- removeTAG(fulltext)
-    leadtext <- removeMISC(fulltext)
+    fulltext <- removeMISC(fulltext)
     text <- c(text, fulltext)
     names(text) <- id
     }
