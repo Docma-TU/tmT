@@ -4,7 +4,7 @@
 #'
 #'
 #' @param data A list of corpus data as a result of a read-function.
-#' @param metamult Logical: Should the function return a summary of data$metamult?
+#' @param list.names character: Which list.elements should be summarized?
 #' @return The Dataset itself.
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
@@ -12,43 +12,53 @@
 #'
 #' @export read.summary
 #'
-read.summary <- function(data, metamult = "metamult" %in% colnames(data)){
-  stopifnot(is.list(data), all(c("text", "meta") %in% names(data)),
-            is.character(data$text), is.data.frame(data$meta),
-            is.logical(metamult), length(metamult) == 1)
-  # data$text:
-  n.text <- length(data$text)
-  na.text <- sum(is.na(data$text))
-  # data$meta:
-  cols <- colnames(data$meta)
-  n.meta <- nrow(data$meta)
-  na.meta <- sapply(data$meta, function(x) sum(is.na(x)))
-  # print summary:
-  cat("number of observations:\n")
-  print(data.frame(n.text, n.meta), row.names = FALSE)
-  cat("\nNAs in text:\n")
-  print(data.frame(abs = na.text, rel = na.text/n.text), row.names = FALSE)
-  cat("\nNAs in meta:\n")
-  print(cbind(abs = na.meta, rel = na.meta/n.meta))
+read.summary <- function(data, list.names = names(data)){
+  stopifnot(is.list(data), is.character(list.names),
+            all(list.names %in% names(data)),
+            ifelse("text" %in% list.names && length(data$text) > 0,
+                   is.list(data$text) || is.character(data$text), TRUE),
+            ifelse("meta" %in% list.names && !is.null(nrow(data$meta)),
+                   is.data.frame(data$meta), TRUE),
+            ifelse("metamult" %in% list.names && !is.null(nrow(data$metamult)),
+                   is.list(data$metamult), TRUE))
   nextprint <- paste(paste0(rep("-", 70), collapse = ""), "\n\n")
-  # print date-range:
-  cat(paste(nextprint, "range of date:\n"))
-  if ("date" %in% cols){
-    print(range(data$meta$date))
+  # data$text:
+  if ("text" %in% list.names && length(data$text) > 0){
+    n.text <- length(data$text)
+    na.text <- sum(is.na(data$text))
+    # print:
+    cat(paste("number of observations text:", n.text, "\n"))
+    cat("\nNAs in text:\n")
+    print(data.frame(abs = na.text, rel = na.text/n.text), row.names = FALSE)
   }
-  if ("datum" %in% cols){
-    print(range(data$meta$datum))
-  }
-  # print tables of candidates
-  candidates <- c("resource", "downloadDate")
-  for (i in candidates){
-    if (i %in% cols){
-      tab <- table(data$meta[, i])
-      cat(paste0(nextprint, i, ":\n"))
-      print(cbind(abs = tab, rel = tab/n.meta))
+  # data$meta:
+  if ("meta" %in% list.names && !is.null(nrow(data$meta))){
+    cols <- colnames(data$meta)
+    n.meta <- nrow(data$meta)
+    na.meta <- sapply(data$meta, function(x) sum(is.na(x)))
+    # print:
+    cat(paste0(nextprint, "number of observations meta: ", n.meta, "\n"))
+    cat("\nNAs in meta:\n")
+    print(cbind(abs = na.meta, rel = na.meta/n.meta))
+    # print date-range:
+    cat(paste(nextprint, "range of date:\n"))
+    if ("date" %in% cols){
+      print(range(data$meta$date))
+    }
+    if ("datum" %in% cols){
+      print(range(data$meta$datum))
+    }
+    # print tables of candidates
+    candidates <- c("resource", "downloadDate")
+    for (i in candidates){
+      if (i %in% cols){
+        tab <- table(data$meta[, i])
+        cat(paste0(nextprint, i, ":\n"))
+        print(cbind(abs = tab, rel = tab/n.meta))
+      }
     }
   }
-  if (metamult){
+  if ("metamult" %in% list.names && !is.null(nrow(data$metamult))){
     n.metamult <- nrow(data$metamult)
     na.metamult <- sapply(data$metamult, function(x) sum(is.na(x)))
     cat(paste0(nextprint, "metamult:\n",

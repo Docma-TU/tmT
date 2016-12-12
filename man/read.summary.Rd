@@ -4,12 +4,12 @@
 \alias{read.summary}
 \title{Print Summarys of Datasets.}
 \usage{
-read.summary(data, metamult = "metamult" \%in\% colnames(data))
+read.summary(data, list.names = names(data))
 }
 \arguments{
 \item{data}{A list of corpus data as a result of a read-function.}
 
-\item{metamult}{Logical: Should the function return a summary of data$metamult?}
+\item{list.names}{character: Which list.elements should be summarized?}
 }
 \value{
 The Dataset itself.
