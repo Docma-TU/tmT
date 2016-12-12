@@ -4,8 +4,9 @@
 \alias{LDAstandard}
 \title{Function to fit LDA model}
 \usage{
-LDAstandard(documents, K = 100, vocab, num.iterations = 200, burnin = 70,
-  alpha = 0.1, eta = 0.1, seed, folder, num.words = 50, LDA = TRUE)
+LDAstandard(documents, K = 100L, vocab, num.iterations = 200L,
+  burnin = 70L, alpha = 0.1, eta = 0.1, seed, folder, num.words = 50L,
+  LDA = TRUE)
 }
 \arguments{
 \item{documents}{A list prepared by \code{\link{docLDA}}.}

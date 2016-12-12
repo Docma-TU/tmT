@@ -4,7 +4,7 @@
 \alias{subcorpus.words}
 \title{Subcorpus With Word Filter}
 \usage{
-subcorpus.words(text, wordlist, counts = 1, ignore.case = FALSE,
+subcorpus.words(text, wordlist, counts = 1L, ignore.case = FALSE,
   perl = FALSE, fixed = FALSE, useBytes = FALSE, out = c("text", "bin",
   "count"), ...)
 }

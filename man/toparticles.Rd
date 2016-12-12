@@ -4,8 +4,8 @@
 \alias{toparticles}
 \title{Get The IDs Of The Most Representive Articles}
 \usage{
-toparticles(x, id, limit = 20, rel = TRUE, topn = TRUE,
-  themes = 1:nrow(x$document_sums), minlength = 30)
+toparticles(x, id, limit = 20L, rel = TRUE, topn = TRUE,
+  themes = 1:nrow(x$document_sums), minlength = 30L)
 }
 \arguments{
 \item{x}{LDA result}
