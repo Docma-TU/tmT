@@ -192,5 +192,5 @@ readHBWiWo <- function(file , en, do.meta = TRUE, do.text = TRUE, test = FALSE){
       text <- c(text, text_neu)
     }
   }
-  return(list("meta" = meta,"text" = text,"metamult" = metamult))
+  return(read.summary(list("meta" = meta,"text" = text,"metamult" = metamult)))
 }

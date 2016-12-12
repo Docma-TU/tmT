@@ -1,11 +1,11 @@
-#' Print Summarys of Datsets.
+#' Print Summarys of Datasets.
 #'
 #' Prints a summary of a given dataset, which should be a result of a read-funtion.
 #'
 #'
 #' @param data A list of corpus data as a result of a read-function.
 #' @param metamult Logical: Should the function return a summary of data$metamult?
-#' @return A print in the console.
+#' @return The Dataset itself.
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
 #' @examples
@@ -56,4 +56,5 @@ read.summary <- function(data, metamult = "metamult" %in% colnames(data)){
                "NAs in metamult:\n"))
     print(cbind(abs = na.metamult, rel = na.metamult/n.metamult))
   }
+  return(data)
 }

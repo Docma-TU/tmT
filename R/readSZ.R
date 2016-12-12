@@ -114,5 +114,5 @@ readSZ <- function(file, folder, do.meta = TRUE, do.text = TRUE){
       text <- c(text, text_neu)
     }
   }
-  return(list("meta" = meta,"text" = text))
+  return(read.summary(list("meta" = meta,"text" = text)))
 }

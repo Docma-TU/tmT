@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.summary.R
 \name{read.summary}
 \alias{read.summary}
-\title{Print Summarys of Datsets.}
+\title{Print Summarys of Datasets.}
 \usage{
 read.summary(data, metamult = "metamult" \%in\% colnames(data))
 }
@@ -12,7 +12,7 @@ read.summary(data, metamult = "metamult" \%in\% colnames(data))
 \item{metamult}{Logical: Should the function return a summary of data$metamult?}
 }
 \value{
-A print in the console.
+The Dataset itself.
 }
 \description{
 Prints a summary of a given dataset, which should be a result of a read-funtion.
