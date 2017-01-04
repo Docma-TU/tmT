@@ -7,8 +7,8 @@
 #' @param numTopwords the number of topwords to be used for the intruder words.
 #' @param numIntruder intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.
 #' @param numOutwords integer. Number of words per topic, including the intruder words.
-#' @param oldResult result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
 #' @param noTopic logical. Is \code{x} input allowed to mark nonsense topics?
+#' @param oldResult result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
 #' @return tba
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @seealso tba
@@ -19,9 +19,9 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export intruderWords
 
-intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, oldResult=NULL, noTopic=TRUE){
+intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, oldResult=NULL){
     if(is.null(beta) & is.null(oldResult))stop("beta or oldResult needs to be specified")
-    if(!(!is.null(beta) & is.matrix(beta) & is.numeric(beta)))stop("beta needs to be a numeric matrix")
+    if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
     if(!is.null(oldResult)){beta <- oldResult$beta
                             byScore  <- oldResult$byScore
                             numTopwords  <- oldResult$numTopwords
@@ -80,6 +80,3 @@ print.default(x$result)
 summary.IntruderWords <- function(object, ...){
 cat("ToDo \n")
 }
-
-
-

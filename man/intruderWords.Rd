@@ -5,7 +5,7 @@
 \title{Function to fit LDA model}
 \usage{
 intruderWords(beta = NULL, byScore = TRUE, numTopwords = 30L,
-  numIntruder = 1L, numOutwords = 5L, oldResult = NULL, noTopic = TRUE)
+  numIntruder = 1L, numOutwords = 5L, noTopic = TRUE, oldResult = NULL)
 }
 \arguments{
 \item{beta}{A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.}
@@ -18,9 +18,9 @@ intruderWords(beta = NULL, byScore = TRUE, numTopwords = 30L,
 
 \item{numOutwords}{integer. Number of words per topic, including the intruder words.}
 
-\item{oldResult}{result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
-
 \item{noTopic}{logical. Is \code{x} input allowed to mark nonsense topics?}
+
+\item{oldResult}{result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
 }
 \value{
 tba
