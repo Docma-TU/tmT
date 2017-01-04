@@ -77,7 +77,7 @@ print.default(x$result)
 }
 
 #' @export
-summary.IntruderWords <- function(x, ...){
+summary.IntruderWords <- function(object, ...){
 cat("ToDo \n")
 }
 
