@@ -4,18 +4,18 @@
 \alias{summary.textmeta}
 \title{Print Summarys of Objects of class "textmeta".}
 \usage{
-\method{summary}{textmeta}(data, list.names = names(data))
+\method{summary}{textmeta}(object, list.names = names(object), ...)
 }
 \arguments{
-\item{data}{A list of corpus data of class "textmeta".}
+\item{object}{A list of corpus data of class "textmeta".}
 
 \item{list.names}{character: Which list.elements should be summarized?}
 }
 \value{
-The Dataset itself.
+The dataset itself.
 }
 \description{
-Prints a summary of a given dataset, which should be of class "textmeta".
+Prints a summary of a given Dataset, which should be of class "textmeta".
 }
 \examples{
 
