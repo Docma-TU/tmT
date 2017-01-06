@@ -134,5 +134,7 @@ readSPIEGEL <- function(year = 1947L:2014L , do.meta = TRUE, do.text = TRUE){
       text <- c(text, cData)
     }
   }
-  return(read.summary(list("meta" = meta,"text" = text, "metamult" = metamult)))
+  res <- list("meta" = meta, "text" = text, "metamult" = metamult)
+  class(res) <- "textmeta"
+  summary(res)
 }

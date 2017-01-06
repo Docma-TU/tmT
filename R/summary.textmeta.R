@@ -1,18 +1,18 @@
-#' Print Summarys of Datasets.
+#' Print Summarys of Objects of class "textmeta".
 #'
-#' Prints a summary of a given dataset, which should be a result of a read-funtion.
+#' Prints a summary of a given dataset, which should be of class "textmeta".
 #'
 #'
-#' @param data A list of corpus data as a result of a read-function.
+#' @param data A list of corpus data of class "textmeta".
 #' @param list.names character: Which list.elements should be summarized?
 #' @return The Dataset itself.
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
 #' @examples
 #'
-#' @export read.summary
+#' @export summary.textmeta
 #'
-read.summary <- function(data, list.names = names(data)){
+summary.textmeta <- function(data, list.names = names(data)){
   stopifnot(is.list(data), is.character(list.names),
             all(list.names %in% names(data)),
             ifelse("text" %in% list.names && length(data$text) > 0,
@@ -66,5 +66,5 @@ read.summary <- function(data, list.names = names(data)){
                "NAs in metamult:\n"))
     print(cbind(abs = na.metamult, rel = na.metamult/n.metamult))
   }
-  return(data)
+  invisible(data)
 }

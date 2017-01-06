@@ -78,4 +78,5 @@ make.clear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
     (print(sum(!emptyArt)))
     x <- x[emptyArt]
   }
+  return(x)
 }

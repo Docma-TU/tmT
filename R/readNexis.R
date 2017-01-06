@@ -77,5 +77,7 @@ readNexis <- function (file, do.meta = TRUE, do.text = TRUE, encoding = "utf-8")
     names(text) <- id
     }
   }
-  return(read.summary(list(meta = meta, text = text)))
+  res <- list(meta = meta, text = text)
+  class(res) <- "textmeta"
+  summary(res)
 }
