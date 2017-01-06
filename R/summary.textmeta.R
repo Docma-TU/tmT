@@ -28,7 +28,7 @@ summary.textmeta <- function(object, list.names = names(object), ...){
     n.text <- length(object$text)
     na.text <- sum(is.na(object$text))
     # print:
-    cat(paste("number of observations text:", n.text, "\n"))
+    cat(paste("number of observations in text:", n.text, "\n"))
     cat("\nNAs in text:\n")
     print(data.frame(abs = na.text, rel = na.text/n.text), row.names = FALSE)
   }
@@ -38,17 +38,10 @@ summary.textmeta <- function(object, list.names = names(object), ...){
     n.meta <- nrow(object$meta)
     na.meta <- sapply(object$meta, function(x) sum(is.na(x)))
     # print:
-    cat(paste0(nextprint, "number of observations meta: ", n.meta, "\n"))
+    cat(paste0(nextprint, "meta: ", nrow(object$meta), " observations of ",
+               ncol(object$meta), " variables\n"))
     cat("\nNAs in meta:\n")
     print(cbind(abs = na.meta, rel = na.meta/n.meta))
-    # print date-range:
-    cat(paste(nextprint, "range of date:\n"))
-    if ("date" %in% cols){
-      print(range(object$meta$date))
-    }
-    if ("datum" %in% cols){
-      print(range(object$meta$datum))
-    }
     # print tables of candidates
     candidates <- c("resource", "downloadDate")
     for (i in candidates){
@@ -58,14 +51,22 @@ summary.textmeta <- function(object, list.names = names(object), ...){
         print(cbind(abs = tab, rel = tab/n.meta))
       }
     }
+    # print date-range:
+    if ("date" %in% cols){
+      cat(paste0(nextprint, "range of date: ",
+                 paste(range(object$meta$date), collapse = " till "), "\n"))
+    }
+    if ("datum" %in% cols){
+      cat(paste0(nextprint, "range of date: ",
+                 paste(range(object$meta$datum), collapse = " till "), "\n"))
+    }
   }
-  if ("metamult" %in% list.names && !is.null(nrow(object$metamult))){
-    n.metamult <- nrow(object$metamult)
+  if ("metamult" %in% list.names && length(object$metamult) > 0){
+    n.metamult <- sapply(object$metamult, function(x) sum(lengths(x)))
     na.metamult <- sapply(object$metamult, function(x) sum(is.na(x)))
-    cat(paste0(nextprint, "metamult:\n",
-               "number of observations: ", n.metamult, "\n",
-               "NAs in metamult:\n"))
-    print(cbind(abs = na.metamult, rel = na.metamult/n.metamult))
+    cat(paste0(nextprint, "metamult:\n"))
+    print(cbind(n = n.metamult, NA.abs = na.metamult,
+                NA.rel = ifelse(n.metamult > 0, na.metamult/n.metamult, 0)))
   }
   invisible(object)
 }
