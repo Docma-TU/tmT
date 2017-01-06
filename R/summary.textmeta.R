@@ -18,7 +18,7 @@ summary.textmeta <- function(object, list.names = names(object), ...){
             ifelse("text" %in% list.names && length(object$text) > 0,
                    is.list(object$text) || is.character(object$text), TRUE),
             ifelse("meta" %in% list.names && !is.null(nrow(object$meta)),
-                   is.object.frame(object$meta), TRUE),
+                   is.data.frame(object$meta), TRUE),
             ifelse("metamult" %in% list.names && !is.null(nrow(object$metamult)),
                    is.list(object$metamult), TRUE))
   nextprint <- paste(paste0(rep("-", 70), collapse = ""), "\n\n")
@@ -29,7 +29,7 @@ summary.textmeta <- function(object, list.names = names(object), ...){
     # print:
     cat(paste("number of observations text:", n.text, "\n"))
     cat("\nNAs in text:\n")
-    print(object.frame(abs = na.text, rel = na.text/n.text), row.names = FALSE)
+    print(data.frame(abs = na.text, rel = na.text/n.text), row.names = FALSE)
   }
   # object$meta:
   if ("meta" %in% list.names && !is.null(nrow(object$meta))){
