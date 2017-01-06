@@ -5,6 +5,7 @@
 #'
 #' @param object A list of corpus data of class "textmeta".
 #' @param list.names character: Which list.elements should be summarized?
+#' @param ... additional arguments affecting the summary produced.
 #' @return The dataset itself.
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip

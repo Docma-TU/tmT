@@ -10,6 +10,8 @@
 \item{object}{A list of corpus data of class "textmeta".}
 
 \item{list.names}{character: Which list.elements should be summarized?}
+
+\item{...}{additional arguments affecting the summary produced.}
 }
 \value{
 The dataset itself.
