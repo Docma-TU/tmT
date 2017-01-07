@@ -1,13 +1,11 @@
 #' "textmeta"-Objects
 #'
-#' Creates or tests for "textmeta"-Objects.
+#' Creates "textmeta"-Objects.
 #'
 #' @param meta data.frame of the meta-data.
 #' @param text list or character of the text-data.
 #' @param metamult list of the metamult-data.
-#' @param x an R Object.
-#' @return \item{textmeta}{ returns a "textmeta"-Object.}
-#' \item{is.textmeta}{ returns TRUE or FALSE.}
+#' @return a "textmeta"-Object.
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
 #' @examples
@@ -22,6 +20,14 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
   return(res)
 }
 
+#' "textmeta"-Objects
+#'
+#' Tests for "textmeta"-Objects.
+#'
+#' @param x an R Object.
+#' @return TRUE or FALSE.
+#' @author Jonas Rieger (<riegerjonas@@gmx.de>)
+#' 
 #' @export is.textmeta
 is.textmeta <- function(x){
   return(all(class(x) == "textmeta",

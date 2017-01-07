@@ -12,15 +12,12 @@ textmeta(meta = NULL, text = NULL, metamult = NULL)
 \item{text}{list or character of the text-data.}
 
 \item{metamult}{list of the metamult-data.}
-
-\item{x}{an R Object.}
 }
 \value{
-\item{textmeta}{ returns a "textmeta"-Object.}
-\item{is.textmeta}{ returns TRUE or FALSE.}
+a "textmeta"-Object.
 }
 \description{
-Creates or tests for "textmeta"-Objects.
+Creates "textmeta"-Objects.
 }
 \examples{
 
