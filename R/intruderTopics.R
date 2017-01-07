@@ -104,7 +104,7 @@ print.default(x$result)
 }
 
 #' @export
-summary.IntruderTopics <- function(x, ...){
+summary.IntruderTopics <- function(object, ...){
 cat("ToDo \n")
 }
 
