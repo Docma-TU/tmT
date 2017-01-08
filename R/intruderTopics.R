@@ -20,12 +20,11 @@
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----
-#' @export intruderWords
+#' @export intruderTopics
 
 #text= SPIEGEL$text; beta=result2$topics; theta=result2$document_sums; id=ldaID; numIntruder=1; numOuttopics=4; oldResult=NULL; byScore=TRUE; minWords=20; minOuttopics=5
 
 intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, oldResult=NULL){
-    require(htmltools)
     if((is.null(beta) | is.null(theta)) & is.null(oldResult))stop("beta and theta needs to be specified")
     if(is.null(beta) & is.null(oldResult))stop("beta and theta or oldResult needs to be specified")
     if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
@@ -66,7 +65,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
         counter <- counter + 1
         cat(paste("counter = ",counter, "\n"))
         sID <- sample(id,1)
-        html_print(HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
+        htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
         numIntruderS <- sample(numIntruder,1)
         possibleIntruder <- which(theta[,sID]==0)
         toptopics <- topwords[,order(theta[,sID], decreasing=TRUE)[1:numOuttopics-numIntruderS]]
