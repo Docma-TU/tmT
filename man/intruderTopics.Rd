@@ -6,7 +6,8 @@
 \usage{
 intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
   numIntruder = 1, numOuttopics = 4, byScore = TRUE, minWords = 0L,
-  minOuttopics = 0L, oldResult = NULL)
+  minOuttopics = 0L, stopTopics = NULL, printSolution = FALSE,
+  oldResult = NULL)
 }
 \arguments{
 \item{text}{tba}
@@ -26,6 +27,10 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
 \item{minWords}{tba}
 
 \item{minOuttopics}{tba}
+
+\item{stopTopics}{tba}
+
+\item{printSolution}{tba}
 
 \item{oldResult}{result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
 }
