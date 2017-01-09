@@ -8,6 +8,7 @@
 #' @param numIntruder intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.
 #' @param numOutwords integer. Number of words per topic, including the intruder words.
 #' @param noTopic logical. Is \code{x} input allowed to mark nonsense topics?
+#' @param printSolution tba
 #' @param oldResult result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
 #' @return tba
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
@@ -19,7 +20,7 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export intruderWords
 
-intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, oldResult=NULL){
+intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL){
     if(is.null(beta) & is.null(oldResult))stop("beta or oldResult needs to be specified")
     if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
     if(!is.null(oldResult)){beta <- oldResult$beta
@@ -47,6 +48,7 @@ intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntru
 colnames(result) <- c("numIntruder", "missIntr", "falseIntr")
     nonNAtopics <- which(is.na(result[,1]))
     for(i in sample(nonNAtopics)){
+        cat(paste("counter", nrow(result) - sum(is.na(result[,1])) +1, "\n"))
         likelywords <- names(scores[i,order(scores[i,], decreasing=TRUE)[1:(ncol(scores)*0.25)]])
         intruder <- sample(setdiff(topwords2,likelywords), size=if(length(numIntruder)==1){numIntruder}else{sample(numIntruder,1)})
         outwords <- sample(c(intruder, topwords[1:(numOutwords - length(intruder)),i]))
@@ -58,11 +60,12 @@ colnames(result) <- c("numIntruder", "missIntr", "falseIntr")
             if(input=="h"){cat(paste("h for help \nq for quit \nx for no topic identifiable \n \nbyScore = ", byScore, "\nnumTopwords = ", numTopwords, "\nnumIntruder = ", numIntruder, "\nnumOutwords = ", numOutwords, "\nnoTopic", noTopic, "\n \n", sep="")); break}#exit
             if(input=="x" & noTopic){result[i,] <- c(0,NA,NA); break}#exit
             input <- as.numeric(strsplit(input, " ")[[1]])
-            if(any(is.na(input)) | any(!(input %in% seq_along(outwords))) | length(input)==0){cat("Only space seperated input of line number \n") ; next}
+            if(any(is.na(input)) | any(!(input %in% c(0,seq_along(outwords)))) | length(input)==0){cat("Only space seperated input of line number or 0 \n") ; next}
             break}
         if(input[1]=="q"){break}#exit
         if(input[1]=="x"){next}#exit
         result[i,] <- c(length(intruder), length(intruder) - sum(intruder %in% outwords[input]), sum(!(outwords[input] %in% intruder)))
+        if(printSolution) cat(paste("True Intruder:", paste(intruder, collapse=" "), "\n"))
     }
     result <- list(result=result, beta=beta, byScore=byScore, numTopwords=numTopwords, numIntruder=numIntruder, numOutwords=numOutwords, noTopic = noTopic)
     class(result) <- "IntruderWords"
