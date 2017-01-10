@@ -11,6 +11,6 @@ License: GPL (>= 2)
 LazyLoad: yes
 Encoding: latin1
 Depends: R (>= 3.2.0)
-Imports: tm (>= 0.6), lda (>= 1.3.2), lubridate (>= 1.3.3), ggplot2, ggdendro, htmltools
+Imports: tm (>= 0.6), lda (>= 1.3.2), lubridate (>= 1.3.3), ggplot2, ggdendro, htmltools, stringr
 Suggests: testthat
 RoxygenNote: 5.0.1
