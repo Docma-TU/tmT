@@ -7,7 +7,6 @@
 #' @param file Names of the XML files.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
-#' @param test logical. other directory
 #' @return \item{meta}{ id quelle datum titel abstract UB dachzeile}
 #' \item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
 #' klassifikation (mehrere moeglich) thema sachgruppe serie}

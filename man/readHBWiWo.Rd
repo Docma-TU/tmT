@@ -15,8 +15,6 @@ readHBWiWo(path = getwd(), file = list.files(path = path, pattern = "*.xml",
 \item{do.meta}{Logical: Should the algorithm collect meta data?}
 
 \item{do.text}{Logical: Should the algorithm collect text data?}
-
-\item{test}{logical. other directory}
 }
 \value{
 \item{meta}{ id quelle datum titel abstract UB dachzeile}
