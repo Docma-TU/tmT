@@ -2,4 +2,4 @@
 README.md
 .travis.yml
 global.R
-*.R2
+(.*?).R2
