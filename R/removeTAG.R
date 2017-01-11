@@ -9,6 +9,7 @@
 #' @export removeTAG
 #'
 removeTAG <- function(text){
-  newtext  <- gsub(pattern = "<.*?>", replacement = "", text, perl = TRUE)
+    newtext <- gsub(pattern = "<.*?>", replacement = "", text, perl = TRUE)
+    newtext <- trimws(newtext)
   return (newtext)
 }

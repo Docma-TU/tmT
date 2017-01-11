@@ -3,10 +3,8 @@
 #' Reads the XML-files from the HB WiWo corpus and seperates the text and meta
 #' data.
 #'
-#'
+#' @param path Path where the data files are.
 #' @param file Names of the XML files.
-#' @param en Logical: Are there english descriptions in the XML structure? Must
-#' have same length like \code{file}.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
 #' @param test logical. other directory
@@ -19,179 +17,131 @@
 #'
 #' @export readHBWiWo
 #'
-readHBWiWo <- function(file , en, do.meta = TRUE, do.text = TRUE, test = FALSE){
-  stopifnot(is.character(file), is.logical(en), length(file) == length(en),
-            is.logical(do.meta), is.logical(do.text), is.logical(test),
-            length(do.meta) == 1, length(do.text) == 1, length(test) == 1)
+readHBWiWo <- function(path = getwd(), file = list.files(path=path, pattern="*.xml", full.names=F, recursive=TRUE), do.meta = TRUE, do.text = TRUE){
+  stopifnot(is.character(file),
+            is.logical(do.meta), is.logical(do.text),
+            length(do.meta) == 1, length(do.text) == 1)
   text <- NULL
   meta <- NULL
   metamult <- NULL
   for(i in 1:length(file)){
     (print(file[i]))
-    if(test){openfile <- file(file[i], open = "rt")}else{
-      openfile <- file(paste("Daten/",file[i], sep = ""), open = "rt")}
-    lines <- readLines(con = openfile)
-    close(openfile)
-    
-    lines <- gsub(pattern = "&quot;", replacement = "\"",lines)
-    lines <- gsub(pattern = "&amp;", replacement = "&",lines)
-    lines <- gsub(pattern = "&apos;", replacement = "\'",lines)
-    
-    if(en[i]){artikel <- strsplit(paste(lines, collapse = " "), "</Document>")[[1]]}
-    else{artikel <- strsplit(paste(lines, collapse = " "), "</Dokument>")[[1]]}
-    artikel <- artikel[-length(artikel)]
-    
-    id <- strsplit(artikel, "ID=\"")
-    id <- sapply(id, function(x) {x[2]})
-    id <- strsplit(id, "\"")
-    id <- sapply(id, function(x) {x[1]})
+    article <- readLines(con = paste(path,file[i], sep="/"), encoding = "latin1")
+    article <- gsub(pattern = "&quot;", replacement = "\"",article)
+    article <- gsub(pattern = "&amp;", replacement = "&",article)
+    article <- gsub(pattern = "&apos;", replacement = "\'",article)
+    lines <- grep(pattern = "</Dokument>|</Document>", article)
+    lines <- cbind(c(1,lines[-length(lines)]),lines)
+    article <- apply(lines, 1, function(x)paste(article[x[1]:x[2]], collapse = " "))
+    id <- stringr::str_extract(article, "ID=\"(.*?)\"")
+    id <- gsub(pattern="ID=|\"", replacement="", x=id)
+
     if(do.meta){
-      
-      if(en[i]){
-        quelle <- strsplit(artikel, "<Source>")
-        quelle <- sapply(quelle, function(x) {x[2]})
-        quelle <- strsplit(quelle, "</Source>")
-        quelle <- sapply(quelle, function(x) {x[1]})
-        datum <- strsplit(artikel, "<Date>")
-        datum <- sapply(datum, function(x) {x[2]})
-        datum <- strsplit(datum, "</Date>")
-        datum <- as.character(sapply(datum, function(x) {x[1]}))
-        datum <- as.Date(datum, format = "%Y-%m-%d")
-        titel <- strsplit(artikel, "<Title>")
-        titel <- sapply(titel, function(x) {x[2]})
-        titel <- strsplit(titel, "</Title>")
-        titel <- sapply(titel, function(x) {x[1]})
-        
-        firma <- strsplit(artikel, "<Company>")
-        firma <- sapply(firma, function(x) {x[-1]})
-        firma <- sapply(firma, function(x) unlist(strsplit(x, "</Company>")))
-        firma <- sapply(firma, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(firma) <- id
-        land <- strsplit(artikel, "<Country>")
-        land <- sapply(land, function(x) {x[-1]})
-        land <- sapply(land, function(x) unlist(strsplit(x, "</Country>")))
-        land <- sapply(land, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(land) <- id
-        industrie <- strsplit(artikel, "<Industry>")
-        industrie <- sapply(industrie, function(x) {x[-1]})
-        industrie <- sapply(industrie, function(x)
-          unlist(strsplit(x, "</Industry>")))
-        industrie <- sapply(industrie, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(industrie) <- id
-        autor <- strsplit(artikel, "<Author> ")
-        autor <- sapply(autor, function(x) {x[-1]})
-        autor <- sapply(autor, function(x) unlist(strsplit(x, " </Author>")))
-        autor <- sapply(autor, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(autor) <- id
-        rubrik <- strsplit(artikel, "<Category> ")
-        rubrik <- sapply(rubrik, function(x) {x[-1]})
-        rubrik <- sapply(rubrik, function(x) unlist(strsplit(x, " </Category>")))
-        rubrik <- sapply(rubrik, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(rubrik) <- id
-      }else{
-        quelle <- strsplit(artikel, "<Quelle>")
-        quelle <- sapply(quelle, function(x) {x[2]})
-        quelle <- strsplit(quelle, "</Quelle>")
-        quelle <- as.numeric(sapply(quelle, function(x) {x[1]}))
-        datum <- strsplit(artikel, "<Datum>")
-        datum <- sapply(datum, function(x) {x[2]})
-        datum <- strsplit(datum, "</Datum>")
-        datum <- as.character(sapply(datum, function(x) {x[1]}))
-        datum <- as.Date(datum, format = "%Y-%m-%d")
-        titel <- strsplit(artikel, "<Titel>")
-        titel <- sapply(titel, function(x) {x[2]})
-        titel <- strsplit(titel, "</Titel>")
-        titel <- sapply(titel, function(x) {x[1]})
-        firma <- strsplit(artikel, "<Firma>")
-        firma <- sapply(firma, function(x) {x[-1]})
-        firma <- sapply(firma, function(x) unlist(strsplit(x, "</Firma>")))
-        firma <- sapply(firma, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(firma) <- id
-        land <- strsplit(artikel, "<Land>")
-        land <- sapply(land, function(x) {x[-1]})
-        land <- sapply(land, function(x) unlist(strsplit(x, "</Land>")))
-        land <- sapply(land, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(land) <- id
-        industrie <- strsplit(artikel, "<Industrie>")
-        industrie <- sapply(industrie, function(x) {x[-1]})
-        industrie <- sapply(industrie, function(x)
-          unlist(strsplit(x, "</Industrie>")))
-        industrie <- sapply(industrie, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(industrie) <- id
-        autor <- strsplit(artikel, "<Autor> ")
-        autor <- sapply(autor, function(x) {x[-1]})
-        autor <- sapply(autor, function(x) unlist(strsplit(x, " </Autor>")))
-        autor <- sapply(autor, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(autor) <- id
-        rubrik <- strsplit(artikel, "<Rubrik> ")
-        rubrik <- sapply(rubrik, function(x) {x[-1]})
-        rubrik <- sapply(rubrik, function(x) unlist(strsplit(x, " </Rubrik>")))
-        rubrik <- sapply(rubrik, function(x) {x[-seq(0, length(x), by = 2)]})
-        names(rubrik) <- id
-      }
-      abstract <- strsplit(artikel, "<Abstract>")
-      abstract <- sapply(abstract, function(x) {x[2]})
-      abstract <- strsplit(abstract, "</Abstract>")
-      abstract <- sapply(abstract, function(x) {x[1]})
-      UB <- strsplit(artikel, "<UB>")
-      UB <- sapply(UB, function(x) {x[2]})
-      UB <- strsplit(UB, "</UB>")
-      UB <- sapply(UB, function(x) {x[1]})
-      dachzeile <- strsplit(artikel, "<DZ>")
-      dachzeile <- sapply(dachzeile, function(x) {x[2]})
-      dachzeile <- strsplit(dachzeile, "</DZ>")
-      dachzeile <- sapply(dachzeile, function(x) {x[1]})
-      klassifikation <- strsplit(artikel, "<Klassifikation> ")
-      klassifikation <- sapply(klassifikation, function(x) {x[-1]})
-      klassifikation <- sapply(klassifikation, function(x)
-        unlist(strsplit(x, " </Klassifikation>")))
-      klassifikation <- sapply(klassifikation, function(x)
-        {x[-seq(0, length(x), by = 2)]})
-      names(klassifikation) <- id
-      thema <- strsplit(artikel, "<Thema> ")
-      thema <- sapply(thema, function(x) {x[-1]})
-      thema <- sapply(thema, function(x) unlist(strsplit(x, " </Thema>")))
-      thema <- sapply(thema, function(x) {x[-seq(0, length(x), by = 2)]})
-      names(thema) <- id
-      sachgruppe <- strsplit(artikel, "<Sachgruppe> ")
-      sachgruppe <- sapply(sachgruppe, function(x) {x[-1]})
-      sachgruppe <- sapply(sachgruppe, function(x)
-        unlist(strsplit(x, " </Sachgruppe>")))
-      sachgruppe <- sapply(sachgruppe, function(x) {x[-seq(0, length(x), by = 2)]})
-      names(sachgruppe) <- id
-      serie <- strsplit(artikel, "<Serie> ")
-      serie <- sapply(serie, function(x) {x[-1]})
-      serie <- sapply(serie, function(x) unlist(strsplit(x, " </Serie>")))
-      serie <- sapply(serie, function(x) {x[-seq(0, length(x), by = 2)]})
-      names(serie) <- id
-      person <- strsplit(artikel, "<Person>")
-      person <- sapply(person, function(x) {x[-1]})
-      person <- sapply(person, function(x) unlist(strsplit(x, "</Person>")))
-      person <- sapply(person, function(x) {x[-seq(0, length(x), by = 2)]})
-      names(person) <- id
-      mData <- data.frame(id, quelle, datum, titel, abstract, UB, dachzeile,
-                          stringsAsFactors = FALSE)
-      meta <- rbind(meta, mData)
-      metamult$person <- c(metamult$person, person)
-      metamult$firma <- c(metamult$firma, firma)
-      metamult$industrie <- c(metamult$industrie, industrie)
-      metamult$land <- c(metamult$land, land)
-      metamult$autor <- c(metamult$autor, autor)
-      metamult$rubrik <- c(metamult$rubrik, rubrik)
-      metamult$klassifikation <- c(metamult$klassifikation, klassifikation)
-      metamult$thema <- c(metamult$thema, thema)
-      metamult$sachgruppe <- c(metamult$sachgruppe, sachgruppe)
-      metamult$serie <- c(metamult$serie, serie)
+        source <- stringr::str_extract(article, "<Source>(.*?)</Source>|<Quelle>(.*?)</Quelle>")
+        source <- removeTAG(source)
+        date <- stringr::str_extract(article, "<Date>(.*?)</Date>|<Datum>(.*?)</Datum>")
+        date <- as.Date(removeTAG(date))
+        title <- stringr::str_extract(article, "<Title>(.*?)</Title>|<Titel>(.*?)</Titel>")
+        title <- removeTAG(title)
+        abstract <- stringr::str_extract(article, "<Abstract>(.*?)</Abstract>")
+        abstract <- removeTAG(abstract)
+        ub <- stringr::str_extract(article, "<UB>(.*?)</UB>")
+        ub <- removeTAG(ub)
+        dachzeile <- stringr::str_extract(article, "<DZ>(.*?)</DZ>")
+        dachzeile <- removeTAG(dachzeile)
+
+        company <- stringr::str_extract_all(article, "<Company>(.*?)</Company>|<Firma>(.*?)</Firma>")
+        names(company) <- id
+        tmp <- rep(names(company), lengths(company))
+        company <- unlist(company)
+        names(company) <- tmp
+        company <- trimws(gsub(pattern="<Company>|</Company>|<Firma>|</Firma>", replacement="", x=company))
+
+        country <- stringr::str_extract_all(article, "<Country>(.*?)</Country>|<Land>(.*?)</Land>")
+        names(country) <- id
+        tmp <- rep(names(country), lengths(country))
+        country <- unlist(country)
+        names(country) <- tmp
+        country <- trimws(gsub(pattern="<Country>|</Country>|<Land>|</Land>", replacement="", x=country))
+
+        industry <- stringr::str_extract_all(article, "<Industry>(.*?)</Industry>|<Industrie>(.*?)</Industrie>")
+        names(industry) <- id
+        tmp <- rep(names(industry), lengths(industry))
+        industry <- unlist(industry)
+        names(industry) <- tmp
+        industry <- trimws(gsub(pattern="<Industry>|</Industry>|<Industrie>|</Industrie>", replacement="", x=industry))
+
+        author <- stringr::str_extract_all(article, "<Author>(.*?)</Author>|<Autor>(.*?)</Autor>")
+        names(author) <- id
+        tmp <- rep(names(author), lengths(author))
+        author <- unlist(author)
+        names(author) <- tmp
+        author <- trimws(gsub(pattern="<Author>|</Author>|<Autor>|</Autor>", replacement="", x=author))
+
+        category <- stringr::str_extract_all(article, "<Category>(.*?)</Category>|<Rubrik>(.*?)</Rubrik>")
+        names(category) <- id
+        tmp <- rep(names(category), lengths(category))
+        category <- unlist(category)
+        names(category) <- tmp
+        category <- trimws(gsub(pattern="<Category>|</Category>|<Rubrik>|</Rubrik>", replacement="", x=category))
+
+        klassifikation <- stringr::str_extract_all(article, "<Klassifikation>(.*?)</Klassifikation>")
+        names(klassifikation) <- id
+        tmp <- rep(names(klassifikation), lengths(klassifikation))
+        klassifikation <- unlist(klassifikation)
+        names(klassifikation) <- tmp
+        klassifikation <- trimws(gsub(pattern="<Klassifikation>|</Klassifikation>", replacement="", x=klassifikation))
+
+        thema <- stringr::str_extract_all(article, "<Thema>(.*?)</Thema>")
+        names(thema) <- id
+        tmp <- rep(names(thema), lengths(thema))
+        thema <- unlist(thema)
+        names(thema) <- tmp
+        thema <- trimws(gsub(pattern="<Thema>|</Thema>", replacement="", x=thema))
+
+        sachgruppe <- stringr::str_extract_all(article, "<Sachgruppe>(.*?)</Sachgruppe>")
+        names(sachgruppe) <- id
+        tmp <- rep(names(sachgruppe), lengths(sachgruppe))
+        sachgruppe <- unlist(sachgruppe)
+        names(sachgruppe) <- tmp
+        sachgruppe <- trimws(gsub(pattern="<Sachgruppe>|</Sachgruppe>", replacement="", x=sachgruppe))
+
+        serie <- stringr::str_extract_all(article, "<Serie>(.*?)</Serie>")
+        names(serie) <- id
+        tmp <- rep(names(serie), lengths(serie))
+        serie <- unlist(serie)
+        names(serie) <- tmp
+        serie <- trimws(gsub(pattern="<Serie>|</Serie>", replacement="", x=serie))
+
+        person <- stringr::str_extract_all(article, "<Person>(.*?)</Person>")
+        names(person) <- id
+        tmp <- rep(names(person), lengths(person))
+        person <- unlist(person)
+        names(person) <- tmp
+        person <- trimws(gsub(pattern="<Person>|</Person>", replacement="", x=person))
+
+        mData <- data.frame(id, source, date, title, abstract, ub, dachzeile,
+                            stringsAsFactors = FALSE)
+        meta <- rbind(meta, mData)
+        metamult$person <- c(metamult$person, person)
+        metamult$company <- c(metamult$company, company)
+        metamult$industry <- c(metamult$industry, industry)
+        metamult$country <- c(metamult$country, country)
+        metamult$author <- c(metamult$author, author)
+        metamult$category <- c(metamult$category, category)
+        metamult$klassifikation <- c(metamult$klassifikation, klassifikation)
+        metamult$thema <- c(metamult$thema, thema)
+        metamult$sachgruppe <- c(metamult$sachgruppe, sachgruppe)
+        metamult$serie <- c(metamult$serie, serie)
     }
     if(do.text){
-      text_neu <- strsplit(artikel, "<Text>")
-      text_neu <- sapply(text_neu, function(x) {x[2]})
-      text_neu <- strsplit(text_neu, "</Text>")
-      text_neu <- lapply(text_neu, function(x) {x[1]})
-      names(text_neu) <- id
-      text <- c(text, text_neu)
+        text_new <- stringr::str_extract(article, "<Text>(.*?)</Text>")
+        text_new <- trimws(gsub(pattern="<Text>|</Text>", replacement="", x=text_new))
+        names(text_new) <- id
+        text <- as.list(c(text, text_new))
     }
-  }
+}
+#  text[is.na(text)] <- meta$abstract[is.na(text)]
   res <- list("meta" = meta, "text" = text, "metamult" = metamult)
   class(res) <- "textmeta"
   summary(res)

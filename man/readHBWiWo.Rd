@@ -4,13 +4,13 @@
 \alias{readHBWiWo}
 \title{Read the HB WiWo Corpus}
 \usage{
-readHBWiWo(file, en, do.meta = TRUE, do.text = TRUE, test = FALSE)
+readHBWiWo(path = getwd(), file = list.files(path = path, pattern = "*.xml",
+  full.names = F, recursive = TRUE), do.meta = TRUE, do.text = TRUE)
 }
 \arguments{
-\item{file}{Names of the XML files.}
+\item{path}{Path where the data files are.}
 
-\item{en}{Logical: Are there english descriptions in the XML structure? Must
-have same length like \code{file}.}
+\item{file}{Names of the XML files.}
 
 \item{do.meta}{Logical: Should the algorithm collect meta data?}
 
