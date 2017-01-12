@@ -17,9 +17,9 @@
 #' @export readHBWiWo
 #'
 readHBWiWo <- function(path = getwd(), file = list.files(path=path, pattern="*.xml", full.names=F, recursive=TRUE), do.meta = TRUE, do.text = TRUE){
-  stopifnot(is.character(file),
+  stopifnot(is.character(file), is.character(path),
             is.logical(do.meta), is.logical(do.text),
-            length(do.meta) == 1, length(do.text) == 1)
+            length(do.meta) == 1, length(do.text) == 1, length(path) == 1)
   text <- NULL
   meta <- NULL
   metamult <- NULL
