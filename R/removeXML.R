@@ -5,7 +5,7 @@
 #'
 #' @param x List of texts.
 #' @param xml Logical: Should XML-TAGs be removed?
-#' @param umlaute Logical: Should umlauts be changed?
+#' @param umlauts Logical: Should umlauts be changed?
 #' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.

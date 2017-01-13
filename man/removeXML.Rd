@@ -12,11 +12,11 @@ removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
 
 \item{xml}{Logical: Should XML-TAGs be removed?}
 
+\item{umlauts}{Logical: Should umlauts be changed?}
+
 \item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
-
-\item{umlaute}{Logical: Should umlauts be changed?}
 }
 \value{
 Adjusted corpus
