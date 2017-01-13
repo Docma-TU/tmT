@@ -37,17 +37,17 @@ readHBWiWo <- function(path = getwd(), file = list.files(path=path, pattern="*.x
 
     if(do.meta){
         source <- stringr::str_extract(article, "<Source>(.*?)</Source>|<Quelle>(.*?)</Quelle>")
-        source <- removeTAG(source)
+        source <- removeXML(source)
         date <- stringr::str_extract(article, "<Date>(.*?)</Date>|<Datum>(.*?)</Datum>")
-        date <- as.Date(removeTAG(date))
+        date <- as.Date(removeXML(date))
         title <- stringr::str_extract(article, "<Title>(.*?)</Title>|<Titel>(.*?)</Titel>")
-        title <- removeTAG(title)
+        title <- removeXML(title)
         abstract <- stringr::str_extract(article, "<Abstract>(.*?)</Abstract>")
-        abstract <- removeTAG(abstract)
+        abstract <- removeXML(abstract)
         ub <- stringr::str_extract(article, "<UB>(.*?)</UB>")
-        ub <- removeTAG(ub)
+        ub <- removeXML(ub)
         dachzeile <- stringr::str_extract(article, "<DZ>(.*?)</DZ>")
-        dachzeile <- removeTAG(dachzeile)
+        dachzeile <- removeXML(dachzeile)
 
         company <- stringr::str_extract_all(article, "<Company>(.*?)</Company>|<Firma>(.*?)</Firma>")
         names(company) <- id

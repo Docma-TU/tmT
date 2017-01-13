@@ -4,16 +4,19 @@
 \alias{removeXML}
 \title{Removes XML tags and umlauts}
 \usage{
-removeXML(x, umlaute = FALSE, u.type = c("normal", "html", "all"))
+removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
+  "all"))
 }
 \arguments{
 \item{x}{List of texts.}
 
-\item{umlaute}{Logical: Should umlauts be changed?}
+\item{xml}{Logical: Should XML-TAGs be removed?}
 
 \item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
+
+\item{umlaute}{Logical: Should umlauts be changed?}
 }
 \value{
 Adjusted corpus
