@@ -53,12 +53,24 @@ print.textmeta <- function(x, ...){
   }
   # date-range:
   if ("date" %in% colnames(x$meta)){
-    cat(paste0(" range of date: ",
-               paste(range(x$meta$date), collapse = " till ")))
+    na.date <- is.na(x$meta$date)
+    if (any(!na.date)){
+      cat(paste0(" range of date: ", paste(range(x$meta$date, na.rm = TRUE),
+                                           collapse = " till ")), "\n")
+    }
+    if (any(na.date)){
+      cat(paste0(" NAs in date: ", sum(na.date), " (", mean(na.date, 2), ")\n"))
+    }
   }
   if ("datum" %in% colnames(x$meta)){
-    cat(paste0(" range of date: ",
-               paste(range(x$meta$datum), collapse = " till ")))
+    na.date <- is.na(x$meta$datum)
+    if (any(!na.date)){
+      cat(paste0(" range of date: ", paste(range(x$meta$datum, na.rm = TRUE),
+                                           collapse = " till "), "\n"))
+    }
+    if (any(na.date)){
+      cat(paste0(" NAs in date: ", sum(na.date), " (", mean(na.date, 2), ")"))
+    }
   }
   invisible(x)
 }
@@ -81,7 +93,8 @@ summary.textmeta <- function(object, list.names = names(object), ...){
     # print:
     cat(paste("number of observations in text:", n.text, "\n"))
     cat("\nNAs in text:\n")
-    print(data.frame(abs = na.text, rel = na.text/n.text), row.names = FALSE)
+    print(data.frame(abs = na.text, rel = round(na.text/n.text, 2)),
+          row.names = FALSE)
   }
   # object$meta:
   if ("meta" %in% list.names && !is.null(nrow(object$meta))){
@@ -92,24 +105,40 @@ summary.textmeta <- function(object, list.names = names(object), ...){
     cat(paste0(nextprint, "meta: ", nrow(object$meta), " observations of ",
                ncol(object$meta), " variables\n"))
     cat("\nNAs in meta:\n")
-    print(cbind(abs = na.meta, rel = na.meta/n.meta))
+    print(cbind(abs = na.meta, rel = round(na.meta/n.meta, 2)))
     # print tables of candidates
     candidates <- c("resource", "downloadDate")
     for (i in candidates){
       if (i %in% cols){
         tab <- table(object$meta[, i])
         cat(paste0(nextprint, i, ":\n"))
-        print(cbind(abs = tab, rel = tab/n.meta))
+        print(cbind(abs = tab, rel = round(tab/n.meta, 2)))
       }
     }
     # print date-range:
     if ("date" %in% cols){
-      cat(paste0(nextprint, "range of date: ",
-                 paste(range(object$meta$date), collapse = " till "), "\n"))
+      cat(nextprint)
+      if (na.meta["date"] < n.meta){
+        cat(paste0("range of date: ",
+                   paste(range(object$meta$date, na.rm = TRUE),
+                         collapse = " till "), "\n"))
+      }
+      if (na.meta["date"] > 0){
+        cat(paste0("NAs in date: ", na.meta["date"], " (",
+                   round(na.meta["date"]/n.meta, 2), ")\n"))
+      }
     }
     if ("datum" %in% cols){
-      cat(paste0(nextprint, "range of date: ",
-                 paste(range(object$meta$datum), collapse = " till "), "\n"))
+      cat(nextprint)
+      if (na.meta["datum"] < n.meta){
+        cat(paste0("range of date: ",
+                   paste(range(object$meta$datum, na.rm = TRUE),
+                         collapse = " till "), "\n"))
+      }
+      if (na.meta["datum"] > 0){
+        cat(paste0("NAs in date: ", na.meta["datum"], " (",
+                   round(na.meta["datum"]/n.meta, 2), ")\n"))
+      }
     }
   }
   if ("metamult" %in% list.names && length(object$metamult) > 0){
@@ -117,7 +146,7 @@ summary.textmeta <- function(object, list.names = names(object), ...){
     na.metamult <- sapply(object$metamult, function(x) sum(is.na(x)))
     cat(paste0(nextprint, "metamult:\n"))
     print(cbind(n = n.metamult, NA.abs = na.metamult,
-                NA.rel = ifelse(n.metamult > 0, na.metamult/n.metamult, 0)))
+                NA.rel = ifelse(n.metamult > 0, round(na.metamult/n.metamult, 2), 0)))
   }
   invisible(object)
 }
