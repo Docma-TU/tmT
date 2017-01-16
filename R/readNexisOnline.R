@@ -8,8 +8,8 @@
 #' @param file Character string with names of the HTML files.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
-#' @return List of two \item{meta}{id nr title source date releaseNote loadDate 
-#' language length dateline byline section type pubType series graphic}
+#' @return List of two \item{meta}{id topic nr from title source date releaseNote
+#' downloadDate loadDate language length dateline byline section type pubType series graphic}
 #' \item{text}{text}
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
@@ -48,12 +48,13 @@ readNexisOnline <- function(path = getwd(),
     
     if (do.meta) {
       # meta-data in header (identical for all documents in the same file):
-      number <- stringr::str_extract(header, "DOCUMENTS=\"(.*?)\"")
-      number <- as.integer(gsub(pattern = "DOCUMENTS=|\"", replacement = "", number))
-      number <- rep(number, times = n)
+      from <- stringr::str_extract(header, "DOCUMENTS=\"(.*?)\"")
+      from <- as.integer(gsub(pattern = "DOCUMENTS=|\"", replacement = "", from))
+      from <- rep(from, times = n)
       
       topic <- stringr::str_extract(header, "TOPIC=\"(.*?)\"")
       topic <- rep(gsub(pattern = "TOPIC=|\"", replacement = "", topic), times = n)
+      topic <- ifelse(topic == "null", NA, topic)
       
       downloadDate <- stringr::str_extract(header, "UPDATED=\"(.*?)\"")
       downloadDate <- gsub(pattern = "UPDATED=|\"", replacement = "", downloadDate)
@@ -83,9 +84,8 @@ readNexisOnline <- function(path = getwd(),
       date <- trimws(gsub(pattern = "<(.*?)>", replacement = "", x = date))
       releaseNote <- trimws(gsub(pattern = "(.*?) [1-9][0-9]{0,5}, [1-9]{4},? [MFSTW][a-z]{2,5}day,?",
                                  replacement = "", x = date))
-      if (any(releaseNote == "")){
-        releaseNote[releaseNote == ""] <- NA
-      }
+      releaseNote <- ifelse(releaseNote == "", NA, releaseNote)
+      
       date <- as.Date(stringr::str_extract(date, "(.*?) [1-9][0-9]{0,5}, [1-9]{4}"),
                       format = "%B %d, %Y")
       
@@ -101,8 +101,8 @@ readNexisOnline <- function(path = getwd(),
       title <- stringr::str_extract(article, paste0(titlestyle, "(.*?)</DIV>"))
       title <- trimws(gsub(pattern = "<(.*?)>", replacement = "", x = title))
       
-      mData <- cbind(id, nr, title, source, date, releaseNote, mData,
-                     stringsAsFactors = FALSE)
+      mData <- cbind(id, topic, nr, from, title, source, date, releaseNote,
+                     downloadDate, mData, stringsAsFactors = FALSE)
       meta <- rbind(meta, mData)
     }
     if (do.text) {

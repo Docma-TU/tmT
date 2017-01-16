@@ -18,8 +18,8 @@ readNexisOnline(path = getwd(), file = list.files(path = path, pattern =
 \item{do.text}{Logical: Should the algorithm collect text data?}
 }
 \value{
-List of two \item{meta}{id nr title source date releaseNote loadDate 
-language length dateline byline section type pubType series graphic}
+List of two \item{meta}{id topic nr from title source date releaseNote
+downloadDate loadDate language length dateline byline section type pubType series graphic}
 \item{text}{text}
 }
 \description{
