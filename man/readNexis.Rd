@@ -4,9 +4,13 @@
 \alias{readNexis}
 \title{Read preprocessed files from Lexis Nexis}
 \usage{
-readNexis(file, do.meta = TRUE, do.text = TRUE, encoding = "utf-8")
+readNexis(path = getwd(), file = list.files(path = path, pattern = "*.xml",
+  full.names = F, recursive = TRUE), do.meta = TRUE, do.text = TRUE,
+  encoding = "utf-8")
 }
 \arguments{
+\item{path}{Character string with Path where the data files are.}
+
 \item{file}{Character string with names of the XML files.}
 
 \item{do.meta}{Logical: Should the algorithm collect meta data?}

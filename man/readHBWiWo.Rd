@@ -8,9 +8,9 @@ readHBWiWo(path = getwd(), file = list.files(path = path, pattern = "*.xml",
   full.names = F, recursive = TRUE), do.meta = TRUE, do.text = TRUE)
 }
 \arguments{
-\item{path}{Path where the data files are.}
+\item{path}{Character string with Path where the data files are.}
 
-\item{file}{Names of the XML files.}
+\item{file}{Character string with names of the XML files.}
 
 \item{do.meta}{Logical: Should the algorithm collect meta data?}
 
