@@ -27,6 +27,8 @@ readNexisOnline <- function(path = getwd(),
             length(do.meta) == 1, length(do.text) == 1, length(path) == 1)
   text <- NULL
   meta <- NULL
+  temp_time <- Sys.getlocale("LC_TIME")
+  Sys.setlocale("LC_TIME", "C")
   for (i in 1:length(file)) {
     (print(file[i]))
     article <- readLines(con = paste(path, file[i], sep="/"), warn = FALSE)
@@ -60,8 +62,6 @@ readNexisOnline <- function(path = getwd(),
       
       downloadDate <- stringr::str_extract(header, "UPDATED=\"(.*?)\"")
       downloadDate <- gsub(pattern = "UPDATED=|\"", replacement = "", downloadDate)
-      temp_time <- Sys.getlocale("LC_TIME")
-      Sys.setlocale("LC_TIME", "C")
       downloadDate <- rep(as.Date(downloadDate, format = "%A, %B %d, %Y  %T"), times = n)
       
       # meta-data in each document:
