@@ -9,7 +9,8 @@
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
 #' @return List of two \item{meta}{id topic nr from title source date releaseNote
-#' downloadDate loadDate language length dateline byline section type pubType series graphic}
+#' downloadDate loadDate language length dateline byline section type pubType
+#' series graphic copyright}
 #' \item{text}{text}
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
@@ -42,6 +43,7 @@ readNexisOnline <- function(path = getwd(),
     nr <- article[lines[, 1] + 1]
     source <- article[lines[, 1] + 3]
     date <- article[lines[, 1] + 5]
+    copyright <- article[lines[, 2] - 3]
     article <- apply(lines, 1, function(x) paste(article[x[1]:x[2]], collapse = " "))
     n <- length(article)
     id <- paste("ID", paste(i, 1L:n, sep = "-"), sep = " ")
@@ -70,7 +72,7 @@ readNexisOnline <- function(path = getwd(),
       mData <- NULL
       for(k in 1:length(cand)){
         mData_new <- stringr::str_extract(article, paste0(cand[k], "(.*?)</P>"))
-        mData_new <- trimws(gsub(pattern = paste0(cand[k], "|<(.*?)>"), replacement = "", x = mData_new))
+        mData_new <- removeXML(gsub(pattern = cand[k], replacement = "", x = mData_new))
         mData <- cbind(mData, mData_new)
       }
       mData <- as.data.frame(mData, stringsAsFactors = FALSE)
@@ -78,16 +80,16 @@ readNexisOnline <- function(path = getwd(),
       mData$length <- as.integer(gsub(pattern = " words", replacement = "", mData$length))
       mData$loadDate <- as.Date(mData$loadDate, format = "%B %d, %Y")
       
-      nr <- as.integer(trimws(gsub(pattern = "<(.*?)>|of (.*?) DOCUMENTS",
-                                   replacement = "", x = nr)))
-      source <- trimws(gsub(pattern = "<(.*?)>", replacement = "", x = source))
-      date <- trimws(gsub(pattern = "<(.*?)>", replacement = "", x = date))
+      nr <- as.integer(removeXML(gsub(pattern = "of [0-9]{1,7} DOCUMENTS",
+                                      replacement = "", x = nr)))
+      source <- removeXML(source)
+      date <- removeXML(date)
       releaseNote <- trimws(gsub(pattern = "(.*?) [1-9][0-9]{0,5}, [1-9]{4},? [MFSTW][a-z]{2,5}day,?",
                                  replacement = "", x = date))
       releaseNote <- ifelse(releaseNote == "", NA, releaseNote)
-      
       date <- as.Date(stringr::str_extract(date, "(.*?) [1-9][0-9]{0,5}, [1-9]{4}"),
                       format = "%B %d, %Y")
+      copyright <- removeXML(copyright)
       
       titlestyle <- character(4)
       titlestyle[1] <- grep(pattern = " \\{ text-align: left; \\}", style, value = TRUE)
@@ -99,10 +101,10 @@ readNexisOnline <- function(path = getwd(),
       titlestyle <- paste0("<BR><DIV CLASS=\"c", titlestyle[1], "\"><P CLASS=\"c", titlestyle[2],
                            "\"><SPAN CLASS=\"c(", titlestyle[3],"|", titlestyle[4], ")\">")
       title <- stringr::str_extract(article, paste0(titlestyle, "(.*?)</DIV>"))
-      title <- trimws(gsub(pattern = "<(.*?)>", replacement = "", x = title))
+      title <- removeXML(title)
       
       mData <- cbind(id, topic, nr, from, title, source, date, releaseNote,
-                     downloadDate, mData, stringsAsFactors = FALSE)
+                     downloadDate, mData, copyright, stringsAsFactors = FALSE)
       meta <- rbind(meta, mData)
     }
     if (do.text) {
@@ -118,13 +120,13 @@ readNexisOnline <- function(path = getwd(),
                           textstyle[3], ")\">(<BR>)?<SPAN CLASS=\"c(", textstyle[4],"|", textstyle[5], ")\">")
       
       text_new <- stringr::str_extract(article, paste0(textstyle, "(.*?)</DIV>"))
-      text_new <- trimws(gsub(pattern = "<(.*?)>", replacement = "", x = text_new))
+      text_new <- removeXML(text_new)
       names(text_new) <- id
       text <- as.list(c(text, text_new))
     }
   }
   Sys.setlocale("LC_TIME", temp_time)
-  res <- list(meta = meta, text = text)
+  res <- list(meta = meta, text = text, metamult = NULL)
   class(res) <- "textmeta"
   summary(res)
 }

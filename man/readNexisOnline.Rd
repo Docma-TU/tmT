@@ -19,7 +19,8 @@ readNexisOnline(path = getwd(), file = list.files(path = path, pattern =
 }
 \value{
 List of two \item{meta}{id topic nr from title source date releaseNote
-downloadDate loadDate language length dateline byline section type pubType series graphic}
+downloadDate loadDate language length dateline byline section type pubType
+series graphic copyright}
 \item{text}{text}
 }
 \description{

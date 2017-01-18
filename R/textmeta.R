@@ -76,7 +76,8 @@ print.textmeta <- function(x, ...){
 }
 
 #' @export 
-summary.textmeta <- function(object, list.names = names(object), ...){
+summary.textmeta <- function(object, list.names = names(object),
+                             candidates = c("resource", "downloadDate"), ...){
   stopifnot(is.textmeta(object), is.character(list.names),
             all(list.names %in% names(object)),
             ifelse("text" %in% list.names && length(object$text) > 0,
@@ -106,8 +107,7 @@ summary.textmeta <- function(object, list.names = names(object), ...){
                ncol(object$meta), " variables\n"))
     cat("\nNAs in meta:\n")
     print(cbind(abs = na.meta, rel = round(na.meta/n.meta, 2)))
-    # print tables of candidates
-    candidates <- c("resource", "downloadDate")
+    # print tables (not NA-table) of candidates
     for (i in candidates){
       if (i %in% cols){
         tab <- table(object$meta[, i])
