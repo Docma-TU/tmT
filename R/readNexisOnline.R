@@ -84,10 +84,10 @@ readNexisOnline <- function(path = getwd(),
                                       replacement = "", x = nr)))
       source <- removeXML(source)
       date <- removeXML(date)
-      releaseNote <- trimws(gsub(pattern = "(.*?) [1-9][0-9]{0,5}, [1-9]{4},? [MFSTW][a-z]{2,5}day,?",
+      releaseNote <- trimws(gsub(pattern = "(.*?) [1-9][0-9]{0,5}, [12][0-9]{3},? [MFSTW][a-z]{2,5}day,?",
                                  replacement = "", x = date))
       releaseNote <- ifelse(releaseNote == "", NA, releaseNote)
-      date <- as.Date(stringr::str_extract(date, "(.*?) [1-9][0-9]{0,5}, [1-9]{4}"),
+      date <- as.Date(stringr::str_extract(date, "(.*?) [1-9][0-9]{0,5}, [12][0-9]{3}"),
                       format = "%B %d, %Y")
       copyright <- removeXML(copyright)
       
