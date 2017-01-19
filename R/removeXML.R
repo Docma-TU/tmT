@@ -33,7 +33,7 @@ function(x,xml=TRUE, umlauts=FALSE, u.type=c("normal", "html", "all")){
             x <- gsub(pattern="&szlig;", replacement="ss",x)
             x <- gsub(pattern="&[^;]*;", replacement="",x)}
 
-        if(u.type=="normal" | u.type[1]=="all"){
+        if(u.type[1]=="normal" | u.type[1]=="all"){
             x <- gsub(pattern="\U00E4", replacement="ae",x)
             x <- gsub(pattern="\U00C4", replacement="Ae",x)
             x <- gsub(pattern="\U00F6", replacement="oe",x)
