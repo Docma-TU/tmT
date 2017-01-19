@@ -28,55 +28,39 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export make.clear
 make.clear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
-                                 "koennte", "ueber", "waehrend", "wuerde",
-                                 "wuerden"), paragraph = TRUE){
-  stopifnot(is.list(x), is.character(sw), is.logical(paragraph),
-            length(paragraph) == 1)
-  (print("punctuation"))
-  x <- lapply(x, removePunctuation, preserve_intra_word_dashes = FALSE)
-  (print("numbers"))
-  x <- lapply(x, removeNumbers)
-  (print("to lower"))
-  x <- lapply(x, tolower)
-  (print("stopwords"))
-  x <- lapply(x, removeWords, sw)
-  (print("whitespace"))
-  x <- lapply(x, stripWhitespace)
-  if(paragraph){ ## SPIEGEL
-    (print("tokenization"))
-    x <- lapply(x, strsplit, " ")
-    (print("remove empty words"))
-    # remove empty words:
-    x <- lapply(x, function(x) {lapply(x, function(y)
-      {if(length(which(y == "") > 0)) {y[-which(y == "")]} else {y} })})
-    (print("remove empty article"))
-    emptyArt <- which(lengths(x) == 0)
-    (print(length(emptyArt)))
-    if(length(emptyArt) > 0) {x <- x[-emptyArt]}
-    (print("remove empty paragraphs"))
-    x <- lapply(x, function(x) x[!(lengths(x) == 0)])
-    # remove empty paragraphs:
-    ## x <- lapply(x, function(y){y[sapply(y,function(z){length(z)>0})]})
-    (print("remove empty article 2"))
-    emptyArt <- which(lengths(x) == 0)
-    (print(length(emptyArt)))
-    if(length(emptyArt) > 0) {x <- x[-emptyArt]}
-  }
-  else{
-    (print("tokenization"))
-    x <- sapply(x, strsplit, " ")
-    (print("remove empty words"))
-    # remove empty words:
-    x <- lapply(x, function(y)
-      {if(length(which(y == "") > 0)) {y[-which(y == "")]} else {y} })
-    (print("remove empty article"))
-    # lengths() for lists does sapply with length:
-    emptyArt <- which(lengths(x) == 0)
-    (print(length(emptyArt)))
-    if(length(emptyArt) > 0) {x <- x[-emptyArt]}
-    emptyArt <- sapply(x, function(x) !is.na(x)[1])
-    (print(sum(!emptyArt)))
-    x <- x[emptyArt]
-  }
-  return(x)
+                              "koennte", "ueber", "waehrend", "wuerde",
+                              "wuerden"), paragraph = TRUE){
+    stopifnot(is.list(x), is.character(sw), is.logical(paragraph),
+              length(paragraph) == 1)
+    cat("punctuation \n")
+    x <- lapply(x, removePunctuation, preserve_intra_word_dashes = FALSE)
+    cat("numbers \n")
+    x <- lapply(x, removeNumbers)
+    cat("to lower \n")
+    x <- lapply(x, tolower)
+    cat("stopwords \n")
+    x <- lapply(x, removeWords, sw)
+    cat("whitespace \n")
+    x <- lapply(x, stripWhitespace)
+    x <- lapply(x, trimws)
+    if(paragraph){ ## SPIEGEL
+        cat("tokenization \n")
+        x <- lapply(x, strsplit, " ")
+        cat("remove empty article \n")
+        cat(paste("remove empty articles:",sum(lengths(x) == 0), "\n"))
+        x <- x[!(lengths(x) == 0)]
+        cat("remove empty paragraphs \n")
+        x <- lapply(x, function(x) x[!(lengths(x) == 0)])
+        cat(paste("remove empty articles (2):",sum(lengths(x) == 0), "\n"))
+        x <- x[!(lengths(x) == 0)]
+    }
+    else{
+        cat("tokenization \n")
+        x <- sapply(x, function(x)strsplit(x, " ")[1])
+        cat("remove empty article \n")
+                                        # lengths() for lists does sapply with length:
+        cat(paste("Empty Articles:",sum(lengths(x) == 0), "\n"))
+        x <- x[!(lengths(x) == 0)]
+    }
+    return(x)
 }
