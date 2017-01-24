@@ -81,7 +81,7 @@ readSPIEGEL <- function(path = getwd(), file = list.files(path=path, pattern="*.
 
             meta <- rbind(meta, mData)
 
-            metamult$signatur <- c(metamult$signature, signature)
+            metamult$signature <- c(metamult$signature, signature)
             metamult$person <- c(metamult$person, person)
             metamult$koerperschaft <- c(metamult$koerperschaft, koerperschaft)
             metamult$company <- c(metamult$company, company)
