@@ -39,17 +39,17 @@ readSPIEGEL <- function(path = getwd(), file = list.files(path=path, pattern="*.
             mData <- NULL
             for(k in 1:length(cand)){
                 mData_new <- stringr::str_extract(article, paste0("<", cand[k], ">(.*?)</",cand[k],">"))
-                mData_new <- removeXML(mData_new)
+ #               mData_new <- removeXML(mData_new)
                 mData <- cbind(mData, mData_new)
             }
             mData <- as.data.frame(mData, stringsAsFactors = FALSE)
             colnames(mData) <- cand_names
 
-            mData$year <- as.numeric(mData$year)
-            mData$number <- as.numeric(mData$number)
-            mData$date <- as.Date(mData$date, format = "%d%m%Y")
-            mData$page_start <- as.numeric(mData$page_start)
-            mData$page_stop <- as.numeric(mData$page_stop)
+  #          mData$year <- as.numeric(mData$year)
+   #         mData$number <- as.numeric(mData$number)
+    #        mData$date <- as.Date(mData$date, format = "%d%m%Y")
+     #       mData$page_start <- as.numeric(mData$page_start)
+      #      mData$page_stop <- as.numeric(mData$page_stop)
 
             signature <- stringr::str_extract_all(article, "<signatur>(.*?)</signatur>")
             names(signature) <- id
