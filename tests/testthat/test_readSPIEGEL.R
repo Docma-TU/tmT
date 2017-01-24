@@ -7,6 +7,10 @@ text2 <- readSPIEGEL(path=paste0(getwd(),"/data/Spiegel"), do.meta = FALSE, do.t
 meta2 <- readSPIEGEL(path=paste0(getwd(),"/data/Spiegel"), do.meta = TRUE, do.text = FALSE)
 
 load("data/SP_compare.RData")
+
+print(meta$meta$abstract)
+print(meta2$meta$abstract)
+
 expect_equal(SPIEGEL2, SPIEGEL)
 expect_equal(text2, text)
 expect_equal(meta2, meta)
