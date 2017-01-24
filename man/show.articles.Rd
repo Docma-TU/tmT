@@ -28,8 +28,5 @@ Exports requested meta-data of articles for given ids.
 \examples{
 
 }
-\author{
-Jonas Rieger (<riegerjonas@gmx.de>)
-}
 \keyword{manip}
 

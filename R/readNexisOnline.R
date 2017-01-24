@@ -12,7 +12,6 @@
 #' downloadDate loadDate language length dateline byline section type pubType
 #' series graphic copyright}
 #' \item{text}{text}
-#' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
 #' @examples
 #'

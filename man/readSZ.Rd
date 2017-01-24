@@ -4,13 +4,13 @@
 \alias{readSZ}
 \title{Read the SZ corpus}
 \usage{
-readSZ(file, folder, do.meta = TRUE, do.text = TRUE)
+readSZ(path = getwd(), file = list.files(path = path, pattern = "*.xml",
+  full.names = FALSE, recursive = TRUE), do.meta = TRUE, do.text = TRUE)
 }
 \arguments{
-\item{file}{Names of the XML files.}
+\item{path}{Path where the data files are.}
 
-\item{folder}{Names of the folder, in which the files are. Must have same
-length like \code{file}.}
+\item{file}{Character string with names of the HTML files.}
 
 \item{do.meta}{Logical: Should the algorithm collect meta data?}
 
@@ -26,9 +26,6 @@ Reads the XML-files from the SZ corpus and seperates the text and meta data.
 \examples{
 
 ##---- Should be DIRECTLY executable !! ----
-}
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \keyword{manip}
 

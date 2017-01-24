@@ -3,118 +3,80 @@
 #' Reads the XML-files from the SZ corpus and seperates the text and meta data.
 #'
 #'
-#' @param file Names of the XML files.
-#' @param folder Names of the folder, in which the files are. Must have same
-#' length like \code{file}.
+#' @param path Path where the data files are.
+#' @param file Character string with names of the HTML files.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
 #' @return \item{meta}{ id datum rubrik seite AnzChar AnzWoerter dachzeile
 #' titel utitel} \item{text}{ Text (Paragraphenweise)}
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export readSZ
-readSZ <- function(file, folder, do.meta = TRUE, do.text = TRUE){
-  # folder is not accessed in the function, delete?
-  stopifnot(is.character(file), is.character(folder), is.logical(do.meta),
-            is.logical(do.text), length(do.meta) == 1, length(do.text) == 1)
+readSZ <- function(path = getwd(),
+                   file = list.files(path = path, pattern = "*.xml",
+                                     full.names = FALSE, recursive = TRUE),
+                   do.meta = TRUE, do.text = TRUE){
+  stopifnot(is.character(file), is.character(path),
+            is.logical(do.meta), is.logical(do.text),
+            length(do.meta) == 1, length(do.text) == 1, length(path) == 1)
   text <- NULL
   meta <- NULL
   
   for(i in 1:length(file)){
     (print(file[i]))
-    lines <- NULL
-    try(openfile <- file(file[i], open = "rt")) ## Einfachere version.
-    try(lines <- readLines(con = openfile))
-    try(close(openfile))
-    if(length(lines) == 0){next}
+    article <- readLines(con = paste(path, file[i], sep = "/"), encoding = "latin1")
+    article <- gsub(pattern = "&quot;", replacement = "\"",article)
+    article <- gsub(pattern = "&amp;", replacement = "&",article)
+    article <- gsub(pattern = "&apos;", replacement = "\'",article)
+    lines <- grep(pattern = "</ARTICLE>", article)
+    lines <- cbind(c(1, lines[-length(lines)]), lines)
+    article <- apply(lines, 1, function(x) paste(article[x[1]:x[2]], collapse = " "))
+    id <- stringr::str_extract(article, "ID=\"(.*?)\"")
+    id <- gsub(pattern = "ID=|\"", replacement = "", x = id)
     
-    artikel <- strsplit(paste(lines, collapse = " "), "<ARTICLE")[[1]]
-    artikel <- artikel[-1]
-    
-    id <- strsplit(artikel, "ID=\"")
-    id <- sapply(id, function(x) {x[2]})
-    id <- strsplit(id, "\"")
-    id <- sapply(id, function(x) {x[1]})
     if(do.meta){
-      datum <- strsplit(artikel, "DATE=\"")
-      datum <- sapply(datum, function(x) {x[2]})
-      datum <- strsplit(datum, "\"")
-      datum <- as.character(sapply(datum, function(x) {x[1]}))
-      datum <- as.Date(datum, format = "%Y%m%d")
-      rubrik <- strsplit(artikel, "SECTION=\"")
-      rubrik <- sapply(rubrik, function(x) {x[2]})
-      rubrik <- strsplit(rubrik, "\"")
-      rubrik <- sapply(rubrik, function(x) {x[1]})
-      seite <- strsplit(artikel, "PAGE=\"")
-      seite <- sapply(seite, function(x) {x[2]})
-      seite <- strsplit(seite, "\"")
-      seite <- as.numeric(sapply(seite, function(x) {x[1]}))
-      AnzChar <- strsplit(artikel, "NUM.CHARS=\"")
-      AnzChar <- sapply(AnzChar, function(x) {x[2]})
-      AnzChar <- strsplit(AnzChar, "\"")
-      AnzChar <- as.numeric(sapply(AnzChar, function(x) {x[1]}))
-      AnzWoerter <- strsplit(artikel, "NUM.WORDS=\"")
-      AnzWoerter <- sapply(AnzWoerter, function(x) {x[2]})
-      AnzWoerter <- strsplit(AnzWoerter, "\"")
-      AnzWoerter <- as.numeric(sapply(AnzWoerter, function(x) {x[1]}))
-      dachzeile <- strsplit(artikel, "<SZ.DT>")
-      dachzeile <- sapply(dachzeile, function(x) {x[2]})
-      dachzeile <- strsplit(dachzeile, "</SZ.DT>")
-      dachzeile <- sapply(dachzeile, function(x) {x[1]})
-      titel <- strsplit(artikel, "<SZ.T>")
-      titel <- sapply(titel, function(x) {x[2]})
-      titel <- strsplit(titel, "</SZ.T>")
-      titel <- sapply(titel, function(x) {x[1]})
-      zwischentitel <- strsplit(artikel, "<SZ.ZT>")
-      zwischentitel <- sapply(zwischentitel, function(x) {x[2]})
-      zwischentitel <- strsplit(zwischentitel, "</SZ.ZT>")
-      zwischentitel <- sapply(zwischentitel, function(x) {x[1]})
-      untertitel <- strsplit(artikel, "<SZ.UT>")
-      untertitel <- sapply(untertitel, function(x) {x[2]})
-      untertitel <- strsplit(untertitel, "</SZ.UT>")
-      untertitel <- sapply(untertitel, function(x) {x[1]})
-      titel <- gsub(pattern = "<[^>]*>", replacement = "", titel, perl = TRUE)
-      untertitel <- gsub(pattern = "<[^>]*>", replacement = "", untertitel, perl = TRUE)
-      zwischentitel <- gsub(pattern = "<[^>]*>", replacement = "", zwischentitel, perl = TRUE)
-      dachzeile <- gsub(pattern = "<[^>]*>", replacement = "", dachzeile, perl = TRUE)
+      date <- stringr::str_extract(article, "DATE=\"(.*?)\"")
+      date <- as.Date(gsub(pattern = "DATE=\"|\"", replacement = "", x = date), format = "%Y%m%d")
+      rubrik <- stringr::str_extract(article, "SECTION=\"(.*?)\"")
+      rubrik <- gsub(pattern = "SECTION=\"|\"", replacement = "", x = rubrik)
+      page <- stringr::str_extract(article, "PAGE=\"(.*?)\"")
+      page <- as.integer(gsub(pattern = "PAGE=\"|\"", replacement = "", x = page))
+      AnzChar <- stringr::str_extract(article, "NUM.CHARS=\"(.*?)\"")
+      AnzChar <- as.integer(gsub(pattern = "NUM.CHARS=\"|\"", replacement = "", x = AnzChar))
+      AnzWoerter <- stringr::str_extract(article, "NUM.WORDS=\"(.*?)\"")
+      AnzWoerter <- as.integer(gsub(pattern = "NUM.WORDS=\"|\"", replacement = "", x = AnzWoerter))
       
-      mData <- data.frame(id, datum, rubrik, seite, AnzChar, AnzWoerter,
-                          dachzeile, titel, zwischentitel, untertitel,
+      dachzeile <- stringr::str_extract(article, "<SZ.DT>(.*?)</SZ.DT>")
+      dachzeile <- removeXML(dachzeile)
+      title <- stringr::str_extract(article, "<SZ.T>(.*?)</SZ.T>")
+      title <- removeXML(title)
+      zwischentitel <- stringr::str_extract(article, "<SZ.ZT>(.*?)</SZ.ZT>")
+      zwischentitel <- removeXML(zwischentitel)
+      untertitel <- stringr::str_extract(article, "<SZ.UT>(.*?)</SZ.UT>")
+      untertitel <- removeXML(untertitel)
+      
+      mData <- data.frame(id, date, rubrik, page, AnzChar, AnzWoerter,
+                          dachzeile, title, zwischentitel, untertitel,
                           stringsAsFactors = FALSE)
       meta <- rbind(meta,mData)
-      
     }
     if(do.text){
-      text_neu <- strsplit(artikel, "<TEXT.*?>", perl = TRUE)
-      text_neu <- sapply(text_neu, function(x) {x[-1]})
-      text_neu <- gsub(pattern = "<SZ.DT>.*?</SZ.DT>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- gsub(pattern = "<SZ.T>.*?</SZ.T>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- gsub(pattern = "<SZ.UT>.*?</SZ.UT>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- gsub(pattern = "<PICTEXT>.*?</PICTEXT>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- gsub(pattern = "<SZ.ZT>.*?</SZ.ZT>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- gsub(pattern = "<TABLE>.*?</TABLE>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- gsub(pattern = "<AUTHOR>.*?</AUTHOR>", replacement = " ",
-                       x = text_neu, perl = TRUE)
-      text_neu <- strsplit(text_neu, "</TEXT>", perl = TRUE)
-      text_neu <- sapply(text_neu, function(x) {x[1]})
-      text_neu <- sapply(text_neu, function(x) {x <- paste(" ",x)})
-      text_neu <- strsplit(text_neu, "<P>|<P [^>]*>", perl = TRUE)
-      text_neu <- sapply(text_neu, function(x) {x[-1]})
-      text_neu <- lapply(text_neu, function(x)
-        {gsub(pattern = "</P>", replacement = "", x)})
-      text <- c(text, text_neu)
+      text_new <- stringr::str_extract(article, "<TEXT(.*?)</TEXT>")
+      to_delete <- c("<SZ.DT>(.*?)</SZ.DT>", "<SZ.T>(.*?)</SZ.T>", "<SZ.UT>(.*?)</SZ.UT>",
+                     "<SZ.ZT>(.*?)</SZ.ZT>", "<PICTEXT>(.*?)</PICTEXT>",
+                     "<TABLE>(.*?)</TABLE>", "<AUTHOR>(.*?)</AUTHOR>")
+      for(i in to_delete){
+        text_new <- gsub(pattern = i, replacement = " ", x = text_new, perl = TRUE)
+      }
+      text_new <- strsplit(text_new, "<P>|<P [^>]*>", perl = TRUE)
+      text_new <- lapply(text_new, removeXML)
+      names(text_new) <- id
+      text <- as.list(c(text, text_new))
     }
   }
-  res <- list("meta" = meta, "text" = text)
+  res <- list("meta" = meta, "text" = text, metamult = NULL)
   class(res) <- "textmeta"
   summary(res)
 }

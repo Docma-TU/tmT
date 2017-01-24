@@ -10,7 +10,6 @@
 #' @param csv.ger Logical: Should the function use write.csv2 instead of write.csv?
 #' @return No output in R, writes a csv (or csv2) including the meta-data of the
 #' requested articles.
-#' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
 #' @examples
 #'

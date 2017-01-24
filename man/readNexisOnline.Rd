@@ -30,8 +30,5 @@ text and meta data.
 \examples{
 
 }
-\author{
-Jonas Rieger (<riegerjonas@gmx.de>)
-}
 \keyword{manip}
 
