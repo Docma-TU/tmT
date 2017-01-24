@@ -4,10 +4,14 @@
 \alias{readSPIEGEL}
 \title{Read the SPIEGEL Corpus}
 \usage{
-readSPIEGEL(year = 1947L:2014L, do.meta = TRUE, do.text = TRUE)
+readSPIEGEL(path = getwd(), file = list.files(path = path, pattern =
+  "*.xml", full.names = F, recursive = TRUE), do.meta = TRUE,
+  do.text = TRUE)
 }
 \arguments{
-\item{year}{Vector of years that should be read.}
+\item{path}{Character string with Path where the data files are.}
+
+\item{file}{Character string with names of the XML files.}
 
 \item{do.meta}{Logical: Should the algorithm collect meta data?}
 
@@ -25,9 +29,6 @@ data.
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
-}
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \keyword{manip}
 

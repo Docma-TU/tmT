@@ -28,8 +28,5 @@ data.
 \examples{
 
 }
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
-}
 \keyword{manip}
 

@@ -2,11 +2,11 @@ context("read SPIEGEL files")
 
 test_that("readSPIEGEL", {
 
-SPIEGEL2 <- readSPIEGEL(year=2012:2013)
-text2 <- readSPIEGEL(year=2012:2013, do.meta = FALSE, do.text = TRUE)
-meta2 <- readSPIEGEL(year=2012:2013, do.meta = TRUE, do.text = FALSE)
+SPIEGEL2 <- readSPIEGEL(path=paste0(getwd(),"/data/Spiegel"))
+text2 <- readSPIEGEL(path=paste0(getwd(),"/data/Spiegel"), do.meta = FALSE, do.text = TRUE)
+meta2 <- readSPIEGEL(path=paste0(getwd(),"/data/Spiegel"), do.meta = TRUE, do.text = FALSE)
 
-load("Spiegel-Daten/SP_compare.Rdata")
+load("data/Spiegel/SP_compare.Rdata")
 expect_equal(SPIEGEL2, SPIEGEL)
 expect_equal(text2, text)
 expect_equal(meta2, meta)
