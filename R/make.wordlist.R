@@ -9,7 +9,6 @@
 #' usage)?
 #' @return \item{words}{An alphabetical list of the words in the corpus.}
 #' \item{wordtable}{A frequency table of the words in the corpus.}
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
 #'

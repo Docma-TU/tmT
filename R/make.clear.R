@@ -12,7 +12,6 @@
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
 #' list of character strings, representing the paragraphs.
 #' @return A list containing the preprocessed Article.
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @import graphics
 #' @import grDevices

@@ -10,7 +10,6 @@
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.
 #' @return Adjusted corpus
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
 #'
