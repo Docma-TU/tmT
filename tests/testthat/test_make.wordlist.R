@@ -22,8 +22,6 @@ c(
 "tempor",     "incidunt",   "ut",         "labore",     "et",
 "dolore",     "magna",      "aliqua"))
 
-out <- make.wordlist(text)
-
 wt <- c(ad=1,     adipisici=2,        aliqua=2,       aliquid=1,          amet=2,
          aute=1,        cillum=1,       commodi=1,   consectetur=2,     consequat=1,
         dolor=2,        dolore=3,            ea=1,       eiusmod=2,          elit=2,

@@ -16,24 +16,25 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export make.wordlist
 make.wordlist <- function(x, k = 100000L){
-  stopifnot(is.list(x), is.numeric(k), as.integer(k) == k, length(k) == 1)
-  n <- length(x)
-  (print(n))
-  N <- 0:floor(n/k)
-  words <- NULL
-  for(i in N){
-    (print(i*k))
-    words <- c(words, unique(unlist(x[(i*k+1):(min(n, i*k+k))])))
-  }
-  words <- sort(unique(words))
-  (print("table"))
-  wordtable <- rep(0, length(words))
-  names(wordtable) <- words
-  for(i in N){
-    (print(i*k))
-    tmp <- table(unlist(x[(i*k+1):(min(n, i*k+k))]))
-    mtch <- match(names(tmp), names(wordtable))
-    wordtable[mtch] <- wordtable[mtch] + tmp
-  }
-  return(list(words = words, wordtable = wordtable))
+    stopifnot(is.list(x), is.numeric(k), as.integer(k) == k, length(k) == 1)
+    n <- length(x)
+    cat(paste(n,"\n"))
+    cat("wordlist\n")
+    N <- 0:floor(n/k)
+    words <- NULL
+    for(i in N){
+        cat(paste(i*k, "\n"))
+        words <- c(words, unique(unlist(x[(i*k+1):(min(n, i*k+k))])))
+    }
+    words <- sort(unique(words))
+    cat("table", "\n")
+    wordtable <- rep(0, length(words))
+    names(wordtable) <- words
+    for(i in N){
+        cat(paste(i*k), "\n")
+        tmp <- table(unlist(x[(i*k+1):(min(n, i*k+k))]))
+        mtch <- match(names(tmp), names(wordtable))
+        wordtable[mtch] <- wordtable[mtch] + tmp
+    }
+    return(list(words = words, wordtable = wordtable))
 }
