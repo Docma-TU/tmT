@@ -30,7 +30,7 @@ docLDA <- function(corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE,
               length(excludeNA) == 1, length(reduce) == 1)
     corpus <- lapply(corpus, table)
     corpus <- lapply(corpus, function(x)rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
-    if(ldacorrect) corpus <- lapply(corpus, function(x)rbind(rep(x[1,], x[2,]), rep(1,sum(x[2,]))))
+    if(ldacorrect) corpus <- lapply(corpus, function(x)rbind(as.integer(rep(x[1,], x[2,])), as.integer(rep(1,sum(x[2,])))))
     if(excludeNA) corpus <- lapply(corpus, function(x)x[,!is.na(x[1,])])
     if(reduce) corpus <- corpus[sapply(corpus,dim)[2,] != 0]
     return(corpus)

@@ -5,7 +5,7 @@
 \title{Function to fit LDA model}
 \usage{
 LDAstandard(documents, K = 100L, vocab, num.iterations = 200L,
-  burnin = 70L, alpha = 0.1, eta = 0.1, seed, folder, num.words = 50L,
+  burnin = 70L, alpha = NULL, eta = NULL, seed, folder, num.words = 50L,
   LDA = TRUE)
 }
 \arguments{
@@ -43,9 +43,6 @@ package and additional saves topwordlists and a R workspace.
 \examples{
 
 ##---- Should be DIRECTLY executable !! ----
-}
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \references{
 Blei, David M. and Ng, Andrew and Jordan, Michael. Latent

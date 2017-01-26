@@ -29,8 +29,5 @@ Removes XML tags and changes umlauts to a standardized form.
 
 ##---- Should be DIRECTLY executable !! ----
 }
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
-}
 \keyword{manip}
 

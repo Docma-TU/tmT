@@ -18,7 +18,6 @@
 #' be used?
 #' @return A .csv containing the topword list and a R workspace containing the
 #' result data.
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @seealso Documentation for the lda package.
 #' @references Blei, David M. and Ng, Andrew and Jordan, Michael. Latent
 #' Dirichlet allocation. Journal of Machine Learning Research, 2003.
@@ -31,35 +30,41 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export LDAstandard
 LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
-                        burnin = 70L, alpha = 0.1, eta = 0.1, seed, folder,
+                        burnin = 70L, alpha = NULL, eta = NULL, seed, folder,
                         num.words = 50L, LDA = TRUE){
-  stopifnot(is.list(documents), as.integer(K) == K, length(K) == 1,
-            is.character(vocab), as.integer(num.iterations) == num.iterations,
-            length(num.iterations) == 1, as.integer(burnin) == burnin,
-            length(burnin) == 1, is.numeric(alpha), length(alpha) == 1,
-            is.numeric(eta), length(eta) == 1, is.numeric(seed),
-            length(seed) == 1, is.character(folder), length(folder) == 1,
-            as.integer(num.words) == num.words, length(num.words) == 1,
-            is.logical(LDA), length(LDA) == 1)
-  if(LDA){
-    set.seed(seed)
-    result <- lda.collapsed.gibbs.sampler(documents = documents, K = K,
-                                          vocab = vocab,
-                                          num.iterations = num.iterations,
-                                          burnin = burnin,
-                                          alpha = alpha, eta = eta,
-                                          compute.log.likelihood = TRUE)
-    ldaID <- names(documents)
-    save(list = c("result", "ldaID"), file = paste(folder, "-k", K,
-                                                   "i", num.iterations,
-                                                   "b", burnin, "s", seed,
-                                                   ".Rdata", sep = ""))
-  }
-  else{
-    load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed,
-               ".Rdata", sep = ""))
-  }
-  write.csv(top.topic.words(result$topics, num.words = num.words, by.score = TRUE),
-            file = paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s",
-                         seed, ".csv", sep = ""))
+    if(is.null(alpha)) alpha <- 1/K
+    if(is.null(eta)) eta <- 1/K
+    stopifnot(is.list(documents), as.integer(K) == K, length(K) == 1,
+              is.character(vocab), as.integer(num.iterations) == num.iterations,
+              length(num.iterations) == 1, as.integer(burnin) == burnin,
+              length(burnin) == 1, is.numeric(alpha), length(alpha) == 1,
+              is.numeric(eta), length(eta) == 1, is.numeric(seed),
+              length(seed) == 1, is.character(folder), length(folder) == 1,
+              as.integer(num.words) == num.words, length(num.words) == 1,
+              is.logical(LDA), length(LDA) == 1)
+    if(LDA){
+        set.seed(seed)
+        result <- lda.collapsed.gibbs.sampler(documents = documents, K = K,
+                                              vocab = vocab,
+                                              num.iterations = num.iterations,
+                                              burnin = burnin,
+                                              alpha = alpha, eta = eta,
+                                              compute.log.likelihood = TRUE)
+        ldaID <- names(documents)
+        save(list = c("result", "ldaID"), file = paste(folder, "-k", K,
+                                              "i", num.iterations,
+                                              "b", burnin, "s", seed,
+                                              ".Rdata", sep = ""))
+    }
+    else{
+        load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed,
+                   ".Rdata", sep = ""))
+    }
+    ttw <- top.topic.words(result$topics, num.words = num.words, by.score = TRUE)
+    ttw <- rbind(round(t(result$topic_sums / sum(result$topic_sums)),2),ttw)
+    rownames(ttw) <- c("", 1:num.words)
+    write.csv(ttw, file = paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s",
+                  seed, ".csv", sep = ""))
+    invisible(result)
 }
+

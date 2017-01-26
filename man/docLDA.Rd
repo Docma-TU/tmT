@@ -35,8 +35,5 @@ This function transforms a text corpus like the result from
 
 ##---- Should be DIRECTLY executable !! ----
 }
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
-}
 \keyword{manip}
 

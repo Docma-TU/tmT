@@ -1,6 +1,6 @@
-context("make.wordlist")
+context("makeWordlist")
 
-test_that("make.wordlist", {
+test_that("makeWordlist", {
 
 text <- list(c(
 "lorem",      "ipsum",      "dolor",      "sit",        "amet",
@@ -32,5 +32,5 @@ wt <- c(ad=1,     adipisici=2,        aliqua=2,       aliquid=1,          amet=2
 reprehenderit=1,           sed=2,           sit=2,        tempor=2,       ullamco=1,
            ut=4,         velit=1,        veniam=1,     voluptate=1)
 
-expect_equal(make.wordlist(text), list(words=sort(unique(unlist(text))), wordtable=wt))
+expect_equal(makeWordlist(text), list(words=sort(unique(unlist(text))), wordtable=wt))
 })
