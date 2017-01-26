@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<records sourceid="some id" sourcename="Source B" timestamp="1813-12-30T02:22:22.222">
+  <record>
+    <record_id>abc</record_id>
+    <source_id>kkl</source_id>
+    <publishDate>18891230T000000Z</publishDate>
+    <series>Book C</series>
+    <series2>section c</series2>
+    <title>Title ABC</title>
+    <author>Cicero</author>
+    <leadtext>lead</leadtext>
+    <fulltext>Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</fulltext>
+  </record>
+<record>
+    <record_id>abc2</record_id>
+    <source_id></source_id>
+    <publishDate></publishDate>
+    <series>Book A</series>
+    <series2>page 300</series2>
+    <author>Cicero</author>
+    <leadtext>leading</leadtext>
+    <fulltext>Lorem ipsum usw.</fulltext>
+  </record>
+  <record>
+    <record_id>123</record_id>
+    <source_id>https://www.urlAAA.com/</source_id>
+    <publishDate>19990930T000000Z</publishDate>
+    <series>Newspaper A</series>
+    <series2>sth about Section, Page and so on</series2>
+    <title></title>
+    <leadtext></leadtext>
+    <fulltext />
+  </record>
+</records>

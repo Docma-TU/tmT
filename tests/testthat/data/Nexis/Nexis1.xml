@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<records sourceid="666" sourcename="Source" timestamp="2017-01-26T00:04:04.044">
+<record>
+    <record_id>1IDone</record_id>
+    <source_id>https://www.url123.com/</source_id>
+    <publishDate>20170913T000000Z</publishDate>
+    <series>Newspaper A</series>
+    <series2>sth about Section, Page and so on</series2>
+    <title>Lorem Ipsum</title>
+    <leadtext>some leadtext 1/3</leadtext>
+    <fulltext />
+  </record>
+  <record>
+    <record_id>123</record_id>
+    <source_id>https://www.urlAAA.com/</source_id>
+    <publishDate>19990930T000000Z</publishDate>
+    <series>Newspaper A</series>
+    <series2>sth about Section, Page and so on</series2>
+    <title></title>
+    <leadtext></leadtext>
+    <fulltext />
+  </record>
+<record>
+    <record_id>IDthree</record_id>
+    <source_id></source_id>
+    <publishDate></publishDate>
+    <series>Newspaper B</series>
+    <series2>sth about Section, Page and so on</series2>
+    <title>Lorem Ipsum</title>
+    <leadtext>1/3</leadtext>
+    <fulltext />
+  </record>
+</records>

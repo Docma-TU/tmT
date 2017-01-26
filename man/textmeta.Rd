@@ -22,8 +22,5 @@ Creates "textmeta"-Objects.
 \examples{
 
 }
-\author{
-Jonas Rieger (<riegerjonas@gmx.de>)
-}
 \keyword{manip}
 

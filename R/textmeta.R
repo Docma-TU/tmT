@@ -6,7 +6,6 @@
 #' @param text list or character of the text-data.
 #' @param metamult list of the metamult-data.
 #' @return a "textmeta"-Object.
-#' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #' @keywords manip
 #' @examples
 #'
