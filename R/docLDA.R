@@ -1,7 +1,7 @@
 #' create lda-ready dataset
 #'
 #' This function transforms a text corpus like the result from
-#' \code{\link{make.clear}} in a form needed by the lda-package.
+#' \code{\link{makeClear}} in a form needed by the lda-package.
 #'
 #'
 #' @param corpus a list of tokenized texts.
