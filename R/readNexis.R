@@ -29,8 +29,7 @@ readNexis <- function(path = getwd(),
   meta <- NULL
   metamult <- NULL
   for (i in seq_along(file)) {
-    (print(file[i]))
-    
+    cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path,file[i], sep="/"), encoding = encoding)
     downloadDate <- as.character(na.omit(stringr::str_extract(article,"timestamp=(.*?)>")))
     lines <- grep(pattern = "</record>", article)

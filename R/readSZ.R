@@ -25,7 +25,7 @@ readSZ <- function(path = getwd(),
   meta <- NULL
   
   for(i in 1:length(file)){
-    (print(file[i]))
+    cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path, file[i], sep = "/"), encoding = "latin1")
     article <- gsub(pattern = "&quot;", replacement = "\"",article)
     article <- gsub(pattern = "&amp;", replacement = "&",article)

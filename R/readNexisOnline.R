@@ -29,7 +29,7 @@ readNexisOnline <- function(path = getwd(),
   temp_time <- Sys.getlocale("LC_TIME")
   Sys.setlocale("LC_TIME", "C")
   for (i in 1:length(file)) {
-    (print(file[i]))
+    cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path, file[i], sep="/"), warn = FALSE)
     # warn = FALSE because incomplete final line in files
     article <- gsub(pattern = "&nbsp;", replacement = "", article)
