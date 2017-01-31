@@ -25,7 +25,15 @@ test_that("intruderWords", {
     ## 4
     ## 2 1
 
-    ## save(beta, iW, iWo, file="data/intruderWords.RData")
+    ## iWs <- intruderWords(beta, byScore = FALSE, numTopwords = 10L, numIntruder = 1L:2L, numOutwords = 8L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL)
+    ## L123
+    ## 6
+    ## h
+    ## 1
+    ## x
+    ## q
+
+    ## save(beta, iW, iWo, iWs, file="data/intruderWords.RData")
 
     load("data/intruderWords.RData")
 
@@ -36,6 +44,12 @@ test_that("intruderWords", {
 
     iWo2 <- intruderWords(beta, byScore = TRUE, numTopwords = 10L, numIntruder = 1L:2L, numOutwords = 8L, noTopic=TRUE, printSolution = FALSE, oldResult=iW, test=TRUE, testinput=c("4 2", "1", "3", "2", "4", "2 1"))
 
+    iWs2 <- intruderWords(beta, byScore = FALSE, numTopwords = 10L, numIntruder = 1L:2L, numOutwords = 8L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=TRUE, testinput=c("L123", "6", "h", "1", "x", "q"))
+
     expect_equal(iW, iW2)
     expect_equal(iWo, iWo2)
+    expect_equal(iWs, iWs2)
+
+    print(iWs2)
+    summary(iWs2)
 })
