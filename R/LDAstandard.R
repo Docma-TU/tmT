@@ -30,10 +30,11 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export LDAstandard
 LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
-                        burnin = 70L, alpha = NULL, eta = NULL, seed, folder,
+                        burnin = 70L, alpha = NULL, eta = NULL, seed = NULL, folder = "lda-result",
                         num.words = 50L, LDA = TRUE){
     if(is.null(alpha)) alpha <- 1/K
     if(is.null(eta)) eta <- 1/K
+    if(is.null(seed)) <- sample(1:10^8,1)
     stopifnot(is.list(documents), as.integer(K) == K, length(K) == 1,
               is.character(vocab), as.integer(num.iterations) == num.iterations,
               length(num.iterations) == 1, as.integer(burnin) == burnin,

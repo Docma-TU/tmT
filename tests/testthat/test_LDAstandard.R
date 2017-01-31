@@ -6,6 +6,7 @@ load("data/LDAdoc_compare.RData")
 
 expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE))
 expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = FALSE))
+expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, num.words = 10L, LDA = FALSE))
 })
 
 
