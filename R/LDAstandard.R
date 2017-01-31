@@ -30,8 +30,7 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export LDAstandard
 LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
-                        burnin = 70L, alpha = NULL, eta = NULL, seed = NULL, folder = "lda-result",
-                        num.words = 50L, LDA = TRUE){
+                        burnin = 70L, alpha = NULL, eta = NULL, seed = NULL, folder = paste0(getwd(),"/lda-result"), num.words = 50L, LDA = TRUE){
     if(is.null(alpha)) alpha <- 1/K
     if(is.null(eta)) eta <- 1/K
     if(is.null(seed)) seed <- sample(1:10^8,1)
@@ -59,7 +58,7 @@ LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
     }
     else{
         load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed,
-                   ".Rdata", sep = ""))
+                   ".RData", sep = ""))
     }
     ttw <- top.topic.words(result$topics, num.words = num.words, by.score = TRUE)
     ttw <- rbind(round(t(result$topic_sums / sum(result$topic_sums)),2),ttw)
