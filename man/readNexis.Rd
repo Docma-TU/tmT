@@ -4,7 +4,7 @@
 \alias{readNexis}
 \title{Read preprocessed files from Lexis Nexis}
 \usage{
-readNexis(path = getwd(), file = list.files(path = path, pattern = "*.xml",
+readNexis(path = getwd(), file = list.files(path = path, pattern = "*.xml$",
   full.names = FALSE, recursive = TRUE), do.meta = TRUE, do.text = TRUE,
   encoding = "utf-8")
 }

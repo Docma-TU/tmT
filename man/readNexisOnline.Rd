@@ -5,7 +5,7 @@
 \title{Read preprocessed files from Nexis Online}
 \usage{
 readNexisOnline(path = getwd(), file = list.files(path = path, pattern =
-  "*.HTML", full.names = FALSE, recursive = TRUE), do.meta = TRUE,
+  "*.HTML$", full.names = FALSE, recursive = TRUE), do.meta = TRUE,
   do.text = TRUE)
 }
 \arguments{

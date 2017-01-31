@@ -5,7 +5,7 @@
 \title{Read the SPIEGEL Corpus}
 \usage{
 readSPIEGEL(path = getwd(), file = list.files(path = path, pattern =
-  "*.xml", full.names = F, recursive = TRUE), do.meta = TRUE,
+  "*.xml$", full.names = FALSE, recursive = TRUE), do.meta = TRUE,
   do.text = TRUE)
 }
 \arguments{

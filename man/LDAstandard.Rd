@@ -5,8 +5,8 @@
 \title{Function to fit LDA model}
 \usage{
 LDAstandard(documents, K = 100L, vocab, num.iterations = 200L,
-  burnin = 70L, alpha = NULL, eta = NULL, seed, folder, num.words = 50L,
-  LDA = TRUE)
+  burnin = 70L, alpha = NULL, eta = NULL, seed = NULL,
+  folder = paste0(getwd(), "/lda-result"), num.words = 50L, LDA = TRUE)
 }
 \arguments{
 \item{documents}{A list prepared by \code{\link{docLDA}}.}

@@ -4,8 +4,9 @@
 \alias{readHBWiWo}
 \title{Read the HB WiWo Corpus}
 \usage{
-readHBWiWo(path = getwd(), file = list.files(path = path, pattern = "*.xml",
-  full.names = F, recursive = TRUE), do.meta = TRUE, do.text = TRUE)
+readHBWiWo(path = getwd(), file = list.files(path = path, pattern =
+  "*.xml$", full.names = FALSE, recursive = TRUE), do.meta = TRUE,
+  do.text = TRUE)
 }
 \arguments{
 \item{path}{Character string with Path where the data files are.}
