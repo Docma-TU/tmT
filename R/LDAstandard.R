@@ -54,7 +54,7 @@ LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
         save(list = c("result", "ldaID"), file = paste(folder, "-k", K,
                                               "i", num.iterations,
                                               "b", burnin, "s", seed,
-                                              ".Rdata", sep = ""))
+                                              ".RData", sep = ""))
     }
     else{
         load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed,
