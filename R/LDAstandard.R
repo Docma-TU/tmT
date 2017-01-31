@@ -34,7 +34,7 @@ LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
                         num.words = 50L, LDA = TRUE){
     if(is.null(alpha)) alpha <- 1/K
     if(is.null(eta)) eta <- 1/K
-    if(is.null(seed)) <- sample(1:10^8,1)
+    if(is.null(seed)) seed <- sample(1:10^8,1)
     stopifnot(is.list(documents), as.integer(K) == K, length(K) == 1,
               is.character(vocab), as.integer(num.iterations) == num.iterations,
               length(num.iterations) == 1, as.integer(burnin) == burnin,
