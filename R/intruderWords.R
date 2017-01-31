@@ -57,7 +57,7 @@ colnames(result) <- c("numIntruder", "missIntr", "falseIntr")
             cat(c(paste(outwords2, collapse= "\n"), "\n"))
             input <- readline(prompt = "Input:")
             if(input=="q"){break}#exit
-            if(input=="h"){cat(paste("h for help \nq for quit \nx for no topic identifiable \n \nbyScore = ", byScore, "\nnumTopwords = ", numTopwords, "\nnumIntruder = ", numIntruder, "\nnumOutwords = ", numOutwords, "\nnoTopic", noTopic, "\n \n", sep="")); break}#exit
+            if(input=="h"){cat(paste("h for help \nq for quit \nx for no topic identifiable \n \nbyScore = ", byScore, "\nnumTopwords = ", numTopwords, "\nnumIntruder = ", numIntruder, "\nnumOutwords = ", numOutwords, "\nnoTopic", noTopic, "\n \n", sep="")); next}#exit
             if(input=="x" & noTopic){result[i,] <- c(0,NA,NA); break}#exit
             input <- as.numeric(strsplit(input, " ")[[1]])
             if(any(is.na(input)) | any(!(input %in% c(0,seq_along(outwords)))) | length(input)==0){cat("Only space seperated input of line number or 0 \n") ; next}
