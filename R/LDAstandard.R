@@ -61,7 +61,7 @@ LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
                    ".RData", sep = ""))
     }
     ttw <- top.topic.words(result$topics, num.words = num.words, by.score = TRUE)
-    ttw <- rbind(round(t(result$topic_sums / sum(result$topic_sums)),2),ttw)
+    ttw <- rbind(round(t(result$topic_sums / sum(result$topic_sums))*100,2),ttw)
     rownames(ttw) <- c("", 1:num.words)
     write.csv(ttw, file = paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s",
                   seed, ".csv", sep = ""))

@@ -20,7 +20,7 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export intruderWords
 
-intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL){
+intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
     if(is.null(beta) & is.null(oldResult))stop("beta or oldResult needs to be specified")
     if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
     if(!is.null(oldResult)){beta <- oldResult$beta
@@ -55,7 +55,7 @@ colnames(result) <- c("numIntruder", "missIntr", "falseIntr")
         outwords2 <- paste(seq_along(outwords), outwords)
             repeat{
             cat(c(paste(outwords2, collapse= "\n"), "\n"))
-            input <- readline(prompt = "Input:")
+            if(!test[1]){input <- readline(prompt = "Input:")}else{input <- testinput[1]; testinput <- testinput[-1]}
             if(input=="q"){break}#exit
             if(input=="h"){cat(paste("h for help \nq for quit \nx for no topic identifiable \n \nbyScore = ", byScore, "\nnumTopwords = ", numTopwords, "\nnumIntruder = ", numIntruder, "\nnumOutwords = ", numOutwords, "\nnoTopic", noTopic, "\n \n", sep="")); next}#exit
             if(input=="x" & noTopic){result[i,] <- c(0,NA,NA); break}#exit
