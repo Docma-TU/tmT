@@ -6,7 +6,8 @@
 \usage{
 intruderWords(beta = NULL, byScore = TRUE, numTopwords = 30L,
   numIntruder = 1L, numOutwords = 5L, noTopic = TRUE,
-  printSolution = FALSE, oldResult = NULL)
+  printSolution = FALSE, oldResult = NULL, test = FALSE,
+  testinput = NULL)
 }
 \arguments{
 \item{beta}{A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.}
@@ -24,6 +25,10 @@ intruderWords(beta = NULL, byScore = TRUE, numTopwords = 30L,
 \item{printSolution}{tba}
 
 \item{oldResult}{result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
+
+\item{test}{logical enables test mode}
+
+\item{testinput}{input for function tests}
 }
 \value{
 tba
