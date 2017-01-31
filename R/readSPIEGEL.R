@@ -16,7 +16,9 @@
 #' @examples
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export readSPIEGEL
-readSPIEGEL <- function(path = getwd(), file = list.files(path=path, pattern="*.xml", full.names=F, recursive=TRUE), do.meta = TRUE, do.text = TRUE){
+readSPIEGEL <- function(path = getwd(), file = list.files(path=path, pattern="*.xml$",
+                                                          full.names = FALSE, recursive = TRUE),
+                        do.meta = TRUE, do.text = TRUE){
     stopifnot(is.character(file), is.character(path),
               is.logical(do.meta), is.logical(do.text),
               length(path) == 1, length(do.meta) == 1, length(do.text) == 1)

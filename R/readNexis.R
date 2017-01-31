@@ -18,8 +18,8 @@
 #' @export readNexis
 #'
 readNexis <- function(path = getwd(),
-                      file = list.files(path = path, pattern = "*.xml",
-                                        full.names = FALSE, recursive=TRUE),
+                      file = list.files(path = path, pattern = "*.xml$",
+                                        full.names = FALSE, recursive = TRUE),
                       do.meta = TRUE, do.text = TRUE, encoding = "utf-8"){
   stopifnot(is.character(file), is.character(path),
             is.logical(do.meta), is.logical(do.text), is.character(encoding),

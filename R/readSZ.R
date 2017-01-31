@@ -15,7 +15,7 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export readSZ
 readSZ <- function(path = getwd(),
-                   file = list.files(path = path, pattern = "*.xml",
+                   file = list.files(path = path, pattern = "*.xml$",
                                      full.names = FALSE, recursive = TRUE),
                    do.meta = TRUE, do.text = TRUE){
   stopifnot(is.character(file), is.character(path),

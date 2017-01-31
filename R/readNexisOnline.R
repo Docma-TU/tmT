@@ -18,7 +18,7 @@
 #' @export readNexisOnline
 #'
 readNexisOnline <- function(path = getwd(),
-                            file = list.files(path = path, pattern = "*.HTML",
+                            file = list.files(path = path, pattern = "*.HTML$",
                                               full.names = FALSE, recursive = TRUE),
                             do.meta = TRUE, do.text = TRUE){
   stopifnot(is.character(file), is.character(path),
@@ -119,6 +119,8 @@ readNexisOnline <- function(path = getwd(),
                           textstyle[3], ")\">(<BR>)?<SPAN CLASS=\"c(", textstyle[4],"|", textstyle[5], ")\">")
       
       text_new <- stringr::str_extract(article, paste0(textstyle, "(.*?)</DIV>"))
+      text_new[is.na(text_new)] <- ""
+      
       text_new <- removeXML(text_new)
       names(text_new) <- id
       text <- as.list(c(text, text_new))
