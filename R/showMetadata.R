@@ -13,9 +13,9 @@
 #' @keywords manip
 #' @examples
 #'
-#' @export show.articles
-#' 
-show.articles <- function(meta, file, id = meta$id, cols = colnames(meta),
+#' @export showMetadata
+#'
+showMetadata <- function(meta, file, id = meta$id, cols = colnames(meta),
                           csv.ger = FALSE){
   stopifnot(is.data.frame(meta), is.character(file), length(file) == 1,
             is.character(id), all(id %in% meta$id),
@@ -25,5 +25,6 @@ show.articles <- function(meta, file, id = meta$id, cols = colnames(meta),
   }
   else {
     write.csv(meta[meta$id %in% id, cols], file = file, row.names = FALSE)
-  }
+}
+  invisible(meta[meta$id %in% id, cols])
 }
