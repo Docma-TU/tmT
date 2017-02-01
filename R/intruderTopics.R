@@ -14,6 +14,8 @@
 #' @param stopTopics tba
 #' @param printSolution tba
 #' @param oldResult result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
+#' @param test logical enables test mode
+#' @param testinput input for function tests
 #' @return tba
 #' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @seealso tba
