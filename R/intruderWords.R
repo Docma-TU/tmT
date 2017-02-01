@@ -76,7 +76,7 @@ return(result)
 
 #' @export
 print.IntruderWords <- function(x, ...){
-    print(data.frame("byScore"=x$byScore, "numTopwords"=x$numTopwords,  "numIntruder"=x$numIntruder, "numOutwords"=x$numOutwords, "noTopic"=x$noTopic))
+    print(data.frame("byScore"=x$byScore, "numTopwords"=x$numTopwords,  "numIntruder"=paste(x$numIntruder, collapse=" "), "numOutwords"=x$numOutwords, "noTopic"=x$noTopic))
     cat("\n Results: \n")
 print.default(x$result)
 }

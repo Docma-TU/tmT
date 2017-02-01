@@ -24,7 +24,7 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export intruderTopics
 
-intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL){
+intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
     if((is.null(beta) | is.null(theta)) & is.null(oldResult))stop("beta and theta needs to be specified")
     if(is.null(beta) & is.null(oldResult))stop("beta and theta or oldResult needs to be specified")
     if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
@@ -81,7 +81,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
         repeat{
             htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
             cat(c(paste(toptopics2, collapse= "\n"), "\n"))
-            input <- readline(prompt = "Input:")
+            if(!test[1]){input <- readline(prompt = "Input:")}else{input <- testinput[1]; testinput <- testinput[-1]}
             if(input=="q"){break}#exit
             if(input=="h"){cat(paste("h for help \nq for quit \n \nbyScore = ", byScore, "\nnumIntruder = ", numIntruder, "\nnumOuttopics = ", numOuttopics, "\n \n", sep="")); next}#exit
             input <- as.numeric(strsplit(input, " ")[[1]])
@@ -102,7 +102,7 @@ return(result)
 
 #' @export
 print.IntruderTopics <- function(x, ...){
-    print(data.frame("byScore"=x$byScore, "numTopwords"=x$numTopwords,  "numIntruder"=x$numIntruder, "numOutwords"=x$numOutwords, "noTopic"=x$noTopic))
+    print(data.frame("byScore"=x$byScore, "numIntruder"=paste(x$numIntruder, collapse=" "), "numOuttopics"=x$numOuttopics, minWords=x$minWords, minOuttopics=x$minOuttopics, stopTopics=paste(x$stopTopics, collapse=" ")))
     cat("\n Results: \n")
 print.default(x$result)
 }
