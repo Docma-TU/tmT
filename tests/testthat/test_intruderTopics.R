@@ -2,38 +2,38 @@ context("intruderWords")
 
 test_that("intruderWords", {
 
-    library(dirmult)
-    set.seed(24601)
-    beta <- rbind(rdirichlet(n=50, alpha=rep(0.6,200)))
-    colnames(beta) <- paste("Wort", 1:200)
+    ## library(dirmult)
+    ## set.seed(24601)
+    ## beta <- rbind(rdirichlet(n=50, alpha=rep(0.6,200)))
+    ## colnames(beta) <- paste("Wort", 1:200)
 
-    text <- as.list(paste("This is text", 1:100, ". It's a great text."))
-    names(text) <- paste("T", 1:100)
-    theta <- rbind(matrix(sample(c(1:50, rep(0,50)),800, replace=TRUE),8,100),matrix(0,2,100))
-
-
-    set.seed(24601)
-    iT <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=TRUE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=NULL)
-    h
-    1
-    5
-    2 1
-    g
-    q
-
-    iTo <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=TRUE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=iT)
-    1
-    3
-    q
-
-    iTs <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=FALSE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=NULL)
-    1
-    2 1
-    q
+    ## text <- as.list(paste("This is text", 1:100, ". It's a great text."))
+    ## names(text) <- paste("T", 1:100)
+    ## theta <- rbind(matrix(sample(c(1:50, rep(0,50)),800, replace=TRUE),8,100),matrix(0,2,100))
 
 
+    ## set.seed(24601)
+    ## iT <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=TRUE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=NULL)
+    ## h
+    ## 1
+    ## 5
+    ## 2 1
+    ## g
+    ## q
 
-    save(beta, theta, text, iT, iTo, iTs, file="data/intruderTopics.RData")
+    ## iTo <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=TRUE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=iT)
+    ## 1
+    ## 3
+    ## q
+
+    ## iTs <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=FALSE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=NULL)
+    ## 1
+    ## 2 1
+    ## q
+
+
+
+    ## save(beta, theta, text, iT, iTo, iTs, file="data/intruderTopics.RData")
 
     load("data/intruderTopics.RData")
 
