@@ -22,8 +22,8 @@
 topArticles <- function(x, id, limit = 20L, rel = TRUE,
                         themes = 1:nrow(x$document_sums), minlength=30L){
     stopifnot(is.character(id), as.integer(limit) == limit, length(limit) == 1,
-              is.logical(rel), length(rel) == 1, is.logical(topn),
-              length(topn) == 1, as.integer(minlength) == minlength,
+              is.logical(rel), length(rel) == 1,
+              as.integer(minlength) == minlength,
               length(minlength) == 1)
 
     small <- apply(x$document_sums, 2, sum) >= minlength
