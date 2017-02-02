@@ -1,0 +1,17 @@
+context("showArticles")
+
+test_that("showArticles", {
+
+    meta <- data.frame(id=as.character(1:3), date=as.Date(c("1960-01-01","1987-06-25","2014-08-06")), title=c("Title 1", "Title 2", "Title 3"), page=c(24,60,1), stringsAsFactors=FALSE)
+    text <- list("1"="Text 1", "2"="Text 2", "3"="Text 3")
+    corpus <- list(meta=meta, text=text)
+    M <- cbind(meta[,c(1,3,2)],text=unlist(text))
+    M <- apply(M,2,as.character)
+    M2 <- M[c(1,3,2),]
+    M3 <- rbind(M[1,], c(NA,NA,NA,""), c(NA,NA,NA,""))
+    rownames(M) <- rownames(M2) <- rownames(M3)<- 1:3
+    m <- showArticles(corpus,id=as.character(1:3), file="test.csv")
+    expect_equal(list(M),m)
+    m <- showArticles(corpus,id=matrix(as.character(c(1:3,1,3,2,1,NA,NA)),3,3), file="test.csv")
+    expect_equal(list("1"=M, "2"=M2, "3"=M3),m)
+})
