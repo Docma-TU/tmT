@@ -16,13 +16,10 @@ topArticles(x, id, limit = 20L, rel = TRUE, themes = NULL,
 
 \item{rel}{Logical: Should be the relative frequency be used?}
 
-\item{themes}{not implemented.}
+\item{themes}{which topics should be returned?}
 
 \item{minlength}{Minimal total number of words a text must have to be
 included.}
-
-\item{topn}{Logical: Should only the topn Article IDs be reported?
-\code{FALSE} is not implemented.}
 }
 \value{
 Matrix of Article IDs.

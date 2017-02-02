@@ -8,9 +8,7 @@
 #' @param id Vector of text IDs
 #' @param limit Integer, number of article ids per topic.
 #' @param rel Logical: Should be the relative frequency be used?
-#' @param topn Logical: Should only the topn Article IDs be reported?
-#' \code{FALSE} is not implemented.
-#' @param themes not implemented.
+#' @param themes which topics should be returned?
 #' @param minlength Minimal total number of words a text must have to be
 #' included.
 #' @return Matrix of Article IDs.
