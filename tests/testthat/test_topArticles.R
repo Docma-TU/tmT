@@ -23,6 +23,6 @@ M2 <- matrix(c(
 "E","F",
 "G","I"),9,2,byrow=TRUE)
 
-expect_equal(M,topArticles(x=result, id=ldaID, limit = 5L, rel = TRUE, themes = 1:nrow(x$document_sums), minlength=30L))
+expect_equal(M,topArticles(x=result, id=ldaID, limit = 5L, rel = TRUE, minlength=30L))
 expect_equal(M2,topArticles(x=result, id=ldaID, limit = 9L, rel = FALSE, themes = c(1,3), minlength=1L))
 })
