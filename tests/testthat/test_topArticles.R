@@ -24,5 +24,5 @@ M2 <- matrix(c(
 "G","I"),9,2,byrow=TRUE)
 
 expect_equal(M,topArticles(x=result, id=ldaID, limit = 5L, rel = TRUE, minlength=30L))
-expect_equal(M2,topArticles(x=result, id=ldaID, limit = 9L, rel = FALSE, themes = c(1,3), minlength=1L))
+expect_equal(M2,topArticles(x=result, id=ldaID, limit = 0L, rel = FALSE, themes = c(1,3), minlength=1L))
 })
