@@ -12,10 +12,10 @@ test_that("textmeta", {
     ## tm2 <- textmeta(meta = meta, text = text, metamult = metamult)
     ## save(tm1,tm2, file="data/textmeta.RData")
 
+    load("data/textmeta.RData")
     tm1
     tm2
 
-    load("data/textmeta.RData")
     expect_equal(tm1, textmeta(meta = NULL, text = NULL, metamult = NULL))
     expect_equal(tm2, textmeta(meta = meta, text = text, metamult = metamult))
     ## expect_equal()
