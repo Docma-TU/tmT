@@ -26,7 +26,7 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
 #' @param x an R Object.
 #' @return TRUE or FALSE.
 #' @author Jonas Rieger (<riegerjonas@@gmx.de>)
-#' 
+#'
 #' @export is.textmeta
 is.textmeta <- function(x){
   return(all(class(x) == "textmeta",
@@ -35,7 +35,7 @@ is.textmeta <- function(x){
              is.null(x$metamult) || is.list(x$metamult)))
 }
 
-#' @export 
+#' @export
 print.textmeta <- function(x, ...){
   stopifnot(is.textmeta(x))
   cat("Object of class \"textmeta\":\n")
@@ -61,20 +61,20 @@ print.textmeta <- function(x, ...){
       cat(paste0(" NAs in date: ", sum(na.date), " (", mean(na.date, 2), ")\n"))
     }
   }
-  if ("datum" %in% colnames(x$meta)){
-    na.date <- is.na(x$meta$datum)
-    if (any(!na.date)){
-      cat(paste0(" range of date: ", paste(range(x$meta$datum, na.rm = TRUE),
-                                           collapse = " till "), "\n"))
-    }
-    if (any(na.date)){
-      cat(paste0(" NAs in date: ", sum(na.date), " (", mean(na.date, 2), ")"))
-    }
-  }
+  ## if ("datum" %in% colnames(x$meta)){
+  ##   na.date <- is.na(x$meta$datum)
+  ##   if (any(!na.date)){
+  ##     cat(paste0(" range of date: ", paste(range(x$meta$datum, na.rm = TRUE),
+  ##                                          collapse = " till "), "\n"))
+  ##   }
+  ##   if (any(na.date)){
+  ##     cat(paste0(" NAs in date: ", sum(na.date), " (", mean(na.date, 2), ")"))
+  ##   }
+  ## }
   invisible(x)
 }
 
-#' @export 
+#' @export
 summary.textmeta <- function(object, list.names = names(object),
                              candidates = c("resource", "downloadDate"), ...){
   stopifnot(is.textmeta(object), is.character(list.names),
@@ -127,18 +127,18 @@ summary.textmeta <- function(object, list.names = names(object),
                    round(na.meta["date"]/n.meta, 2), ")\n"))
       }
     }
-    if ("datum" %in% cols){
-      cat(nextprint)
-      if (na.meta["datum"] < n.meta){
-        cat(paste0("range of date: ",
-                   paste(range(object$meta$datum, na.rm = TRUE),
-                         collapse = " till "), "\n"))
-      }
-      if (na.meta["datum"] > 0){
-        cat(paste0("NAs in date: ", na.meta["datum"], " (",
-                   round(na.meta["datum"]/n.meta, 2), ")\n"))
-      }
-    }
+    ## if ("datum" %in% cols){
+    ##   cat(nextprint)
+    ##   if (na.meta["datum"] < n.meta){
+    ##     cat(paste0("range of date: ",
+    ##                paste(range(object$meta$datum, na.rm = TRUE),
+    ##                      collapse = " till "), "\n"))
+    ##   }
+    ##   if (na.meta["datum"] > 0){
+    ##     cat(paste0("NAs in date: ", na.meta["datum"], " (",
+    ##                round(na.meta["datum"]/n.meta, 2), ")\n"))
+    ##   }
+    ## }
   }
   if ("metamult" %in% list.names && length(object$metamult) > 0){
     n.metamult <- sapply(object$metamult, function(x) sum(lengths(x)))
