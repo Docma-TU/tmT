@@ -13,13 +13,12 @@ test_that("textmeta", {
     ## save(tm1,tm2, file="data/textmeta.RData")
 
     load("data/textmeta.RData")
-    tm1
-    tm2
 
     expect_equal(tm1, textmeta(meta = NULL, text = NULL, metamult = NULL))
     expect_equal(tm2, textmeta(meta = meta, text = text, metamult = metamult))
-    ## expect_equal()
-    ## expect_equal()
-    ## expect_equal()
-    ## expect_equal()
+    expect_equal(print.textmeta(tm1), tm1)
+    expect_equal(print.textmeta(tm2), tm2)
+    expect_equal(print(tm1), print.textmeta(tm1))
+    expect_equal(print(tm2), print.textmeta(tm2))
+
 })
