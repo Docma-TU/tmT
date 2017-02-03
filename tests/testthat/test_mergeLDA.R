@@ -15,12 +15,12 @@ text <- list(A= "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiu
 text2 <- makeClear(text)
 wordlist <- makeWordlist(text2)
 LDAdoc <- docLDA(text2, wordlist$words)
-lda1 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
+lda1 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=124601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
 
 text2 <- makeClear(text[c("B", "C", "F", "H")])
 wordlist <- makeWordlist(text2)
 LDAdoc <- docLDA(text2, wordlist$words)
-lda2 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
+lda2 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=124601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
 
 
 ## mL1 <- mergeLDA(x=list(lda1=lda1, lda2=lda2))
