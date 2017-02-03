@@ -9,7 +9,7 @@
 #' @param topicnames Character vector as label for the topics.
 #' @param method Method statement from \code{\link{hclust}}
 #' @param width grafical parameter for pdf output. See \code{\link{pdf}}
-#' @param heigth grafical parameter for pdf output. See \code{\link{pdf}}
+#' @param height grafical parameter for pdf output. See \code{\link{pdf}}
 #' @param ... additional parameter for \code{\link{plot}}
 #' @return A dendogram as pdf and a List \item{dist}{A distance matrix}
 #' \item{clust}{The result from \code{hclust}.}

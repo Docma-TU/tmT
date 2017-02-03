@@ -19,9 +19,9 @@ clusterTopics(topics, file, topicnames = NULL, method = "average",
 
 \item{width}{grafical parameter for pdf output. See \code{\link{pdf}}}
 
-\item{...}{additional parameter for \code{\link{plot}}}
+\item{height}{grafical parameter for pdf output. See \code{\link{pdf}}}
 
-\item{heigth}{grafical parameter for pdf output. See \code{\link{pdf}}}
+\item{...}{additional parameter for \code{\link{plot}}}
 }
 \value{
 A dendogram as pdf and a List \item{dist}{A distance matrix}
