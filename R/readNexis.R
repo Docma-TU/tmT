@@ -71,11 +71,10 @@ readNexis <- function(path = getwd(),
       meta <- rbind(meta, mData)
     }
     if (do.text) {
-      text_new <-  stringr::str_extract(article,"(<fulltext>(.*?)</fulltext>)|(<fulltext(.*?)/>)")
+      text_new <- stringr::str_extract(article,"(<fulltext>(.*?)</fulltext>)|(<fulltext(.*?)/>)")
       text_new <- removeXML(text_new)
       text_new <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
                        replacement = "", text_new, perl = TRUE)
-      #        text <- c(text, text_new)
       names(text_new) <- id
       text <- as.list(c(text, text_new))
     }

@@ -20,5 +20,8 @@ test_that("textmeta", {
     expect_equal(print.textmeta(tm2), tm2)
     expect_equal(print(tm1), print.textmeta(tm1))
     expect_equal(print(tm2), print.textmeta(tm2))
-
+    expect_equal(summary(tm1), summary.textmeta(tm1))
+    expect_equal(summary(tm2), summary.textmeta(tm2))
+    expect_equal(summary(tm1), tm1)
+    expect_equal(summary(tm2), tm2)
 })

@@ -25,7 +25,6 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
 #'
 #' @param x an R Object.
 #' @return TRUE or FALSE.
-#' @author Jonas Rieger (<riegerjonas@@gmx.de>)
 #'
 #' @export is.textmeta
 is.textmeta <- function(x){
@@ -58,7 +57,8 @@ print.textmeta <- function(x, ...){
                                            collapse = " till ")), "\n")
     }
     if (any(na.date)){
-      cat(paste0(" NAs in date: ", sum(na.date), " (", mean(na.date, 2), ")\n"))
+      cat(paste0(" NAs in date: ", sum(na.date), " (",
+                 round(mean(na.date), 2), ")\n"))
     }
   }
   ## if ("datum" %in% colnames(x$meta)){
@@ -93,8 +93,8 @@ summary.textmeta <- function(object, list.names = names(object),
     # print:
     cat(paste("number of observations in text:", n.text, "\n"))
     cat("\nNAs in text:\n")
-    print(data.frame(abs = na.text, rel = round(na.text/n.text, 2)),
-          row.names = FALSE)
+    print(data.frame(NA.abs = na.text,
+                     NA.rel = round(na.text/n.text, 2)), row.names = FALSE)
   }
   # object$meta:
   if ("meta" %in% list.names && !is.null(nrow(object$meta))){

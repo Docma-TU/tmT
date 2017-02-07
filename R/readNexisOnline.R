@@ -119,7 +119,6 @@ readNexisOnline <- function(path = getwd(),
                           textstyle[3], ")\">(<BR>)?<SPAN CLASS=\"c(", textstyle[4],"|", textstyle[5], ")\">")
       
       text_new <- stringr::str_extract(article, paste0(textstyle, "(.*?)</DIV>"))
-      text_new[is.na(text_new)] <- ""
       
       text_new <- removeXML(text_new)
       names(text_new) <- id
