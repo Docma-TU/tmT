@@ -15,7 +15,4 @@ TRUE or FALSE.
 \description{
 Tests for "textmeta"-Objects.
 }
-\author{
-Jonas Rieger (<riegerjonas@gmx.de>)
-}
 
