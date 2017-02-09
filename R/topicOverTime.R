@@ -8,6 +8,7 @@
 #' @param ldaID Character vector including IDs of the texts.
 #' @param meta The meta data for the texts or a date-string.
 #' @param file Name of the pdf file.
+#' @param topicNo character string of used topicnumbers
 #' @param Tnames Label for the topics
 #' @param unit unit for \code{\link{round_date}}
 #' @param \dots Further Statements passed to the plot function.
@@ -38,4 +39,3 @@ topicOverTime <- function(x, ldaID, meta=NULL, file, topicNo=NULL, Tnames=NULL, 
     invisible(outlist)
 }
 
-Tnames <- paste("A", 1:10)

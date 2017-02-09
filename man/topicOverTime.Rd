@@ -16,6 +16,8 @@ topicOverTime(x, ldaID, meta = NULL, file, topicNo = NULL, Tnames = NULL,
 
 \item{file}{Name of the pdf file.}
 
+\item{topicNo}{character string of used topicnumbers}
+
 \item{Tnames}{Label for the topics}
 
 \item{unit}{unit for \code{\link{round_date}}}
