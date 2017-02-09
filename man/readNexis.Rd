@@ -34,4 +34,3 @@ data.
 Sakander Zirai (<s.zirai@live.de>), Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \keyword{manip}
-

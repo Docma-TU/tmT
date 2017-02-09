@@ -24,4 +24,3 @@ Exports the article id, text, title and date.
 ##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}
-

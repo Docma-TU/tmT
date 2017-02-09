@@ -40,15 +40,14 @@ tba
 
 ##---- Should be DIRECTLY executable !! ----
 }
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
-}
 \references{
 tba
 }
 \seealso{
 tba
 }
+\author{
+Lars Koppers (<koppers@statistik.tu-dortmund.de>)
+}
 \keyword{~kwd1}
 \keyword{~kwd2}
-

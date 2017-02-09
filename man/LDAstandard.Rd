@@ -56,4 +56,3 @@ Documentation for the lda package.
 }
 \keyword{~kwd1}
 \keyword{~kwd2}
-

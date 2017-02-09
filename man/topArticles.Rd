@@ -33,4 +33,3 @@ absolute number of words per topic.
 ##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}
-

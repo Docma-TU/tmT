@@ -30,4 +30,3 @@ data.
 
 }
 \keyword{manip}
-

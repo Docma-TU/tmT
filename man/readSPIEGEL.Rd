@@ -31,4 +31,3 @@ data.
 ##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}
-

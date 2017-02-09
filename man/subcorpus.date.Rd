@@ -30,4 +30,3 @@ Creates a subcorpus including a specific time span.
 Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \keyword{manip}
-
