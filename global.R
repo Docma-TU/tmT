@@ -2,6 +2,7 @@
 ## Roxygen2 ##
 ##############
 setwd("//STORE/koppers/Textmining/tmT/")
+setwd("D:/DoCMA/tmT")
 library(roxygen2)
 roxygenize(package.dir = ".")
 
@@ -9,7 +10,7 @@ roxygenize(package.dir = ".")
 ## testthat ##
 ##############
 setwd("//STORE/koppers/Textmining/tmT/tests/testthat")
-setwd("C:/Users/koppers/Desktop/tmT/tests")
+setwd("D:/DoCMA/tmT/tests/testthat")
 library(testthat)
 test_check("tmT")
 
