@@ -14,8 +14,8 @@
 #' number of the topic for the word at the same position in \code{woerter}.
 #' @param file Name of the pdf file
 #' @param ldaName Name of the lda, as a label for the pdf output.
-#' @param unit unit for\link{\code{round_date}} 
-#' @param \dots additional parameter for \link{\code{plot}} 
+#' @param unit unit for\code{\link{round_date}} 
+#' @param \dots additional parameter for \code{\link{plot}} 
 #' @return A pdf.
 #' @keywords ~kwd1 ~kwd2
 #' @examples

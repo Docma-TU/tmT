@@ -25,9 +25,9 @@ number of the topic for the word at the same position in \code{woerter}.}
 
 \item{ldaName}{Name of the lda, as a label for the pdf output.}
 
-\item{unit}{unit for\link{\code{round_date}}}
+\item{unit}{unit for\code{\link{round_date}}}
 
-\item{\dots}{additional parameter for \link{\code{plot}}}
+\item{\dots}{additional parameter for \code{\link{plot}}}
 }
 \value{
 A pdf.
