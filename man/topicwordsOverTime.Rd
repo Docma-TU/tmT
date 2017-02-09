@@ -16,6 +16,8 @@ topicwordsOverTime(ldaCorpus, meta, ldaVocab, ldaResult, words, topics, file,
 
 \item{ldaResult}{LDA result object}
 
+\item{words}{List of word vectors.}
+
 \item{topics}{Same structure like \code{woerter}. Each Entry gives the
 number of the topic for the word at the same position in \code{woerter}.}
 
@@ -26,8 +28,6 @@ number of the topic for the word at the same position in \code{woerter}.}
 \item{unit}{unit for\link{\code{round_date}}}
 
 \item{\dots}{additional parameter for \link{\code{plot}}}
-
-\item{woerter}{List of word vectors.}
 }
 \value{
 A pdf.

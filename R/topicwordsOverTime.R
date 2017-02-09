@@ -9,7 +9,7 @@
 #' @param meta The meta data for the texts
 #' @param ldaVocab Character vector of the lda vocabulary
 #' @param ldaResult LDA result object
-#' @param woerter List of word vectors.
+#' @param words List of word vectors.
 #' @param topics Same structure like \code{woerter}. Each Entry gives the
 #' number of the topic for the word at the same position in \code{woerter}.
 #' @param file Name of the pdf file
