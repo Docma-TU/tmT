@@ -42,3 +42,4 @@ Creates a subcorpus including specific words.
 }
 \keyword{~kwd1}
 \keyword{~kwd2}
+

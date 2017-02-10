@@ -16,9 +16,9 @@
 #' @author Kira Schacht (<kira.schacht@@tu-dortmund.de>)
 #' @keywords ~kwd1 ~kwd2
 #' @examples ##
-#' @export tot.relative
+#' @export totRelative
 
-tot.relative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL, corpus = NULL,
+totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL, corpus = NULL,
                          file, pages=TRUE, Tnames = top.topic.words(x$topics,1), smooth = 0.05){
     #check if arguments are properly specified
     if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){

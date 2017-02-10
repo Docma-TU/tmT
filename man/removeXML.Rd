@@ -14,7 +14,7 @@ removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
 
 \item{umlauts}{Logical: Should umlauts be changed?}
 
-\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{Ã¼}{u}
+\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
 }
@@ -30,3 +30,4 @@ Removes XML tags and changes umlauts to a standardized form.
 ##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}
+

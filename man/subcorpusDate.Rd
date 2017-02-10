@@ -26,3 +26,4 @@ Creates a subcorpus including a specific time span.
 ##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}
+

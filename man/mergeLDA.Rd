@@ -26,3 +26,4 @@ appears in all lda.
 Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }
 \keyword{manip}
+
