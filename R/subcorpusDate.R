@@ -13,13 +13,12 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export subcorpusDate
-subcorpusDate <- function(text, meta, s.date = min(meta$date),
-                           e.date = max(meta$date)){
-  stopifnot((is.list(text) || is.character(text)), is.data.frame(meta),
-            length(s.date) == 1, length(e.date) == 1)
-  mtch <- match(names(text), meta$id)
-  dateID <- meta$date[mtch] >= s.date & meta$date[mtch] <= e.date
-  text <- text[dateID]
-  return(text)
+subcorpusDate <- function(text, meta, s.date = min(meta$date), e.date = max(meta$date)){
+    stopifnot((is.list(text) || is.character(text)), is.data.frame(meta),
+              length(s.date) == 1, length(e.date) == 1)
+    mtch <- match(names(text), meta$id)
+    dateID <- meta$date[mtch] >= s.date & meta$date[mtch] <= e.date
+    text <- text[dateID]
+    return(text)
 }
 
