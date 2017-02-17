@@ -44,7 +44,7 @@ makeClear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
     x <- lapply(x, trimws)
     if(paragraph){ ## SPIEGEL
         cat("tokenization \n")
-        x <- lapply(x, strsplit, " ")
+        x <- lapply(x, strsplit, "\\s")
         cat("remove empty article \n")
         cat(paste("remove empty articles:",sum(lengths(x) == 0), "\n"))
         x <- x[!(lengths(x) == 0)]
