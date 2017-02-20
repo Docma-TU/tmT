@@ -41,12 +41,10 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
             source <- removeXML(source)
             date <- stringr::str_extract(article, "<Date>(.*?)</Date>|<Datum>(.*?)</Datum>")
             date <- as.Date(removeXML(date))
-            title <- stringr::str_extract(article, "<Title>(.*?)</Title>|<Titel>(.*?)</Titel>")
+            title <- stringr::str_extract(article, "<Title>(.*?)</Title>|<Titel>(.*?)</Titel>|<UB>(.*?)</UB>")
             title <- removeXML(title)
             abstract <- stringr::str_extract(article, "<Abstract>(.*?)</Abstract>")
             abstract <- removeXML(abstract)
-            ub <- stringr::str_extract(article, "<UB>(.*?)</UB>")
-            ub <- removeXML(ub)
             dachzeile <- stringr::str_extract(article, "<DZ>(.*?)</DZ>")
             dachzeile <- removeXML(dachzeile)
 
@@ -120,7 +118,7 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
             names(person) <- tmp
             person <- trimws(gsub(pattern="<Person>|</Person>", replacement="", x=person))
 
-            mData <- data.frame(id, source, date, title, abstract, ub, dachzeile,
+            mData <- data.frame(id, source, date, title, abstract, dachzeile,
                                 stringsAsFactors = FALSE)
             meta <- rbind(meta, mData)
             metamult$person <- c(metamult$person, person)
