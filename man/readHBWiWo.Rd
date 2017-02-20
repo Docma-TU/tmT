@@ -18,8 +18,8 @@ readHBWiWo(path = getwd(), file = list.files(path = path, pattern =
 \item{do.text}{Logical: Should the algorithm collect text data?}
 }
 \value{
-\item{meta}{ id quelle datum titel abstract UB dachzeile}
-\item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
+\item{meta}{ id source date title abstract dachzeile}
+\item{text}{ Text} \item{metamult}{ person company industry country author category
 klassifikation (mehrere moeglich) thema sachgruppe serie}
 }
 \description{

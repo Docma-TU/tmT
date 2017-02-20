@@ -7,8 +7,8 @@
 #' @param file Character string with names of the XML files.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
-#' @return \item{meta}{ id quelle datum titel abstract UB dachzeile}
-#' \item{text}{ Text} \item{metamult}{ person firma industrie land autor rubrik
+#' @return \item{meta}{ id source date title abstract dachzeile}
+#' \item{text}{ Text} \item{metamult}{ person company industry country author category
 #' klassifikation (mehrere moeglich) thema sachgruppe serie}
 #' @keywords manip
 #' @examples

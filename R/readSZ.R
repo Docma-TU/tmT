@@ -7,8 +7,8 @@
 #' @param file Character string with names of the HTML files.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
-#' @return \item{meta}{ id datum rubrik seite AnzChar AnzWoerter dachzeile
-#' titel utitel} \item{text}{ Text (Paragraphenweise)}
+#' @return \item{meta}{ id date rubrik page AnzChar AnzWoerter dachzeile title
+#' zwischentitel untertitel} \item{text}{ Text (Paragraphenweise)}
 #' @keywords manip
 #' @examples
 #'

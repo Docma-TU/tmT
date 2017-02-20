@@ -17,8 +17,8 @@ readSZ(path = getwd(), file = list.files(path = path, pattern = "*.xml$",
 \item{do.text}{Logical: Should the algorithm collect text data?}
 }
 \value{
-\item{meta}{ id datum rubrik seite AnzChar AnzWoerter dachzeile
-titel utitel} \item{text}{ Text (Paragraphenweise)}
+\item{meta}{ id date rubrik page AnzChar AnzWoerter dachzeile title
+zwischentitel untertitel} \item{text}{ Text (Paragraphenweise)}
 }
 \description{
 Reads the XML-files from the SZ corpus and seperates the text and meta data.

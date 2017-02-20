@@ -20,7 +20,8 @@ readNexis(path = getwd(), file = list.files(path = path, pattern = "*.xml$",
 \item{encoding}{encoding of the input files.}
 }
 \value{
-List of two \item{meta}{id url date page resource author leadtext downloadDate}
+List of two \item{meta}{id url date title page resource author
+leadtext downloadDate}
 \item{text}{text}
 }
 \description{

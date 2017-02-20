@@ -9,7 +9,8 @@
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
 #' @param encoding encoding of the input files.
-#' @return List of two \item{meta}{id url date page resource author leadtext downloadDate}
+#' @return List of two \item{meta}{id url date title page resource author
+#' leadtext downloadDate}
 #' \item{text}{text}
 #' @author Sakander Zirai (<s.zirai@@live.de>), Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip

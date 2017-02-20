@@ -18,10 +18,10 @@ readSPIEGEL(path = getwd(), file = list.files(path = path, pattern =
 \item{do.text}{Logical: Should the algorithm collect text data?}
 }
 \value{
-\item{meta}{ id jahr nummer datum seiteS seiteE seitentitel
-kurztitel rubrik ressort dokumentenmerkmal dachzeile titel vorspann}
-\item{text}{ Text (Paragraphenweise)} \item{metamult}{ person koerperschaft
-firma inkl. Kategorie(n)}
+\item{meta}{ id date title year number page_start page_stop pagetitle
+shorttitle rubrik ressort dokumentmerkmal dachzeile abstract}
+\item{text}{ Text (Paragraphenweise)} \item{metamult}{ signature person
+koerperschaft company inkl. Kategorie(n)}
 }
 \description{
 Reads the XML-files from the SPIEGEL corpus and seperates the text and meta

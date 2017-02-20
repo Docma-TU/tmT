@@ -8,10 +8,10 @@
 #' @param file Character string with names of the XML files.
 #' @param do.meta Logical: Should the algorithm collect meta data?
 #' @param do.text Logical: Should the algorithm collect text data?
-#' @return \item{meta}{ id jahr nummer datum seiteS seiteE seitentitel
-#' kurztitel rubrik ressort dokumentenmerkmal dachzeile titel vorspann}
-#' \item{text}{ Text (Paragraphenweise)} \item{metamult}{ person koerperschaft
-#' firma inkl. Kategorie(n)}
+#' @return \item{meta}{ id date title year number page_start page_stop pagetitle
+#' shorttitle rubrik ressort dokumentmerkmal dachzeile abstract}
+#' \item{text}{ Text (Paragraphenweise)} \item{metamult}{ signature person
+#' koerperschaft company inkl. Kategorie(n)}
 #' @keywords manip
 #' @examples
 #' ##---- Should be DIRECTLY executable !! ----
@@ -81,6 +81,7 @@ readSPIEGEL <- function(path = getwd(), file = list.files(path=path, pattern="*.
             names(company) <- tmp
             company <- removeXML(company)
 
+            mData <- cbind(id, mData, stringsAsFactors = FALSE)
             meta <- rbind(meta, mData)
 
             metamult$signature <- c(metamult$signature, signature)
