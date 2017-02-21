@@ -46,20 +46,19 @@ makeClear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
         cat("tokenization \n")
         x <- lapply(x, strsplit, "\\s")
         cat("remove empty article \n")
-        cat(paste("remove empty articles:",sum(lengths(x) == 0), "\n"))
-        x <- x[!(lengths(x) == 0)]
+        cat(paste("remove empty articles:",sum(lengths(x) == 0 | is.na(x)), "\n"))
+        x <- x[!(lengths(x) == 0 | is.na(x))]
         cat("remove empty paragraphs \n")
-        x <- lapply(x, function(x) x[!(lengths(x) == 0)])
+        x <- lapply(x, function(x) x[!(lengths(x) == 0 | is.na(x))])
         cat(paste("remove empty articles (2):",sum(lengths(x) == 0), "\n"))
         x <- x[!(lengths(x) == 0)]
     }
     else{
         cat("tokenization \n")
-        x <- sapply(x, function(x)strsplit(x, " ")[1])
+        x <- sapply(x, function(x)strsplit(x, "\\s")[1])
         cat("remove empty article \n")
-                                        # lengths() for lists does sapply with length:
-        cat(paste("Empty Articles:",sum(lengths(x) == 0), "\n"))
-        x <- x[!(lengths(x) == 0)]
+        cat(paste("Empty Articles:",sum(lengths(x) == 0 | is.na(x)), "\n"))
+        x <- x[!(lengths(x) == 0 | is.na(x))]
     }
     return(x)
 }
