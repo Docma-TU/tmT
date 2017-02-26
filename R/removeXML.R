@@ -17,30 +17,42 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export removeXML
 
-removeXML <-
-function(x,xml=TRUE, umlauts=FALSE, u.type=c("normal", "html", "all")){
-    if(xml){
-        x <- gsub(pattern="<[^><]*>", replacement=" ",x, perl=TRUE)}
-    if(umlauts){
-        if(u.type[1]=="html" | u.type[1]=="all"){
-            x <- gsub(pattern="&auml;", replacement="ae",x)
-            x <- gsub(pattern="&Auml;", replacement="Ae",x)
-            x <- gsub(pattern="&ouml;", replacement="oe",x)
-            x <- gsub(pattern="&Ouml;", replacement="Oe",x)
-            x <- gsub(pattern="&uuml;", replacement="ue",x)
-            x <- gsub(pattern="&Uuml;", replacement="Ue",x)
-            x <- gsub(pattern="&szlig;", replacement="ss",x)
-            x <- gsub(pattern="&[^;]*;", replacement="",x)}
-
-        if(u.type[1]=="normal" | u.type[1]=="all"){
-            x <- gsub(pattern="\U00E4", replacement="ae",x)
-            x <- gsub(pattern="\U00C4", replacement="Ae",x)
-            x <- gsub(pattern="\U00F6", replacement="oe",x)
-            x <- gsub(pattern="\U00D6", replacement="Oe",x)
-            x <- gsub(pattern="\U00FC", replacement="ue",x)
-            x <- gsub(pattern="\U00DC", replacement="Ue",x)
-            x <- gsub(pattern="\U00DF", replacement="ss",x)}
+removeXML <- function(x, xml = TRUE, umlauts = FALSE,
+                      u.type = c("normal", "html", "all")){
+  if(xml){
+    x <- gsub(pattern="<[^><]*>", replacement=" ",x, perl=TRUE)}
+  if(umlauts){
+    if(u.type[1]=="html" | u.type[1]=="all"){
+      x <- gsub(pattern="&auml;", replacement="ae",x)
+      x <- gsub(pattern="&Auml;", replacement="Ae",x)
+      x <- gsub(pattern="&ouml;", replacement="oe",x)
+      x <- gsub(pattern="&Ouml;", replacement="Oe",x)
+      x <- gsub(pattern="&uuml;", replacement="ue",x)
+      x <- gsub(pattern="&Uuml;", replacement="Ue",x)
+      x <- gsub(pattern="&szlig;", replacement="ss",x)
+      cand <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+                "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+                "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+                "W", "X", "Y", "Z")
+      for (i in cand){
+        x <- gsub(pattern=paste0("&", i, "grave;"), replacement=i, x)
+        x <- gsub(pattern=paste0("&", i, "acute;"), replacement=i, x)
+        x <- gsub(pattern=paste0("&", i, "circ;"), replacement=i, x)
+        x <- gsub(pattern=paste0("&", i, "tilde;"), replacement=i, x)
+      }
+      x <- gsub(pattern="&[^;]*;", replacement="",x)
     }
-    x <- trimws(x)
-    return(x)
+    if(u.type[1]=="normal" | u.type[1]=="all"){
+      x <- gsub(pattern="\U00E4", replacement="ae",x)
+      x <- gsub(pattern="\U00C4", replacement="Ae",x)
+      x <- gsub(pattern="\U00F6", replacement="oe",x)
+      x <- gsub(pattern="\U00D6", replacement="Oe",x)
+      x <- gsub(pattern="\U00FC", replacement="ue",x)
+      x <- gsub(pattern="\U00DC", replacement="Ue",x)
+      x <- gsub(pattern="\U00DF", replacement="ss",x)
+    }
+  }
+  x <- trimws(x)
+  return(x)
 }

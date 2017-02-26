@@ -41,6 +41,11 @@ readNexis <- function(path = getwd(),
     id <- stringr::str_extract(article, "<record_id>(.*?)</record_id>")
     id <- removeXML(id)
 
+    leadtext <-  stringr::str_extract(article, "<leadtext>(.*?)</leadtext>")
+    leadtext <- removeXML(leadtext)
+    leadtext <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
+                     replacement = "", leadtext, perl = TRUE)
+    
     if (do.meta) {
       url <- stringr::str_extract(article, "<source_id>(.*?)</source_id>")
       url <- removeXML(url)
@@ -61,11 +66,6 @@ readNexis <- function(path = getwd(),
       author <-  stringr::str_extract(article, "<author>(.*?)</author>")
       author <- removeXML(author)
 
-      leadtext <-  stringr::str_extract(article, "<leadtext>(.*?)</leadtext>")
-      leadtext <- removeXML(leadtext)
-      leadtext <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
-                       replacement = "", leadtext, perl = TRUE)
-
       downloadDate <- stringr::str_extract(downloadDate, "[0-9-]+")
       downloadDate <- as.Date(downloadDate, format = "%Y-%m-%d")
       downloadDate <- rep(downloadDate, times = length(id))
@@ -79,6 +79,8 @@ readNexis <- function(path = getwd(),
       text_new <- removeXML(text_new)
       text_new <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
                        replacement = "", text_new, perl = TRUE)
+      text_new[is.na(text_new)] <- ""
+      text_new <- trimws(paste(leadtext, text_new))
       names(text_new) <- id
       text <- as.list(c(text, text_new))
     }
