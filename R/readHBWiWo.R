@@ -142,6 +142,6 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
                                         #  text[is.na(text)] <- meta$abstract[is.na(text)]
     res <- list("meta" = meta, "text" = text, "metamult" = metamult)
     class(res) <- "textmeta"
-    res <- tmT:::deleteAndRenameDuplicates(res, paragraph = FALSE)
+    if (do.text) res <- deleteAndRenameDuplicates(res, paragraph = FALSE)
     summary(res)
 }

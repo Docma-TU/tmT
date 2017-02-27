@@ -128,6 +128,6 @@ readNexisOnline <- function(path = getwd(),
   Sys.setlocale("LC_TIME", temp_time)
   res <- list(meta = meta, text = text, metamult = NULL)
   class(res) <- "textmeta"
-  res <- tmT:::deleteAndRenameDuplicates(res, paragraph = FALSE)
+  if (do.text) res <- deleteAndRenameDuplicates(res, paragraph = FALSE)
   summary(res)
 }

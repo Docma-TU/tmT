@@ -36,13 +36,14 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
       cat("  next Step\n")
     }
     # Rename if text differs:
-    to_rename <- ind[!duplicated(textvek)]
+    to_rename <- which(duplicated(names(object$text)) | duplicated(names(object$text),
+                                                                   fromLast = TRUE))
     if (length(to_rename) > 0){
       ind_loop = logical(length(names(object$text)))
       ind_loop[to_rename] = TRUE
       cat(paste("Rename Fake-Duplicates:", length(to_rename)))
       for (i in unique(names(object$text)[to_rename])){
-        to_rename_loop <- names(object$text) == i & ind_loop
+        to_rename_loop <- (names(object$text) == i) & ind_loop
         names(object$text)[to_rename_loop] <- paste0(names(object$text)[to_rename_loop],
                                                      "_FakeDup", 1:sum(to_rename_loop))
       }
