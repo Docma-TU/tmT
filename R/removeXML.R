@@ -30,12 +30,7 @@ removeXML <- function(x, xml = TRUE, umlauts = FALSE,
       x <- gsub(pattern="&uuml;", replacement="ue",x)
       x <- gsub(pattern="&Uuml;", replacement="Ue",x)
       x <- gsub(pattern="&szlig;", replacement="ss",x)
-      cand <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-                "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-                "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
-                "W", "X", "Y", "Z")
-      for (i in cand){
+      for (i in c(letters, LETTERS)){
         x <- gsub(pattern=paste0("&", i, "grave;"), replacement=i, x)
         x <- gsub(pattern=paste0("&", i, "acute;"), replacement=i, x)
         x <- gsub(pattern=paste0("&", i, "circ;"), replacement=i, x)

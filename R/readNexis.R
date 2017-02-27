@@ -87,5 +87,6 @@ readNexis <- function(path = getwd(),
   }
   res <- list("meta" = meta, "text" = text, "metamult" = metamult)
   class(res) <- "textmeta"
+  res <- tmT:::deleteAndRenameDuplicates(res, paragraph = FALSE)
   summary(res)
 }

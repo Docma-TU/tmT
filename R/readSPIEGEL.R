@@ -98,5 +98,6 @@ readSPIEGEL <- function(path = getwd(), file = list.files(path=path, pattern="*.
     }
     res <- list("meta" = meta, "text" = text, "metamult" = metamult)
     class(res) <- "textmeta"
+    res <- tmT:::deleteAndRenameDuplicates(res, paragraph = TRUE)
     summary(res)
 }

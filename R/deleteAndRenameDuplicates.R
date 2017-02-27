@@ -19,70 +19,123 @@
 #     -> hier _RealDup1 ... _RealDupn anheangen
 # 3. Artikel mit komplett identischen ID, Text, Meta werden geloescht!!
 
-deleteAndRenameDuplicates = function(object, paragraph = FALSE){
+deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   if (is.null(object$meta)){ #if do.meta == FALSE:
-    ind = which(duplicated(names(object$text)) | duplicated(names(object$text),
+    ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                             fromLast = TRUE))
-    textvek = ifelse(paragraph == TRUE,
-                     unlist(lapply(object$text, paste, collapse = " ")),
-                     unlist(object$text[ind]))
+    if (length(ind) < 1) return(object)
+    if (paragraph == TRUE){
+      textvek <- unlist(lapply(object$text[ind], paste, collapse = " "))
+    }
+    else textvek <- unlist(object$text[ind])
     # Delete duplicates of ID !and! text:
-    to_del = ind[duplicated(textvek)]
+    to_del <- ind[duplicated(textvek)]
     if (length(to_del) > 0){
-      object$text = object$text[-to_del]
+      cat(paste("Delete Duplicates:", length(to_del)))
+      object$text <- object$text[-to_del]
+      cat("  next Step\n")
     }
     # Rename if text differs:
-    to_rename = ind[!duplicated(textvek)]
+    to_rename <- ind[!duplicated(textvek)]
     if (length(to_rename) > 0){
-      names(object$text)[to_rename] = paste0(names(object$text)[to_rename],
-                                             "_Dup", 1:length(to_rename))
+      ind_loop = logical(length(names(object$text)))
+      ind_loop[to_rename] = TRUE
+      cat(paste("Rename Fake-Duplicates:", length(to_rename)))
+      for (i in unique(names(object$text)[to_rename])){
+        to_rename_loop <- names(object$text) == i & ind_loop
+        names(object$text)[to_rename_loop] <- paste0(names(object$text)[to_rename_loop],
+                                                     "_FakeDup", 1:sum(to_rename_loop))
+      }
+      cat("  next Step\n")
     }
+    cat("Success\n")
     return(object)
   }
   # Ansonsten existieren text und meta:
   # 3. Artikel mit komplett identischen ID, Text, Meta werden geloescht:
-  ind = which(duplicated(names(object$text)) | duplicated(names(object$text),
+  ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                           fromLast = TRUE))
-  textvek = ifelse(paragraph == TRUE,
-                   unlist(lapply(object$text, paste, collapse = " ")),
-                   unlist(object$text[ind]))
-  to_del = ind[duplicated(object$meta[ind,]) & duplicated(textvek)]
+  if (length(ind) < 1){
+    cat("Success\n")
+    return(object)
+  }
+  if (paragraph == TRUE){
+    textvek <- unlist(lapply(object$text[ind], paste, collapse = " "))
+  }
+  else textvek <- unlist(object$text[ind])
+  to_del <- ind[duplicated(object$meta[ind,]) & duplicated(textvek)]
   if (length(to_del) > 0){
-    object$text = object$text[-to_del]
-    object$meta = object$meta[-to_del,]
-    ind = which(duplicated(names(object$text)) | duplicated(names(object$text),
+    cat(paste("Delete Duplicates:", length(to_del)))
+    object$text <- object$text[-to_del]
+    object$meta <- object$meta[-to_del,]
+    cat("  next Step\n")
+    ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                             fromLast = TRUE))
   }
   
   # 1. Artikel-IDs, deren IDs gleich, der Text aber unterschiedlich ist:
-  textvek = ifelse(paragraph == TRUE,
-                   unlist(lapply(object$text, paste, collapse = " ")),
-                   unlist(object$text[ind]))
-  text_same = duplicated(textvek) | duplicated(textvek, fromLast = TRUE)
-  to_rename = ind[!text_same]
+  if (length(ind) < 1){
+    cat("Success\n")
+    return(object)
+  }
+  if (paragraph == TRUE){
+    textvek <- unlist(lapply(object$text[ind], paste, collapse = " "))
+  }
+  else textvek <- unlist(object$text[ind])
+  text_same <- duplicated(textvek) | duplicated(textvek, fromLast = TRUE)
+  to_rename <- ind[!text_same]
   if (length(to_rename) > 0){
-    new_ids = paste0(names(object$text)[to_rename], "_FakeDup", 1:length(to_rename))
-    names(object$text)[to_rename] = new_ids
-    object$meta$id[to_rename] = new_ids
-    ind = ind[text_same]
+    ind_loop = logical(length(names(object$text)))
+    ind_loop[to_rename] = TRUE
+    cat(paste("Rename Fake-Duplicates:", length(to_rename)))
+    for (i in unique(names(object$text)[to_rename])){
+      to_rename_loop <- names(object$text) == i & ind_loop
+      new_ids <- paste0(names(object$text)[to_rename_loop], "_FakeDup",
+                        1:sum(to_rename_loop))
+      names(object$text)[to_rename_loop] <- new_ids
+      object$meta$id[to_rename_loop] <- new_ids
+    }
+    cat("  next Step\n")
+    ind <- ind[text_same]
   }
   
   # 2. Artikel mit identischer ID und Text (aber unterschiedlichen Meta-Daten)
   # a) Date ist identisch:
-  date_same = duplicated(object$meta$date[ind]) | duplicated(object$meta$date[ind],
+  if (length(ind) < 1){
+    cat("Success\n")
+    return(object)
+  }
+  date_same <- duplicated(object$meta$date[ind]) | duplicated(object$meta$date[ind],
                                                              fromLast = TRUE)
-  to_rename = ind[date_same]
+  to_rename <- ind[date_same]
   if (length(to_rename) > 0){
-    new_ids = paste0(names(object$text)[to_rename], "_DateDup", 1:length(to_rename))
-    names(object$text)[to_rename] = new_ids
-    object$meta$id[to_rename] = new_ids
+    ind_loop = logical(length(names(object$text)))
+    ind_loop[to_rename] = TRUE
+    cat(paste("Rename Duplicates with different Meta-Information, but same Date:",
+              length(to_rename)))
+    for (i in unique(names(object$text)[to_rename])){
+      to_rename_loop <- names(object$text) == i & ind_loop
+      new_ids <- paste0(names(object$text)[to_rename_loop], "_DateDup",
+                        1:sum(to_rename_loop))
+      names(object$text)[to_rename_loop] <- new_ids
+      object$meta$id[to_rename_loop] <- new_ids
+    }
+    cat("  next Step\n")
   }
   # Fuer die restlichen Artikel gilt b) Date ist unterschiedlich:
-  to_rename = ind[!date_same]
+  to_rename <- ind[!date_same]
   if (length(to_rename) > 0){
-    new_ids = paste0(names(object$text)[to_rename], "_RealDup", 1:length(to_rename))
-    names(object$text)[to_rename] = new_ids
-    object$meta$id[to_rename] = new_ids
+    cat(paste("Rename Duplicates with different Date-Information:",
+              length(to_rename)))
+    for (i in unique(names(object$text)[to_rename])){
+      to_rename_loop <- which(names(object$text) == i)
+      new_ids <- paste0(names(object$text)[to_rename_loop], "_RealDup",
+                        1:sum(to_rename_loop))
+      names(object$text)[to_rename_loop] <- new_ids
+      object$meta$id[to_rename_loop] <- new_ids
+    }
+    cat("  next Step\n")
   }
+  cat("Success\n")
   return(object)
 }
