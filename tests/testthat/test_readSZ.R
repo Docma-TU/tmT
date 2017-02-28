@@ -10,5 +10,3 @@ test_that("readSZ", {
   expect_equal(text2, text)
   expect_equal(meta2, meta)
 })
-
-

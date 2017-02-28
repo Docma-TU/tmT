@@ -14,6 +14,6 @@ list of character strings, representing the paragraphs.}
 }
 \description{
 Deletes Articles with the same ID and same text. Renames the ID of Articles
-with the same ID but different text-component (e.g. _FakeDup, _DateDup, _RealDup).
+with the same ID but different text-component (_IDFakeDup, _IDRealDup).
 }
 
