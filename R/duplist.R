@@ -39,7 +39,7 @@
 #                       in textMetaDups oder textOnlyDups.
 
 duplist <- function(object, paragraph = FALSE){
-  # stopifnot()
+  stopifnot(is.textmeta(object), is.logical(paragraph), length(paragraph) == 1)
   # help-function to create lists of IDs:
   foo_makeList <- function(dupType, to_replace){
     if (length(dupType) < 1) return(list())
@@ -119,7 +119,7 @@ duplist <- function(object, paragraph = FALSE){
     textMetaDups <- list()
     textOthersDups <- list()
   }
-  cat("Success\n")
+  cat("Success\nLengths:\n")
   
   res <- list(uniqueTexts = uniqueTexts, allUniqueTexts = allUniqueTexts,
               idFakeDups = idFakeDups, idRealDups = idRealDups,
