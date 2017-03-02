@@ -112,6 +112,6 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     names(object$text)[to_rename_loop] <- new_ids
     object$meta$id[to_rename_loop] <- new_ids
   }
-  cat("  next Step\nSuccess\n")
+  cat("  Success\n")
   return(object)
 }

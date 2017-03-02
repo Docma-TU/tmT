@@ -53,10 +53,13 @@ duplist <- function(object, paragraph = FALSE){
   }
   
   # 2. idFakeDups 3. idRealDups
+  cat("ID-Fake-Dups: ")
   idFakeDups <- foo_makeList(dupType = grep("_IDFakeDup", names(object$text)),
                              to_replace = "_IDFakeDup1")
+  cat("next Step\nID-Real-Dups: ")
   idRealDups <- foo_makeList(dupType = grep("_IDRealDup", names(object$text)),
                              to_replace = "_IDRealDup1")
+  cat("next Step\nUnique Texts: ")
   
   # 1. uniqueTexts a) allUniqueTexts:
   if (paragraph == TRUE){
@@ -73,24 +76,22 @@ duplist <- function(object, paragraph = FALSE){
   if (any(!ind)) allUniqueTexts <- names(object$text)[!ind]
   else allUniqueTexts <- character(0)
   
-  ##################### cat("Begin \"Same Text Section\"")
+  cat("next Step\nSame Texts: ")
   # 4. Same text, but different IDs:
   if (any(ind)){
     ind <- which(ind)
     # allTextDups:
     allTextDups_names <- names(object$text)[ind]
-    allTextDups <- lapply(unique(textvek[ind]),
-                          function(x) allTextDups_names[textvek[ind] == x])
-    ################### cat("allTextDups completed")
+    allTextDups <- lapply(na.omit(unique(textvek[ind])),
+                          function(x) allTextDups_names[which(textvek[ind] == x)])
     # b) textMetaDups:
     meta_same <- duplicated(object$meta[ind,]) | duplicated(object$meta[ind,], fromLast = TRUE)
     if (any(meta_same)){
       textMetaDups_names <- allTextDups_names[meta_same]
-      textMetaDups <- lapply(unique(textvek[ind[meta_same]]),
-                             function(x) textMetaDups_names[textvek[ind[meta_same]] == x])
+      textMetaDups <- lapply(na.omit(unique(textvek[ind[meta_same]])),
+                             function(x) textMetaDups_names[which(textvek[ind[meta_same]] == x)])
     }
     else textMetaDups <- list()
-    ################### cat("textMetaDups completed")
     if (any(!meta_same)){
       # remaining Indices for a) and c):
       ind <- ind[!meta_same]
@@ -99,8 +100,8 @@ duplist <- function(object, paragraph = FALSE){
       text_same <- duplicated(textvek[ind]) | duplicated(textvek[ind], fromLast = TRUE)
       if (any(text_same)){
         textOnlyDups_names <- allTextDups_names[text_same]
-        textOnlyDups <- lapply(unique(textvek[ind[text_same]]),
-                               function(x) textOnlyDups_names[textvek[ind[text_same]] == x])
+        textOnlyDups <- lapply(na.omit(unique(textvek[ind[text_same]])),
+                               function(x) textOnlyDups_names[which(textvek[ind[text_same]] == x)])
       }
       else textOnlyDups <- list()
       # c) textOthersDups:
@@ -118,11 +119,12 @@ duplist <- function(object, paragraph = FALSE){
     textMetaDups <- list()
     textOthersDups <- list()
   }
+  cat("Success\n")
   
   res <- list(uniqueTexts = uniqueTexts, allUniqueTexts = allUniqueTexts,
               idFakeDups = idFakeDups, idRealDups = idRealDups,
               allTextDups = allTextDups, textOnlyDups = textOnlyDups,
               textMetaDups = textMetaDups, textOthersDups = textOthersDups)
-  cat(lengths(res))
+  print(lengths(res))
   return(res)
 }
