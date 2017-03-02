@@ -29,7 +29,7 @@
 makeClear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
                               "koennte", "ueber", "waehrend", "wuerde",
                               "wuerden"), paragraph = TRUE){
-    stopifnot(is.textmeta(x), is.character(sw), is.logical(paragraph),
+    stopifnot(is.list(x), is.character(sw), is.logical(paragraph),
               length(paragraph) == 1)
     cat("punctuation \n")
     x <- lapply(x, removePunctuation, preserve_intra_word_dashes = FALSE)
