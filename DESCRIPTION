@@ -2,7 +2,7 @@ Package: tmT
 Type: Package
 Title: Text Mining Tools For News Corpora Analysis
 Version: 0.1
-Date: 2015-06-30
+Date: 2017-03-06
 Authors@R: c(person("Lars", "Koppers", email="koppers@statistik.tu-dortmund.de", role=c("aut", "cre")),
 	     person("Jonas", "Rieger", email="riegerjonas@gmx.de", role=c("aut")),
              person("Kira", "Schacht", email="kira.schacht@tu-dortmund.de", role=c("aut")))
