@@ -41,8 +41,9 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
       cat(paste("Rename Fake-Duplicates:", length(to_rename)))
       for (i in na.omit(unique(names(object$text)[to_rename]))){
         to_rename_loop <- (names(object$text) == i) & ind_loop
+        to_rename_loop[is.na(to_rename_loop)] <- FALSE
         names(object$text)[to_rename_loop] <- paste0(names(object$text)[to_rename_loop],
-                                                     "_IDFakeDup", 1:sum(to_rename_loop, na.rm = TRUE))
+                                                     "_IDFakeDup", 1:sum(to_rename_loop))
       }
       cat("  next Step\n")
     }
@@ -88,8 +89,9 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     cat(paste("Rename Real-Duplicates:", length(to_rename)))
     for (i in na.omit(unique(names(object$text)[to_rename]))){
       to_rename_loop <- names(object$text) == i & ind_loop
+      to_rename_loop[is.na(to_rename_loop)] <- FALSE
       new_ids <- paste0(names(object$text)[to_rename_loop], "_IDRealDup",
-                        1:sum(to_rename_loop, na.rm = TRUE))
+                        1:sum(to_rename_loop))
       names(object$text)[to_rename_loop] <- new_ids
       object$meta$id[to_rename_loop] <- new_ids
     }
@@ -107,8 +109,9 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   cat(paste("Rename remaining Fake-Duplicates:", length(to_rename)))
   for (i in na.omit(unique(names(object$text)[to_rename]))){
     to_rename_loop <- names(object$text) == i & ind_loop
+    to_rename_loop[is.na(to_rename_loop)] <- FALSE
     new_ids <- paste0(names(object$text)[to_rename_loop], "_IDFakeDup",
-                      1:sum(to_rename_loop, na.rm = TRUE))
+                      1:sum(to_rename_loop))
     names(object$text)[to_rename_loop] <- new_ids
     object$meta$id[to_rename_loop] <- new_ids
   }
