@@ -46,8 +46,11 @@ duplist <- function(object, paragraph = FALSE){
     sorted_dups <- sort(names(object$text[dupType]))
     temp <- grep(to_replace, sorted_dups)
     dups_names <- gsub(pattern = to_replace, replacement = "", sorted_dups[temp])
-    temp <- cbind(temp, c(temp[-1], length(sorted_dups)) - 1)
+    temp <- cbind(temp, c(temp[-1], length(sorted_dups) + 1) - 1)
     dupType <- apply(temp, 1, function(x) sorted_dups[x[1]:x[2]])
+    if (is.matrix(dupType)){
+      dupType <- as.list(as.data.frame(dupType, stringsAsFactors = FALSE))
+    }
     names(dupType) <- dups_names
     return(dupType)
   }
