@@ -80,6 +80,7 @@ readNexis <- function(path = getwd(),
       text_new <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
                        replacement = "", text_new, perl = TRUE)
       text_new[is.na(text_new)] <- ""
+      leadtext[is.na(leadtext)] <- ""
       text_new <- trimws(paste(leadtext, text_new))
       names(text_new) <- id
       text <- as.list(c(text, text_new))

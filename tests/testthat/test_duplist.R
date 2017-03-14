@@ -1,6 +1,6 @@
 context("creating duplists")
 
-test_that("readSPIEGEL", {
+test_that("duplist", {
   load("data/SP_compare.RData")
   load("data/SZ_compare.RData")
   load("data/Nexis_compare.RData")
