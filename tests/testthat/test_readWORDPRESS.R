@@ -1,7 +1,7 @@
 context("read WORDPRESS files")
 
-test_that("readWORDPRESS”, {
-  WP2 <- readWORDPRESS(path=paste0(getwd(),"/data/Wordpress”))
+test_that("readWORDPRESS", {
+  WP2 <- readWORDPRESS(path=paste0(getwd(),"/data/Wordpress"))
   text2 <- readWORDPRESS(path=paste0(getwd(),"/data/Wordpress"), do.meta = FALSE, do.text = TRUE)
   meta2 <- readWORDPRESS(path=paste0(getwd(),"/data/Wordpress"), do.meta = TRUE, do.text = FALSE)
   
