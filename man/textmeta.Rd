@@ -23,4 +23,3 @@ Creates "textmeta"-Objects.
 
 }
 \keyword{manip}
-

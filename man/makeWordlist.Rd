@@ -27,4 +27,3 @@ This function helps, if \code{table(x)} needs too much RAM.
 ##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}
-

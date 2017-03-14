@@ -16,4 +16,3 @@ list of character strings, representing the paragraphs.}
 Deletes Articles with the same ID and same text. Renames the ID of Articles
 with the same ID but different text-component (_IDFakeDup, _IDRealDup).
 }
-

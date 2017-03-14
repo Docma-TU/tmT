@@ -15,4 +15,3 @@ TRUE or FALSE.
 \description{
 Tests for "textmeta"-Objects.
 }
-

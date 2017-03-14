@@ -43,4 +43,3 @@ would be plotted.
 }
 \keyword{~kwd1}
 \keyword{~kwd2}
-

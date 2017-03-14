@@ -36,4 +36,3 @@ Makes a cluster analysis with the hellinger distance.
 }
 \keyword{~kwd1}
 \keyword{~kwd2}
-
