@@ -5,7 +5,7 @@ test_that("readWORDPRESS", {
   text2 <- readWORDPRESS(path=paste0(getwd(),"/data/Wordpress"), do.meta = FALSE, do.text = TRUE)
   meta2 <- readWORDPRESS(path=paste0(getwd(),"/data/Wordpress"), do.meta = TRUE, do.text = FALSE)
   
-  load("data/WP_compare.RData")
+  load("data/WP_Compare.RData")
   expect_equal(WP2, WP)
   expect_equal(text2, text)
   expect_equal(meta2, meta)
