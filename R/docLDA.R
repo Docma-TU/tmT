@@ -28,10 +28,13 @@ docLDA <- function(corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE,
     stopifnot(is.list(corpus), is.character(vocab), is.logical(ldacorrect),
               is.logical(excludeNA), is.logical(reduce), length(ldacorrect) == 1,
               length(excludeNA) == 1, length(reduce) == 1)
+    corpus <- lapply(corpus, unlist)
     corpus <- lapply(corpus, table)
     corpus <- lapply(corpus, function(x)rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
     if(ldacorrect) corpus <- lapply(corpus, function(x)rbind(as.integer(rep(x[1,], x[2,])), as.integer(rep(1,sum(x[2,])))))
     if(excludeNA) corpus <- lapply(corpus, function(x)x[,!is.na(x[1,])])
+    tmp <- lengths(sapply(corpus,dim))==0
+    corpus[tmp] <- lapply(corpus(tmp),t)
     if(reduce) corpus <- corpus[sapply(corpus,dim)[2,] != 0]
     return(corpus)
 }
