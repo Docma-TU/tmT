@@ -15,16 +15,23 @@
 #'
 #' @export showMetadata
 #'
-showMetadata <- function(meta, file, id = meta$id, cols = colnames(meta),
-                          csv.ger = FALSE){
+showMetadata <- function(meta, file = "corpus", id = meta$id,
+  cols = colnames(meta), csv.ger = FALSE){
   stopifnot(is.data.frame(meta), is.character(file), length(file) == 1,
-            is.character(id), all(id %in% meta$id),
-            is.character(cols), all(cols %in% colnames(meta)))
-  if (csv.ger){
-    write.csv2(meta[meta$id %in% id, cols], file = file, row.names = FALSE)
+    all(id %in% meta$id), is.character(cols), all(cols %in% colnames(meta)))
+  more_files <- TRUE
+  if(is.vector(id)){
+    id <- as.matrix(id)
+    more_files <- FALSE
   }
-  else {
-    write.csv(meta[meta$id %in% id, cols], file = file, row.names = FALSE)
-}
-  invisible(meta[meta$id %in% id, cols])
+  outlist <- list()
+  for(i in 1:ncol(id)){
+    out <-  meta[meta$id %in% id[, i], cols]
+    if (csv.ger) write.csv2(out, file = paste0(file, i, "meta.csv"))
+    else write.csv(out, file = paste0(file, i, "meta.csv"))
+    outlist <- c(outlist, list(out))
+  }
+  if(more_files) names(outlist) <- 1:ncol(id)
+  else outlist <- outlist[[1]]
+  invisible(outlist)
 }

@@ -4,7 +4,7 @@
 \alias{showMetadata}
 \title{Export Readable Meta-Data of Articles.}
 \usage{
-showMetadata(meta, file, id = meta$id, cols = colnames(meta),
+showMetadata(meta, file = "corpus", id = meta$id, cols = colnames(meta),
   csv.ger = FALSE)
 }
 \arguments{

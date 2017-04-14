@@ -11,7 +11,7 @@ test_that("showArticles", {
     M3 <- rbind(M[1,], c(NA,NA,NA,""), c(NA,NA,NA,""))
     rownames(M) <- rownames(M2) <- rownames(M3)<- 1:3
     m <- showArticles(corpus,id=as.character(1:3), file="test.csv")
-    expect_equal(list(M),m)
+    expect_equal(M,m)
     m <- showArticles(corpus,id=matrix(as.character(c(1:3,1,3,2,1,NA,NA)),3,3), file="test.csv")
     expect_equal(list("1"=M, "2"=M2, "3"=M3),m)
 })

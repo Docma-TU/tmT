@@ -4,7 +4,8 @@
 \alias{showArticles}
 \title{Export Readable Article Lists}
 \usage{
-showArticles(corpus, id, file)
+showArticles(corpus, id = names(corpus$text),
+  file = deparse(substitute(corpus)))
 }
 \arguments{
 \item{corpus}{A corpus of type "data"}
