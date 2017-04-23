@@ -5,8 +5,8 @@
 \title{Plotting Topics over Time relative to Corpus}
 \usage{
 totRelative(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
-  corpus = NULL, file, pages = TRUE, Tnames = top.topic.words(x$topics,
-  1), smooth = 0.05)
+  corpus = NULL, file, pages = TRUE,
+  Tnames = lda::top.topic.words(x$topics, 1), smooth = 0.05)
 }
 \arguments{
 \item{x}{LDA result object.}
