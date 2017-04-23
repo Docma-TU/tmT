@@ -74,7 +74,7 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     levels(tmp$topic)[1:length(levels(tmp$topic)) %in% topics] <- Tnames
 
     #plot limits: round to next 5 years
-    roundyear <- 5*round(lubridate::year(range(tmpdate))/5)
+    roundyear <- 5*round(lubridate::year(range(tmpdate, na.rm = TRUE))/5)
     roundyear <- as.Date(paste0(roundyear, "-01-01"))
 
     #plotting
