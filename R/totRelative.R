@@ -19,7 +19,7 @@
 #' @export totRelative
 
 totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL, corpus = NULL,
-                         file, pages=TRUE, Tnames = top.topic.words(x$topics,1), smooth = 0.05){
+                         file, pages=TRUE, Tnames = lda::top.topic.words(x$topics,1), smooth = 0.05){
     #check if arguments are properly specified
     if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
         stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
@@ -29,10 +29,10 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     tmp <- data.frame(t(x$document_sums))
 
     #get dates for all documents to be visualized
-    if(!is.null(meta)) tmpdate <- meta$datum[match(ldaID, meta$id)]
-    if(!is.null(corpus)) tmpdate <- corpus$meta$datum[match(ldaID, corpus$meta$id)]
+    if(!is.null(meta)) tmpdate <- meta$date[match(ldaID, meta$id)]
+    if(!is.null(corpus)) tmpdate <- corpus$meta$date[match(ldaID, corpus$meta$id)]
     #round to months
-    tmpdate <- floor_date(tmpdate, "month")
+    tmpdate <- lubridate::floor_date(tmpdate, "month")
 
     ### Prepare normalization data ###
     if(!is.null(meta)){
@@ -45,8 +45,8 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     if(!is.null(corpus)){
         (cat("Calculate monthly sums in corpus for normalization..\n"))
         #get dates of every document in the corpus
-        normdates <- corpus$meta$datum[match(names(corpus$text), corpus$meta$id)]
-        normdates <- floor_date(normdates, "month")
+        normdates <- corpus$meta$date[match(names(corpus$text), corpus$meta$id)]
+        normdates <- lubridate::floor_date(normdates, "month")
         #count words for every document
         normsums <- sapply(corpus$text, function(x) length(x))
         #sum words to months
@@ -74,7 +74,7 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     levels(tmp$topic)[1:length(levels(tmp$topic)) %in% topics] <- Tnames
 
     #plot limits: round to next 5 years
-    roundyear <- 5*round(year(range(tmpdate))/5)
+    roundyear <- 5*round(lubridate::year(range(tmpdate))/5)
     roundyear <- as.Date(paste0(roundyear, "-01-01"))
 
     #plotting
@@ -84,32 +84,32 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
         topicnr <- 0
         for(i in levels(tmp$topic)){
             topicnr <- topicnr + 1
-            p <- ggplot(tmp[tmp$topic == i,], aes(x = date, y = docsum)) + {
-                if(smooth == 0) geom_line(colour = "black")
-                else stat_smooth(span = smooth, se = FALSE, size = 0.5, colour = "black")  } +
-                scale_x_date(expand = c(0.05, 0), limits = roundyear) +
-                theme(panel.background = element_rect(fill = '#e2e8ed', colour = '#e2e8ed'),
-                      axis.ticks = element_blank(),
-                      axis.text.x = element_text(angle = -330, hjust = 1)) + {
-                          if(all(Tnames == top.topic.words(x$topics,1))) ggtitle(paste("Topic Nr.", topicnr, "/ Top Topic Word:", i))
-                          else ggtitle(paste0("Topic Nr. ", topicnr, ": ",i)) } +
-                xlab('') + ylab('Share of Topic in Subcorpus')
+            p <- ggplot2::ggplot(tmp[tmp$topic == i,], ggplot2::aes(x = date, y = docsum)) + {
+                if(smooth == 0) ggplot2::geom_line(colour = "black")
+                else ggplot2::stat_smooth(span = smooth, se = FALSE, size = 0.5, colour = "black")  } +
+                ggplot2::scale_x_date(expand = c(0.05, 0), limits = roundyear) +
+                ggplot2::theme(panel.background = ggplot2::element_rect(fill = '#e2e8ed', colour = '#e2e8ed'),
+                      axis.ticks = ggplot2::element_blank(),
+                      axis.text.x = ggplot2::element_text(angle = -330, hjust = 1)) + {
+                          if(all(Tnames == lda::top.topic.words(x$topics,1))) ggplot2::ggtitle(paste("Topic Nr.", topicnr, "/ Top Topic Word:", i))
+                          else ggplot2::ggtitle(paste0("Topic Nr. ", topicnr, ": ",i)) } +
+                ggplot2::xlab('') + ggplot2::ylab('Share of Topic in Subcorpus')
             print(p)
         }
         dev.off()
     }
     if(!pages){
         pdf(file, width = 12)
-        p <- ggplot(tmp, aes(x = date, y = docsum, colour = topic)) + {
-            if(smooth == 0) geom_line(colour = "black")
-            else stat_smooth(span = smooth, se = FALSE, size = 0.5)  } +
-            scale_x_date(expand = c(0.05, 0), limits = roundyear) +
-            scale_colour_discrete(name="Topic") +
-            theme(panel.background = element_rect(fill = '#e2e8ed', colour = '#e2e8ed'),
-                  axis.ticks = element_blank(),
-                  axis.text.x = element_text(angle = -330, hjust = 1)) +
-            ggtitle(paste("Share of Topics:", paste0(paste(topics, Tnames, sep = ": "), collapse = ", "), "in Subcorpus")) +
-            xlab('') + ylab('Share in Subcorpus')
+        p <- ggplot2::ggplot(tmp, ggplot2::aes(x = date, y = docsum, colour = topic)) + {
+            if(smooth == 0) ggplot2::geom_line(colour = "black")
+            else ggplot2::stat_smooth(span = smooth, se = FALSE, size = 0.5)  } +
+            ggplot2::scale_x_date(expand = c(0.05, 0), limits = roundyear) +
+            ggplot2::scale_colour_discrete(name="Topic") +
+            ggplot2::theme(panel.background = ggplot2::element_rect(fill = '#e2e8ed', colour = '#e2e8ed'),
+                  axis.ticks = ggplot2::element_blank(),
+                  axis.text.x = ggplot2::element_text(angle = -330, hjust = 1)) +
+            ggplot2::ggtitle(paste("Share of Topics:", paste0(paste(topics, Tnames, sep = ": "), collapse = ", "), "in Subcorpus")) +
+            ggplot2::xlab('') + ggplot2::ylab('Share in Subcorpus')
         print(p)
         dev.off()
     }
