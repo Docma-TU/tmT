@@ -59,11 +59,11 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
 
     ### Normalize data ###
     normsums <- normsums[match(tmp$date, normsums$date),]
-    tmp[,2:length(tmp)] <- apply(tmp[,2:length(tmp)],2,function(y) y/normsums$x)
+    tmp[, 2:length(tmp)] <- apply(tmp[, 2:length(tmp)], 2, function(y) y/normsums$x)
     #cell values are now shares in document x of topic y
 
     #filter for topics to be plotted
-    tmp <- tmp[, c(1,topics+1)]
+    tmp <- tmp[, c(1, topics+1)]
 
     #convert dataframe to tidy data format for ggplot
     tmp <- cbind(expand.grid(tmp$date, colnames(tmp)[2:length(tmp)]), unlist(tmp[,2:length(tmp)]))
@@ -71,7 +71,8 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     tmp <- tmp[with(tmp, order(date, topic)), ]
 
     #adjust topic names to those given in argument
-    levels(tmp$topic)[1:length(levels(tmp$topic)) %in% topics] <- Tnames
+    # levels(tmp$topic)[1:length(levels(tmp$topic)) %in% topics] <- Tnames
+    levels(tmp$topic) <- Tnames
 
     #plot limits: round to next 5 years
     roundyear <- 5*round(lubridate::year(range(tmpdate, na.rm = TRUE))/5)
