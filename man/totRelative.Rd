@@ -6,7 +6,7 @@
 \usage{
 totRelative(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   corpus = NULL, file, pages = TRUE,
-  Tnames = lda::top.topic.words(x$topics, 1), smooth = 0.05)
+  Tnames = lda::top.topic.words(x$topics, 1)[topics], smooth = 0.05)
 }
 \arguments{
 \item{x}{LDA result object.}

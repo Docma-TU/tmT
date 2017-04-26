@@ -19,7 +19,7 @@
 #' @export totRelative
 
 totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL, corpus = NULL,
-                         file, pages=TRUE, Tnames = lda::top.topic.words(x$topics,1), smooth = 0.05){
+                         file, pages=TRUE, Tnames = lda::top.topic.words(x$topics, 1)[topics], smooth = 0.05){
     #check if arguments are properly specified
     if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
         stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
