@@ -19,6 +19,7 @@
 #' @param ... additional graphical parameters 
 #' 
 #' @return A plot.
+#' Invisible: A dataframe with \item{date} and \item{counts} or \item{proportion}.
 #' @export plotScot
 
 plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
@@ -69,6 +70,7 @@ plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
     plot(dateNames, proportion, type = "l",
       main = main, xlab = xlab, ylim = ylim, ...)
     abline(v = markYears, lty = 2)
+    tab = data.frame(date = dateNames, proportion = proportion)
   }
   else{
     # some preparation for plotting
@@ -79,5 +81,7 @@ plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
     plot(dateNames, counts, type = "l",
       main = main, xlab = xlab, ...)
     abline(v = markYears, lty = 2)
+    tab = data.frame(date = dateNames, counts = counts)
   }
+  invisible(tab)
 }

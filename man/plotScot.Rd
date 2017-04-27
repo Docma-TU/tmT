@@ -33,6 +33,7 @@ vertical lines}
 }
 \value{
 A plot.
+Invisible: A dataframe with \item{date} and \item{counts} or \item{proportion}.
 }
 \description{
 Creates a plot of the counts/proportion of documents/words in the subcorpus,
