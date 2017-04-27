@@ -39,3 +39,8 @@ Invisible: A dataframe with \item{date} and \item{counts} or \item{proportion}.
 Creates a plot of the counts/proportion of documents/words in the subcorpus,
 which could be specified by \code{ids}.
 }
+\examples{
+##
+}
+\keyword{~kwd1}
+\keyword{~kwd2}

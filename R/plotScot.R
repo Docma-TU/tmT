@@ -17,9 +17,10 @@
 #' @param xlab \code{character} graphical parameter
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
 #' @param ... additional graphical parameters 
-#' 
 #' @return A plot.
 #' Invisible: A dataframe with \item{date} and \item{counts} or \item{proportion}.
+#' @keywords ~kwd1 ~kwd2
+#' @examples ##
 #' @export plotScot
 
 plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
