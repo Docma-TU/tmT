@@ -1,13 +1,13 @@
 #' Plotting Counts of Documents or Words over Time (relative to Corpus)
 #'
-#' Creates a plot of the counts/proportion of documents/words in the subcorpus,
+#' Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
 #' which could be specified by \code{ids}.
 #' 
 #' @param object \code{\link{textmeta}} object - with strictly tokenized
 #' \code{text} component (\code{character} vectors) if \code{type = "words"}
 #' @param ids \code{character} vector (default: \code{object$meta$id}) which IDs
 #' specify the subcorpus
-#' @param type \code{character} (default: \code{"docs"}) should counts/proportion
+#' @param type \code{character} (default: \code{"docs"}) should counts or proportion
 #' of documents \code{"docs"} or words \code{"words"} be plotted
 #' @param rel \code{logical} (default: \code{FALSE}) should counts
 #' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
@@ -42,7 +42,7 @@ plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
   if (mark) markYears <- as.Date(lubridate::floor_date(
     as.Date(as.character(rangeYears[1]:rangeYears[2]), format = "%Y"), "year"))
   else markYears <- NA
-  # compute counts (of words/documents)
+  # compute counts (of wordsordocuments)
   if (type[1] == "words"){
     docLengths <- lengths(object$text[match(ids, names(object$text))])
     counts <- sapply(split(docLengths, dates), sum)

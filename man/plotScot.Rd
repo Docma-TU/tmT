@@ -14,7 +14,7 @@ plotScot(object, ids = object$meta$id, type = c("docs", "words"),
 \item{ids}{\code{character} vector (default: \code{object$meta$id}) which IDs
 specify the subcorpus}
 
-\item{type}{\code{character} (default: \code{"docs"}) should counts/proportion
+\item{type}{\code{character} (default: \code{"docs"}) should counts or proportion
 of documents \code{"docs"} or words \code{"words"} be plotted}
 
 \item{rel}{\code{logical} (default: \code{FALSE}) should counts
@@ -36,7 +36,7 @@ A plot.
 Invisible: A dataframe with \item{date} and \item{counts} or \item{proportion}.
 }
 \description{
-Creates a plot of the counts/proportion of documents/words in the subcorpus,
+Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
 which could be specified by \code{ids}.
 }
 \examples{
