@@ -1,5 +1,5 @@
 #' Plotting Counts of Documents or Words over Time (relative to Corpus)
-#'
+#' 
 #' Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
 #' which could be specified by \code{ids}.
 #' 
@@ -7,7 +7,7 @@
 #' \code{text} component (\code{character} vectors) if \code{type = "words"}
 #' @param ids \code{character} vector (default: \code{object$meta$id}) which IDs
 #' specify the subcorpus
-#' @param type \code{character} (default: \code{"docs"}) should counts or proportion
+#' @param type \code{character} (default: \code{"docs"}) should counts/proportion
 #' of documents \code{"docs"} or words \code{"words"} be plotted
 #' @param rel \code{logical} (default: \code{FALSE}) should counts
 #' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
@@ -17,8 +17,8 @@
 #' @param xlab \code{character} graphical parameter
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
 #' @param ... additional graphical parameters 
-#' @return A plot.
-#' Invisible: A dataframe with \item{date} and \item{counts} or \item{proportion}.
+#' @return A plot. Invisible: A dataframe with \item{date} and \item{counts} or
+#' \item{proportion}.
 #' @keywords ~kwd1 ~kwd2
 #' @examples ##
 #' @export plotScot
