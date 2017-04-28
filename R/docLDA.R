@@ -35,11 +35,13 @@ docLDA <- function(corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE,
     if(ldacorrect) corpus <- lapply(corpus, function(x)
       rbind(as.integer(rep(x[1, ], x[2, ])), as.integer(rep(1, sum(x[2, ])))))
     if(excludeNA) corpus <- lapply(corpus, function(x) x[, !is.na(x[1, ])])
-    tmp <- lengths(sapply(corpus, function(x) length(dim(x)))) == 0
-    corpus[tmp] <- lapply(corpus[tmp], t)
+    tmp <- lengths(lapply(corpus, dim)) == 0
+    corpus[tmp] <- lapply(corpus[tmp], as.matrix)
     if(reduce){
+      # delete entries where dimension is not computable
       tmp <- lengths(lapply(corpus, dim)) == 0
       if (length(tmp) > 0) corpus <- corpus[!tmp]
+      # delete entries where 
       corpus <- corpus[sapply(corpus, dim)[2,] != 0]
     }
     return(corpus)
