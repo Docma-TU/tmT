@@ -32,8 +32,9 @@ vertical lines}
 \item{...}{additional graphical parameters}
 }
 \value{
-A plot. Invisible: A dataframe with \item{date} and \item{counts} or
-\item{proportion}.
+A plot.
+Invisible: A dataframe with columns \code{date} and \code{counts},
+respectively \code{proportion}
 }
 \description{
 Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
