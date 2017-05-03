@@ -13,6 +13,10 @@ test_that("plotScot", {
     4, 2, 4, 3, 6, 2, 4, 3, 5, 1, 3, 3, 1, 2, 1, 4, 4, 4, 4, 4))
   expect_equal(plotScot(tm, id = id, unit = "year")$counts, c(51, 141, 142, 121,
     74, 11, 23, 15, 17, 34, 43, 27))
+  expect_equal(plotScot(tm, id = id, unit = "year", rel = TRUE)$proportion,
+    c(0.103238866396761, 0.107963246554364, 0.096271186440678, 0.1,
+      0.0933165195460277, 0.064327485380117, 0.14375, 0.1171875, 0.125,
+      0.0988372093023256, 0.0945054945054945, 0.0685279187817259))
   expect_equal(plotScot(tm, id = id, unit = "year", type = "words", rel = TRUE,
     mark = FALSE)$proportion, c(0.109254163305973, 0.108208487712327,
       0.0971885277787601, 0.0987495651855513, 0.0801016523549967,
@@ -21,5 +25,3 @@ test_that("plotScot", {
       0.0803606012045356))
   expect_error(plotScot(object = tm$meta))
 })
-
-
