@@ -41,7 +41,7 @@ respectively \code{proportion}
 }
 \description{
 Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
-which could be specified by \code{ids}.
+which could be specified by \code{id}.
 }
 \examples{
 ##

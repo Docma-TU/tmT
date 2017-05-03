@@ -1,7 +1,7 @@
 #' Plotting Counts of Documents or Words over Time (relative to Corpus)
 #' 
 #' Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
-#' which could be specified by \code{ids}.
+#' which could be specified by \code{id}.
 #' 
 #' @param object \code{\link{textmeta}} object - with strictly tokenized
 #' \code{text} component (\code{character} vectors) if \code{type = "words"}
@@ -31,15 +31,15 @@ plotScot = function(object, id = object$meta$id, type = c("docs", "words"),
   
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
-  # match ids with ids which appears in object$text
+  # match id with id which appears in object$text
   if (type[1] == "words"){
-    ids <- names(object$text)[names(object$text) %in% ids]
+    id <- names(object$text)[names(object$text) %in% id]
     insert <- "words"
   }
   else insert <- "documents"
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(
-    object$meta$date[match(ids, object$meta$id)], unit)
+    object$meta$date[match(id, object$meta$id)], unit)
   # generate markers on every beginning year
   rangeYears <- lubridate::year(range(dates, na.rm = TRUE))
   if (mark) markYears <- as.Date(lubridate::floor_date(
@@ -47,7 +47,7 @@ plotScot = function(object, id = object$meta$id, type = c("docs", "words"),
   else markYears <- NA
   # compute counts (of wordsordocuments)
   if (type[1] == "words"){
-    docLengths <- lengths(object$text[match(ids, names(object$text))])
+    docLengths <- lengths(object$text[match(id, names(object$text))])
     counts <- sapply(split(docLengths, dates), sum)
   }
   else counts <- table(dates)
