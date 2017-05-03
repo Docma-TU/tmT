@@ -29,6 +29,9 @@
 plotScot = function(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", main, xlab, ylim, ...){
   
+  stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
+    is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
+    length(unit) == 1, all(type %in% c("docs", "words")))
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
   # match id with id which appears in object$text
