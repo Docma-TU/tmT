@@ -5,7 +5,7 @@
 #' 
 #' @param object \code{\link{textmeta}} object - with strictly tokenized
 #' \code{text} component (\code{character} vectors) if \code{type = "words"}
-#' @param ids \code{character} vector (default: \code{object$meta$id}) which IDs
+#' @param id \code{character} vector (default: \code{object$meta$id}) which IDs
 #' specify the subcorpus
 #' @param type \code{character} (default: \code{"docs"}) should counts/proportion
 #' of documents \code{"docs"} or words \code{"words"} be plotted
@@ -13,6 +13,8 @@
 #' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
+#' @param unit \code{character} (default: \code{"month"}) to which unit should
+#' dates be floored
 #' @param main \code{character} graphical parameter
 #' @param xlab \code{character} graphical parameter
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
@@ -24,8 +26,8 @@
 #' @examples ##
 #' @export plotScot
 
-plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
-  rel = FALSE, mark = TRUE, main, xlab, ylim, ...){
+plotScot = function(object, id = object$meta$id, type = c("docs", "words"),
+  rel = FALSE, mark = TRUE, unit = "month", main, xlab, ylim, ...){
   
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
@@ -37,7 +39,7 @@ plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
   else insert <- "documents"
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(
-    object$meta$date[match(ids, object$meta$id)], "month")
+    object$meta$date[match(ids, object$meta$id)], unit)
   # generate markers on every beginning year
   rangeYears <- lubridate::year(range(dates, na.rm = TRUE))
   if (mark) markYears <- as.Date(lubridate::floor_date(
@@ -54,11 +56,11 @@ plotScot = function(object, ids = object$meta$id, type = c("docs", "words"),
     # compute normalisation
     if (type[1] == "words"){
       allDates <- lubridate::floor_date(
-        object$meta$date[match(names(object$text), object$meta$id)], "month")
+        object$meta$date[match(names(object$text), object$meta$id)], unit)
       allCounts <- sapply(split(lengths(object$text), allDates), sum)
     }
     else{
-      allDates <- lubridate::floor_date(object$meta$date, "month")
+      allDates <- lubridate::floor_date(object$meta$date, unit)
       allCounts <- table(allDates)
     }
     # compute proportions

@@ -4,14 +4,14 @@
 \alias{plotScot}
 \title{Plotting Counts of Documents or Words over Time (relative to Corpus)}
 \usage{
-plotScot(object, ids = object$meta$id, type = c("docs", "words"),
-  rel = FALSE, mark = TRUE, main, xlab, ylim, ...)
+plotScot(object, id = object$meta$id, type = c("docs", "words"),
+  rel = FALSE, mark = TRUE, unit = "month", main, xlab, ylim, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object - with strictly tokenized
 \code{text} component (\code{character} vectors) if \code{type = "words"}}
 
-\item{ids}{\code{character} vector (default: \code{object$meta$id}) which IDs
+\item{id}{\code{character} vector (default: \code{object$meta$id}) which IDs
 specify the subcorpus}
 
 \item{type}{\code{character} (default: \code{"docs"}) should counts/proportion
@@ -22,6 +22,9 @@ of documents \code{"docs"} or words \code{"words"} be plotted}
 
 \item{mark}{\code{logical} (default: \code{TRUE}) should years be marked by
 vertical lines}
+
+\item{unit}{\code{character} (default: \code{"month"}) to which unit should
+dates be floored}
 
 \item{main}{\code{character} graphical parameter}
 

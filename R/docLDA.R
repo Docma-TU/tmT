@@ -41,7 +41,7 @@ docLDA <- function(corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE,
       # delete entries where dimension is not computable
       tmp <- lengths(lapply(corpus, dim)) == 0
       if (length(tmp) > 0) corpus <- corpus[!tmp]
-      # delete entries where 
+      # reducing
       corpus <- corpus[sapply(corpus, dim)[2,] != 0]
     }
     return(corpus)
