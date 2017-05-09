@@ -17,7 +17,7 @@
 #' @author Kira Schacht (<kira.schacht@@tu-dortmund.de>)
 #' @keywords ~kwd1 ~kwd2
 #' @examples ##
-#' @export tot.heat
+#' @export totHeat
 
 totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   corpus = NULL, norm = FALSE, file, Tnames = lda::top.topic.words(x$topics,1),

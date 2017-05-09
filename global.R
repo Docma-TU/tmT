@@ -3,6 +3,7 @@
 ##############
 setwd("//STORE/koppers/Textmining/tmT/")
 setwd("D:/DoCMA/tmT")
+# setwd(rprojroot::find_root("README.md"))
 library(roxygen2)
 roxygenize(package.dir = ".")
 
