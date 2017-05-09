@@ -5,12 +5,15 @@ test_that("plotScot", {
   set.seed(123)
   id = sample(tm$meta$id, 0.1*nrow(tm$meta))
   
-  expect_equal(plotScot(tm, id = id)$counts, c(2, 8, 9, 11, 11, 3, 7, 5, 6, 11,
+  tab = plotScot(tm, id = id)
+  expect_equal(tab$counts, c(2, 8, 9, 11, 11, 3, 7, 5, 6, 11,
     16, 11, 11, 13, 12, 15, 16, 15, 10, 9, 12, 9, 10, 15, 14, 12, 7, 4, 12, 17,
     21, 17, 10, 16, 9, 17, 12, 10, 3, 8, 7, 6, 6, 5, 6, 6, 6, 8, 10, 5, 1, 11,
     4, 6, 6, 3, 1, 1, 1, 2, 1, 1, 1, 3, 1, 1, 1, 5, 4, 1, 2, 3, 2, 2, 4, 1, 1,
     1, 1, 1, 4, 3, 3, 1, 2, 1, 1, 1, 1, 3, 1, 1, 3, 2, 4, 7, 3, 3, 2, 6, 3, 6,
     4, 2, 4, 3, 6, 2, 4, 3, 5, 1, 3, 3, 1, 2, 1, 4, 4, 4, 4, 4))
+  expect_equal(plotScot(tm, id = id, curves = "both", smooth = 0.1), tab)
+  expect_equal(plotScot(tm, id = id, curves = "smooth"), tab)
   expect_equal(plotScot(tm, id = id, unit = "year")$counts, c(51, 141, 142, 121,
     74, 11, 23, 15, 17, 34, 43, 27))
   expect_equal(plotScot(tm, id = id, unit = "year", rel = TRUE)$proportion,

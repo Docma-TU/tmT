@@ -5,7 +5,9 @@
 \title{Plotting Counts of Documents or Words over Time (relative to Corpus)}
 \usage{
 plotScot(object, id = object$meta$id, type = c("docs", "words"),
-  rel = FALSE, mark = TRUE, unit = "month", main, xlab, ylim, ...)
+  rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
+  "smooth", "both"), smooth = 0.05, main, xlab, ylim, both.lwd, both.col,
+  both.lty, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object - with strictly tokenized
@@ -26,11 +28,23 @@ vertical lines}
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
 dates be floored}
 
+\item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
+\code{"smooth"} curve or \code{"both"} be plotted}
+
+\item{smooth}{\code{numeric} (default: \code{0.05}) smoothing parameter
+which is handed over to \code{\link{lowess}} as \code{f}}
+
 \item{main}{\code{character} graphical parameter}
 
 \item{xlab}{\code{character} graphical parameter}
 
 \item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
+
+\item{both.lwd}{graphical parameter for smoothed values if \code{curves = "both"}}
+
+\item{both.col}{graphical parameter for smoothed values if \code{curves = "both"}}
+
+\item{both.lty}{graphical parameter for smoothed values if \code{curves = "both"}}
 
 \item{...}{additional graphical parameters}
 }
