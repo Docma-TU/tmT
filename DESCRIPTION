@@ -22,6 +22,7 @@ Imports:
     lubridate (>= 1.3.3),
     ggplot2,
     ggdendro,
+    gplots,
     htmltools,
     stringr
 Suggests:
