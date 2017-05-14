@@ -35,7 +35,9 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
         article <- apply(lines, 1, function(x)paste(article[x[1]:x[2]], collapse = " "))
         id <- stringr::str_extract(article, "ID=\"(.*?)\"")
         id <- gsub(pattern="ID=|\"", replacement="", x=id)
-
+        abstract <- stringr::str_extract(article, "<Abstract>(.*?)</Abstract>")
+        abstract <- removeXML(abstract)
+        
         if(do.meta){
             source <- stringr::str_extract(article, "<Source>(.*?)</Source>|<Quelle>(.*?)</Quelle>")
             source <- removeXML(source)
@@ -43,8 +45,6 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
             date <- as.Date(removeXML(date))
             title <- stringr::str_extract(article, "<Title>(.*?)</Title>|<Titel>(.*?)</Titel>|<UB>(.*?)</UB>")
             title <- removeXML(title)
-            abstract <- stringr::str_extract(article, "<Abstract>(.*?)</Abstract>")
-            abstract <- removeXML(abstract)
             dachzeile <- stringr::str_extract(article, "<DZ>(.*?)</DZ>")
             dachzeile <- removeXML(dachzeile)
 
@@ -135,11 +135,13 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
         if(do.text){
             text_new <- stringr::str_extract(article, "<Text>(.*?)</Text>")
             text_new <- trimws(gsub(pattern="<Text>|</Text>", replacement="", x=text_new))
+            text_new[is.na(text_new)] <- ""
+            abstract[is.na(abstract)] <- ""
+            text_new <- trimws(paste(abstract, text_new))
             names(text_new) <- id
             text <- as.list(c(text, text_new))
         }
     }
-                                        #  text[is.na(text)] <- meta$abstract[is.na(text)]
     res <- list("meta" = meta, "text" = text, "metamult" = metamult)
     class(res) <- "textmeta"
     if (do.text) res <- deleteAndRenameDuplicates(res, paragraph = FALSE)
