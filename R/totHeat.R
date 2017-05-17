@@ -12,7 +12,8 @@
 #' @param norm Logical. Should the values be normalized by the mean topic share to account for differently sized topics? Defaults to FALSE.
 #' @param file Character vector containing the path and name for the pdf output file.
 #' @param Tnames Character vector with labels for the topics.
-#' @param date_breaks Which years should be shown on the x axis. Can be one of "1 year","5 years" or "10 years".
+#' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
+#' If is \code{5} every fifth label is drawn.
 #' @param unit \code{character} (default: \code{"year"}) to which unit should
 #' dates be floored
 #' @return A pdf.
@@ -23,7 +24,7 @@
 
 totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   corpus = NULL, norm = FALSE, file, Tnames = lda::top.topic.words(x$topics,1)[topics],
-  date_breaks = "1 year", unit = "year"){
+  date_breaks = 1, unit = "year"){
   #check if arguments are properly specified
   if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
     stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
@@ -79,16 +80,9 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     }
   }
   
-  #set breaks for x axis labels
-  if(date_breaks =="1 year")   breaks <- as.character(unique(tmpdate))
-  if(date_breaks =="5 years"){
-    breaks <- as.character(unique(tmpdate))
-    breaks[!grepl("^[0-9]{3}[05]-", unique(tmpdate))] <- ""
-  }
-  if(date_breaks == "10 years"){
-    breaks <- as.character(unique(tmpdate))
-    breaks[!grepl("^[0-9]{3}0-", unique(tmpdate))] <- ""
-  }
+  breaks <- character(length(tmp$date))
+  ind <- c(seq(1, length(breaks), by = date_breaks), length(breaks))
+  breaks[ind] <- as.character(tmp$date[ind])
   
   #plot heat map
   (cat("Plotting..\n"))

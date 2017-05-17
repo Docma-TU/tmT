@@ -6,8 +6,8 @@
 \usage{
 totHeat(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   corpus = NULL, norm = FALSE, file,
-  Tnames = lda::top.topic.words(x$topics, 1)[topics],
-  date_breaks = "1 year", unit = "year")
+  Tnames = lda::top.topic.words(x$topics, 1)[topics], date_breaks = 1,
+  unit = "year")
 }
 \arguments{
 \item{x}{LDA result object.}
@@ -26,7 +26,8 @@ totHeat(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
 
 \item{Tnames}{Character vector with labels for the topics.}
 
-\item{date_breaks}{Which years should be shown on the x axis. Can be one of "1 year","5 years" or "10 years".}
+\item{date_breaks}{(default: \code{1}) how many labels should be shown on the x axis.
+If is \code{5} every fifth label is drawn.}
 
 \item{unit}{\code{character} (default: \code{"year"}) to which unit should
 dates be floored}
