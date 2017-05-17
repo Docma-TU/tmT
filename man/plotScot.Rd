@@ -54,7 +54,7 @@ Invisible: A dataframe with columns \code{date} and \code{counts},
 respectively \code{proportion}
 }
 \description{
-Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
+Creates a plot of the counts/proportion of documents/words in the subcorpus,
 which could be specified by \code{id}.
 }
 \examples{

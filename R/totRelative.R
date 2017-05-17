@@ -12,6 +12,8 @@
 #' @param pages Logical. Should the topics be plotted on separate pages (true) or on one page (false). Defaults to true.
 #' @param Tnames Character vector with labels for the topics.
 #' @param smooth How much the output should be smoothed. The higher the number, the more smoothing is performed. Set to 0 to disable smoothing.
+#' @param unit \code{character} (default: \code{"month"}) to which unit should
+#' dates be floored
 #' @return A pdf.
 #' @author Kira Schacht (<kira.schacht@@tu-dortmund.de>)
 #' @keywords ~kwd1 ~kwd2
@@ -19,7 +21,8 @@
 #' @export totRelative
 
 totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL, corpus = NULL,
-                         file, pages=TRUE, Tnames = lda::top.topic.words(x$topics, 1)[topics], smooth = 0.05){
+  file, pages=TRUE, Tnames = lda::top.topic.words(x$topics, 1)[topics],
+  smooth = 0.05, unit = "month"){
     #check if arguments are properly specified
     if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
         stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
@@ -32,21 +35,21 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     if(!is.null(meta)) tmpdate <- meta$date[match(ldaID, meta$id)]
     if(!is.null(corpus)) tmpdate <- corpus$meta$date[match(ldaID, corpus$meta$id)]
     #round to months
-    tmpdate <- lubridate::floor_date(tmpdate, "month")
+    tmpdate <- lubridate::floor_date(tmpdate, unit = unit)
 
     ### Prepare normalization data ###
     if(!is.null(meta)){
-        (cat("Calculate monthly sums in subcorpus for normalization..\n"))
+      (cat(paste0("Calculate ", unit, "ly sums in subcorpus for normalization..\n")))
         #calculate row sums: word count for each document
         normsums <- apply(tmp, 1, sum)
         #sum row sums to months
         normsums <- aggregate(normsums, by = list(date = tmpdate), FUN = sum)
     }
     if(!is.null(corpus)){
-        (cat("Calculate monthly sums in corpus for normalization..\n"))
+      (cat(paste0("Calculate ", unit, "ly sums in subcorpus for normalization..\n")))
         #get dates of every document in the corpus
         normdates <- corpus$meta$date[match(names(corpus$text), corpus$meta$id)]
-        normdates <- lubridate::floor_date(normdates, "month")
+        normdates <- lubridate::floor_date(normdates, unit = unit)
         #count words for every document
         normsums <- sapply(corpus$text, function(x) length(x))
         #sum words to months
@@ -74,9 +77,10 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     # levels(tmp$topic)[1:length(levels(tmp$topic)) %in% topics] <- Tnames
     levels(tmp$topic) <- Tnames
 
-    #plot limits: round to next 5 years
-    roundyear <- 5*round(lubridate::year(range(tmpdate, na.rm = TRUE))/5)
-    roundyear <- as.Date(paste0(roundyear, "-01-01"))
+    #plot limits:
+    plotLimits <- range(tmpdate, na.rm = TRUE)
+    # roundyear <- 5*round(lubridate::year(range(tmpdate, na.rm = TRUE))/5)
+    # roundyear <- as.Date(paste0(roundyear, "-01-01"))
 
     #plotting
     (cat("Plotting..\n"))
@@ -88,7 +92,7 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
             p <- ggplot2::ggplot(tmp[tmp$topic == i,], ggplot2::aes(x = date, y = docsum)) + {
                 if(smooth == 0) ggplot2::geom_line(colour = "black")
                 else ggplot2::stat_smooth(span = smooth, se = FALSE, size = 0.5, colour = "black")  } +
-                ggplot2::scale_x_date(expand = c(0.05, 0), limits = roundyear) +
+                ggplot2::scale_x_date(expand = c(0.05, 0), limits = plotLimits) +
                 ggplot2::theme(panel.background = ggplot2::element_rect(fill = '#e2e8ed', colour = '#e2e8ed'),
                       axis.ticks = ggplot2::element_blank(),
                       axis.text.x = ggplot2::element_text(angle = -330, hjust = 1)) + {
@@ -104,7 +108,7 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
         p <- ggplot2::ggplot(tmp, ggplot2::aes(x = date, y = docsum, colour = topic)) + {
             if(smooth == 0) ggplot2::geom_line(colour = "black")
             else ggplot2::stat_smooth(span = smooth, se = FALSE, size = 0.5)  } +
-            ggplot2::scale_x_date(expand = c(0.05, 0), limits = roundyear) +
+            ggplot2::scale_x_date(expand = c(0.05, 0), limits = plotLimits) +
             ggplot2::scale_colour_discrete(name="Topic") +
             ggplot2::theme(panel.background = ggplot2::element_rect(fill = '#e2e8ed', colour = '#e2e8ed'),
                   axis.ticks = ggplot2::element_blank(),
@@ -114,4 +118,6 @@ totRelative <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
         print(p)
         dev.off()
     }
+    rownames(tmp) <- 1:nrow(tmp)
+    invisible(tmp)
 }

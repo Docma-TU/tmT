@@ -6,7 +6,8 @@
 \usage{
 totRelative(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   corpus = NULL, file, pages = TRUE,
-  Tnames = lda::top.topic.words(x$topics, 1)[topics], smooth = 0.05)
+  Tnames = lda::top.topic.words(x$topics, 1)[topics], smooth = 0.05,
+  unit = "month")
 }
 \arguments{
 \item{x}{LDA result object.}
@@ -26,6 +27,9 @@ totRelative(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
 \item{Tnames}{Character vector with labels for the topics.}
 
 \item{smooth}{How much the output should be smoothed. The higher the number, the more smoothing is performed. Set to 0 to disable smoothing.}
+
+\item{unit}{\code{character} (default: \code{"month"}) to which unit should
+dates be floored}
 }
 \value{
 A pdf.

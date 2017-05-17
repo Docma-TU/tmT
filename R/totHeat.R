@@ -13,6 +13,8 @@
 #' @param file Character vector containing the path and name for the pdf output file.
 #' @param Tnames Character vector with labels for the topics.
 #' @param date_breaks Which years should be shown on the x axis. Can be one of "1 year","5 years" or "10 years".
+#' @param unit \code{character} (default: \code{"year"}) to which unit should
+#' dates be floored
 #' @return A pdf.
 #' @author Kira Schacht (<kira.schacht@@tu-dortmund.de>)
 #' @keywords ~kwd1 ~kwd2
@@ -20,8 +22,8 @@
 #' @export totHeat
 
 totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
-  corpus = NULL, norm = FALSE, file, Tnames = lda::top.topic.words(x$topics,1),
-  date_breaks = "1 year"){
+  corpus = NULL, norm = FALSE, file, Tnames = lda::top.topic.words(x$topics,1)[topics],
+  date_breaks = "1 year", unit = "year"){
   #check if arguments are properly specified
   if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
     stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
@@ -33,19 +35,19 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   #get dates for all documents to be visualized
   if(!is.null(meta)) tmpdate <- meta$date[match(ldaID, meta$id)]
   if(!is.null(corpus)) tmpdate <- corpus$meta$date[match(ldaID, corpus$meta$id)]
-  #round to years
-  tmpdate <- lubridate::floor_date(tmpdate, "year")
+  #round to years, respectively unit
+  tmpdate <- lubridate::floor_date(tmpdate, unit = unit)
   
   ### Prepare normalization data ###
   if(!is.null(meta)){
-    (cat("Calculate monthly sums in subcorpus for normalization..\n"))
+    (cat(paste0("Calculate ", unit, "ly sums in subcorpus for normalization..\n")))
     #calculate row sums: word count for each document
     normsums <- apply(tmp, 1, sum)
     #sum row sums to months
     normsums <- aggregate(normsums, by = list(date = tmpdate), FUN = sum)
   }
   if(!is.null(corpus)){
-    (cat("Calculate monthly sums in corpus for normalization..\n"))
+    (cat(paste0("Calculate ", unit, "ly sums in subcorpus for normalization..\n")))
     #get dates of every document in the corpus
     normdates <- corpus$meta$date[match(names(corpus$text), corpus$meta$id)]
     normdates <- lubridate::floor_date(normdates, "month")
@@ -56,7 +58,7 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     #tidy up
     rm(normdates)
   }
-  #sum document-levels values to months
+  #sum document-levels values to months, respectively unit
   tmp <- aggregate(tmp, by = list(date = tmpdate), FUN = sum)
   
   ### Normalize data ###
@@ -110,4 +112,6 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
       "Normalized Deviation of Topic Shares from Mean Topic Share",
       "Absolute Deviation of Topic Shares from Mean Topic Share"))
   dev.off()
+  names(tmp)[2:(length(topics)+1)] <- Tnames
+  invisible(tmp)
 }

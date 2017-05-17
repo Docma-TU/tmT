@@ -1,6 +1,6 @@
 #' Plotting Counts of Documents or Words over Time (relative to Corpus)
 #' 
-#' Creates a plot of the countsorproportion of documentsorwords in the subcorpus,
+#' Creates a plot of the counts/proportion of documents/words in the subcorpus,
 #' which could be specified by \code{id}.
 #' 
 #' @param object \code{\link{textmeta}} object - with strictly tokenized
@@ -33,7 +33,7 @@
 #' @examples ##
 #' @export plotScot
 
-plotScot = function(object, id = object$meta$id, type = c("docs", "words"),
+plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact", "smooth", "both"),
   smooth = 0.05, main, xlab, ylim, both.lwd, both.col, both.lty, ...){
   
