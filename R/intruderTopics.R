@@ -27,7 +27,7 @@
 #' @export intruderTopics
 
 intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
-    if((is.null(beta) | is.null(theta)) & is.null(oldResult))stop("beta and theta needs to be specified")
+  if((is.null(beta) | is.null(theta)) & is.null(oldResult))stop("beta and theta needs to be specified")
     if(is.null(beta) & is.null(oldResult))stop("beta and theta or oldResult needs to be specified")
     if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
     if((!is.null(theta) & (!is.matrix(theta) | !is.numeric(theta))))stop("theta needs to be a numeric matrix")
@@ -70,6 +70,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
         sID <- sample(unusedID,1)
         numIntruderS <- sample(numIntruder,1)
         possibleIntruder <- which(theta[,sID]==0)
+        if(length(possibleIntruder)==0){ unusedID <- unusedID[-which(unusedID==sID)]; next}
         toptopics <- topwords[,order(theta[,sID], decreasing=TRUE)[1:(numOuttopics-numIntruderS)]]
         intruder <- topwords[,sample(possibleIntruder,numIntruderS)]
         posIntruder <- sample(numOuttopics, numIntruderS)
@@ -95,6 +96,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
         result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntr=numIntruderS - sum(input %in% posIntruder), falseIntr=sum(input %in% (1:numOuttopics)[-posIntruder]), stringsAsFactors=FALSE))}
         unusedID <- unusedID[-which(unusedID==sID)]
         if(printSolution) cat(paste("True Intruder:", paste(sort(posIntruder), collapse=" "), "\n"))
+        cat(paste(length(unusedID), "left\n"))
     }
     result <- list(result=result, beta=beta, theta= theta, id=id, byScore=byScore, numIntruder=numIntruder, numOuttopics=numOuttopics, minWords=minWords, minOuttopics=minOuttopics, unusedID = unusedID, stopTopics = stopTopics)
     class(result) <- "IntruderTopics"
