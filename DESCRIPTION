@@ -1,19 +1,16 @@
 Package: tmT
 Type: Package
 Title: Text Mining Tools For News Corpora Analysis
-Version: 0.1
-Date: 2017-03-06
+Version: 0.1-1
+Date: 2017-04-28
 Authors@R: c(person("Lars", "Koppers", email="koppers@statistik.tu-dortmund.de", role=c("aut", "cre")),
 	     person("Jonas", "Rieger", email="riegerjonas@gmx.de", role=c("aut")),
              person("Kira", "Schacht", email="kira.schacht@tu-dortmund.de", role=c("aut")),
              person("Sakander", "Zirai", email="sakander.zirai@tu-dortmund.de", role=c("aut")))
-Description: This package contains three different types of functions: 1.
-    Preprocessing of data. 2. functions for an easy use of latent dirichlet
-    allocation. 3. tools to analyse LDA results.
+Description: A framework for News corpora analysis with topic models
 URL: https://github.com/Docma-TU/tmT
 License: GPL (>= 2)
-LazyLoad: yes
-Encoding: latin1
+Encoding: UTF-8
 Depends:
     R (>= 3.2.0)
 Imports:
