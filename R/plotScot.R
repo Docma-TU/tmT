@@ -58,7 +58,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   if (mark) markYears <- as.Date(lubridate::floor_date(
     as.Date(as.character(rangeYears[1]:rangeYears[2]), format = "%Y"), "year"))
   else markYears <- NA
-  # compute counts (of wordsordocuments)
+  # compute counts (of words/documents)
   if (type[1] == "words"){
     docLengths <- lengths(object$text[match(id, names(object$text))])
     counts <- sapply(split(docLengths, dates), sum)

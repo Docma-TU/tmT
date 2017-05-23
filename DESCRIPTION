@@ -24,6 +24,7 @@ Imports:
     ggdendro,
     gplots,
     htmltools,
+    RColorBrewer,
     stringr
 Suggests:
     testthat
