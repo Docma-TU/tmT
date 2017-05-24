@@ -3,7 +3,7 @@
 #' Creates a plot of the counts/proportion of given wordgroups (\code{wordlist})
 #' in the subcorpus. The counts/proportion can be calculated on document or word
 #' level - with an 'and' or 'or' link - and additionally can be normalised by
-#' subcorporus, which could be specified by \code{id}.
+#' a subcorporus, which could be specified by \code{id}.
 #' 
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
@@ -54,8 +54,9 @@
 #' legend coordinates
 #' @param ... additional graphical parameters 
 #' @return A plot.
-#' Invisible: A dataframe with columns \code{bla} and \code{bla},
-#' respectively \code{bla}
+#' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
+#' additionally columns \code{wnames_rel} for \code{rel = TRUE} - with the
+#' counts (and proportion) of the given wordgroups.
 #' @keywords ~kwd1 ~kwd2
 #' @examples ##
 #' @export plotWord
@@ -123,12 +124,13 @@ plotWord <- function(object, id = names(object$text),
   if (rel){
     # compute normalisation
     if (type[1] == "words"){
-      allDates <- lubridate::floor_date(
-        object$meta$date[match(names(object$text), object$meta$id)], unit)
+      allDates <-
+        lubridate::floor_date(object$meta$date[match(id, object$meta$id)], unit)
       allCounts <- sapply(split(lengths(object$text), allDates), sum)
     }
     else{
-      allDates <- lubridate::floor_date(object$meta$date, unit)
+      allDates <-
+        lubridate::floor_date(object$meta$date[object$meta$id %in% id], unit)
       allCounts <- table(allDates)
     }
     # tidy up
@@ -140,13 +142,19 @@ plotWord <- function(object, id = names(object$text),
     # set main and ylim if missing
     if (missing(main)) main <- paste("Proportion of", insert, "over time")
     if (missing(ylim)) ylim <- c(0, 1)
-    tab = data.frame(tab, proportion)
+    tab <- data.frame(tab, proportion)
+    # set y values to plot
+    toplot <- as.matrix(proportion)
+    # tidy up
+    rm(proportion, allCounts)
   }
   else{
     # set main and ylim if missing
     if (missing(main))
       main <- paste("Count of wordlist-filtered", insert, "over time")
     if (missing(ylim)) ylim <- c(0, max(tab[, !(names(tab) %in% "date")]))
+    # set y values to plot
+    toplot <- as.matrix(tab[, 2:ncol(tab)])
   }
   # set type to date
   tab$date <- as.Date(tab$date)
@@ -155,7 +163,7 @@ plotWord <- function(object, id = names(object$text),
   if (missing(xlab)) xlab <- "date"
   # set y-label if missing
   if (missing(ylab)) ylab <- ifelse(rel, "proportion", "counts")
-  plot(tab$date, tab[, 2], type = "n",
+  plot(tab$date, toplot[, 1], type = "n",
     main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
   abline(v = markYears, lty = 3)
   switch(curves[1],
@@ -163,15 +171,15 @@ plotWord <- function(object, id = names(object$text),
       # set colors if missing
       if (missing(col)) col <- RColorBrewer::brewer.pal(8, "Dark2")
       col <- rep(col, length.out = length(wordlist))
-      for (i in 2:ncol(tab))
-        lines(tab$date, tab[, i], col = col[i-1], ...)
+      for (i in 1:ncol(toplot))
+        lines(tab$date, toplot[, i], col = col[i], ...)
     },
     smooth = {
       # set colors if missing
       if (missing(col)) col <- RColorBrewer::brewer.pal(8, "Dark2")
       col <- rep(col, length.out = length(wordlist))
-      for (i in 2:ncol(tab))
-        lines(lowess(tab$date, tab[, i], f = smooth), col = col[i-1], ...)
+      for (i in 1:ncol(toplot))
+        lines(lowess(tab$date, toplot[, i], f = smooth), col = col[i], ...)
     },
     both = {
       # set colors if missing
@@ -181,9 +189,9 @@ plotWord <- function(object, id = names(object$text),
       if (missing(both.lwd)) both.lwd <- 1
       if (missing(both.lty)) both.lty <- 1
       # plot both curves
-      for (i in 2:ncol(tab)){
-        lines(tab$date, tab[, i], col = col[2*(i-1)], ...)
-        lines(lowess(tab$date, tab[, i], f = smooth), col = col[2*(i-1)-1],
+      for (i in 1:ncol(toplot)){
+        lines(tab$date, toplot[, i], col = col[2*(i-1)+1], ...)
+        lines(lowess(tab$date, toplot[, i], f = smooth), col = col[2*(i-1)],
           lwd = both.lwd, lty = both.lty)
       }
       # reduce col-vector for legend

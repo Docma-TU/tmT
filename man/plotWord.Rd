@@ -86,14 +86,15 @@ legend coordinates}
 }
 \value{
 A plot.
-Invisible: A dataframe with columns \code{bla} and \code{bla},
-respectively \code{bla}
+Invisible: A dataframe with columns \code{date} and \code{wnames} - and
+additionally columns \code{wnames_rel} for \code{rel = TRUE} - with the
+counts (and proportion) of the given wordgroups.
 }
 \description{
 Creates a plot of the counts/proportion of given wordgroups (\code{wordlist})
 in the subcorpus. The counts/proportion can be calculated on document or word
 level - with an 'and' or 'or' link - and additionally can be normalised by
-subcorporus, which could be specified by \code{id}.
+a subcorporus, which could be specified by \code{id}.
 }
 \examples{
 ##
