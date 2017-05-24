@@ -34,12 +34,15 @@ subcorpusWord <- function(text, wordlist, counts = 1L, ignore.case = FALSE,
   
   subid <- numeric(length(text))
   if(out[1] == "count"){
-    tmp <- NULL
-    for(j in wordlist){
-      tmp <- cbind(tmp, sapply(text, function(x)
-        sum(grepl(pattern = j, x = x, ignore.case = ignore.case, perl = perl,
-          fixed = fixed, useBytes = useBytes, ...))))
-    }
+    # tmp <- NULL
+    tmp <- do.call(cbind, lapply(wordlist, function(pat) sapply(text, function(txt)
+      sum(grepl(pattern = pat, x = txt, ignore.case = ignore.case, perl = perl,
+        fixed = fixed, useBytes = useBytes, ...)))))
+    # for(j in wordlist){
+    #   tmp <- cbind(tmp, sapply(text, function(x)
+    #     sum(grepl(pattern = j, x = x, ignore.case = ignore.case, perl = perl,
+    #       fixed = fixed, useBytes = useBytes, ...))))
+    # }
     colnames(tmp) <- wordlist
     return(tmp)
   }
