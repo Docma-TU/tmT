@@ -77,7 +77,9 @@ if \code{curves = "both"}}
 
 \item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
 
-\item{col}{graphical parameter, could be a vector}
+\item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
+the function will for every wordgroup plot at first the exact and then the 
+smoothed curve - this is important for your col order.}
 
 \item{legend}{\code{character} (default: "topright") value(s) to specify the
 legend coordinates}

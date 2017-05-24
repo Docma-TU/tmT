@@ -49,7 +49,9 @@
 #' @param xlab \code{character} graphical parameter
 #' @param ylab \code{character} graphical parameter
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
-#' @param col graphical parameter, could be a vector
+#' @param col graphical parameter, could be a vector. If \code{curves = "both"}
+#' the function will for every wordgroup plot at first the exact and then the 
+#' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: "topright") value(s) to specify the
 #' legend coordinates
 #' @param ... additional graphical parameters 
@@ -190,8 +192,8 @@ plotWord <- function(object, id = names(object$text),
       if (missing(both.lty)) both.lty <- 1
       # plot both curves
       for (i in 1:ncol(toplot)){
-        lines(tab$date, toplot[, i], col = col[2*(i-1)+1], ...)
-        lines(lowess(tab$date, toplot[, i], f = smooth), col = col[2*(i-1)],
+        lines(tab$date, toplot[, i], col = col[2*i-1], ...)
+        lines(lowess(tab$date, toplot[, i], f = smooth), col = col[2*i],
           lwd = both.lwd, lty = both.lty)
       }
       # reduce col-vector for legend
