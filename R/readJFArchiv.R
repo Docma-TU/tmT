@@ -1,4 +1,4 @@
-#' Read the WORDPRESS Corpus as CSV
+#' Read the JF-Archiv.de Corpus as CSV
 #'
 #' Reads the CSV-files from a WORDPRESS BLOG corpus and seperates the text and meta
 #' data.
@@ -15,10 +15,15 @@
 #' @keywords manip
 #' @examples
 #' ##---- Should be DIRECTLY executable !! ----
-#' @export readWORDPRESS
-readWORDPRESS <- function(path = getwd(), file = list.files(path=path, pattern="*.csv$",
+#' @export readJFArchiv
+#' 
+#' 
+
+readJFArchiv <- function(path = getwd(), file = list.files(path=path, pattern="*.csv$",
                                                           full.names = FALSE, recursive = TRUE),
                         do.meta = TRUE, do.text = TRUE){
+    trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+  
     stopifnot(is.character(file), is.character(path),
               is.logical(do.meta), is.logical(do.text),
               length(path) == 1, length(do.meta) == 1, length(do.text) == 1)
@@ -28,14 +33,13 @@ readWORDPRESS <- function(path = getwd(), file = list.files(path=path, pattern="
     for(i in 1:length(file)){
         #cat(paste(file[i]), "\n")
         print(file[i])
-        csv <- read.csv(file= paste(path,file[i], sep="/"), header=TRUE, sep=",")
-        id <- csv["id"][[1]]
-        
+        csv <- read.csv(file= paste(path,file[i], sep="/"), header=TRUE, sep=",",encoding = "utf-8")
+        id <- csv["url"][[1]]
 
         if(do.meta){
             cand <- c("datum", "titel", "jahrgang", "nummer", "seite-start", "seite-ende", "seitentitel", "kurztitel", "rubrik", "ressort", "dokumentmerkmal", "dachzeile", "vorspann")
 
-            cand_names <- c("date_gmt", "title", "year", "link","comment_count","author_id","author_name","categories","tags")
+            cand_names <- c("article_date", "title","author","text","url")
             mData <- NULL
             
             for(k in 1:length(cand_names)){
@@ -46,17 +50,29 @@ readWORDPRESS <- function(path = getwd(), file = list.files(path=path, pattern="
                 }else{
                   mData <- cbind(mData, mData_new)
                 }
-                
             }
             #mData <- as.data.frame(mData, stringsAsFactors = FALSE)
             #colnames(mData) <- cand_names
-
-            mData$year <- as.numeric(mData$year)
-            mData$date_gmt <- as.Date(mData$date_gmt, format = "%Y-%m-%d")
+            mData$date <- as.Date(mData$article_date, format = "%d.%m.%y")
             
+            for(j in 1:length(mData$article_date)){
+              
+              date_help <- as.Date(mData$article_date[j], format = "%d.%m.%y")
+              if (is.na(date_help) & (j>1)){
+                
+                help_str  <- paste(trim(toString(mData$article_date[j])), format( mData$date[j-1], '%y'),sep="")
+                date_help <- as.Date(help_str, format = "%d.%m.%y")
+              }
+              mData$date[j] <- date_help
+              
+            }
 
 
-           
+            mData$title <- trim(mData$title)
+            mData$author <- trim(mData$author)
+            mData$text  <- trim(mData$text)
+
+            mData$article_date <- NULL
 
             mData <- cbind(id, mData, stringsAsFactors = FALSE)
             meta <- rbind(meta, mData)
@@ -64,7 +80,7 @@ readWORDPRESS <- function(path = getwd(), file = list.files(path=path, pattern="
            
         }
         if(do.text){
-            text_new <- csv["content"][[1]]
+            text_new <- csv["text"][[1]]
             text_new <- removeXML(text_new)
             names(text_new) <- id
             text <- as.list(c(text, text_new))
