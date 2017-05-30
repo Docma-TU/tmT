@@ -33,7 +33,7 @@ readJFArchiv <- function(path = getwd(), file = list.files(path=path, pattern="*
     for(i in 1:length(file)){
         #cat(paste(file[i]), "\n")
         print(file[i])
-        csv <- read.csv(file= paste(path,file[i], sep="/"), header=TRUE, sep=",", encoding = "utf-8")
+        csv <- read.csv(file= paste(path,file[i], sep="/"), header=TRUE, sep=",", encoding = "utf-8", stringsAsFactors=FALSE)
         id <- csv["url"][[1]]
 
         if(do.meta){
