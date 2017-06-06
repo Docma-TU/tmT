@@ -22,9 +22,7 @@
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----
-#' @export intruderTopics
-
-
+#' @export topicsInText
 
 
 topicsInText <- function(text, ldaID, id, ldaresult, label=NULL, words, wordOrder=c("both", "alphabetical", "topics", ""), colors=NULL, fixColors=FALSE, meta=NULL, originaltext=NULL, unclearTopicAssignment=TRUE, htmlreturn=FALSE){
