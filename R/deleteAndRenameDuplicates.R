@@ -6,8 +6,10 @@
 #' @param object A textmeta-object as a result of a read-function.
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
 #' list of character strings, representing the paragraphs.
+#' 
+#' @export deleteAndRenameDuplicates
+#'
 
-# Gleiche IDs sollen bereits in den read-Funktionen aufgeloest werden:
 # 1. Artikel-IDs, deren IDs gleich, der Text aber unterschiedlich ist
 #     -> hier _IDFakeDup1 ... _IDFakeDupn anhaengen
 #    (hier keine Option fuer gleiche Meta-Daten, da Text unterschiedlich,
@@ -16,7 +18,10 @@
 #     -> hier _IDRealDup1 ... _IDRealDupn anheangen
 # 3. Artikel mit komplett identischen ID, Text, Meta werden geloescht!!
 
+
 deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
+  stopifnot(is.textmeta(object), is.logical(paragraph), length(paragraph) == 1)
+  
   if (is.null(object$meta)){ #if do.meta == FALSE:
     ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                              fromLast = TRUE))
@@ -67,6 +72,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     cat(paste("Delete Duplicates:", length(to_del)))
     object$text <- object$text[-to_del]
     object$meta <- object$meta[-to_del,]
+    object$metamult <- object$metamult[-to_del]
     cat("  next Step\n")
     ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                              fromLast = TRUE))
@@ -94,6 +100,8 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
                         1:sum(to_rename_loop))
       names(object$text)[to_rename_loop] <- new_ids
       object$meta$id[to_rename_loop] <- new_ids
+      if (!is.null(object$metamult))
+        names(object$metamult)[to_rename_loop] <- new_ids
     }
     cat("  next Step\n")
   }
@@ -114,6 +122,8 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
                       1:sum(to_rename_loop))
     names(object$text)[to_rename_loop] <- new_ids
     object$meta$id[to_rename_loop] <- new_ids
+    if (!is.null(object$metamult))
+      names(object$metamult)[to_rename_loop] <- new_ids
   }
   cat("  Success\n")
   return(object)

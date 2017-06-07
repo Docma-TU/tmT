@@ -16,6 +16,10 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
             is.null(metamult) || is.list(metamult))
   res <- list(meta = meta, text = text, metamult = metamult)
   class(res) <- "textmeta"
+  if (!is.textmeta(res)){
+    cat("Error: One of the components does not meet the requirements of a textmeta object.")
+    break
+  }
   return(res)
 }
 
@@ -28,10 +32,18 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
 #'
 #' @export is.textmeta
 is.textmeta <- function(x){
-  return(all(class(x) == "textmeta",
-             is.null(x$meta) || is.data.frame(x$meta),
-             is.null(x$text) || is.list(x$text) || is.character(x$text),
-             is.null(x$metamult) || is.list(x$metamult)))
+  isMeta <- function(x){
+    return(
+      all(
+        is.data.frame(x), all(c("id", "date", "title") %in% colnames(x)),
+        is.character(x$id), lubridate::is.Date(x$date), is.character(x$title)))
+  }
+  return(
+    all(
+      class(x) == "textmeta",
+      is.null(x$meta) || isMeta(x$meta),
+      is.null(x$text) || is.list(x$text) || is.character(x$text),
+      is.null(x$metamult) || is.list(x$metamult)))
 }
 
 #' @export
