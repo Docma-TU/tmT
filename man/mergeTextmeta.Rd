@@ -12,7 +12,7 @@ mergeTextmeta(t1, t2, all = TRUE)
 \item{t2}{\code{\link{textmeta}} object}
 
 \item{all}{\code{logical} (default: \code{TRUE}) should the result contain
-\code{\link{union}} (\cdoe{TRUE}) or \code{\link{intersect}} of columns of
+\code{\link{union}} (\code{TRUE}) or \code{\link{intersect}} of columns of
 \code{t1} and \code{t2}, if \code{TRUE} columns which only appears in one of
 the meta components the merged meta component is filled with \code{NA}s}
 }

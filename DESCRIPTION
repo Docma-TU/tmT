@@ -22,7 +22,8 @@ Imports:
     gplots,
     htmltools,
     RColorBrewer,
-    stringr
+    stringr,
+    WikipediR
 Suggests:
     testthat
 RoxygenNote: 6.0.1

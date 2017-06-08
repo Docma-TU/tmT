@@ -9,7 +9,7 @@ readWiki(category, subcategories = TRUE, language = "en",
 }
 \arguments{
 \item{category}{\code{character} articles of which category should be
-downloaded, see \code{\link{pages_in_category}}, argument \code{project}}
+downloaded, see \code{\link{pages_in_category}}, argument \code{categories}}
 
 \item{subcategories}{\code{logical} (default: \code{TRUE}) should
 subcategories be downloaded as well}

@@ -4,7 +4,7 @@
 #'
 #'
 #' @param category \code{character} articles of which category should be
-#' downloaded, see \code{\link{pages_in_category}}, argument \code{project} 
+#' downloaded, see \code{\link{pages_in_category}}, argument \code{categories} 
 #' @param subcategories \code{logical} (default: \code{TRUE}) should
 #' subcategories be downloaded as well
 #' @param language \code{character} (default: \code{"en"}),
