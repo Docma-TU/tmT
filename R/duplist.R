@@ -10,7 +10,7 @@
 #' list of character strings, representing the paragraphs.
 #' @return Named List:
 #' \item{uniqueTexts}{ character}
-#' \item{allUniqueTexts}{ character}
+#' \item{fullyUniqueTexts}{ character}
 #' \item{idFakeDups}{ list}
 #' \item{idRealDups}{ list}
 #' \item{allTextDups}{ list}
@@ -124,7 +124,7 @@ duplist <- function(object, paragraph = FALSE){
   }
   cat("Success\nLengths:\n")
   
-  res <- list(uniqueTexts = uniqueTexts, allUniqueTexts = allUniqueTexts,
+  res <- list(uniqueTexts = uniqueTexts, fullyUniqueTexts = allUniqueTexts,
               idFakeDups = idFakeDups, idRealDups = idRealDups,
               allTextDups = allTextDups, textOnlyDups = textOnlyDups,
               textMetaDups = textMetaDups, textOthersDups = textOthersDups)
