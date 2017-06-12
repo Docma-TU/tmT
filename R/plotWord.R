@@ -69,8 +69,12 @@ plotWord <- function(object, id = names(object$text),
   rel = FALSE, mark = TRUE, unit = "month",
   curves = c("exact", "smooth", "both"), smooth = 0.05,
   both.lwd, both.lty, main, xlab, ylab, ylim, col, legend = "topright", ...){
-  # stopifnot()
-
+  
+  stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
+    is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
+    length(unit) == 1, all(type %in% c("docs", "words")),
+    all(curves %in% c("exact", "smooth", "both")), is.numeric(smooth),
+    length(smooth) == 1, all(link %in% c("and", "or")))
   # match id with id which appears in object$text
   inds <- names(object$text) %in% id
   id <- names(object$text)[inds]

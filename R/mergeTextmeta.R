@@ -17,7 +17,7 @@
 #'
 
 mergeTextmeta <- function(t1, t2, all = TRUE){
-  stopifnot(is.textmeta(t1), is.textmeta(t2))
+  stopifnot(is.textmeta(t1), is.textmeta(t2), is.logical(all), length(all) == 1)
   if (all) cols <- union(colnames(t1$meta), colnames(t2$meta))
   else cols <- intersect(colnames(t1$meta), colnames(t2$meta))
   object <-
