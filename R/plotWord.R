@@ -128,7 +128,8 @@ plotWord <- function(object, id = names(object$text),
     if (type[1] == "words"){
       allDates <-
         lubridate::floor_date(object$meta$date[match(id, object$meta$id)], unit)
-      allCounts <- sapply(split(lengths(object$text), allDates), sum)
+      allCounts <- sapply(split(lengths(
+        object$text[match(id, names(object$text))]), allDates), sum)
     }
     else{
       allDates <-
@@ -138,15 +139,15 @@ plotWord <- function(object, id = names(object$text),
     # tidy up
     rm(allDates)
     # compute proportions
-    proportion <- tab[, !(names(tab) %in% "date")] /
-      allCounts[match(tab$date, names(allCounts))]
-    names(proportion) <- paste0(names(proportion), "_rel")
+    proportion <- as.matrix(tab[, !(names(tab) %in% "date")] /
+      allCounts[match(tab$date, names(allCounts))])
     # set main and ylim if missing
     if (missing(main)) main <- paste("Proportion of", insert, "over time")
     if (missing(ylim)) ylim <- c(0, 1)
     # set indices to plot
     toplot <- (ncol(tab)+1):(ncol(tab)+ncol(proportion))
     tab <- data.frame(tab, proportion)
+    names(tab)[toplot] <- paste0(wnames, "_rel")
     # tidy up
     rm(proportion, allCounts)
   }
@@ -171,6 +172,7 @@ plotWord <- function(object, id = names(object$text),
   }
   # order tab
   tab <- tab[order(tab$date),]
+  row.names(tab) <- 1:nrow(tab)
   # set y values to plot
   toplot <- as.matrix(tab[, toplot])
   
