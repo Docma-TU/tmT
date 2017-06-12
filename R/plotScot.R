@@ -95,6 +95,15 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
     if (missing(ylim)) ylim <- c(0, max(counts))
     tab = data.frame(date = dateNames, counts = counts)
   }
+  levs <- seq(from = min(tab$date), to = max(tab$date), by = unit)
+  zerosToAdd <- !(levs %in% tab$date)
+  if(any(zerosToAdd)){
+    zerosToAdd <- data.frame(levs[zerosToAdd], 0)
+    names(zerosToAdd) <- names(tab)
+    tab <- rbind(tab, zerosToAdd)
+  }
+  tab <- tab[order(tab$date),]
+  row.names(tab) <- 1:nrow(tab)
   if (curves[1] %in% c("exact", "both")){
     plot(tab, type = "l", main = main, xlab = xlab, ylim = ylim, ...)
     if (curves[1] == "both"){

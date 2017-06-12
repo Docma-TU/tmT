@@ -144,9 +144,9 @@ plotWord <- function(object, id = names(object$text),
     # set main and ylim if missing
     if (missing(main)) main <- paste("Proportion of", insert, "over time")
     if (missing(ylim)) ylim <- c(0, 1)
+    # set indices to plot
+    toplot <- (ncol(tab)+1):(ncol(tab)+ncol(proportion))
     tab <- data.frame(tab, proportion)
-    # set y values to plot
-    toplot <- as.matrix(proportion)
     # tidy up
     rm(proportion, allCounts)
   }
@@ -155,11 +155,24 @@ plotWord <- function(object, id = names(object$text),
     if (missing(main))
       main <- paste("Count of wordlist-filtered", insert, "over time")
     if (missing(ylim)) ylim <- c(0, max(tab[, !(names(tab) %in% "date")]))
-    # set y values to plot
-    toplot <- as.matrix(tab[, 2:ncol(tab)])
+    # set indices to plot
+    toplot <- 2:ncol(tab)
   }
   # set type to date
   tab$date <- as.Date(tab$date)
+  # identify levels to add as zeros
+  levs <- seq(from = min(tab$date), to = max(tab$date), by = unit)
+  zerosToAdd <- !(levs %in% tab$date)
+  if(any(zerosToAdd)){
+    zerosToAdd <- data.frame(levs[zerosToAdd],
+      matrix(0, nrow = sum(zerosToAdd), ncol = ncol(tab)-1))
+    names(zerosToAdd) <- names(tab)
+    tab <- rbind(tab, zerosToAdd)
+  }
+  # order tab
+  tab <- tab[order(tab$date),]
+  # set y values to plot
+  toplot <- as.matrix(tab[, toplot])
   
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
