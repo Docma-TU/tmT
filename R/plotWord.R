@@ -144,7 +144,7 @@ plotWord <- function(object, id = names(object$text),
     rm(allDates)
     # compute proportions
     proportion <- as.matrix(tab[, !(names(tab) %in% "date")] /
-      allCounts[match(tab$date, names(allCounts))])
+        allCounts[match(tab$date, names(allCounts))])
     # set main and ylim if missing
     if (missing(main)) main <- paste("Proportion of", insert, "over time")
     if (missing(ylim)) ylim <- c(0, 1)
@@ -166,11 +166,15 @@ plotWord <- function(object, id = names(object$text),
   # set type to date
   tab$date <- as.Date(tab$date)
   # identify levels to add as zeros
-  levs <- seq(from = min(tab$date), to = max(tab$date), by = unit)
+  levs <-
+    unique(lubridate::floor_date(
+      seq(from = min(tab$date), to = max(tab$date), by = "day"), unit = unit))
   zerosToAdd <- !(levs %in% tab$date)
   if(any(zerosToAdd)){
-    zerosToAdd <- data.frame(levs[zerosToAdd],
-      matrix(0, nrow = sum(zerosToAdd), ncol = ncol(tab)-1))
+    matrixAdd <- matrix(0, nrow = sum(zerosToAdd), ncol = length(wordlist))
+    if(rel) matrixAdd <- cbind(matrixAdd,
+      matrix(NA, nrow = sum(zerosToAdd), ncol = length(wordlist)))
+    zerosToAdd <- data.frame(levs[zerosToAdd], matrixAdd)
     names(zerosToAdd) <- names(tab)
     tab <- rbind(tab, zerosToAdd)
   }

@@ -95,10 +95,13 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
     if (missing(ylim)) ylim <- c(0, max(counts))
     tab = data.frame(date = dateNames, counts = counts)
   }
-  levs <- seq(from = min(tab$date), to = max(tab$date), by = unit)
+  levs <-
+    unique(lubridate::floor_date(
+      seq(from = min(tab$date), to = max(tab$date), by = "day"), unit = unit))
   zerosToAdd <- !(levs %in% tab$date)
   if(any(zerosToAdd)){
-    zerosToAdd <- data.frame(levs[zerosToAdd], 0)
+    # add NA for proportion or zero for counts
+    zerosToAdd <- data.frame(levs[zerosToAdd], ifelse(rel, NA, 0))
     names(zerosToAdd) <- names(tab)
     tab <- rbind(tab, zerosToAdd)
   }
