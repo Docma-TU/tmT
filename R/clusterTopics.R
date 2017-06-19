@@ -25,8 +25,11 @@ clusterTopics <- function(topics, file, topicnames=NULL, method = "average", wid
     Dist <- 1/sqrt(2) * dist(topics)
     attr(Dist, "method") <- "hellinger"
     clust <- hclust(d=Dist, method)
-    pdf(file, width, height)
-    plot(clust, label=topicnames, ...)
-    dev.off()
+    if(!missing(file)){
+      pdf(file, width, height)
+      plot(clust, label=topicnames, ...)
+      dev.off()
+    }
+    else plot(clust, label=topicnames, ...)
     invisible(list(dist=Dist, cluster=clust))
 }

@@ -54,7 +54,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   dates <- lubridate::floor_date(
     object$meta$date[match(id, object$meta$id)], unit)
   # generate markers on every beginning year
-  rangeYears <- lubridate::year(range(dates, na.rm = TRUE))
+  rangeYears <- lubridate::year(range(object$meta$date, na.rm = TRUE))
   if (mark) markYears <- as.Date(lubridate::floor_date(
     as.Date(as.character(rangeYears[1]:rangeYears[2]), format = "%Y"), "year"))
   else markYears <- NA
@@ -77,10 +77,11 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
       allCounts <- table(allDates)
     }
     # compute proportions
-    proportion <- counts / allCounts[match(names(counts), names(allCounts))]
+    proportion <- counts[match(names(allCounts), names(counts))] / allCounts
     # some preparation for plotting
-    dateNames <- as.Date(names(proportion))
+    dateNames <- as.Date(names(allCounts))
     proportion <- as.vector(proportion)
+    proportion[is.na(proportion)] <- 0
     # set main and ylim if missing
     if (missing(main)) main <- paste("Proportion of", insert, "over time")
     if (missing(ylim)) ylim <- c(0, 1)
