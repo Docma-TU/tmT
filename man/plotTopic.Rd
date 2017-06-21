@@ -15,7 +15,7 @@ plotTopic(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
 \code{text} component (\code{character} vectors) - like a result of
 \code{\link{makeClear}}}
 
-\item{ldaresult}{}
+\item{ldaresult}{the result of a function call \code{\link{LDAstandard}}}
 
 \item{ldaid}{\code{character} vector of IDs of the documents in
 \code{ldaresult}}
@@ -25,7 +25,7 @@ plotTopic(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
 
 \item{tnames}{\code{character} vector of same length as \code{select}
 - labels for the topics (default are the first returned words of
-\code{\link{lda::top.topic.words}} for each topic)}
+\code{\link{top.topic.words}} from the \code{lda} package for each topic)}
 
 \item{rel}{\code{logical} (default: \code{FALSE}) should counts
 (\code{FALSE}) or proportion (\code{TRUE}) be plotted}

@@ -8,14 +8,14 @@
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
 #' \code{\link{makeClear}}
-#' @param ldaresult 
+#' @param ldaresult the result of a function call \code{\link{LDAstandard}}
 #' @param ldaid \code{character} vector of IDs of the documents in
 #' \code{ldaresult}
 #' @param select \code{integer} vector (default: all topics) which topics of
 #' \code{ldaresult} should be plotted
 #' @param tnames \code{character} vector of same length as \code{select}
 #' - labels for the topics (default are the first returned words of
-#' \code{\link{lda::top.topic.words}} for each topic)
+#' \code{\link{top.topic.words}} from the \code{lda} package for each topic)
 #' @param rel \code{logical} (default: \code{FALSE}) should counts
 #' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
