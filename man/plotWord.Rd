@@ -33,7 +33,7 @@ as a list element represents one curve in the outcoming plot}
 \code{character} vectors of each list element be linked by an \code{"and"}
 or an \code{"or"}}
 
-\item{wnames}{\code{character} vector of same length than as \code{wordlist}
+\item{wnames}{\code{character} vector of same length as \code{wordlist}
 - labels for every group of 'and' linked words}
 
 \item{ignore.case}{\code{logical} (default: \code{FALSE}) option
@@ -82,7 +82,7 @@ the function will for every wordgroup plot at first the exact and then the
 smoothed curve - this is important for your col order.}
 
 \item{legend}{\code{character} (default: "topright") value(s) to specify the
-legend coordinates}
+legend coordinates. If "none" no legend is plotted.}
 
 \item{...}{additional graphical parameters}
 }

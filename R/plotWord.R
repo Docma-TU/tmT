@@ -21,7 +21,7 @@
 #' @param link \code{character} (default: \code{"and"}) should the (inner)
 #' \code{character} vectors of each list element be linked by an \code{"and"}
 #' or an \code{"or"}
-#' @param wnames \code{character} vector of same length than as \code{wordlist}
+#' @param wnames \code{character} vector of same length as \code{wordlist}
 #' - labels for every group of 'and' linked words
 #' @param ignore.case \code{logical} (default: \code{FALSE}) option
 #' from \code{\link{grepl}}.
@@ -53,7 +53,7 @@
 #' the function will for every wordgroup plot at first the exact and then the 
 #' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: "topright") value(s) to specify the
-#' legend coordinates
+#' legend coordinates. If "none" no legend is plotted.
 #' @param ... additional graphical parameters 
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
@@ -108,9 +108,9 @@ plotWord <- function(object, id = names(object$text),
   dates <- lubridate::floor_date(
     object$meta$date[match(id, object$meta$id)], unit)
   # generate markers on every beginning year
-  rangeYears <- lubridate::year(range(dates, na.rm = TRUE))
-  if (mark) markYears <- as.Date(lubridate::floor_date(
-    as.Date(as.character(rangeYears[1]:rangeYears[2]), format = "%Y"), "year"))
+  if (mark) markYears <- 
+    seq(from = lubridate::floor_date(min(dates), unit = "year"),
+      to = lubridate::ceiling_date(max(dates), unit = "year"), by = "year")
   else markYears <- NA
   # set aggreagation function for type = "words" or type = "docs"
   if (type[1] == "words"){

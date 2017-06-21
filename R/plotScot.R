@@ -54,9 +54,9 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   dates <- lubridate::floor_date(
     object$meta$date[match(id, object$meta$id)], unit)
   # generate markers on every beginning year
-  rangeYears <- lubridate::year(range(object$meta$date, na.rm = TRUE))
-  if (mark) markYears <- as.Date(lubridate::floor_date(
-    as.Date(as.character(rangeYears[1]:rangeYears[2]), format = "%Y"), "year"))
+  if (mark) markYears <- 
+    seq(from = lubridate::floor_date(min(dates), unit = "year"),
+      to = lubridate::ceiling_date(max(dates), unit = "year"), by = "year")
   else markYears <- NA
   # compute counts (of words/documents)
   if (type[1] == "words"){
