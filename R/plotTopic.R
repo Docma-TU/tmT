@@ -103,9 +103,9 @@ plotTopic <- function(object, ldaresult, ldaid,
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(object$meta$date[indMeta], unit)
   # generate markers on every beginning year
-  if (mark) markYears <- 
-    seq(from = lubridate::floor_date(min(dates), unit = "year"),
-      to = lubridate::ceiling_date(max(dates), unit = "year"), by = "year")
+  if (mark) markYears <- seq(from = lubridate::floor_date(
+    min(dates, na.rm = TRUE), unit = "year"), to = lubridate::ceiling_date(
+      max(dates, na.rm = TRUE), unit = "year"), by = "year")
   else markYears <- NA
   
   # columns: selected topics, rows: documents
