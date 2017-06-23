@@ -4,19 +4,26 @@
 \alias{subcorpusDate}
 \title{Subcorpus With Date Filter}
 \usage{
-subcorpusDate(text, meta, s.date = min(meta$date), e.date = max(meta$date))
+subcorpusDate(object, text = object$text, meta = object$meta,
+  s.date = min(meta$date, na.rm = TRUE), e.date = max(meta$date, na.rm =
+  TRUE))
 }
 \arguments{
-\item{text}{List of article texts}
+\item{object}{\code{\link{textmeta}} object}
 
-\item{meta}{Dataframe of metadata}
+\item{text}{not necassary if \code{object} is specified, else should be
+\code{object\$text}}
+
+\item{meta}{not necassary if \code{object} is specified, else should be
+\code{object\$meta}}
 
 \item{s.date}{Start date of subcorpus as date object}
 
 \item{e.date}{End date of subcorpus as date object}
 }
 \value{
-Filtered list of texts.
+\code{\link{textmeta}} object if \code{object} is specified,
+else only the filtered \code{text}.
 }
 \description{
 Creates a subcorpus including a specific time span.
