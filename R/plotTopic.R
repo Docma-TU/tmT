@@ -33,7 +33,7 @@
 #' @param main \code{character} graphical parameter
 #' @param xlab \code{character} graphical parameter
 #' @param ylab \code{character} graphical parameter
-#' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
+#' @param ylim graphical parameter
 #' @param col graphical parameter, could be a vector. If \code{curves = "both"}
 #' the function will for every wordgroup plot at first the exact and then the 
 #' smoothed curve - this is important for your col order.

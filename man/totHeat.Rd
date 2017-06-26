@@ -4,27 +4,23 @@
 \alias{totHeat}
 \title{Plotting Topics over Time relative to Corpus}
 \usage{
-totHeat(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
-  corpus = NULL, norm = FALSE, file,
-  Tnames = lda::top.topic.words(x$topics, 1)[topics], date_breaks = 1,
-  unit = "year")
+totHeat(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
+  tnames, norm = FALSE, file, date_breaks = 1, unit = "year")
 }
 \arguments{
-\item{x}{LDA result object.}
+\item{object}{\code{\link{textmeta}} object}
 
-\item{topics}{Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.}
+\item{ldaresult}{LDA result object.}
 
-\item{ldaID}{Character vector containing IDs of the texts.}
+\item{ldaid}{Character vector containing IDs of the texts.}
 
-\item{meta}{Optional. Specify to analyze subcorpus. The meta data for the texts. One of meta or corpus has to be specified.}
+\item{select}{Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.}
 
-\item{corpus}{Optional. Specify to analyze entire copous. The data used for normalization. One of meta or corpus has to be specified.}
+\item{tnames}{Character vector with labels for the topics.}
 
 \item{norm}{Logical. Should the values be normalized by the mean topic share to account for differently sized topics? Defaults to FALSE.}
 
 \item{file}{Character vector containing the path and name for the pdf output file.}
-
-\item{Tnames}{Character vector with labels for the topics.}
 
 \item{date_breaks}{(default: \code{1}) how many labels should be shown on the x axis.
 If is \code{5} every fifth label is drawn.}

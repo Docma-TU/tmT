@@ -4,14 +4,13 @@
 #' its current share from its mean share. Shares can be calculated on subcorpus or corpus level.
 #' Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 #' 
-#' @param topics Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
-#' @param x LDA result object.
-#' @param ldaID Character vector containing IDs of the texts.
-#' @param meta Optional. Specify to analyze subcorpus. The meta data for the texts. One of meta or corpus has to be specified.
-#' @param corpus Optional. Specify to analyze entire copous. The data used for normalization. One of meta or corpus has to be specified.
+#' @param object \code{\link{textmeta}} object
+#' @param select Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
+#' @param ldaresult LDA result object.
+#' @param ldaid Character vector containing IDs of the texts.
 #' @param norm Logical. Should the values be normalized by the mean topic share to account for differently sized topics? Defaults to FALSE.
 #' @param file Character vector containing the path and name for the pdf output file.
-#' @param Tnames Character vector with labels for the topics.
+#' @param tnames Character vector with labels for the topics.
 #' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
 #' If is \code{5} every fifth label is drawn.
 #' @param unit \code{character} (default: \code{"year"}) to which unit should
@@ -22,43 +21,32 @@
 #' @examples ##
 #' @export totHeat
 
-totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
-  corpus = NULL, norm = FALSE, file, Tnames = lda::top.topic.words(x$topics,1)[topics],
-  date_breaks = 1, unit = "year"){
-  #check if arguments are properly specified
-  if((is.null(meta) & is.null(corpus))|(!is.null(meta) & !is.null(corpus))){
-    stop("Please specify either 'meta' for analysis on subcorpus level or 'corpus' to compare values to entire corpus")
-  }
+totHeat <- function(object, ldaresult, ldaid,
+  select = 1:nrow(ldaresult$document_sums), tnames,
+  norm = FALSE, file, date_breaks = 1, unit = "year"){
+  
+  if(missing(tnames)) tnames <- paste0("T", select, ".",
+    lda::top.topic.words(ldaresult$topics, 1)[select])
+  
   
   #create data frame. rows: documents, columns: topics
-  tmp <- data.frame(t(x$document_sums))
+  tmp <- data.frame(t(ldaresult$document_sums))
   
   #get dates for all documents to be visualized
-  if(!is.null(meta)) tmpdate <- meta$date[match(ldaID, meta$id)]
-  if(!is.null(corpus)) tmpdate <- corpus$meta$date[match(ldaID, corpus$meta$id)]
+  tmpdate <- object$meta$date[match(ldaid, object$meta$id)]
   #round to years, respectively unit
   tmpdate <- lubridate::floor_date(tmpdate, unit = unit)
   
   ### Prepare normalization data ###
-  if(!is.null(meta)){
-    (cat(paste0("Calculate ", unit, "ly sums in subcorpus for normalization..\n")))
-    #calculate row sums: word count for each document
-    normsums <- apply(tmp, 1, sum)
-    #sum row sums to months
-    normsums <- aggregate(normsums, by = list(date = tmpdate), FUN = sum)
-  }
-  if(!is.null(corpus)){
-    (cat(paste0("Calculate ", unit, "ly sums in subcorpus for normalization..\n")))
-    #get dates of every document in the corpus
-    normdates <- corpus$meta$date[match(names(corpus$text), corpus$meta$id)]
-    normdates <- lubridate::floor_date(normdates, "month")
-    #count words for every document
-    normsums <- sapply(corpus$text, function(x) length(x))
-    #sum words to months
-    normsums <- aggregate(normsums, by = list(date = normdates), FUN = sum)
-    #tidy up
-    rm(normdates)
-  }
+  #get dates of every document in the corpus
+  normdates <- object$meta$date[match(names(object$text), object$meta$id)]
+  normdates <- lubridate::floor_date(normdates, "month")
+  #count words for every document
+  normsums <- sapply(object$text, function(x) length(x))
+  #sum words to months
+  normsums <- aggregate(normsums, by = list(date = normdates), FUN = sum)
+  #tidy up
+  rm(normdates)
   #sum document-levels values to months, respectively unit
   tmp <- aggregate(tmp, by = list(date = tmpdate), FUN = sum)
   
@@ -68,7 +56,7 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   #cell values are now shares in document x of topic y
   
   #filter for topics to be plotted
-  tmp <- tmp[, c(1,topics+1)]
+  tmp <- tmp[, c(1,select+1)]
   
   #get mean for each topic over entire time: column means
   tmeans <- apply(tmp[2:length(tmp)], 2, mean)
@@ -85,9 +73,7 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
   breaks[ind] <- as.character(tmp$date[ind])
   
   #plot heat map
-  (cat("Plotting..\n"))
-  
-  pdf(file, width = 56/(3+(0.1*nrow(x$topics))))
+  if(!missing(file)) pdf(file, width = 56/(3+(0.1*nrow(ldaresult$topics))))
   gplots::heatmap.2(t(as.matrix(tmp[-1])), Colv = NA, dendrogram = 'row',
     #enable legend, disable histogram and deviation traces
     trace = 'none', density.info = 'none', key = T,
@@ -96,16 +82,16 @@ totHeat <- function(x, topics = 1:nrow(x$document_sums), ldaID, meta = NULL,
     #settings for legend
     keysize=1, key.par=list(mar=c(3,0,3,7), bty="n", fg="white"), key.xlab = NA,
     #layout: title, then legend, then dendrogram and heat map
-    lmat=rbind(c(0,3,3,3), c(0,5,4,5),c(2,1,1,1)), lhei=c(0.1,0.18,0.72), lwid=c(0.15,0.1,0.65,0.1),
+    lmat=rbind(c(0,3,3,3), c(0,5,4,5), c(2,1,1,1)), lhei=c(0.13,0.18,0.65), lwid=rep(1, 4),
     #separate heat map cells with white space
     rowsep = 1:(ncol(tmp)-1), colsep = 1:nrow(tmp),
     #configure labels for heat map
-    labRow = Tnames, labCol = breaks, margins = c(8,12),
+    labRow = tnames, labCol = breaks, margins = c(8,12),
     cexRow = 1.2, cexCol = 1.2, srtCol = 45,
     main = ifelse(norm == T,
       "Normalized Deviation of Topic Shares from Mean Topic Share",
       "Absolute Deviation of Topic Shares from Mean Topic Share"))
-  dev.off()
-  names(tmp)[2:(length(topics)+1)] <- Tnames
+  if(!missing(file)) dev.off()
+  names(tmp)[2:(length(select)+1)] <- tnames
   invisible(tmp)
 }

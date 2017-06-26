@@ -46,7 +46,7 @@ which is handed over to \code{\link{lowess}} as \code{f}}
 
 \item{xlab}{\code{character} graphical parameter}
 
-\item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
+\item{ylim}{graphical parameter}
 
 \item{ylab}{\code{character} graphical parameter}
 
