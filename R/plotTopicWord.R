@@ -62,6 +62,8 @@
 #' \code{legend = "onlyLast:<argument>"} with \code{<argument>} as a
 #' \code{character} \code{legend} argument
 #' for only plotting a legend on the last plot of set.
+#' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
+#' to zeros
 #' @param file \code{character} file path if a pdf should be created
 #' @param \dots additional graphical parameters
 #' @return A plot.
@@ -79,7 +81,8 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
   tnames, wnames, rel = FALSE, mark = TRUE, unit = "month",
   curves = c("exact", "smooth", "both"), smooth = 0.05,
   legend = ifelse(pages, "onlyLast:topright", "topright"),
-  pages = FALSE, file, main, xlab, ylab, ylim, both.lwd, both.lty, col, ...){
+  pages = FALSE, natozero = TRUE,
+  file, main, xlab, ylab, ylim, both.lwd, both.lty, col, ...){
   
   wordsLen <- length(wordlist)
   topicLen <- length(select)
@@ -120,7 +123,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
         unit = unit, curves = curves, smooth = smooth,
         main = ifelse(missing(main), mainP[i], main), col = colP,
         legend = legend, both.lwd = both.lwd, both.lty = both.lty,
-        xlab = xlab, ylab = ylab, pages = FALSE, ...)
+        xlab = xlab, ylab = ylab, pages = FALSE, natozero = natozero, ...)
   }
   
   stopifnot(is.textmeta(object), is.list(ldaresult),
@@ -222,8 +225,8 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
   colnames(tab) <- c("date", paste(tnames, wnames, sep = ": "))
   # order tab
   tab <- tab[order(tab$date),]
-  tab[is.na(tab)] <- 0
-  if(missing(ylim)) ylim <- c(0, max(tab[, 2:length(tab)]))
+  if(natozero) tab[is.na(tab)] <- 0
+  if(missing(ylim)) ylim <- c(0, max(tab[, 2:length(tab)], na.rm = TRUE))
   
   plot(tab$date, tab[, 2], type = "n",
     main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
