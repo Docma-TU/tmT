@@ -105,7 +105,7 @@ with the counts/proportion of the selected combination of topics and words.
 }
 \description{
 Creates a plot of the counts/proportion of specified combination of topics
-and words. Is is important to keep in mind that the baseline for
+and words. It is important to keep in mind that the baseline for
 proportions are the sums of words, not sums of topics.
 There is an option to plot all curves in one plot or to create one plot for
 every curve (see \code{pages}). In addition the plots can be written to a pdf
