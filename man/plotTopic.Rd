@@ -57,7 +57,7 @@ if \code{curves = "both"}}
 if \code{curves = "both"}}
 
 \item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
-the function will for every wordgroup plot at first the exact and then the 
+the function will for every topicgroup plot at first the exact and then the 
 smoothed curve - this is important for your col order.}
 
 \item{legend}{\code{character} (default: \code{"topright"},

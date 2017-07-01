@@ -35,7 +35,7 @@
 #' @param ylab \code{character} graphical parameter
 #' @param ylim graphical parameter
 #' @param col graphical parameter, could be a vector. If \code{curves = "both"}
-#' the function will for every wordgroup plot at first the exact and then the 
+#' the function will for every topicgroup plot at first the exact and then the 
 #' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: \code{"topright"},
 #' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively)
@@ -75,7 +75,7 @@ plotTopic <- function(object, ldaresult, ldaid,
   if(pages){
     mainP <- paste("Count of topic", tnames, "over time")
     if(rel) mainP <- paste("Proportion of topic", tnames,"over time")
-    if(curves == "both") colP <- c("grey", "black")
+    if(curves[1] == "both") colP <- c("grey", "black")
     else colP <- "black"
     for (i in seq_along(select))
       plotTopic(object = object, ldaresult = ldaresult, ldaid = ldaid,
