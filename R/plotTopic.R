@@ -45,6 +45,8 @@
 #' \code{legend = "onlyLast:<argument>"} with \code{<argument>} as a
 #' \code{character} \code{legend} argument
 #' for only plotting a legend on the last plot of set.
+#' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
+#' to zeros. Only has effect if \code{rel = TRUE}.
 #' @param file \code{character} file path if a pdf should be created
 #' @param ... additional graphical parameters 
 #' @return A plot.
@@ -59,7 +61,7 @@ plotTopic <- function(object, ldaresult, ldaid,
   unit = "month", curves = c("exact", "smooth", "both"), smooth = 0.05,
   main, xlab, ylim, ylab, both.lwd, both.lty, col,
   legend = ifelse(pages, "onlyLast:topright", "topright"),
-  pages = FALSE, file, ...){
+  pages = FALSE, natozero = TRUE, file, ...){
   
   if(missing(tnames)) tnames <- paste0("T", select, ".",
     lda::top.topic.words(ldaresult$topics, 1)[select])
@@ -134,12 +136,15 @@ plotTopic <- function(object, ldaresult, ldaid,
   zerosToAdd <- !(levs %in% docTopic$date)
   if(any(zerosToAdd)){
     matrixAdd <- matrix(0, nrow = sum(zerosToAdd), ncol = ncol(docTopic)-1)
+    if(rel) matrixAdd <- cbind(matrixAdd,
+      matrix(NA, nrow = sum(zerosToAdd), ncol = ncol(docTopic)-1))
     zerosToAdd <- data.frame(levs[zerosToAdd], matrixAdd)
     names(zerosToAdd) <- names(docTopic)
     docTopic <- rbind(docTopic, zerosToAdd)
   }
   # order docTopic
   docTopic <- docTopic[order(docTopic$date),]
+  if(natozero) docTopic[is.na(docTopic)] <- 0
   row.names(docTopic) <- 1:nrow(docTopic)
   
   plot(docTopic$date, docTopic[, 2], type = "n",

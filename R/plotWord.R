@@ -54,6 +54,8 @@
 #' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: "topright") value(s) to specify the
 #' legend coordinates. If "none" no legend is plotted.
+#' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
+#' to zeros. Only has effect if \code{rel = TRUE}.
 #' @param ... additional graphical parameters 
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
@@ -68,7 +70,8 @@ plotWord <- function(object, id = names(object$text),
   ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE,
   rel = FALSE, mark = TRUE, unit = "month",
   curves = c("exact", "smooth", "both"), smooth = 0.05,
-  both.lwd, both.lty, main, xlab, ylab, ylim, col, legend = "topright", ...){
+  both.lwd, both.lty, main, xlab, ylab, ylim, col, legend = "topright",
+  natozero = TRUE, ...){
   
   stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
     is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
@@ -180,6 +183,7 @@ plotWord <- function(object, id = names(object$text),
   }
   # order tab
   tab <- tab[order(tab$date),]
+  if(natozero) tab[is.na(tab)] <- 0
   row.names(tab) <- 1:nrow(tab)
   # set y values to plot
   toplot <- as.matrix(tab[, toplot])

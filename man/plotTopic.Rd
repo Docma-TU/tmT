@@ -8,7 +8,7 @@ plotTopic(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
   tnames, rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
   "smooth", "both"), smooth = 0.05, main, xlab, ylim, ylab, both.lwd,
   both.lty, col, legend = ifelse(pages, "onlyLast:topright", "topright"),
-  pages = FALSE, file, ...)
+  pages = FALSE, natozero = TRUE, file, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
@@ -69,6 +69,9 @@ plotted in a single plot. In addtion you could set
 \code{legend = "onlyLast:<argument>"} with \code{<argument>} as a
 \code{character} \code{legend} argument
 for only plotting a legend on the last plot of set.}
+
+\item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
+to zeros. Only has effect if \code{rel = TRUE}.}
 
 \item{file}{\code{character} file path if a pdf should be created}
 

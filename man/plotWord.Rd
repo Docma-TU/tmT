@@ -9,7 +9,7 @@ plotWord(object, id = names(object$text), type = c("docs", "words"),
   perl = FALSE, fixed = FALSE, useBytes = FALSE, rel = FALSE,
   mark = TRUE, unit = "month", curves = c("exact", "smooth", "both"),
   smooth = 0.05, both.lwd, both.lty, main, xlab, ylab, ylim, col,
-  legend = "topright", ...)
+  legend = "topright", natozero = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
@@ -83,6 +83,9 @@ smoothed curve - this is important for your col order.}
 
 \item{legend}{\code{character} (default: "topright") value(s) to specify the
 legend coordinates. If "none" no legend is plotted.}
+
+\item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
+to zeros. Only has effect if \code{rel = TRUE}.}
 
 \item{...}{additional graphical parameters}
 }
