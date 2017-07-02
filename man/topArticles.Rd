@@ -4,19 +4,19 @@
 \alias{topArticles}
 \title{Get The IDs Of The Most Representive Articles}
 \usage{
-topArticles(x, id, limit = 20L, rel = TRUE, themes = NULL,
-  minlength = 30L)
+topArticles(ldaresult, ldaid, limit = 20L, rel = TRUE,
+  select = 1:nrow(ldaresult$document_sums), minlength = 30L)
 }
 \arguments{
-\item{x}{LDA result}
+\item{ldaresult}{LDA result}
 
-\item{id}{Vector of text IDs}
+\item{ldaid}{Vector of text IDs}
 
 \item{limit}{Integer, number of article ids per topic.}
 
 \item{rel}{Logical: Should be the relative frequency be used?}
 
-\item{themes}{which topics should be returned?}
+\item{select}{which topics should be returned?}
 
 \item{minlength}{Minimal total number of words a text must have to be
 included.}
