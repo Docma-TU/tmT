@@ -4,7 +4,8 @@
 #' its current share from its mean share. Shares can be calculated on subcorpus or corpus level.
 #' Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 #' 
-#' @param object \code{\link{textmeta}} object
+#' @param object \code{\link{textmeta}} object with strictly tokenized \code{text}
+#' component
 #' @param select Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
 #' @param ldaresult LDA result object.
 #' @param ldaid Character vector containing IDs of the texts.
@@ -28,27 +29,32 @@ totHeat <- function(object, ldaresult, ldaid,
   if(missing(tnames)) tnames <- paste0("T", select, ".",
     lda::top.topic.words(ldaresult$topics, 1)[select])
   
-  
   #create data frame. rows: documents, columns: topics
   tmp <- data.frame(t(ldaresult$document_sums))
   
-  #get dates for all documents to be visualized
-  tmpdate <- object$meta$date[match(ldaid, object$meta$id)]
+  #get dates for all documents to be visualized and
   #round to years, respectively unit
-  tmpdate <- lubridate::floor_date(tmpdate, unit = unit)
-  
-  ### Prepare normalization data ###
-  #get dates of every document in the corpus
-  normdates <- object$meta$date[match(names(object$text), object$meta$id)]
-  normdates <- lubridate::floor_date(normdates, "month")
-  #count words for every document
-  normsums <- sapply(object$text, function(x) length(x))
-  #sum words to months
-  normsums <- aggregate(normsums, by = list(date = normdates), FUN = sum)
-  #tidy up
-  rm(normdates)
+  tmpdate <- lubridate::floor_date(object$meta$date[
+    match(ldaid, object$meta$id)], unit = unit)
   #sum document-levels values to months, respectively unit
   tmp <- aggregate(tmp, by = list(date = tmpdate), FUN = sum)
+  
+  ### Prepare normalization data ###
+  #get dates of every document in the corpus and
+  #count words for every document
+  if(is.null(object$text)){
+    normdates <- tmpdate
+    normsums <- aggregate(lengths(ldaresult$assignments),
+      by = list(date = normdates), FUN = sum)
+  }
+  else{
+    normdates <- lubridate::floor_date(object$meta$date[
+      match(names(object$text), object$meta$id)], unit = unit)
+    normsums <- aggregate(lengths(object$text),
+      by = list(date = normdates), FUN = sum)
+  }
+  #tidy up
+  rm(normdates)
   
   ### Normalize data ###
   normsums <- normsums[match(tmp$date, normsums$date),]

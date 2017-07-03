@@ -8,7 +8,8 @@ totHeat(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
   tnames, norm = FALSE, file, date_breaks = 1, unit = "year")
 }
 \arguments{
-\item{object}{\code{\link{textmeta}} object}
+\item{object}{\code{\link{textmeta}} object with strictly tokenized \code{text}
+component}
 
 \item{ldaresult}{LDA result object.}
 
