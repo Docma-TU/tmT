@@ -9,7 +9,10 @@ totHeat(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized \code{text}
-component}
+component (calculation of proportion on document lengths) or
+\code{\link{textmeta}} object which contains only the \code{meta} component
+(calculation of proportion on count of words out of the LDA vocabukary in each
+document)}
 
 \item{ldaresult}{LDA result object.}
 
@@ -34,7 +37,7 @@ A pdf.
 }
 \description{
 Creates a pdf including a heat map. For each topic, the heat map shows the deviation of 
-its current share from its mean share. Shares can be calculated on subcorpus or corpus level.
+its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 }
 \examples{

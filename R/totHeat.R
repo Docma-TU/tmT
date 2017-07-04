@@ -1,11 +1,14 @@
 #' Plotting Topics over Time relative to Corpus
 #' 
 #' Creates a pdf including a heat map. For each topic, the heat map shows the deviation of 
-#' its current share from its mean share. Shares can be calculated on subcorpus or corpus level.
+#' its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 #' Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 #' 
 #' @param object \code{\link{textmeta}} object with strictly tokenized \code{text}
-#' component
+#' component (calculation of proportion on document lengths) or
+#' \code{\link{textmeta}} object which contains only the \code{meta} component
+#' (calculation of proportion on count of words out of the LDA vocabukary in each
+#' document)
 #' @param select Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
 #' @param ldaresult LDA result object.
 #' @param ldaid Character vector containing IDs of the texts.
