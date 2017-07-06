@@ -1,6 +1,8 @@
-#' Title
+#' Read Pages from Wikipedia
 #'
-#' Descrp.
+#' Downloads pages from Wikipedia and extracts some meta information
+#' with functions from the package \code{\link{WikipediR}}. Creates a
+#' \code{\link{textmeta}} object including the requested pages. 
 #'
 #'
 #' @param category \code{character} articles of which category should be

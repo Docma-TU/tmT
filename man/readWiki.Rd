@@ -2,7 +2,7 @@
 % Please edit documentation in R/readWiki.R
 \name{readWiki}
 \alias{readWiki}
-\title{Title}
+\title{Read Pages from Wikipedia}
 \usage{
 readWiki(category, subcategories = TRUE, language = "en",
   project = "wikipedia")
@@ -24,7 +24,9 @@ see \code{\link{pages_in_category}}}
 \code{\link{textmeta}} object
 }
 \description{
-Descrp.
+Downloads pages from Wikipedia and extracts some meta information
+with functions from the package \code{\link{WikipediR}}. Creates a
+\code{\link{textmeta}} object including the requested pages.
 }
 \examples{
 
