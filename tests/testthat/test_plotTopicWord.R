@@ -7,8 +7,8 @@ test_that("plotTopicWord", {
   x2 <- list(document_sums = x1)
   
   text <- matrix(sample(paste("word", 1:100), 10000, replace = TRUE), 200, 50)
-  text <- apply(text, 1, list)
-  names(text) <- paste("ID", 101:300)
+  text <- lapply(apply(text, 1, list), unlist)
+  names(text) <- paste("ID", 1:200)
   
   words <- makeWordlist(text)$words
   LDAdoc <- docLDA(text, words)
@@ -37,7 +37,8 @@ test_that("plotTopicWord", {
   expect_equal(res1, res4)
   res5 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaid = ldaID, rel = TRUE, link = "or")
-  expect_true(all(res5$date == res1$date), all(colnames(res1) == colnames(res5)))
+  expect_true(all(res5$date == res1$date), all(colnames(res1) == colnames(res5)),
+    all(res5[, -1] <= 1))
   res6 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaid = ldaID, file = "abc.pdf")
   expect_equal(res1, res6)

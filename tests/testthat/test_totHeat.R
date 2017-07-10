@@ -7,8 +7,8 @@ test_that("totHeat", {
   x2 <- list(document_sums = x1)
   
   text <- matrix(sample(paste("word", 1:100), 10000, replace = TRUE), 200, 50)
-  text <- apply(text, 1, list)
-  names(text) <- paste("ID", 101:300)
+  text <- lapply(apply(text, 1, list), unlist)
+  names(text) <- paste("ID", 1:200)
   
   words <- makeWordlist(text)$words
   LDAdoc <- docLDA(text, words)
@@ -30,4 +30,10 @@ test_that("totHeat", {
   res3 <- totHeat(object = obj, ldaresult = lda, ldaid = ldaID, file = "abc.pdf",
     norm = TRUE)
   expect_equal(dim(res3), c(3, 4))
+  res4 <- totHeat(object = textmeta(meta = obj$meta), ldaresult = lda,
+    ldaid = ldaID, file = "abc.pdf")
+  expect_equal(dim(res4), c(3, 4))
+  expect_true(all(res4$date == seq(min(res4$date), max(res4$date), "year")))
+  expect_true(all(res3$date == seq(min(res3$date), max(res3$date), "year")))
+  expect_true(all(res1$date == seq(min(res1$date), max(res1$date), "year")))
 })
