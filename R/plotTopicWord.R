@@ -141,8 +141,8 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
     is.numeric(both.lty), length(xlab) == 1, length(ylab) == 1,
     length(both.lty) == 1, length(both.lwd) == 1)
   
-  meta <- corpus$meta$date
-  names(meta) <- corpus$meta$id
+  meta <- object$meta$date
+  names(meta) <- object$meta$id
   ldaVocab <- colnames(ldaresult$topics)
   uniqueWords <- unique(unlist(wordlist))
   uniqueWordsID <- match(uniqueWords, ldaVocab)-1
@@ -219,6 +219,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
   if(any(zerosToAdd)){
     matrixAdd <- matrix(0, nrow = sum(zerosToAdd), ncol = ncol(tab)-1)
     zerosToAdd <- data.frame(levs[zerosToAdd], matrixAdd)
+    colnames(zerosToAdd) <- colnames(tab)
     tab <- rbind(tab, zerosToAdd)
   }
   row.names(tab) <- 1:nrow(tab)
