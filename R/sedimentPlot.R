@@ -1,55 +1,28 @@
-#' Plotting Topics Over Time
+#' Plotting Sediment plot of topics over time 
 #'
-#' Creates a pdf including a plot for each topic. For each topic the number of
-#' words per month would be plotted.
+#' Creates a sediment plot of all or selected topics.
 #'
 #'
 #' @param x LDA result object
-#' @param ldaID Character vector including IDs of the texts.
+#' @param ldaID Character vector including IDs of the texts
+#' @param usedTopics Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.
+#' @param label Character vector of topic labels. Must have same length than number of topics in the model.
+#' @param threshod Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold
 #' @param meta The meta data for the texts or a date-string.
-#' @param file Name of the pdf file.
-#' @param topicNo character string of used topicnumbers
-#' @param Tnames Label for the topics
-#' @param unit unit for \code{\link{round_date}}
-#' @param \dots Further Statements passed to the plot function.
-#' @return A pdf.
+#' @param unit Time unit for x-axis. Possible units see \code{\link{lubridate::round_date}}
+#' @param xunit Time unit for tiks on the x-axis. Possible units see \code{\link{lubridate::round_date}}
+#' @param color Color vector. Color vector would be replicated if the number of plotted topics is bigger than length of the vector.
+#' @param sort logical. Should the topics be sorted by topic proportion?
+#' @param legend Poisition of legend. If \code{NULL} (default), no legend will be plotted   
+#' @param legendLimit numeric betwwen 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.
+#' @return list of two matrices. \code{x} contains the topic proportions over time, \code{y} contains the cumulated topic proportions
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export sedimentPlot
 
-library(devtools)
-dev_mode(on=T)
-install_github("DoCMA-TU/tmT")
-library(tmT)
-library(tm)
-library(lubridate)
-dev_mode(on=F)
-setwd("//129.217.206.11/DoCMA")
-#memory.limit(size = 2^15)
-
-load("projects/2017_Homogenitaetsmass/lda_gesamt1-k100i200b70s6668754.RData")
-load("data/Spiegel/data/Spiegel-meta.RData")
-
-x <- result
-label <- paste("T",1:100)
-usedTopics <- paste("T", c(22,3,8))
-usedTopics <- NULL
-unit="quarter"
-sort=TRUE
-threshold <- 0.05
-color <- NULL
-legendLimit=0.08
-xunit="year"
-legend="topleft"
-peak <- 0.05
-
-out <- sedimentPlot(x=result, ldaID=ldaID, usedTopics=NULL, label=NULL, threshold=NULL, meta=meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0.06, peak=0.05)
-
-x=result; ldaID=ldaID; usedTopics=NULL; label=NULL; threshold=NULL; meta=meta; unit="quarter"; xunit="year"; color=NULL; sort=TRUE; legend="topleft"; legendLimit=0; peak=0.03
-
-sedimentPlot <- function(x, ldaID, usedTopics=NULL, label=NULL, threshold=NULL, meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0, peak=0, ...){
+sedimentPlot <- function(x, ldaID, usedTopics=NULL, label=NULL, threshold=NULL, meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0, peak=0){
     if(is.null(color)) color <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)]
     if(is.null(label)) label <- 1:nrow(x$document_sums)
 
@@ -124,6 +97,4 @@ sedimentPlot <- function(x, ldaID, usedTopics=NULL, label=NULL, threshold=NULL, 
 
     invisible(list(x=x,y=y))
 }
-
-
 

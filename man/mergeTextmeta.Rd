@@ -2,7 +2,7 @@
 % Please edit documentation in R/mergeTextmeta.R
 \name{mergeTextmeta}
 \alias{mergeTextmeta}
-\title{Title}
+\title{Merge textmeta objects}
 \usage{
 mergeTextmeta(t1, t2, all = TRUE)
 }
@@ -20,7 +20,8 @@ the meta components the merged meta component is filled with \code{NA}s}
 \code{\link{textmeta}} object
 }
 \description{
-Descrp.
+Merges two textmeta objects to one. It is possible to control whether all
+columns or the intersect should be considered.
 }
 \examples{
 
