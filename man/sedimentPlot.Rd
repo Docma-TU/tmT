@@ -17,9 +17,11 @@ sedimentPlot(x, ldaID, usedTopics = NULL, label = NULL, threshold = NULL,
 
 \item{label}{Character vector of topic labels. Must have same length than number of topics in the model.}
 
+\item{threshold}{Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold}
+
 \item{meta}{The meta data for the texts or a date-string.}
 
-\item{unit}{Time unit for x-axis. Possible units see \code{\link{lubridate::round_date}}}
+\item{unit}{Time unit for x-axis. Possible units see \code{\link[lubridate]{round_date}}}
 
 \item{xunit}{Time unit for tiks on the x-axis. Possible units see \code{\link{lubridate::round_date}}}
 
@@ -29,9 +31,9 @@ sedimentPlot(x, ldaID, usedTopics = NULL, label = NULL, threshold = NULL,
 
 \item{legend}{Poisition of legend. If \code{NULL} (default), no legend will be plotted}
 
-\item{legendLimit}{numeric betwwen 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.}
+\item{legendLimit}{numeric between 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.}
 
-\item{threshod}{Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold}
+\item{peak}{numeric between 0 (default) and 1. Label peaks abov \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.}
 }
 \value{
 list of two matrices. \code{x} contains the topic proportions over time, \code{y} contains the cumulated topic proportions
