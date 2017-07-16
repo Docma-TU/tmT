@@ -23,7 +23,7 @@ sedimentPlot(x, ldaID, usedTopics = NULL, label = NULL, threshold = NULL,
 
 \item{unit}{Time unit for x-axis. Possible units see \code{\link[lubridate]{round_date}}}
 
-\item{xunit}{Time unit for tiks on the x-axis. Possible units see \code{\link{lubridate::round_date}}}
+\item{xunit}{Time unit for tiks on the x-axis. Possible units see \code{\link[lubridate]{round_date}}}
 
 \item{color}{Color vector. Color vector would be replicated if the number of plotted topics is bigger than length of the vector.}
 
