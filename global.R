@@ -2,6 +2,7 @@
 ## Roxygen2 ##
 ##############
 setwd("//STORE/koppers/Textmining/tmT/")
+setwd("/home/lars/Github/tmT")
 ## setwd("D:/DoCMA/tmT")
 # setwd(rprojroot::find_root("README.md"))
 library(roxygen2)
@@ -12,6 +13,7 @@ roxygenize(package.dir = ".")
 ##############
 setwd("//STORE/koppers/Textmining/tmT/tests/testthat")
 setwd("D:/DoCMA/tmT/tests/testthat")
+setwd("/home/lars/Github/tmT/tests/testthat")
 library(testthat)
 test_check("tmT")
 
