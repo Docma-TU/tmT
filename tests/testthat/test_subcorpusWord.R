@@ -18,33 +18,47 @@ test_that("subcorpusWord", {
   test <- matrix(c(2,0,1,2,1,1,1,1), nrow=4)
   colnames(test) <- c("aa","bc")
   expect_equal(res, test)
-  # 
-  # res <- subcorpusWord(text,wordlist2, out="count")
-  # test <- matrix(c(1,0,1,2), nrow=4)
-  # colnames(test) <- "aa"
-  # expect_equal(res, test)
-  # 
-  # res <- subcorpusWord(text, wordlist1, counts, out = "text")
-  # expect_equal(res, text)
-  # 
-  # res <- subcorpusWord(text, list(wordlist1), counts = list(counts), out = "text")
-  # expect_equal(res, list(c("aa", "aab", "bc")))
-  # 
-  # res <- subcorpusWord(text, wordlist2, counts = 2L, out = "text")
-  # expect_equal(res, list(c("aa", "aab", "bc")))
-  # 
-  # res <- subcorpusWord(text, wordlist2, counts = 3L, out = "text")
-  # expect_equal(res, list())
-  # 
-  # ## ignore.case
-  # expect_equal(subcorpusWord(text=list("a"),wordlist="A", out="text"), list())
-  # expect_equal(subcorpusWord(text="a",wordlist="A", out="text"), character())
-  # expect_equal(subcorpusWord(text="a",wordlist="A", out="text", ignore.case=TRUE), "a")
-  # expect_equal(subcorpusWord(text=c("a","A"),wordlist="A", out="text", ignore.case=TRUE), c("a", "A"))
-  # 
-  # ## counts
-  # counts <- list(c(2,1), 3)
-  # text2 <- list("abc", c("a","a","b"), c("c","c","c"))
-  # res <- subcorpusWord(text2,wordlist=list(c("a","b"),"c"), counts=counts, out="bin")
-  # expect_equal(res, c(FALSE, TRUE, TRUE))
-})
+
+  res <- subcorpusWord(text, wordlist2, out="count")
+  test <- matrix(c(2,0,1,2), nrow=4)
+  colnames(test) <- "aa"
+  expect_equal(res, test)
+
+  res <- subcorpusWord(text, search=data.frame(pattern=wordlist1, count=counts, word=FALSE), out = "text")
+  expect_equal(res, list("abaabcaa", c("aa", "aab", "bc")))
+
+  res <- subcorpusWord(text, search= list(data.frame(pattern=wordlist1[1], count=counts[1], word=FALSE), data.frame(pattern=wordlist1[2], count=counts[2], word=FALSE)), out = "text")
+  expect_equal(res, text)
+
+  res <- subcorpusWord(text, data.frame(pattern=wordlist2, count=2, word=FALSE), out = "text")
+  expect_equal(res, list("abaabcaa", c("aa", "aab", "bc")))
+  
+  res <- subcorpusWord(text, data.frame(pattern=wordlist2, count=3, word=FALSE), out = "text")
+  expect_equal(res, list())
+
+  ## ignore.case
+  expect_equal(subcorpusWord(text=list("a"), search="A", out="text"), list())
+  expect_equal(subcorpusWord(text="a", search="A", out="text"), list())
+  expect_equal(subcorpusWord(text="a", search="A", out="text", ignore.case=TRUE), list("a"))
+  expect_equal(subcorpusWord(text=list("a","A"), search="A", out="text", ignore.case=TRUE), list("a", "a"))
+  expect_equal(subcorpusWord(text=c("a","A"), search="a", out="text", ignore.case=TRUE), list("a", "a"))
+  
+  ## counts
+  counts <- list(c(2,1), 3)
+  text2 <- list("abc", c("a","a","b"), c("c","c","c"))
+  res <- subcorpusWord(text2, search=list(data.frame(pattern=c("a","b"), count=c(2,1), word=c(FALSE, FALSE)), data.frame(pattern="c", count=3, word=FALSE)), out="bin")
+  expect_equal(res, c(FALSE, TRUE, TRUE))
+
+  ## words
+  text <- list("abaabcaa", "ababc", c("aba", "aabc"), c("aa", "aab", "bc"))
+  search1 <- data.frame(pattern=c("aa", "bc"), word=c(FALSE, TRUE), count=1)
+  expect_equal(subcorpusWord(text=text, search=search1, out="bin"), c(FALSE, FALSE, FALSE, TRUE))
+
+  text <- list("abaabcaa", "ababc", c("aba", "aabc"), c("aab", "bc"))
+  search1 <- data.frame(pattern=c("aa", "bc"), word=c(TRUE, TRUE), count=1)
+  expect_equal(subcorpusWord(text=text, search=search1, out="bin"), c(FALSE, FALSE, FALSE, FALSE))
+  
+  text <- list("abaabcaa", "aab")
+  search1 <- data.frame(pattern=c("aab"), word=c(TRUE), count=1)
+  expect_equal(subcorpusWord(text=text, search=search1, out="bin"), c(FALSE, TRUE))
+  })
