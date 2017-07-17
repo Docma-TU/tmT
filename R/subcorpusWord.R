@@ -28,7 +28,7 @@ subcorpusWord <- function(text, search, ignore.case = FALSE,
 
     text <- lapply(text, unlist)
     if(ignore.case) text <- lapply(text, tolower)
-    if(is.character(search)) search <- data.frame(pattern=search, word=FALSE, count=1)
+    if(is.character(search)) search <- lapply(search, function(x)data.frame(pattern=x, word=FALSE, count=1) )
     if(is.data.frame(search)) search <- list(search)
     subid <- integer(length(text))
 

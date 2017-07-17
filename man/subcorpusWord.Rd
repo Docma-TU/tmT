@@ -4,27 +4,17 @@
 \alias{subcorpusWord}
 \title{Subcorpus With Word Filter}
 \usage{
-subcorpusWord(text, wordlist, counts = 1L, ignore.case = FALSE,
-  perl = FALSE, fixed = FALSE, useBytes = FALSE, out = c("text", "bin",
-  "count"), ...)
+subcorpusWord(text, search, ignore.case = FALSE, out = c("text", "bin",
+  "count"))
 }
 \arguments{
 \item{text}{List of article texts}
 
-\item{wordlist}{List of character vectors. Every List element is an 'or'
-link, every character String in a vector is linked by an 'and'. If
-\code{wordlist} is only a character Vector the link is 'or'.}
+\item{search}{List of data frames. Every List element is an 'or'
+link, every entry in a data frame is linked by an 'and'. The dataframe must have following tree variables: \code{pattern} a character string including the search terms, \code{word}, a logical value displying if a word (TRUE) or character (search) is wanted and \code{count} an integer marking how many times the word must at least be found in the text.
+If \code{wordlist} is only a character Vector the link is 'or', and a character search will be used with \code{count=1}}
 
-\item{counts}{Integer, or same list structure like \code{wordlist}. Number
-of times a word must appear to be counted.}
-
-\item{ignore.case}{Option from \code{\link{grepl}}.}
-
-\item{perl}{Option from \code{\link{grepl}}.}
-
-\item{fixed}{Option from \code{\link{grepl}}.}
-
-\item{useBytes}{Option from \code{\link{grepl}}.}
+\item{ignore.case}{logical. lower and upper case will be ignored.}
 
 \item{out}{Type of output: \code{text} filtered corpus, \code{bin} logical vector for all texts, \code{count} the number of matches (max one match per character string).}
 
