@@ -25,12 +25,6 @@
 #' - labels for every group of 'and' linked words
 #' @param ignore.case \code{logical} (default: \code{FALSE}) option
 #' from \code{\link{grepl}}.
-#' @param perl \code{logical} (default: \code{FALSE}) option
-#' from \code{\link{grepl}}.
-#' @param fixed \code{logical} (default: \code{FALSE}) option
-#' from \code{\link{grepl}}.
-#' @param useBytes \code{logical} (default: \code{FALSE}) option
-#' from \code{\link{grepl}}.
 #' @param rel \code{logical} (default: \code{FALSE}) should counts
 #' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
@@ -67,7 +61,7 @@
 
 plotWord <- function(object, id = names(object$text),
   type = c("docs", "words"), wordlist, link = c("and", "or"), wnames,
-  ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE,
+  ignore.case = FALSE,
   rel = FALSE, mark = TRUE, unit = "month",
   curves = c("exact", "smooth", "both"), smooth = 0.05,
   both.lwd, both.lty, main, xlab, ylab, ylim, col, legend = "topright",
@@ -88,8 +82,8 @@ plotWord <- function(object, id = names(object$text),
   # collect word candidates for applying subcorpusWord with out = "count"
   words <- unique(unlist(wordlist))
   # count appearences of candidates on subcorpus
-  tmp <- subcorpusWord(text = object$text[inds], wordlist = words, out = "count",
-    ignore.case = ignore.case, perl = perl, fixed = fixed, useBytes = useBytes)
+  tmp <- subcorpusWord(text = object$text[inds], search = words, out = "count",
+    ignore.case = ignore.case)
   # calculate rowSums for each of the wordlists components
   tab <- do.call(cbind, lapply(wordlist,
     function(x) rowSums(as.matrix(tmp[, colnames(tmp) %in% x]))))

@@ -14,10 +14,10 @@ test_that("subcorpusWord", {
   res <- subcorpusWord(text, list(data.frame(pattern=wordlist1, word=FALSE, count=counts)), out = "bin")
   expect_equal(res, c(TRUE, FALSE, FALSE, TRUE))
   
-  # res <- subcorpusWord(text, wordlist1, out = "count")
-  # test <- matrix(c(1,0,1,2,1,1,1,1), nrow=4)
-  # colnames(test) <- c("aa","bc")
-  # expect_equal(res, test)
+  res <- subcorpusWord(text, search=wordlist1, out = "count")
+  test <- matrix(c(2,0,1,2,1,1,1,1), nrow=4)
+  colnames(test) <- c("aa","bc")
+  expect_equal(res, test)
   # 
   # res <- subcorpusWord(text,wordlist2, out="count")
   # test <- matrix(c(1,0,1,2), nrow=4)

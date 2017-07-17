@@ -31,7 +31,8 @@ subcorpusWord <- function(text, search, ignore.case = FALSE,
     if(is.character(search)) search <- lapply(search, function(x)data.frame(pattern=x, word=FALSE, count=1) )
     if(is.data.frame(search)) search <- list(search)
     subid <- integer(length(text))
-
+    counts_out <- NULL
+    
     for(i in 1:length(search)){
         search[[i]]$pattern <- as.character(search[[i]]$pattern)
         pattern <- search[[i]]$pattern
@@ -47,13 +48,14 @@ subcorpusWord <- function(text, search, ignore.case = FALSE,
         subcandidate <- apply(counts, 1, function(x)all(x>=search[[i]]$count))
 
         subid <- subid + subcandidate
-        if(out[1] == "count" & i==1){colnames(counts) <- pattern
+        if(out[1] == "count"){colnames(counts) <- pattern
                                      if(ignore.case)colnames(counts) <- paste0(colnames(counts), "_case")
                                      colnames(counts)[search[[i]]$word] <- paste0(colnames(counts)[search[[i]]$word], "_w")
-                                     return(counts)
-                                     break}
+                                     counts_out <- cbind(counts_out, counts)
+                                     }
     }
     subid <- subid > 0
     if(out[1] == "text") return(text[subid])
     if(out[1] == "bin") return(subid)
+    if(out[1] == "count") return(counts_out)
 }

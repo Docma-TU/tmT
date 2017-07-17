@@ -6,10 +6,9 @@
 \usage{
 plotWord(object, id = names(object$text), type = c("docs", "words"),
   wordlist, link = c("and", "or"), wnames, ignore.case = FALSE,
-  perl = FALSE, fixed = FALSE, useBytes = FALSE, rel = FALSE,
-  mark = TRUE, unit = "month", curves = c("exact", "smooth", "both"),
-  smooth = 0.05, both.lwd, both.lty, main, xlab, ylab, ylim, col,
-  legend = "topright", natozero = TRUE, ...)
+  rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
+  "smooth", "both"), smooth = 0.05, both.lwd, both.lty, main, xlab, ylab,
+  ylim, col, legend = "topright", natozero = TRUE, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
@@ -37,15 +36,6 @@ or an \code{"or"}}
 - labels for every group of 'and' linked words}
 
 \item{ignore.case}{\code{logical} (default: \code{FALSE}) option
-from \code{\link{grepl}}.}
-
-\item{perl}{\code{logical} (default: \code{FALSE}) option
-from \code{\link{grepl}}.}
-
-\item{fixed}{\code{logical} (default: \code{FALSE}) option
-from \code{\link{grepl}}.}
-
-\item{useBytes}{\code{logical} (default: \code{FALSE}) option
 from \code{\link{grepl}}.}
 
 \item{rel}{\code{logical} (default: \code{FALSE}) should counts
