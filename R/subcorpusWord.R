@@ -4,15 +4,10 @@
 #'
 #'
 #' @param text List of article texts
-#' @param wordlist List of character vectors. Every List element is an 'or'
-#' link, every character String in a vector is linked by an 'and'. If
-#' \code{wordlist} is only a character Vector the link is 'or'.
-#' @param counts Integer, or same list structure like \code{wordlist}. Number
-#' of times a word must appear to be counted.
-#' @param ignore.case Option from \code{\link{grepl}}.
-#' @param perl Option from \code{\link{grepl}}.
-#' @param fixed Option from \code{\link{grepl}}.
-#' @param useBytes Option from \code{\link{grepl}}.
+#' @param search List of data frames. Every List element is an 'or'
+#' link, every entry in a data frame is linked by an 'and'. The dataframe must have following tree variables: \code{pattern} a character string including the search terms, \code{word}, a logical value displying if a word (TRUE) or character (search) is wanted and \code{count} an integer marking how many times the word must at least be found in the text.
+#' If \code{wordlist} is only a character Vector the link is 'or', and a character search will be used with \code{count=1}
+#' @param ignore.case logical. lower and upper case will be ignored.
 #' @param out Type of output: \code{text} filtered corpus, \code{bin} logical vector for all texts, \code{count} the number of matches (max one match per character string).
 #' @param ... additional parameters for \code{grepl}
 #' @return Filtered list of texts.
@@ -21,49 +16,44 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export subcorpusWord
-subcorpusWord <- function(text, wordlist, counts = 1L, ignore.case = FALSE,
-  perl = FALSE, fixed = FALSE, useBytes = FALSE,
-  out = c("text", "bin", "count"), ...){
-  
-  stopifnot((is.list(text) || is.character(text)),
-    all(sapply(wordlist, is.character)), all(sapply(counts, is.numeric)),
-    all.equal(drop(unlist(sapply(counts, as.integer))), unlist(counts)),
-    is.logical(ignore.case), is.logical(perl), is.logical(fixed),
-    is.logical(useBytes), length(ignore.case) == 1, length(perl) == 1,
-    length(fixed) == 1, length(useBytes) == 1, is.character(out))
-  
-  subid <- numeric(length(text))
-  if(out[1] == "count"){
-    # tmp <- NULL
-    tmp <- do.call(cbind, lapply(wordlist, function(pat) sapply(text, function(txt)
-      sum(grepl(pattern = pat, x = txt, ignore.case = ignore.case, perl = perl,
-        fixed = fixed, useBytes = useBytes, ...)))))
-    # for(j in wordlist){
-    #   tmp <- cbind(tmp, sapply(text, function(x)
-    #     sum(grepl(pattern = j, x = x, ignore.case = ignore.case, perl = perl,
-    #       fixed = fixed, useBytes = useBytes, ...))))
-    # }
-    colnames(tmp) <- wordlist
-    return(tmp)
-  }
-  else{
-    if(!is.list(wordlist)) wordlist <- as.list(wordlist)
-    if(!is.list(counts)) counts <- as.list(counts)
-    if(length(counts) == 1L) counts[1:length(wordlist)] <- counts[1]
-    
-    for(i in 1:length(wordlist)){
-      tmp <- NULL
-      for(j in 1:length(wordlist[[i]])){
-        if(length(counts[[i]]) == 1){co <- counts[[i]]}
-        else{co <- counts[[i]][j]}
-        tmp <- cbind(tmp, sapply(text, function(x)
-          sum(grepl(pattern = wordlist[[i]][j], x = x, ignore.case = ignore.case,
-            perl = perl, fixed = fixed, useBytes = useBytes)) >= co))
-      }
-      subid <- subid + apply(tmp, 1, prod)
+subcorpusWord <- function(text, search, ignore.case = FALSE,
+                          out = c("text", "bin", "count")){
+
+    ## stopifnot((is.list(text) || is.character(text)),
+    ##           all(sapply(wordlist, is.character)), all(sapply(counts, is.numeric)),
+    ##           all.equal(drop(unlist(sapply(counts, as.integer))), unlist(counts)),
+    ##           is.logical(ignore.case), is.logical(perl), is.logical(fixed),
+    ##           is.logical(useBytes), length(ignore.case) == 1, length(perl) == 1,
+    ##           length(fixed) == 1, length(useBytes) == 1, is.character(out))
+
+    text <- lapply(text, unlist)
+    if(ignore.case) text <- lapply(text, tolower)
+    if(is.character(search)) search <- data.frame(pattern=search, word=FALSE, count=1)
+    if(is.data.frame(search)) search <- list(search)
+    subid <- integer(length(text))
+
+    for(i in 1:length(search)){
+        search[[i]]$pattern <- as.character(search[[i]]$pattern)
+        pattern <- search[[i]]$pattern
+        if(ignore.case) search[[i]]$pattern <- tolower(search[[i]]$pattern)
+        search[[i]]$pattern[search[[i]]$word] <- paste0("\\b",search[[i]]$pattern[search[[i]]$word], "\\b")
+        counts <- NULL
+        for(j in 1:nrow(search[[i]])){
+            count <- lapply(text, stringr::str_count, pattern= search[[i]]$pattern[j])
+            count <- sapply(count, sum)
+            counts <- cbind(counts,count)
+        }
+        colnames(counts) <- pattern
+        subcandidate <- apply(counts, 1, function(x)all(x>=search[[i]]$count))
+
+        subid <- subid + subcandidate
+        if(out[1] == "count" & i==1){colnames(counts) <- pattern
+                                     if(ignore.case)colnames(counts) <- paste0(colnames(counts), "_case")
+                                     colnames(counts)[search[[i]]$word] <- paste0(colnames(counts)[search[[i]]$word], "_w")
+                                     return(counts)
+                                     break}
     }
     subid <- subid > 0
     if(out[1] == "text") return(text[subid])
     if(out[1] == "bin") return(subid)
-  }
 }
