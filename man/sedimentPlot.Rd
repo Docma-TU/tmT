@@ -4,7 +4,7 @@
 \alias{sedimentPlot}
 \title{Plotting Sediment plot of topics over time}
 \usage{
-sedimentPlot(ldaresult, ldaid, select = NULL, label = NULL,
+sedimentPlot(ldaresult, ldaid, select = NULL, tnames = NULL,
   threshold = NULL, meta, unit = "quarter", xunit = "year",
   color = NULL, sort = TRUE, legend = "topleft", legendLimit = 0,
   peak = 0)
@@ -16,7 +16,7 @@ sedimentPlot(ldaresult, ldaid, select = NULL, label = NULL,
 
 \item{select}{Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.}
 
-\item{label}{Character vector of topic labels. Must have same length than number of topics in the model.}
+\item{tnames}{Character vector of topic labels. Must have same length than number of topics in the model.}
 
 \item{threshold}{Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold}
 

@@ -6,7 +6,7 @@
 #' @param ldaresult LDA result object
 #' @param ldaid Character vector including IDs of the texts
 #' @param select Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.
-#' @param label Character vector of topic labels. Must have same length than number of topics in the model.
+#' @param tnames Character vector of topic labels. Must have same length than number of topics in the model.
 #' @param threshold Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold
 #' @param meta The meta data for the texts or a date-string.
 #' @param unit Time unit for x-axis. Possible units see \code{\link[lubridate]{round_date}}
@@ -23,9 +23,9 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export sedimentPlot
 
-sedimentPlot <- function(ldaresult, ldaid, select=NULL, label=NULL, threshold=NULL, meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0, peak=0){
+sedimentPlot <- function(ldaresult, ldaid, select=NULL, tnames=NULL, threshold=NULL, meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0, peak=0){
     if(is.null(color)) color <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)]
-    if(is.null(label)) label <- 1:nrow(ldaresult$document_sums)
+    if(is.null(tnames)) tnames <- paste0("T", 1:nrow(ldaresult$document_sums))
 
     IDmatch <- match(ldaid,meta$id)
     if(any(is.na(IDmatch))){stop("missing id's in meta")}
@@ -34,12 +34,12 @@ sedimentPlot <- function(ldaresult, ldaid, select=NULL, label=NULL, threshold=NU
     x <- split(x=x, f=textDate)
     x <- sapply(x,colSums)
     x <- t(t(x)/colSums(x))
-    rownames(x) <- label
+    rownames(x) <- tnames
 
     ## reduce to used topics
     if(!is.null(select)){
         if(is.numeric(select) | is.integer(select)){x <- x[select,]
-                                                        }else{x <- x[match(select, label),]
+                                                        }else{x <- x[match(select, tnames),]
                                                           }
     }
 
@@ -59,13 +59,14 @@ sedimentPlot <- function(ldaresult, ldaid, select=NULL, label=NULL, threshold=NU
     if(length(color) < nrow(y)) color <- rep(color, ceiling(nrow(y)/length(color)))[1:nrow(x)]
 
     ## plotting
-    par(las=2)
+    tmplas <- par("las")
+    par(las = 1)
     plot(NULL, xlim=range(as.Date(colnames(x))), ylim=c(0,max(y)), ylab="", xlab="", xaxt="n")
     for(i in 1:(nrow(y)-1)){
         polygon(x=c(as.Date(colnames(y)), rev(as.Date(colnames(y)))), c(y[i,], rev(y[i+1,])), col=color[i])
     }
     xvals <- seq(min(as.Date(colnames(y))), max(as.Date(colnames(y))), by=xunit)
-    axis(side = 1, xvals, labels = xvals)
+    axis(side = 1, xvals, format(xvals, "%b %y"), cex.axis = .85)
 
     ## label peaks
     if(peak>0){
@@ -96,7 +97,9 @@ sedimentPlot <- function(ldaresult, ldaid, select=NULL, label=NULL, threshold=NU
 
     ## legend
     if(!is.null(legend)){legend(x=legend, legend= rev(rownames(y)[-1][apply(x,1,function(z)any(z>legendLimit))]), bg="white", pch=15, col=rev(color[apply(x,1,function(z)any(z>legendLimit))]))}
-
+    par(las=tmplas)
+    x <- data.frame(t(x))
+    y <- data.frame(t(y))[, -1]
     invisible(list(x=x,y=y))
 }
 
