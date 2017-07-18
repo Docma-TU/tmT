@@ -2,15 +2,9 @@
 #'
 #' Creates a subcorpus including specific words.
 #'
-<<<<<<< HEAD
 #' @param object \code{\link{textmeta}} object
 #' @param text not necassary if \code{object} is specified, else should be
 #' \code{object\$text}: list of article texts
-=======
-#'
-#' @param object Textmeta object
-#' @param text List of article texts
->>>>>>> origin/master
 #' @param search List of data frames. Every List element is an 'or'
 #' link, every entry in a data frame is linked by an 'and'. The dataframe must have following tree variables: \code{pattern} a character string including the search terms, \code{word}, a logical value displying if a word (TRUE) or character (search) is wanted and \code{count} an integer marking how many times the word must at least be found in the text. \code{word} can alternatively be a character string containing the keywords \code{pattern} for character search, \code{word} for word-search and \code{left} and \code{right} for truncated search.
 #' If \code{wordlist} is only a character Vector the link is 'or', and a character search will be used with \code{count=1}
