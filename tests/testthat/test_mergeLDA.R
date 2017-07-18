@@ -12,12 +12,12 @@ text <- list(A= "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiu
              H="Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna  cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
              I="iure reprehenderit iure reprehenderit in voluptate velit esse cillumofficia deserunt mollit officia deserunt mollit officia deserunt mollit  dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, suntin culpa qui officiaiure reprehenderit  in culpa qui officiaiure reprehenderit  deserunt mollit anim id est laborum.")
 
-text2 <- makeClear(text)
+text2 <- makeClear(text = text)
 wordlist <- makeWordlist(text2)
 LDAdoc <- docLDA(text2, wordlist$words)
 lda1 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=124601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
 
-text2 <- makeClear(text[c("B", "C", "F", "H")])
+text2 <- makeClear(text = text[c("B", "C", "F", "H")])
 wordlist <- makeWordlist(text2)
 LDAdoc <- docLDA(text2, wordlist$words)
 lda2 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=124601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
