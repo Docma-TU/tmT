@@ -7,7 +7,7 @@ Authors@R: c(person("Lars", "Koppers", email="koppers@statistik.tu-dortmund.de",
 	     person("Jonas", "Rieger", email="riegerjonas@gmx.de", role=c("aut")),
              person("Kira", "Schacht", email="kira.schacht@tu-dortmund.de", role=c("aut")),
              person("Sakander", "Zirai", email="sakander.zirai@tu-dortmund.de", role=c("aut")))
-Description: A framework for News corpora analysis with topic models
+Description: A framework for News corpora analysis with topic models.
 URL: https://github.com/Docma-TU/tmT
 License: GPL (>= 2)
 Encoding: UTF-8
