@@ -64,7 +64,8 @@ sedimentPlot <- function(ldaresult, ldaid, select=NULL, label=NULL, threshold=NU
     for(i in 1:(nrow(y)-1)){
         polygon(x=c(as.Date(colnames(y)), rev(as.Date(colnames(y)))), c(y[i,], rev(y[i+1,])), col=color[i])
     }
-    axis(side=1, seq(min(as.Date(colnames(y))), max(as.Date(colnames(y))), by=xunit), labels=seq(min(as.Date(colnames(y))), max(as.Date(colnames(y))), by=xunit))
+    xvals <- seq(min(as.Date(colnames(y))), max(as.Date(colnames(y))), by=xunit)
+    axis(side = 1, xvals, labels = xvals)
 
     ## label peaks
     if(peak>0){
