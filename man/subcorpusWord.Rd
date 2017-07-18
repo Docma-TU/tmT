@@ -4,10 +4,12 @@
 \alias{subcorpusWord}
 \title{Subcorpus With Word Filter}
 \usage{
-subcorpusWord(text, search, ignore.case = FALSE, out = c("text", "bin",
-  "count"))
+subcorpusWord(object, text, search, ignore.case = FALSE, out = c("text",
+  "bin", "count"))
 }
 \arguments{
+\item{object}{Textmeta object}
+
 \item{text}{List of article texts}
 
 \item{search}{List of data frames. Every List element is an 'or'
@@ -17,8 +19,6 @@ If \code{wordlist} is only a character Vector the link is 'or', and a character 
 \item{ignore.case}{logical. lower and upper case will be ignored.}
 
 \item{out}{Type of output: \code{text} filtered corpus, \code{bin} logical vector for all texts, \code{count} the number of matches (max one match per character string).}
-
-\item{...}{additional parameters for \code{grepl}}
 }
 \value{
 Filtered list of texts.
