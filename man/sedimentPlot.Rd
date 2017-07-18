@@ -4,16 +4,17 @@
 \alias{sedimentPlot}
 \title{Plotting Sediment plot of topics over time}
 \usage{
-sedimentPlot(x, ldaID, usedTopics = NULL, label = NULL, threshold = NULL,
-  meta, unit = "quarter", xunit = "year", color = NULL, sort = TRUE,
-  legend = "topleft", legendLimit = 0, peak = 0)
+sedimentPlot(ldaresult, ldaid, select = NULL, label = NULL,
+  threshold = NULL, meta, unit = "quarter", xunit = "year",
+  color = NULL, sort = TRUE, legend = "topleft", legendLimit = 0,
+  peak = 0)
 }
 \arguments{
-\item{x}{LDA result object}
+\item{ldaresult}{LDA result object}
 
-\item{ldaID}{Character vector including IDs of the texts}
+\item{ldaid}{Character vector including IDs of the texts}
 
-\item{usedTopics}{Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.}
+\item{select}{Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.}
 
 \item{label}{Character vector of topic labels. Must have same length than number of topics in the model.}
 

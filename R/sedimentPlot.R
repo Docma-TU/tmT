@@ -3,9 +3,9 @@
 #' Creates a sediment plot of all or selected topics.
 #'
 #'
-#' @param x LDA result object
-#' @param ldaID Character vector including IDs of the texts
-#' @param usedTopics Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.
+#' @param ldaresult LDA result object
+#' @param ldaid Character vector including IDs of the texts
+#' @param select Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.
 #' @param label Character vector of topic labels. Must have same length than number of topics in the model.
 #' @param threshold Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold
 #' @param meta The meta data for the texts or a date-string.
@@ -23,13 +23,13 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export sedimentPlot
 
-sedimentPlot <- function(x, ldaID, usedTopics=NULL, label=NULL, threshold=NULL, meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0, peak=0){
+sedimentPlot <- function(ldaresult, ldaid, select=NULL, label=NULL, threshold=NULL, meta, unit="quarter", xunit="year", color=NULL, sort=TRUE, legend="topleft", legendLimit=0, peak=0){
     if(is.null(color)) color <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)]
-    if(is.null(label)) label <- 1:nrow(x$document_sums)
+    if(is.null(label)) label <- 1:nrow(ldaresult$document_sums)
 
-    IDmatch <- match(ldaID,meta$id)
+    IDmatch <- match(ldaid,meta$id)
     if(any(is.na(IDmatch))){stop("missing id's in meta")}
-    x <- as.data.frame(t(x$document_sums))
+    x <- as.data.frame(t(ldaresult$document_sums))
     textDate <- lubridate::floor_date(meta$date[IDmatch], unit)
     x <- split(x=x, f=textDate)
     x <- sapply(x,colSums)
@@ -37,9 +37,9 @@ sedimentPlot <- function(x, ldaID, usedTopics=NULL, label=NULL, threshold=NULL, 
     rownames(x) <- label
 
     ## reduce to used topics
-    if(!is.null(usedTopics)){
-        if(is.numeric(usedTopics) | is.integer(usedTopics)){x <- x[usedTopics,]
-                                                        }else{x <- x[match(usedTopics, label),]
+    if(!is.null(select)){
+        if(is.numeric(select) | is.integer(select)){x <- x[select,]
+                                                        }else{x <- x[match(select, label),]
                                                           }
     }
 
