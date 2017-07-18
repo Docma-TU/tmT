@@ -6,7 +6,7 @@ test_that("showArticles", {
     text <- list("1"="Text 1", "2"="Text 2", "3"="Text 3")
     corpus <- list(meta=meta, text=text)
     M <- cbind(meta[,c(1,3,2)],text=unlist(text))
-    M <- apply(M,2,as.character)
+    M <- data.frame(apply(M,2,as.character), stringsAsFactors = FALSE)
     M2 <- M[c(1,3,2),]
     M3 <- rbind(M[1,], c(NA,NA,NA,""), c(NA,NA,NA,""))
     rownames(M) <- rownames(M2) <- rownames(M3)<- 1:3

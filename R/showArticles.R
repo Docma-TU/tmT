@@ -26,8 +26,8 @@ showArticles <- function(corpus, id = names(corpus$text),
     out <- lapply(corpus$text[mtch1],paste,collapse=" ")
     out <- unlist(out)
     out2 <- cbind(corpus$meta$id[mtch2],corpus$meta$title[mtch2],as.character(corpus$meta$date[mtch2]),out)
+    out2 <- data.frame(out2, stringsAsFactors = FALSE, row.names = 1:length(out))
     colnames(out2) <- c("id","title","date","text")
-    rownames(out2) <- 1:length(out)
     write.csv(out2, file=paste(file,i,"lesen.csv",sep=""))
     outlist <- c(outlist, list(out2))
   }
