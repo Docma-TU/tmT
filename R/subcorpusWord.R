@@ -16,7 +16,7 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export subcorpusWord
-subcorpusWord <- function(text, search, ignore.case = FALSE,
+subcorpusWord <- function(object, text, search, ignore.case = FALSE,
                           out = c("text", "bin", "count")){
 
     ## stopifnot((is.list(text) || is.character(text)),
@@ -25,7 +25,12 @@ subcorpusWord <- function(text, search, ignore.case = FALSE,
     ##           is.logical(ignore.case), is.logical(perl), is.logical(fixed),
     ##           is.logical(useBytes), length(ignore.case) == 1, length(perl) == 1,
     ##           length(fixed) == 1, length(useBytes) == 1, is.character(out))
-
+    
+    returnTextmeta <- FALSE
+    if (!missing(object)){
+      text <- object$text
+      returnTextmeta <- TRUE
+    }
     text <- lapply(text, unlist)
     if(ignore.case) text <- lapply(text, tolower)
     if(is.character(search)) search <- lapply(search, function(x)data.frame(pattern=x, word=FALSE, count=1) )
@@ -61,7 +66,14 @@ subcorpusWord <- function(text, search, ignore.case = FALSE,
                                      }
     }
     subid <- subid > 0
-    if(out[1] == "text") return(text[subid])
+    if(out[1] == "text"){
+      if(returnTextmeta){
+        object$text <- text[subid]
+        object$meta <- object$meta[object$meta$id %in% names(object$text), ]
+        return(object)
+      }
+      return(text[subid])
+    }
     if(out[1] == "bin") return(subid)
     if(out[1] == "count") return(counts_out)
 }
