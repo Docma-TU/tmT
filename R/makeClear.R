@@ -7,7 +7,9 @@
 #' and tokenization. Additional some cleaning steps: remove empty words /
 #' paragraphs / article.
 #'
-#' @param x list containing character strings.
+#' @param object \code{\link{textmeta}} object
+#' @param text not necassary if \code{object} is specified, else should be
+#' \code{object\$text}: list of article texts
 #' @param sw list of stopwords.
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
 #' list of character strings, representing the paragraphs.
@@ -26,39 +28,49 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export makeClear
-makeClear <- function(x, sw = c(stopwords("german"), "dass", "fuer", "koennen",
+makeClear <- function(object, text, sw = c(tm::stopwords("german"), "dass", "fuer", "koennen",
                               "koennte", "ueber", "waehrend", "wuerde",
                               "wuerden"), paragraph = TRUE){
-    stopifnot(is.list(x), is.character(sw), is.logical(paragraph),
+    returnTextmeta <- FALSE
+    if(!missing(object)){
+      text <- object$text
+      returnTextmeta <- TRUE
+    }
+    stopifnot(is.list(text), is.character(sw), is.logical(paragraph),
               length(paragraph) == 1)
     cat("punctuation \n")
-    x <- lapply(x, removePunctuation, preserve_intra_word_dashes = FALSE)
+    text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE)
     cat("numbers \n")
-    x <- lapply(x, removeNumbers)
+    text <- lapply(text, tm::removeNumbers)
     cat("to lower \n")
-    x <- lapply(x, tolower)
+    text <- lapply(text, tolower)
     cat("stopwords \n")
-    x <- lapply(x, removeWords, sw)
+    text <- lapply(text, tm::removeWords, sw)
     cat("whitespace \n")
-    x <- lapply(x, stripWhitespace)
-    x <- lapply(x, trimws)
+    text <- lapply(text, tm::stripWhitespace)
+    text <- lapply(text, trimws)
     if(paragraph){ ## SPIEGEL
         cat("tokenization \n")
-        x <- lapply(x, strsplit, "\\s")
+        text <- lapply(text, strsplit, "\\s")
         cat("remove empty article \n")
-        cat(paste("remove empty articles:",sum(lengths(x) == 0 | is.na(x)), "\n"))
-        x <- x[!(lengths(x) == 0 | is.na(x))]
+        cat(paste("remove empty articles:",sum(lengths(text) == 0 | is.na(text)), "\n"))
+        text <- text[!(lengths(text) == 0 | is.na(text))]
         cat("remove empty paragraphs \n")
-        x <- lapply(x, function(x) x[!(lengths(x) == 0 | is.na(x))])
-        cat(paste("remove empty articles (2):",sum(lengths(x) == 0), "\n"))
-        x <- x[!(lengths(x) == 0)]
+        text <- lapply(text, function(x) x[!(lengths(x) == 0 | is.na(x))])
+        cat(paste("remove empty articles (2):",sum(lengths(text) == 0), "\n"))
+        text <- text[!(lengths(text) == 0)]
     }
     else{
         cat("tokenization \n")
-        x <- sapply(x, function(x)strsplit(x, "\\s")[1])
+        text <- sapply(text, function(x) strsplit(x, "\\s")[1])
         cat("remove empty article \n")
-        cat(paste("Empty Articles:",sum(lengths(x) == 0 | is.na(x)), "\n"))
-        x <- x[!(lengths(x) == 0 | is.na(x))]
+        cat(paste("Empty Articles:",sum(lengths(text) == 0 | is.na(text)), "\n"))
+        text <- text[!(lengths(text) == 0 | is.na(text))]
     }
-    return(x)
+    if(returnTextmeta){
+      object$text <- text
+      object$meta <- object$meta[object$meta$id %in% names(object$text), ]
+      return(object)
+    }
+    return(text)
 }

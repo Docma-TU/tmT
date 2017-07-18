@@ -4,11 +4,15 @@
 \alias{makeClear}
 \title{Some data preprocessing}
 \usage{
-makeClear(x, sw = c(stopwords("german"), "dass", "fuer", "koennen", "koennte",
-  "ueber", "waehrend", "wuerde", "wuerden"), paragraph = TRUE)
+makeClear(object, text, sw = c(tm::stopwords("german"), "dass", "fuer",
+  "koennen", "koennte", "ueber", "waehrend", "wuerde", "wuerden"),
+  paragraph = TRUE)
 }
 \arguments{
-\item{x}{list containing character strings.}
+\item{object}{\code{\link{textmeta}} object}
+
+\item{text}{not necassary if \code{object} is specified, else should be
+\code{object\$text}: list of article texts}
 
 \item{sw}{list of stopwords.}
 

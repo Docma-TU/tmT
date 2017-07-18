@@ -49,6 +49,14 @@ c(
 "tempor",     "incidunt",   "ut",         "labore",     "et",
 "dolore",     "magna",      "aliqua")))
 
-expect_equal(makeClear(text, paragraph=FALSE), mc1)
-expect_equal(makeClear(text2, paragraph=TRUE), mc2)
+expect_equal(makeClear(text = text, paragraph=FALSE), mc1)
+expect_equal(makeClear(text = text2, paragraph=TRUE), mc2)
+
+names(text2) <- LETTERS[1:3]
+names(mc2) <- LETTERS[1:2]
+tm <- textmeta(meta = data.frame(id = LETTERS[1:3], title = as.character(NA),
+  date = as.Date(NA), stringsAsFactors = FALSE), text = text2)
+cleared <- makeClear(object = tm, paragraph = TRUE)
+expect_true(is.textmeta(cleared))
+expect_equal(cleared$text, mc2)
 })
