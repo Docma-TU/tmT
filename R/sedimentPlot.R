@@ -1,4 +1,4 @@
-#' Plotting Sediment plot of topics over time 
+#' Plotting Sediment plot of topics over time
 #'
 #' Creates a sediment plot of all or selected topics.
 #'
@@ -13,9 +13,9 @@
 #' @param xunit Time unit for tiks on the x-axis. Possible units see \code{\link[lubridate]{round_date}}
 #' @param color Color vector. Color vector would be replicated if the number of plotted topics is bigger than length of the vector.
 #' @param sort logical. Should the topics be sorted by topic proportion?
-#' @param legend Poisition of legend. If \code{NULL} (default), no legend will be plotted   
+#' @param legend Poisition of legend. If \code{NULL} (default), no legend will be plotted
 #' @param legendLimit numeric between 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.
-#' @param peak numeric between 0 (default) and 1. Label peaks abov \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent. 
+#' @param peak numeric between 0 (default) and 1. Label peaks abov \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
 #' @return list of two matrices. \code{x} contains the topic proportions over time, \code{y} contains the cumulated topic proportions
 #' @keywords ~kwd1 ~kwd2
 #' @examples
@@ -56,16 +56,16 @@ sedimentPlot <- function(ldaresult, ldaid, select=NULL, tnames=NULL, threshold=N
     y <- rbind(0,y)
 
     ## expand color vector if necessary
-    if(length(color) < nrow(y)) color <- rep(color, ceiling(nrow(y)/length(color)))[1:nrow(x)]
+    if(length(color) < nrow(y)) color <- rep(color, ceiling(nrow(y)/length(color)))[1:nrow(x)]else color <- color[1:nrow(x)]
 
     ## plotting
     tmplas <- par("las")
-    par(las = 1)
+    par(las = 2)
     plot(NULL, xlim=range(as.Date(colnames(x))), ylim=c(0,max(y)), ylab="", xlab="", xaxt="n")
     for(i in 1:(nrow(y)-1)){
         polygon(x=c(as.Date(colnames(y)), rev(as.Date(colnames(y)))), c(y[i,], rev(y[i+1,])), col=color[i])
     }
-    xvals <- seq(min(as.Date(colnames(y))), max(as.Date(colnames(y))), by=xunit)
+    xvals <- seq(lubridate::floor_date(min(as.Date(colnames(y))), unit=xunit), max(as.Date(colnames(y))), by=xunit)
     axis(side = 1, xvals, format(xvals, "%b %y"), cex.axis = .85)
 
     ## label peaks
