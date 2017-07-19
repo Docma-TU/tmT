@@ -77,16 +77,20 @@ test_that("subcorpusWord", {
   tr <- matrix(c(0,0,0,1,5,2,4,4,1,1,1,1,2,2,2,1), nrow=4)
   colnames(tr) <- c("aab_w", "a", "bc", "ab")
   expect_equal(subcorpusWord(text=text, search=search1, out="count"),tr)
-  
+
   names(text) <- LETTERS[1:4]
   meta <- data.frame(id = LETTERS[1:10], date = as.Date(NA),
     title = as.character(NA), stringsAsFactors = FALSE)
   meta <- meta[sample(1:10), ]
   tm = textmeta(meta = meta, text = text)
-  
+
   comp <- subcorpusWord(object = tm, search = search1)
   expect_equal(length(comp$text), nrow(comp$meta))
   expect_true(is.textmeta(comp))
   expect_true(names(comp$text) == "D")
   expect_true(comp$meta$id == "D")
+
+  text <- list("abaabcaa", NA, NULL, c("aa", "aab", "bc"))
+  expect_equal(subcorpusWord(text=text, search="a", out="text"),list("abaabcaa", c("aa", "aab", "bc")))
+
 })

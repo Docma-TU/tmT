@@ -65,7 +65,9 @@ subcorpusWord <- function(object, text, search, ignore.case = FALSE,
                                      counts_out <- cbind(counts_out, counts)
                                      }
     }
+
     subid <- subid > 0
+    subid[is.na(subid)] <- FALSE
     if(out[1] == "text"){
       if(returnTextmeta){
         object$text <- text[subid]
