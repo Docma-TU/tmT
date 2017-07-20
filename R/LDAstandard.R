@@ -15,6 +15,8 @@
 #' @param folder file for the results.
 #' @param num.words number of words in the top topic words list.
 #' @param LDA logical: Should a new model be fitted or a existing R workspace
+#' @param count \code{logical} (default: \code{TRUE}) should article counts per
+#' top topic words be calculated for output in csv
 #' be used?
 #' @return A .csv containing the topword list and a R workspace containing the
 #' result data.
@@ -30,7 +32,8 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export LDAstandard
 LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
-                        burnin = 70L, alpha = NULL, eta = NULL, seed = NULL, folder = paste0(getwd(),"/lda-result"), num.words = 50L, LDA = TRUE){
+  burnin = 70L, alpha = NULL, eta = NULL, seed = NULL,
+  folder = paste0(getwd(),"/lda-result"), num.words = 50L, LDA = TRUE, count = FALSE){
     if(is.null(alpha)) alpha <- 1/K
     if(is.null(eta)) eta <- 1/K
     if(is.null(seed)) seed <- sample(1:10^8,1)
@@ -60,9 +63,27 @@ LDAstandard <- function(documents, K = 100L, vocab, num.iterations = 200L,
         load(paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s", seed,
                    ".RData", sep = ""))
     }
-    ttw <- top.topic.words(result$topics, num.words = num.words, by.score = TRUE)
-    ttw <- rbind(round(t(result$topic_sums / sum(result$topic_sums))*100,2),ttw)
-    rownames(ttw) <- c("", 1:num.words)
+    ttw <- lda::top.topic.words(result$topics, num.words = num.words, by.score = TRUE)
+    if(count){
+      counts <- matrix(nrow = nrow(ttw), ncol = ncol(ttw))
+      for(i in 1:ncol(ttw)){
+        topicNr <- i-1
+        wordIDs <- match(ttw[, i], vocab)-1
+        countTmp <- numeric(ncol(ttw))
+        for(j in 1:length(wordIDs)){
+          counts[j, i] <- sum(mapply(function(x, y) topicNr %in% x[y],
+            result$assignments, lapply(documents, function(x) x[1,] == wordIDs[j])))
+        }
+      }
+      ttw <- rbind(paste0("T", 1:ncol(ttw)), ttw)
+      counts <- rbind(round(t(result$topic_sums / sum(result$topic_sums))*100,2), counts)
+      ttw <- cbind(ttw, counts)
+      ttw <- ttw[, rep(1:(ncol(ttw)/2), each = 2) + rep(c(0, ncol(ttw)/2), ncol(ttw))]
+    }
+    else{
+      ttw <- rbind(round(t(result$topic_sums / sum(result$topic_sums))*100,2), ttw)
+    }
+    rownames(ttw) <- c("Topic", 1:num.words)
     write.csv(ttw, file = paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s",
                   seed, ".csv", sep = ""))
     invisible(result)

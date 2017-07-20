@@ -6,7 +6,8 @@
 \usage{
 LDAstandard(documents, K = 100L, vocab, num.iterations = 200L,
   burnin = 70L, alpha = NULL, eta = NULL, seed = NULL,
-  folder = paste0(getwd(), "/lda-result"), num.words = 50L, LDA = TRUE)
+  folder = paste0(getwd(), "/lda-result"), num.words = 50L, LDA = TRUE,
+  count = FALSE)
 }
 \arguments{
 \item{documents}{A list prepared by \code{\link{docLDA}}.}
@@ -29,7 +30,10 @@ LDAstandard(documents, K = 100L, vocab, num.iterations = 200L,
 
 \item{num.words}{number of words in the top topic words list.}
 
-\item{LDA}{logical: Should a new model be fitted or a existing R workspace
+\item{LDA}{logical: Should a new model be fitted or a existing R workspace}
+
+\item{count}{\code{logical} (default: \code{TRUE}) should article counts per
+top topic words be calculated for output in csv
 be used?}
 }
 \value{
