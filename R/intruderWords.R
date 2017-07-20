@@ -13,7 +13,6 @@
 #' @param test logical enables test mode
 #' @param testinput input for function tests
 #' @return tba
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @seealso tba
 #' @references tba
 #' @keywords ~kwd1 ~kwd2
@@ -47,7 +46,7 @@ intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntru
     topwords2 <- unlist(topwords)
     result <- matrix(NA, nrow(beta),3)
     if(!is.null(oldResult)) result <- oldResult$result
-colnames(result) <- c("numIntruder", "missIntr", "falseIntr")
+colnames(result) <- c("numIntruder", "missIntruder", "falseIntruder")
     nonNAtopics <- which(is.na(result[,1]))
     for(i in sample(nonNAtopics)){
         cat(paste("counter", nrow(result) - sum(is.na(result[,1])) +1, "\n"))
@@ -83,5 +82,36 @@ print.default(x$result)
 
 #' @export
 summary.IntruderWords <- function(object, ...){
-cat("ToDo \n")
+    cat("Non interpretable Topics:",
+        sum(is.na(object$result[,"missIntruder"])) - sum(is.na(object$result[,"numIntruder"])),
+        "\nNon evaluated Topics:",
+        sum(is.na(object$result[,"numIntruder"])), "\n\n")
+    print(data.frame("byScore"=object$byScore, "numTopwords"=object$numTopwords,
+                     "numIntruder"=paste(object$numIntruder, collapse=" "),
+                     "numOutwords"=object$numOutwords, "noTopic"=object$noTopic))
+    if(sum(is.na(object$result[,"numIntruder"])) == 0){
+        cat("\n",
+            "Number of meaningful topics:",
+            nrow(object$result) - sum(is.na(object$result[,"missIntruder"])), "out of", nrow(object$result),
+            paste0("(", round(100*(1-sum(is.na(object$result[,"missIntruder"]))/nrow(object$result)),2), "%)"),
+            "\n",
+            "Correct topics:",
+            sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE),
+paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE) / nrow(object$result)),2), "%)"),
+            "\n\n")
+        cat("\n", "Table of Intruders")
+        missIntTable <- table(object$result[,"numIntruder"])
+        print(missIntTable)
+        cat("\n",
+            "Mean of number of missed Intruder:", mean(object$result[,"missIntruder"], na.rm=TRUE),
+            "\n", "Table of missing Intruders")
+        missIntTable <- table(object$result[,"missIntruder"])
+        print(missIntTable)
+        cat("\n",
+            "Mean of number of false Intruder:", mean(object$result[,"falseIntruder"], na.rm=TRUE),
+            "\n", "Table of false Intruders")
+        missIntTable <- table(object$result[,"falseIntruder"])
+        print(missIntTable)
+    }
+
 }

@@ -37,7 +37,6 @@ test_that("intruderWords", {
 
     load("data/intruderWords.RData")
 
-
     set.seed(24601)
 
     iW2 <- intruderWords(beta, byScore = TRUE, numTopwords = 10L, numIntruder = 1L:2L, numOutwords = 8L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=TRUE, testinput=c("1 2 3", "6", "h", "1", "x", "q"))
@@ -50,6 +49,7 @@ test_that("intruderWords", {
     expect_equal(iWo, iWo2)
     expect_equal(iWs, iWs2)
 
-    print(iWs2)
-    summary(iWs2)
+    iWs3 <- intruderWords(beta, byScore = FALSE, numTopwords = 10L, numIntruder = 1L:2L, numOutwords = 8L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=TRUE, testinput=c("0", "0", "0", "1", "1", "1", "1", "1", "1", "1"))
+    print(iWs3)
+    summary(iWs3)
 })
