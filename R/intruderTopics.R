@@ -17,7 +17,6 @@
 #' @param test logical enables test mode
 #' @param testinput input for function tests
 #' @return tba
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @seealso tba
 #' @references tba
 #' @keywords ~kwd1 ~kwd2
@@ -58,7 +57,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
     if(!all(rowSums(theta)==1)) theta <- t(t(theta) / colSums(theta))
     input <- 0
     if(is.null(oldResult)){
-        result <- data.frame(id=character(), numIntruder=integer(), missIntr=integer(), falseIntr=integer(), stringsAsFactors=FALSE)
+        result <- data.frame(id=character(), numIntruder=integer(), missIntruder=integer(), falseIntruder=integer(), stringsAsFactors=FALSE)
         unusedID <- id
     }else{
     result <- oldResult$result
@@ -92,8 +91,8 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
             break}
 
         if(input[1]=="q"){break}#exit
-        if(length(posIntruder)==0){result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntr=numIntruderS - sum(input %in% posIntruder), falseIntr=sum(input %in% (1:numOuttopics)), stringsAsFactors=FALSE))}else{
-        result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntr=numIntruderS - sum(input %in% posIntruder), falseIntr=sum(input %in% (1:numOuttopics)[-posIntruder]), stringsAsFactors=FALSE))}
+        if(length(posIntruder)==0){result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)), stringsAsFactors=FALSE))}else{
+        result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)[-posIntruder]), stringsAsFactors=FALSE))}
         unusedID <- unusedID[-which(unusedID==sID)]
         if(printSolution) cat(paste("True Intruder:", paste(sort(posIntruder), collapse=" "), "\n"))
         cat(paste(length(unusedID), "left\n"))
@@ -113,5 +112,30 @@ print.default(x$result)
 
 #' @export
 summary.IntruderTopics <- function(object, ...){
-cat("ToDo \n")
+    print(data.frame("byScore"=object$byScore, "numIntruder"=paste(object$numIntruder, collapse=" "),
+                     "numOuttopics"=object$numOuttopics, minWords=object$minWords,
+                     minOuttopics=object$minOuttopics, stopTopics=paste(object$stopTopics, collapse=" ")))
+
+    cat("\n",
+        "Number of evaluated articles:",
+        nrow(object$result),
+        "\n",
+        "Correct topics:",
+        sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE),
+        paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0
+                                 , na.rm=TRUE) / nrow(object$result)),2), "%)"),
+        "\n\n")
+    cat("\n", "Table of Intruders")
+    missIntTable <- table(object$result[,"numIntruder"])
+    print(missIntTable)
+    cat("\n",
+        "Mean of number of missed Intruder:", mean(object$result[,"missIntruder"], na.rm=TRUE),
+        "\n", "Table of missing Intruders")
+    missIntTable <- table(object$result[,"missIntruder"])
+    print(missIntTable)
+    cat("\n",
+        "Mean of number of false Intruder:", mean(object$result[,"falseIntruder"], na.rm=TRUE),
+        "\n", "Table of false Intruders")
+    missIntTable <- table(object$result[,"falseIntruder"])
+    print(missIntTable)
 }

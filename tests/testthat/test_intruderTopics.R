@@ -49,6 +49,7 @@ test_that("intruderWords", {
     expect_equal(iTo, iTo2)
     expect_equal(iTs, iTs2)
 
+    iTs2 <- intruderTopics(text, beta, theta, id=paste("T", 1:100), numIntruder=1:2, numOuttopics=4, byScore=FALSE, minWords=1L, minOuttopics=1L, stopTopics=2, printSolution=FALSE, oldResult=NULL, test=TRUE, testinput=c("1", "2 1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "q"))
     print(iTs2)
     summary(iTs2)
 })
