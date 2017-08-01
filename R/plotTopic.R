@@ -118,7 +118,7 @@ plotTopic <- function(object, ldaresult, ldaid,
   if (rel){
     # sum words to unit for normalization
     normsums <- aggregate(
-      lengths(object$text[indText]),
+      lengths(ldaresult$assignments),
       by = list(date = lubridate::floor_date(object$meta$date[indMeta], unit)),
       FUN = sum)
     normsums <- normsums[match(docTopic$date, normsums$date),]
