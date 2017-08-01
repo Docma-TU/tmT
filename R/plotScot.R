@@ -122,9 +122,11 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
         lwd = both.lwd, col = both.col, lty = both.lty)
     }
   }
-  else
-    plot(lowess(tab, f = smooth), type = "l",
-      main = main, xlab = xlab, ylim = ylim, ...)
+  else{
+    tab2 <- data.frame(date = tab$date, values = lowess(tab, f = smooth)$y)
+    colnames(tab2) <- colnames(tab)
+    plot(tab2, type = "l", main = main, xlab = xlab, ylim = ylim, ...)
+  }
   abline(v = markYears, lty = 3)
   invisible(tab)
 }
