@@ -2,7 +2,7 @@ context("topArticles")
 
 test_that("topArticles", {
 
-load("test-k3i20b70s24601.RData")
+load("test-k3i20b70s24601alpha0.33eta0.33.RData")
 
 M <- matrix(c(
 "I","H","E",

@@ -97,7 +97,8 @@ summary.IntruderWords <- function(object, ...){
             "\n",
             "Correct topics:",
             sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE),
-paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE) / nrow(object$result)),2), "%)"),
+            paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0
+                                     , na.rm=TRUE) / nrow(object$result)),2), "%)"),
             "\n\n")
         cat("\n", "Table of Intruders")
         missIntTable <- table(object$result[,"numIntruder"])
@@ -113,5 +114,4 @@ paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"f
         missIntTable <- table(object$result[,"falseIntruder"])
         print(missIntTable)
     }
-
 }

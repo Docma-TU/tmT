@@ -15,6 +15,7 @@ setwd("//STORE/koppers/Textmining/tmT/tests/testthat")
 setwd("D:/DoCMA/tmT/tests/testthat")
 setwd("/home/lars/Github/tmT/tests/testthat")
 library(testthat)
+setwd("//STORE/koppers/Textmining/tmT/tests")
 test_check("tmT")
 
 ###################
@@ -32,8 +33,6 @@ system("Rcmd INSTALL tmT_0.1.tar.gz")
 #########################
 
 library(devtools)
-dev_mode(on=T)
 install_github("DoCMA-TU/tmT")
 library(tmT)
-dev_mode(on=F)
 
