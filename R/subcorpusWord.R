@@ -44,8 +44,8 @@ subcorpusWord <- function(object, text, search, ignore.case = FALSE,
         if(ignore.case) search[[i]]$pattern <- tolower(search[[i]]$pattern)
         if(is.logical(search[[i]]$word))search[[i]]$word <- c("pattern", "word")[search[[i]]$word+1]
         search[[i]]$pattern[search[[i]]$word == "word"] <- paste0("\\b",search[[i]]$pattern[search[[i]]$word == "word"], "\\b")
-        search[[i]]$pattern[search[[i]]$word == "left"] <- paste0("\\b",search[[i]]$pattern[search[[i]]$word == "left"])
-        search[[i]]$pattern[search[[i]]$word == "right"] <- paste0(search[[i]]$pattern[search[[i]]$word == "right"], "\\b")
+        search[[i]]$pattern[search[[i]]$word == "left"] <- paste0(search[[i]]$pattern[search[[i]]$word == "left"],"\\b")
+        search[[i]]$pattern[search[[i]]$word == "right"] <- paste0("\\b",search[[i]]$pattern[search[[i]]$word == "right"])
         counts <- NULL
 
         for(j in 1:nrow(search[[i]])){
