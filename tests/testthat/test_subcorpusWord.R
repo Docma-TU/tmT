@@ -68,9 +68,9 @@ test_that("subcorpusWord", {
   colnames(tr) <- c("aab_w", "a", "bc_w", "ab_w")
   expect_equal(subcorpusWord(text=text, search=search1, out="count"),tr)
 
-  search1 <- data.frame(pattern=c("aab", "a", "bc", "ab"), word=c("word", "pattern", "right", "left"), count=1)
+  search1 <- data.frame(pattern=c("aab", "a", "bc", "ab"), word=c("word", "pattern", "left", "right"), count=1)
   tr <- matrix(c(0,0,0,1,5,2,4,4,0,1,1,1,1,1,1,0), nrow=4)
-  colnames(tr) <- c("aab_w", "a", "bc_r", "ab_l")
+  colnames(tr) <- c("aab_w", "a", "bc_l", "ab_r")
   expect_equal(subcorpusWord(text=text, search=search1, out="count"),tr)
 
   search1 <- data.frame(pattern=c("aab", "a", "bc", "ab"), word=c("word", "pattern", "pattern", "pattern"), count=1)
