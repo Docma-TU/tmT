@@ -42,6 +42,5 @@ Reads CSV-files and seperates the text and meta data. The result is a
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
-#@export readTextmeta
 }
 \keyword{manip}

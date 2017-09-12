@@ -21,7 +21,7 @@
 #' @keywords manip
 #' @examples
 #' ##---- Should be DIRECTLY executable !! ----
-#' #@export readTextmeta
+#' @export readTextmeta
 
 readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id",
   dateCol = "date", titleCol = "title", textCol = "text",
