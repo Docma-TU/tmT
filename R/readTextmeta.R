@@ -53,10 +53,14 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
     # read in a lone file
     lonefile <- read.csv(file = paste(path, file[i], sep = "/"), header = TRUE,
       sep = ",", fileEncoding = "UTF-8")
-    if(keepAllCols) stopifnot(idCol %in% colnames(lonefile))
-    else lonefile <- lonefile[, cols]
+    if(!keepAllCols) lonefile <- lonefile[, cols]
     
     # set important meta information to NA if not given in file
+    if(!(idCol %in% colnames(lonefile))){
+      cat(paste0("NOTE: No ID-Column ", idCol, "in File, set to ascending numbers\n"))
+      lonefile[, dateCol] <- paste0("ID-",
+        1:nrow(lonefile) + ifelse(is.null(meta), 0, max(meta$id)))
+    }
     if(!(dateCol %in% colnames(lonefile))){
       cat(paste0("NOTE: No Date-Column ", dateCol, "in File, set to NA\n"))
       lonefile[, dateCol] <- NA
