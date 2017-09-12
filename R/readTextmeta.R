@@ -51,26 +51,25 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
     cat(paste0(i, "/", length(file), ": ", file[i], "\n"))
     
     # read in a lone file
-    lonefile <- read.csv(file = paste(path, file[i], sep = "/"), header = TRUE,
-      sep = ",", fileEncoding = "UTF-8")
+    lonefile <- read.csv(file = paste(path, file[i], sep = "/"), fileEncoding = "UTF-8")
     if(!keepAllCols) lonefile <- lonefile[, cols]
     
     # set important meta information to NA if not given in file
     if(!(idCol %in% colnames(lonefile))){
-      cat(paste0("NOTE: No ID-Column ", idCol, "in File, set to ascending numbers\n"))
+      cat(paste0("NOTE: No ID-Column ", idCol, " in File, set to ascending numbers\n"))
       lonefile[, dateCol] <- paste0("ID-",
         1:nrow(lonefile) + ifelse(is.null(meta), 0, max(meta$id)))
     }
     if(!(dateCol %in% colnames(lonefile))){
-      cat(paste0("NOTE: No Date-Column ", dateCol, "in File, set to NA\n"))
+      cat(paste0("NOTE: No Date-Column ", dateCol, " in File, set to NA\n"))
       lonefile[, dateCol] <- NA
     }
     if(!(titleCol %in% colnames(lonefile))){
-      cat(paste0("NOTE: No Title-Column ", titleCol, "in File, set to NA\n"))
+      cat(paste0("NOTE: No Title-Column ", titleCol, " in File, set to NA\n"))
       lonefile[, titleCol] <- NA
     }
     if(!(textCol %in% colnames(lonefile))){
-      cat(paste0("NOTE: No Text-Column ", textCol, "in File, set to NA\n"))
+      cat(paste0("NOTE: No Text-Column ", textCol, " in File, set to NA\n"))
       lonefile[, textCol] <- NA
     }
     
