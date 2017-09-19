@@ -1,0 +1,44 @@
+#' Subcorpus With Count Filter
+#'
+#' Creates a subcorpus including specific articles.
+#'
+#' @param object \code{\link{textmeta}} object
+#' @param text not necassary if \code{object} is specified, else should be
+#' \code{object\$text}: list of article texts
+#' @param count an integer marking how many words must at least be found in the text.
+#' @param out Type of output: \code{text} filtered corpus,
+#' \code{bin} logical vector for all texts,
+#' \code{count} the counts.
+#' @return Filtered list of texts.
+#' @keywords ~kwd1 ~kwd2
+#' @examples
+#'
+#' ##---- Should be DIRECTLY executable !! ----
+#' @export subcorpusCount
+subcorpusCount <- function(object, text, count, out = c("text", "bin", "count")){
+  
+  returnTextmeta <- FALSE
+  if (!missing(object)){
+    text <- object$text
+    returnTextmeta <- TRUE
+  }
+  
+  stopifnot(is.textmeta(textmeta(text = text)), as.integer(count) == count,
+    all(out %in% c("text", "bin", "count")))
+  
+  counts <- stringr::str_count(unlist(lapply(lapply(text, unlist),
+    function(x) paste(x, collapse = " "))), pattern = "\\b[a-z,A-Z](.*?)\\b")
+  
+  subid <- counts >= count
+  subid[is.na(subid)] <- FALSE
+  if(out[1] == "text"){
+    if(returnTextmeta){
+      object$text <- text[subid]
+      object$meta <- object$meta[object$meta$id %in% names(object$text), ]
+      return(object)
+    }
+    return(text[subid])
+  }
+  if(out[1] == "bin") return(subid)
+  if(out[1] == "count") return(counts)
+}
