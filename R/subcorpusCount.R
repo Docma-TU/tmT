@@ -15,7 +15,7 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export subcorpusCount
-subcorpusCount <- function(object, text, count, out = c("text", "bin", "count")){
+subcorpusCount <- function(object, text, count = 1L, out = c("text", "bin", "count")){
   
   returnTextmeta <- FALSE
   if (!missing(object)){
