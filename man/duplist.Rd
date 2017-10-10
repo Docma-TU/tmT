@@ -15,7 +15,7 @@ list of character strings, representing the paragraphs.}
 \value{
 Named List:
 \item{uniqueTexts}{ character}
-\item{fullyUniqueTexts}{ character}
+\item{notDuplicatedTexts}{ character}
 \item{idFakeDups}{ list}
 \item{idRealDups}{ list}
 \item{allTextDups}{ list}

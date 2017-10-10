@@ -4,7 +4,7 @@
 \alias{subcorpusCount}
 \title{Subcorpus With Count Filter}
 \usage{
-subcorpusCount(object, text, count, out = c("text", "bin", "count"))
+subcorpusCount(object, text, count = 1L, out = c("text", "bin", "count"))
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
