@@ -14,7 +14,7 @@ test_that("subcorpusCount", {
   text <- as.list(mapply(function(x, y) paste(rep("a", x), collapse = y), counts, bounds))
   expect_equal(subcorpusCount(object = textmeta(text = text), out = "count"), counts)
   expect_true(is.textmeta(subcorpusCount(textmeta(text = text))))
-  expect_error(subcorpusCount(textmeta(text = text)))
+  expect_error(subcorpusCount(text))
   
   counts <- c(sample(0:5, 48, replace = TRUE), 55, 104, 566)
   bounds <- replicate(51, paste(sample(c(".", " ", ";", "/", "-", "(", ")",
