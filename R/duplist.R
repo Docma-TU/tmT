@@ -10,7 +10,7 @@
 #' list of character strings, representing the paragraphs.
 #' @return Named List:
 #' \item{uniqueTexts}{ character}
-#' \item{fullyUniqueTexts}{ character}
+#' \item{notDuplicatedTexts}{ character}
 #' \item{idFakeDups}{ list}
 #' \item{idRealDups}{ list}
 #' \item{allTextDups}{ list}
@@ -26,7 +26,7 @@
 # Es existieren keine doppelten IDs durch deleteAndRenameDuplicates in read!
 # Ausgabe soll (disjunkte!) Liste sein mit
 # 1. uniqueTexts: Jeder vorkommende Text genau einmal
-#    a) allUniqueTexts: Texte, fuer die keine identischen IDs oder Texte
+#    a) notDuplicatedTexts: Texte, fuer die keine identischen IDs oder Texte
 #                       im Korpus vorkommen
 # 2. idFakeDups: Texte mit gleicher ID und unterschiedlichem Text ("Reste" aus 3.)
 # 3. idRealDups: Texte mit gleicher ID und gleichem Text (Meta differs)
@@ -124,7 +124,7 @@ duplist <- function(object, paragraph = FALSE){
   }
   cat("Success\nLengths:\n")
   
-  res <- list(uniqueTexts = uniqueTexts, fullyUniqueTexts = allUniqueTexts,
+  res <- list(uniqueTexts = uniqueTexts, notDuplicatedTexts = allUniqueTexts,
               idFakeDups = idFakeDups, idRealDups = idRealDups,
               allTextDups = allTextDups, textOnlyDups = textOnlyDups,
               textMetaDups = textMetaDups, textOthersDups = textOthersDups)
