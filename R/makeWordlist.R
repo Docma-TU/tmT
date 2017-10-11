@@ -4,7 +4,7 @@
 #'
 #' This function helps, if \code{table(x)} needs too much RAM.
 #'
-#' @param x List of texts.
+#' @param text List of texts.
 #' @param k Integer, how many Texts should be processed at one time (RAM
 #' usage)?
 #' @return \item{words}{An alphabetical list of the words in the corpus.}
@@ -14,7 +14,7 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export makeWordlist
-makeWordlist <- function(x, k = 100000L){
+makeWordlist <- function(text, k = 100000L){
     stopifnot(is.list(x), is.numeric(k), as.integer(k) == k, length(k) == 1)
     n <- length(x)
     cat(paste(n,"\n"))

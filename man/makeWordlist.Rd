@@ -4,10 +4,10 @@
 \alias{makeWordlist}
 \title{Count words in text corpora}
 \usage{
-makeWordlist(x, k = 100000L)
+makeWordlist(text, k = 100000L)
 }
 \arguments{
-\item{x}{List of texts.}
+\item{text}{List of texts.}
 
 \item{k}{Integer, how many Texts should be processed at one time (RAM
 usage)?}
