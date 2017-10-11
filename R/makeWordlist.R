@@ -15,15 +15,15 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export makeWordlist
 makeWordlist <- function(text, k = 100000L){
-    stopifnot(is.list(x), is.numeric(k), as.integer(k) == k, length(k) == 1)
-    n <- length(x)
+    stopifnot(is.list(text), is.numeric(k), as.integer(k) == k, length(k) == 1)
+    n <- length(text)
     cat(paste(n,"\n"))
     cat("wordlist\n")
     N <- 0:floor(n/k)
     words <- NULL
     for(i in N){
         cat(paste(i*k, "\n"))
-        words <- c(words, unique(unlist(x[(i*k+1):(min(n, i*k+k))])))
+        words <- c(words, unique(unlist(text[(i*k+1):(min(n, i*k+k))])))
     }
     words <- sort(unique(words))
     cat("table", "\n")
@@ -31,7 +31,7 @@ makeWordlist <- function(text, k = 100000L){
     names(wordtable) <- words
     for(i in N){
         cat(paste(i*k), "\n")
-        tmp <- table(unlist(x[(i*k+1):(min(n, i*k+k))]))
+        tmp <- table(unlist(text[(i*k+1):(min(n, i*k+k))]))
         mtch <- match(names(tmp), names(wordtable))
         wordtable[mtch] <- wordtable[mtch] + tmp
     }
