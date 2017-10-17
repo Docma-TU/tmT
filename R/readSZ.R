@@ -23,7 +23,7 @@ readSZ <- function(path = getwd(),
             length(do.meta) == 1, length(do.text) == 1, length(path) == 1)
   text <- NULL
   meta <- NULL
-  
+
   for(i in 1:length(file)){
     cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path, file[i], sep = "/"), encoding = "latin1")
@@ -35,7 +35,7 @@ readSZ <- function(path = getwd(),
     article <- apply(lines, 1, function(x) paste(article[x[1]:x[2]], collapse = " "))
     id <- stringr::str_extract(article, "ID=\"(.*?)\"")
     id <- gsub(pattern = "ID=|\"", replacement = "", x = id)
-    
+
     if(do.meta){
       date <- stringr::str_extract(article, "DATE=\"(.*?)\"")
       date <- as.Date(gsub(pattern = "DATE=\"|\"", replacement = "", x = date), format = "%Y%m%d")
@@ -47,7 +47,8 @@ readSZ <- function(path = getwd(),
       AnzChar <- as.integer(gsub(pattern = "NUM.CHARS=\"|\"", replacement = "", x = AnzChar))
       AnzWoerter <- stringr::str_extract(article, "NUM.WORDS=\"(.*?)\"")
       AnzWoerter <- as.integer(gsub(pattern = "NUM.WORDS=\"|\"", replacement = "", x = AnzWoerter))
-      
+
+      author <- stringr::str_extract(article, "<AUTHOR>(.*?)</AUTHOR>")
       dachzeile <- stringr::str_extract(article, "<SZ.DT>(.*?)</SZ.DT>")
       dachzeile <- removeXML(dachzeile)
       title <- stringr::str_extract(article, "<SZ.T>(.*?)</SZ.T>")
@@ -56,10 +57,10 @@ readSZ <- function(path = getwd(),
       zwischentitel <- removeXML(zwischentitel)
       untertitel <- stringr::str_extract(article, "<SZ.UT>(.*?)</SZ.UT>")
       untertitel <- removeXML(untertitel)
-      
+
       mData <- data.frame(id, date, rubrik, page, AnzChar, AnzWoerter,
                           dachzeile, title, zwischentitel, untertitel,
-                          stringsAsFactors = FALSE)
+                          author, stringsAsFactors = FALSE)
       meta <- rbind(meta,mData)
     }
     if(do.text){
