@@ -4,11 +4,11 @@
 \alias{showArticles}
 \title{Export Readable Article Lists}
 \usage{
-showArticles(corpus, id = names(corpus$text),
-  file = deparse(substitute(corpus)))
+showArticles(object, id = names(object$text),
+  file = deparse(substitute(object)))
 }
 \arguments{
-\item{corpus}{A corpus of type "data"}
+\item{object}{\code{\link{textmeta}} object}
 
 \item{id}{Vector or matrix inkluding article id's.}
 
