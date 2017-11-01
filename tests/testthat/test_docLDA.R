@@ -13,7 +13,7 @@ test_that("docLDA", {
   C2 <- matrix(c(1,1,1,1,1,1,1,1,3,1,4,1,6,1),2,7)
   D <- matrix(c(NA,1),2,1)
   
-  expect_equal(docLDA(corpus=c(D="",text, E=NULL), vocab=sort(unique(unlist(text))), ldacorrect=TRUE, excludeNA=TRUE),list(A=A, B=B2,C=C2))
-  expect_equal(docLDA(corpus=c(D="",text), vocab=sort(unique(unlist(text))), ldacorrect=FALSE, excludeNA=TRUE),list(A=A, B=B1,C=C1))
-  expect_equal(docLDA(corpus=c(D="",text), vocab=sort(unique(unlist(text))), ldacorrect=FALSE, excludeNA=FALSE),list(D=D,A=A, B=B1,C=C1))
+  expect_equal(docLDA(text=c(D="",text, E=NULL), vocab=sort(unique(unlist(text))), ldacorrect=TRUE, excludeNA=TRUE),list(A=A, B=B2,C=C2))
+  expect_equal(docLDA(text=c(D="",text), vocab=sort(unique(unlist(text))), ldacorrect=FALSE, excludeNA=TRUE),list(A=A, B=B1,C=C1))
+  expect_equal(docLDA(text=c(D="",text), vocab=sort(unique(unlist(text))), ldacorrect=FALSE, excludeNA=FALSE),list(D=D,A=A, B=B1,C=C1))
 })

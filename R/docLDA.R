@@ -4,8 +4,8 @@
 #' \code{\link{makeClear}} in a form needed by the lda-package.
 #'
 #'
-#' @param corpus a list of tokenized texts.
-#' @param vocab a charcter vector containing all words which should beused for
+#' @param text a list of tokenized texts.
+#' @param vocab a character vector containing all words which should beused for
 #' lda.
 #' @param ldacorrect logical: If \code{TRUE}, every word repetition gets an own
 #' column.
@@ -23,26 +23,26 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export docLDA
 
-docLDA <- function(corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE,
+docLDA <- function(text, vocab, ldacorrect = TRUE, excludeNA = TRUE,
                    reduce = TRUE){
-    stopifnot(is.list(corpus), is.character(vocab), is.logical(ldacorrect),
+    stopifnot(is.list(text), is.character(vocab), is.logical(ldacorrect),
               is.logical(excludeNA), is.logical(reduce), length(ldacorrect) == 1,
               length(excludeNA) == 1, length(reduce) == 1)
-    corpus <- lapply(corpus, unlist)
-    corpus <- lapply(corpus, table)
-    corpus <- lapply(corpus, function(x)
+    text <- lapply(text, unlist)
+    text <- lapply(text, table)
+    text <- lapply(text, function(x)
       rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
-    if(ldacorrect) corpus <- lapply(corpus, function(x)
+    if(ldacorrect) text <- lapply(text, function(x)
       rbind(as.integer(rep(x[1, ], x[2, ])), as.integer(rep(1, sum(x[2, ])))))
-    if(excludeNA) corpus <- lapply(corpus, function(x) x[, !is.na(x[1, ])])
-    tmp <- lengths(lapply(corpus, dim)) == 0
-    corpus[tmp] <- lapply(corpus[tmp], as.matrix)
+    if(excludeNA) text <- lapply(text, function(x) x[, !is.na(x[1, ])])
+    tmp <- lengths(lapply(text, dim)) == 0
+    text[tmp] <- lapply(text[tmp], as.matrix)
     if(reduce){
       # delete entries where dimension is not computable
-      tmp <- lengths(lapply(corpus, dim)) == 0
-      if (length(tmp) > 0) corpus <- corpus[!tmp]
+      tmp <- lengths(lapply(text, dim)) == 0
+      if (length(tmp) > 0) text <- text[!tmp]
       # reducing
-      corpus <- corpus[sapply(corpus, dim)[2,] != 0]
+      text <- text[sapply(text, dim)[2,] != 0]
     }
-    return(corpus)
+    return(text)
 }

@@ -4,12 +4,12 @@
 \alias{docLDA}
 \title{create lda-ready dataset}
 \usage{
-docLDA(corpus, vocab, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
+docLDA(text, vocab, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
 }
 \arguments{
-\item{corpus}{a list of tokenized texts.}
+\item{text}{a list of tokenized texts.}
 
-\item{vocab}{a charcter vector containing all words which should beused for
+\item{vocab}{a character vector containing all words which should beused for
 lda.}
 
 \item{ldacorrect}{logical: If \code{TRUE}, every word repetition gets an own
