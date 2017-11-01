@@ -23,26 +23,26 @@ test_that("plotTopicWord", {
   obj <- textmeta(text = text, meta = meta)
   
   res1 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID)
+    ldaID = ldaID)
   expect_true(all(res1$date == seq(min(res1$date), max(res1$date), "month")))
   res2 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID, unit = "week")
+    ldaID = ldaID, unit = "week")
   expect_true(all(res2$date == seq(min(res2$date), max(res2$date), "week")))
   res3 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID, pages = TRUE)
+    ldaID = ldaID, pages = TRUE)
   expect_equal(res1, res3)
   res4 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID,
+    ldaID = ldaID,
     mark = FALSE, curves = "both", legend = "none", natozero = FALSE)
   expect_equal(res1, res4)
   res5 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID, rel = TRUE, link = "or")
+    ldaID = ldaID, rel = TRUE, link = "or")
   expect_true(all(res5$date == res1$date), all(colnames(res1) == colnames(res5)),
     all(res5[, -1] <= 1))
   res6 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID, file = "abc.pdf")
+    ldaID = ldaID, file = "abc.pdf")
   expect_equal(res1, res6)
   res7 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
-    ldaid = ldaID, curves = "smooth")
+    ldaID = ldaID, curves = "smooth")
   expect_equal(res1, res7)
 })

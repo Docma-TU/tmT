@@ -4,7 +4,7 @@
 \alias{plotTopic}
 \title{Plotting Counts of Topics over Time (relative to Corpus)}
 \usage{
-plotTopic(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
+plotTopic(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
   tnames, rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
   "smooth", "both"), smooth = 0.05, main, xlab, ylim, ylab, both.lwd,
   both.lty, col, legend = ifelse(pages, "onlyLast:topright", "topright"),
@@ -17,7 +17,7 @@ plotTopic(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
 
 \item{ldaresult}{the result of a function call \code{\link{LDAstandard}}}
 
-\item{ldaid}{\code{character} vector of IDs of the documents in
+\item{ldaID}{\code{character} vector of IDs of the documents in
 \code{ldaresult}}
 
 \item{select}{\code{integer} vector (default: all topics) which topics of

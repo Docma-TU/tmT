@@ -14,7 +14,7 @@
 #' to \code{\link{LDAstandard}}
 #' @param ldaresult the result of a function call \code{\link{LDAstandard}} with
 #' \code{docs} as argument
-#' @param ldaid \code{character} vector of IDs of the documents in
+#' @param ldaID \code{character} vector of IDs of the documents in
 #' \code{ldaresult}
 #' @param wordlist list of \code{character} vectors. Every list element is an 'or'
 #' link, every \code{character} string in a vector is linked by the argument
@@ -75,7 +75,7 @@
 #' @export plotTopicWord
 #'
 
-plotTopicWord <- function(object, docs, ldaresult, ldaid,
+plotTopicWord <- function(object, docs, ldaresult, ldaID,
   wordlist = lda::top.topic.words(ldaresult$topics, 1), link = c("and", "or"),
   select = 1:nrow(ldaresult$document_sums),
   tnames, wnames, rel = FALSE, mark = TRUE, unit = "month",
@@ -118,7 +118,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
       length(wnames) == length(select), length(wordlist) == length(select))
     for (i in seq_along(select))
       plotTopicWord(object = object, docs = docs, ldaresult = ldaresult,
-        ldaid = ldaid, wordlist = wordlist[[i]], link = link, select = select[[i]],
+        ldaID = ldaID, wordlist = wordlist[[i]], link = link, select = select[[i]],
         tnames = tnames[i], wnames = wnames[i], rel = rel, mark = mark,
         unit = unit, curves = curves, smooth = smooth,
         main = ifelse(missing(main), mainP[i], main), col = colP,
@@ -128,10 +128,10 @@ plotTopicWord <- function(object, docs, ldaresult, ldaid,
   
   stopifnot(is.textmeta(object), is.list(ldaresult),
     is.matrix(ldaresult$topics), is.list(ldaresult$assignment),
-    is.matrix(ldaresult$document_sums), is.character(ldaid), is.list(select),
+    is.matrix(ldaresult$document_sums), is.character(ldaID), is.list(select),
     all(as.integer(unlist(select)) == unlist(select)), is.list(wordlist),
-    is.character(unlist(wordlist)), is.list(docs), length(docs) == length(ldaid),
-    ncol(ldaresult$document_sums) == length(ldaid), all(link %in% c("and", "or")),
+    is.character(unlist(wordlist)), is.list(docs), length(docs) == length(ldaID),
+    ncol(ldaresult$document_sums) == length(ldaID), all(link %in% c("and", "or")),
     length(tnames) == length(select), length(wnames) == length(select),
     length(wordlist) == length(select), is.character(tnames), is.character(wnames),
     is.logical(rel), is.logical(mark), length(rel) == 1, length(mark) == 1,

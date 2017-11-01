@@ -22,20 +22,20 @@ test_that("plotTopic", {
 
   obj <- textmeta(text = text, meta = meta)
   
-  res1 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID)
+  res1 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID)
   expect_true(all(res1$date == seq(min(res1$date), max(res1$date), "month")))
-  res2 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID, unit = "week")
+  res2 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID, unit = "week")
   expect_true(all(res2$date == seq(min(res2$date), max(res2$date), "week")))
-  res3 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID, pages = TRUE)
+  res3 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID, pages = TRUE)
   expect_equal(res1, res3)
-  res4 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID,
+  res4 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID,
     mark = FALSE, curves = "both", legend = "none", natozero = FALSE)
   expect_equal(res1, res4)
-  res5 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID, rel = TRUE)
+  res5 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID, rel = TRUE)
   expect_true(all(res5$date == res1$date), all(colnames(res1) == colnames(res5)),
     all(res5[, -1] <= 1))
-  res6 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID, file = "abc.pdf")
+  res6 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID, file = "abc.pdf")
   expect_equal(res1, res6)
-  res7 <- plotTopic(object = obj, ldaresult = lda, ldaid = ldaID, curves = "smooth")
+  res7 <- plotTopic(object = obj, ldaresult = lda, ldaID = ldaID, curves = "smooth")
   expect_equal(res1, res7)
 })

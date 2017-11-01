@@ -4,7 +4,7 @@
 \alias{plotTopicWord}
 \title{Plotting Counts of Topics-Words-Combination over Time (relative to Words)}
 \usage{
-plotTopicWord(object, docs, ldaresult, ldaid,
+plotTopicWord(object, docs, ldaresult, ldaID,
   wordlist = lda::top.topic.words(ldaresult$topics, 1), link = c("and",
   "or"), select = 1:nrow(ldaresult$document_sums), tnames, wnames,
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
@@ -23,7 +23,7 @@ to \code{\link{LDAstandard}}}
 \item{ldaresult}{the result of a function call \code{\link{LDAstandard}} with
 \code{docs} as argument}
 
-\item{ldaid}{\code{character} vector of IDs of the documents in
+\item{ldaID}{\code{character} vector of IDs of the documents in
 \code{ldaresult}}
 
 \item{wordlist}{list of \code{character} vectors. Every list element is an 'or'

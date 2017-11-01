@@ -9,7 +9,7 @@
 #' \code{text} component (\code{character} vectors) - like a result of
 #' \code{\link{makeClear}}
 #' @param ldaresult the result of a function call \code{\link{LDAstandard}}
-#' @param ldaid \code{character} vector of IDs of the documents in
+#' @param ldaID \code{character} vector of IDs of the documents in
 #' \code{ldaresult}
 #' @param select \code{integer} vector (default: all topics) which topics of
 #' \code{ldaresult} should be plotted
@@ -56,7 +56,7 @@
 #' @examples ##
 #' @export plotTopic
 
-plotTopic <- function(object, ldaresult, ldaid,
+plotTopic <- function(object, ldaresult, ldaID,
   select = 1:nrow(ldaresult$document_sums), tnames, rel = FALSE, mark = TRUE,
   unit = "month", curves = c("exact", "smooth", "both"), smooth = 0.05,
   main, xlab, ylim, ylab, both.lwd, both.lty, col,
@@ -80,7 +80,7 @@ plotTopic <- function(object, ldaresult, ldaid,
     if(curves[1] == "both") colP <- c("grey", "black")
     else colP <- "black"
     for (i in seq_along(select))
-      plotTopic(object = object, ldaresult = ldaresult, ldaid = ldaid,
+      plotTopic(object = object, ldaresult = ldaresult, ldaID = ldaID,
         select = select[i], tnames = tnames[i], rel = rel, mark = mark,
         unit = unit, curves = curves, smooth = smooth,
         main = ifelse(missing(main), mainP[i], main), col = colP,
@@ -89,7 +89,7 @@ plotTopic <- function(object, ldaresult, ldaid,
   }
   
   stopifnot(is.textmeta(object), is.list(ldaresult),
-    is.matrix(ldaresult$document_sums), is.character(ldaid),
+    is.matrix(ldaresult$document_sums), is.character(ldaID),
     all(as.integer(select) == select), length(tnames) == length(select),
     is.character(tnames), is.logical(rel), is.logical(mark), length(rel) == 1,
     length(mark) == 1,
@@ -99,8 +99,8 @@ plotTopic <- function(object, ldaresult, ldaid,
     is.numeric(both.lty), length(xlab) == 1, length(ylab) == 1,
     length(both.lty) == 1, length(both.lwd) == 1)
   
-  indMeta <- match(ldaid, object$meta$id)
-  indText <- match(ldaid, names(object$text))
+  indMeta <- match(ldaID, object$meta$id)
+  indText <- match(ldaID, names(object$text))
   
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(object$meta$date[indMeta], unit)
