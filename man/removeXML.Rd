@@ -8,11 +8,11 @@ removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
   "all"))
 }
 \arguments{
-\item{x}{List of texts.}
+\item{x}{\code{character} vector.}
 
-\item{xml}{Logical: Should XML-TAGs be removed?}
+\item{xml}{\code{logical} Should XML-TAGs be removed?}
 
-\item{umlauts}{Logical: Should umlauts be changed?}
+\item{umlauts}{\code{logical}: Should umlauts be changed?}
 
 \item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
