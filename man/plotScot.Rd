@@ -7,7 +7,7 @@
 plotScot(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
   "smooth", "both"), smooth = 0.05, main, xlab, ylim, both.lwd, both.col,
-  both.lty, natozero = TRUE, ...)
+  both.lty, natozero = TRUE, file, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object - with strictly tokenized
@@ -48,6 +48,8 @@ which is handed over to \code{\link{lowess}} as \code{f}}
 
 \item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
 to zeros. Only has effect if \code{rel = TRUE}.}
+
+\item{file}{\code{character} file path if a pdf should be created}
 
 \item{...}{additional graphical parameters}
 }

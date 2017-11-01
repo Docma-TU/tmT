@@ -50,6 +50,7 @@
 #' legend coordinates. If "none" no legend is plotted.
 #' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
 #' to zeros. Only has effect if \code{rel = TRUE}.
+#' @param file \code{character} file path if a pdf should be created
 #' @param ... additional graphical parameters 
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
@@ -65,13 +66,15 @@ plotWord <- function(object, id = names(object$text),
   rel = FALSE, mark = TRUE, unit = "month",
   curves = c("exact", "smooth", "both"), smooth = 0.05,
   both.lwd, both.lty, main, xlab, ylab, ylim, col, legend = "topright",
-  natozero = TRUE, ...){
+  natozero = TRUE, file, ...){
   
   stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
     is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
     length(unit) == 1, all(type %in% c("docs", "words")),
     all(curves %in% c("exact", "smooth", "both")), is.numeric(smooth),
     length(smooth) == 1, all(link %in% c("and", "or")))
+  
+  if(!missing(file)) pdf(file, width = 15, height = 8)
   # match id with id which appears in object$text
   inds <- names(object$text) %in% id
   id <- names(object$text)[inds]
@@ -222,6 +225,7 @@ plotWord <- function(object, id = names(object$text),
     })
   # plot legend
   if (legend != "none") legend(legend, legend = wnames, col = col, pch = 20)
+  if(!missing(file)) dev.off()
   # return data.frame as invisible
   invisible(tab)
 }

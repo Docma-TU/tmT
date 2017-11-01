@@ -27,6 +27,7 @@
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
 #' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
 #' to zeros. Only has effect if \code{rel = TRUE}.
+#' @param file \code{character} file path if a pdf should be created
 #' @param ... additional graphical parameters 
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{counts},
@@ -38,13 +39,15 @@
 plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact", "smooth", "both"),
   smooth = 0.05, main, xlab, ylim, both.lwd, both.col, both.lty,
-  natozero = TRUE, ...){
+  natozero = TRUE, file, ...){
   
   stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
     is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
     length(unit) == 1, all(type %in% c("docs", "words")),
     all(curves %in% c("exact", "smooth", "both")), is.numeric(smooth),
     length(smooth) == 1)
+  
+  if(!missing(file)) pdf(file, width = 15, height = 8)
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
   # match id with id which appears in object$text
@@ -128,5 +131,6 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
     plot(tab2, type = "l", main = main, xlab = xlab, ylim = ylim, ...)
   }
   abline(v = markYears, lty = 3)
+  if(!missing(file)) dev.off()
   invisible(tab)
 }

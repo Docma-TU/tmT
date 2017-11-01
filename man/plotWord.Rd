@@ -8,7 +8,7 @@ plotWord(object, id = names(object$text), type = c("docs", "words"),
   wordlist, link = c("and", "or"), wnames, ignore.case = FALSE,
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
   "smooth", "both"), smooth = 0.05, both.lwd, both.lty, main, xlab, ylab,
-  ylim, col, legend = "topright", natozero = TRUE, ...)
+  ylim, col, legend = "topright", natozero = TRUE, file, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
@@ -76,6 +76,8 @@ legend coordinates. If "none" no legend is plotted.}
 
 \item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
 to zeros. Only has effect if \code{rel = TRUE}.}
+
+\item{file}{\code{character} file path if a pdf should be created}
 
 \item{...}{additional graphical parameters}
 }
