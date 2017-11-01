@@ -7,7 +7,7 @@
 #' @param id id of the article of interest
 #' @param ldaresult a result object from the \code{standardLDA}
 #' @param label optional label for each topic.
-#' @param words Character vector of the words corresponding to the \code{text} object
+#' @param vocab Character vector of \code{vocab} corresponding to the \code{text} object
 #' @param wordOrder type of output: \code{"alphabetical"} prints the words of the article in alphabetical order, \code{"topics"} sorts by topic (biggest topic first) and \code{"both"} prints both versions. All other inputs will result to no output (this makes only sense in combination with \code{originaltext}.
 #' @param colors character vector of colors. If the vector is shorter than the number of topics it will be completed by "black" entrys.
 #' @param fixColors logical. If \code{FALSE} the first color will be used for the biggest topic and so on. If \code{fixColors=TRUE} the the color-entry corresponding to the position of the topic is choosen.
@@ -25,13 +25,13 @@
 #' @export topicsInText
 
 
-topicsInText <- function(text, ldaID, id, ldaresult, label=NULL, words, wordOrder=c("both", "alphabetical", "topics", ""), colors=NULL, fixColors=FALSE, meta=NULL, originaltext=NULL, unclearTopicAssignment=TRUE, htmlreturn=FALSE){
+topicsInText <- function(text, ldaID, id, ldaresult, label=NULL, vocab, wordOrder=c("both", "alphabetical", "topics", ""), colors=NULL, fixColors=FALSE, meta=NULL, originaltext=NULL, unclearTopicAssignment=TRUE, htmlreturn=FALSE){
     ## set colors if colors=NULL or 1:12
     if(is.null(colors)) colors <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)]
     if((is.integer(colors)|is.numeric(colors))&colors[1] %in%1:12) colors <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)][1:colors]
 
     ## read article of interest
-    texttopic <- data.frame(word=words[text[[id]][1,]+1], topic=ldaresult$assignments[[which(ldaID==id)]], stringsAsFactors=FALSE)
+    texttopic <- data.frame(word=vocab[text[[id]][1,]+1], topic=ldaresult$assignments[[which(ldaID==id)]], stringsAsFactors=FALSE)
     topictable <- sort(table(texttopic$topic), decreasing=TRUE)
 
     ## delete unclear topic assignments
