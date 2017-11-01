@@ -4,7 +4,7 @@ test_that("showArticles", {
 
     meta <- data.frame(id=as.character(1:3), date=as.Date(c("1960-01-01","1987-06-25","2014-08-06")), title=c("Title 1", "Title 2", "Title 3"), page=c(24,60,1), stringsAsFactors=FALSE)
     text <- list("1"="Text 1", "2"="Text 2", "3"="Text 3")
-    object <- list(meta=meta, text=text)
+    object <- textmeta(meta=meta, text=text)
     M <- cbind(meta[,c(1,3,2)],text=unlist(text))
     M <- data.frame(apply(M,2,as.character), stringsAsFactors = FALSE)
     M2 <- M[c(1,3,2),]
