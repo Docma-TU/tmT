@@ -4,15 +4,15 @@
 \alias{sedimentPlot}
 \title{Plotting Sediment plot of topics over time}
 \usage{
-sedimentPlot(ldaresult, ldaid, select = NULL, tnames = NULL,
+sedimentPlot(ldaresult, ldaID, select = NULL, tnames = NULL,
   threshold = NULL, meta, unit = "quarter", xunit = "year",
   color = NULL, sort = TRUE, legend = "topleft", legendLimit = 0,
-  peak = 0)
+  peak = 0, file)
 }
 \arguments{
 \item{ldaresult}{LDA result object}
 
-\item{ldaid}{Character vector including IDs of the texts}
+\item{ldaID}{Character vector including IDs of the texts}
 
 \item{select}{Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.}
 
@@ -35,6 +35,8 @@ sedimentPlot(ldaresult, ldaid, select = NULL, tnames = NULL,
 \item{legendLimit}{numeric between 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.}
 
 \item{peak}{numeric between 0 (default) and 1. Label peaks abov \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.}
+
+\item{file}{\code{character} file path if a pdf should be created}
 }
 \value{
 list of two matrices. \code{x} contains the topic proportions over time, \code{y} contains the cumulated topic proportions
