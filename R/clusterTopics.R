@@ -19,7 +19,7 @@
 #' @export clusterTopics
 clusterTopics <- function(ldaresult, file, topicnames = NULL,
   method = "average", width = 30, height = 15, ...){
-    if(is.null(topicnames)) topicnames <- 1:nrow(topics)
+    if(is.null(topicnames)) topicnames <- 1:nrow(ldaresult$topics)
     topics <- ldaresult$topics/rowSums(ldaresult$topics)
     topics <- sqrt(topics)
     Dist <- 1/sqrt(2) * dist(topics)
