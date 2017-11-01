@@ -23,6 +23,6 @@ M2 <- matrix(c(
 "E","F",
 "G","I"),9,2,byrow=TRUE)
 
-expect_equal(M,topArticles(ldaresult=result, ldaid=ldaID, limit = 5L, rel = TRUE, minlength=30L))
-expect_equal(M2,topArticles(ldaresult=result, ldaid=ldaID, limit = 0L, rel = FALSE, select = c(1,3), minlength=1L))
+expect_equal(M,topArticles(ldaresult=result, ldaID=ldaID, limit = 5L, rel = TRUE, minlength=30L))
+expect_equal(M2,topArticles(ldaresult=result, ldaID=ldaID, limit = 0L, rel = FALSE, select = c(1,3), minlength=1L))
 })

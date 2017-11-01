@@ -4,13 +4,13 @@
 \alias{topArticles}
 \title{Get The IDs Of The Most Representive Articles}
 \usage{
-topArticles(ldaresult, ldaid, limit = 20L, rel = TRUE,
+topArticles(ldaresult, ldaID, limit = 20L, rel = TRUE,
   select = 1:nrow(ldaresult$document_sums), minlength = 30L)
 }
 \arguments{
 \item{ldaresult}{LDA result}
 
-\item{ldaid}{Vector of text IDs}
+\item{ldaID}{Vector of text IDs}
 
 \item{limit}{Integer, number of article ids per topic.}
 

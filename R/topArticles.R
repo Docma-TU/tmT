@@ -5,7 +5,7 @@
 #'
 #'
 #' @param ldaresult LDA result
-#' @param ldaid Vector of text IDs
+#' @param ldaID Vector of text IDs
 #' @param limit Integer, number of article ids per topic.
 #' @param rel Logical: Should be the relative frequency be used?
 #' @param select which topics should be returned?
@@ -17,16 +17,16 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export topArticles
-topArticles <- function(ldaresult, ldaid, limit = 20L, rel = TRUE,
+topArticles <- function(ldaresult, ldaID, limit = 20L, rel = TRUE,
   select = 1:nrow(ldaresult$document_sums), minlength = 30L){
-    stopifnot(is.character(ldaid), as.integer(limit) == limit, length(limit) == 1,
+    stopifnot(is.character(ldaID), as.integer(limit) == limit, length(limit) == 1,
               is.logical(rel), length(rel) == 1,
               as.integer(minlength) == minlength,
               length(minlength) == 1)
 
     small <- apply(ldaresult$document_sums, 2, sum) >= minlength
     ldaresult$document_sums <- ldaresult$document_sums[,small]
-    ldaid <- ldaid[small]
+    ldaID <- ldaID[small]
 
     if(rel)
       res <- t(t(ldaresult$document_sums) / colSums(ldaresult$document_sums))
@@ -35,6 +35,6 @@ topArticles <- function(ldaresult, ldaid, limit = 20L, rel = TRUE,
     if(limit)
       res <- apply(res, 1, function(x) order(x,decreasing=TRUE)[1:limit])
     else res <- apply(res, 1, function(x) order(x,decreasing=TRUE))
-    res <- apply(res, 2, function(x) ldaid[x])
+    res <- apply(res, 2, function(x) ldaID[x])
     return(res)
 }
