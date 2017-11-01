@@ -10,6 +10,6 @@ load("test-k3i20b70s24601alpha0.33eta0.33.RData")
 
 load("data/clusterTopics.RData")
 
-expect_equal(cT, clusterTopics(topics=result$topics, file="test.pdf", method = "average", width=30, height=15))
-expect_equal(cT2, clusterTopics(topics=result$topics, file="test.pdf", method = "single", width=30, height=15))
+expect_equal(cT, clusterTopics(ldaresult=result, file="test.pdf", method = "average", width=30, height=15))
+expect_equal(cT2, clusterTopics(ldaresult=result, file="test.pdf", method = "single", width=30, height=15))
 })

@@ -4,12 +4,11 @@
 \alias{clusterTopics}
 \title{Cluster Analysis}
 \usage{
-clusterTopics(topics, file, topicnames = NULL, method = "average",
+clusterTopics(ldaresult, file, topicnames = NULL, method = "average",
   width = 30, height = 15, ...)
 }
 \arguments{
-\item{topics}{A matrix like the \code{topic} matrix from
-\code{lda.collapse.gibbs.sampler}}
+\item{ldaresult}{the result of a function call \code{\link{LDAstandard}}}
 
 \item{file}{File for the dendogram pdf.}
 

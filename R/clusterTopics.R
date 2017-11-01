@@ -3,8 +3,7 @@
 #' Makes a cluster analysis with the hellinger distance.
 #'
 #'
-#' @param topics A matrix like the \code{topic} matrix from
-#' \code{lda.collapse.gibbs.sampler}
+#' @param ldaresult  the result of a function call \code{\link{LDAstandard}}
 #' @param file File for the dendogram pdf.
 #' @param topicnames Character vector as label for the topics.
 #' @param method Method statement from \code{\link{hclust}}
@@ -18,9 +17,10 @@
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export clusterTopics
-clusterTopics <- function(topics, file, topicnames=NULL, method = "average", width=30, height=15, ...){
+clusterTopics <- function(ldaresult, file, topicnames = NULL,
+  method = "average", width = 30, height = 15, ...){
     if(is.null(topicnames)) topicnames <- 1:nrow(topics)
-    topics <- topics/rowSums(topics)
+    topics <- ldaresult$topics/rowSums(ldaresult$topics)
     topics <- sqrt(topics)
     Dist <- 1/sqrt(2) * dist(topics)
     attr(Dist, "method") <- "hellinger"
