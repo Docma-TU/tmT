@@ -11,7 +11,7 @@
 #' document)
 #' @param select Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
 #' @param ldaresult LDA result object.
-#' @param ldaid Character vector containing IDs of the texts.
+#' @param ldaID Character vector containing IDs of the texts.
 #' @param norm Logical. Should the values be normalized by the mean topic share to account for differently sized topics? Defaults to FALSE.
 #' @param file Character vector containing the path and name for the pdf output file.
 #' @param tnames Character vector with labels for the topics.
@@ -25,9 +25,13 @@
 #' @examples ##
 #' @export totHeat
 
-totHeat <- function(object, ldaresult, ldaid,
+totHeat <- function(object, ldaresult, ldaID,
   select = 1:nrow(ldaresult$document_sums), tnames,
   norm = FALSE, file, date_breaks = 1, unit = "year"){
+  
+  stopifnot(is.textmeta(object), is.character(ldaID),
+    all(as.integer(select) == select), min(select) > 0,
+    max(select) <= nrow(ldaresult$document_sums))
   
   if(missing(tnames)) tnames <- paste0("T", select, ".",
     lda::top.topic.words(ldaresult$topics, 1)[select])
@@ -38,7 +42,7 @@ totHeat <- function(object, ldaresult, ldaid,
   #get dates for all documents to be visualized and
   #round to years, respectively unit
   tmpdate <- lubridate::floor_date(object$meta$date[
-    match(ldaid, object$meta$id)], unit = unit)
+    match(ldaID, object$meta$id)], unit = unit)
   #sum document-levels values to months, respectively unit
   tmp <- aggregate(tmp, by = list(date = tmpdate), FUN = sum)
   

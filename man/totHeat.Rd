@@ -4,7 +4,7 @@
 \alias{totHeat}
 \title{Plotting Topics over Time relative to Corpus}
 \usage{
-totHeat(object, ldaresult, ldaid, select = 1:nrow(ldaresult$document_sums),
+totHeat(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
   tnames, norm = FALSE, file, date_breaks = 1, unit = "year")
 }
 \arguments{
@@ -16,7 +16,7 @@ document)}
 
 \item{ldaresult}{LDA result object.}
 
-\item{ldaid}{Character vector containing IDs of the texts.}
+\item{ldaID}{Character vector containing IDs of the texts.}
 
 \item{select}{Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.}
 

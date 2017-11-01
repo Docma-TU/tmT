@@ -22,16 +22,16 @@ test_that("totHeat", {
   
   obj <- textmeta(text = text, meta = meta)
   
-  res1 <- totHeat(object = obj, ldaresult = lda, ldaid = ldaID, file = "abc.pdf")
+  res1 <- totHeat(object = obj, ldaresult = lda, ldaID = ldaID, file = "abc.pdf")
   expect_equal(dim(res1), c(3, 4))
-  res2 <- totHeat(object = obj, ldaresult = lda, ldaid = ldaID, unit = "month",
+  res2 <- totHeat(object = obj, ldaresult = lda, ldaID = ldaID, unit = "month",
     file = "abc.pdf")
   expect_true(all(res2$date == seq(min(res2$date), max(res2$date), "month")))
-  res3 <- totHeat(object = obj, ldaresult = lda, ldaid = ldaID, file = "abc.pdf",
+  res3 <- totHeat(object = obj, ldaresult = lda, ldaID = ldaID, file = "abc.pdf",
     norm = TRUE)
   expect_equal(dim(res3), c(3, 4))
   res4 <- totHeat(object = textmeta(meta = obj$meta), ldaresult = lda,
-    ldaid = ldaID, file = "abc.pdf")
+    ldaID = ldaID, file = "abc.pdf")
   expect_equal(dim(res4), c(3, 4))
   expect_true(all(res4$date == seq(min(res4$date), max(res4$date), "year")))
   expect_true(all(res3$date == seq(min(res3$date), max(res3$date), "year")))
