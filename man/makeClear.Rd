@@ -4,9 +4,7 @@
 \alias{makeClear}
 \title{Some data preprocessing}
 \usage{
-makeClear(object, text, sw = c(tm::stopwords("german"), "dass", "fuer",
-  "koennen", "koennte", "ueber", "waehrend", "wuerde", "wuerden"),
-  paragraph = TRUE)
+makeClear(object, text, sw = "en", paragraph = FALSE)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
