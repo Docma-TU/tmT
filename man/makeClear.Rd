@@ -12,7 +12,8 @@ makeClear(object, text, sw = "en", paragraph = FALSE)
 \item{text}{not necassary if \code{object} is specified, else should be
 \code{object\$text}: list of article texts}
 
-\item{sw}{list of stopwords.}
+\item{sw}{\code{character} vector of stopwords. If the vector is of length
+one, \code{sw} is interpretated as argument for \code{\link{stopwords}}}
 
 \item{paragraph}{Logical: Should be set to \code{TRUE} if the article is a
 list of character strings, representing the paragraphs.}

@@ -10,7 +10,8 @@
 #' @param object \code{\link{textmeta}} object
 #' @param text not necassary if \code{object} is specified, else should be
 #' \code{object\$text}: list of article texts
-#' @param sw list of stopwords.
+#' @param sw \code{character} vector of stopwords. If the vector is of length
+#' one, \code{sw} is interpretated as argument for \code{\link{stopwords}}
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
 #' list of character strings, representing the paragraphs.
 #' @return A list containing the preprocessed Article.
@@ -30,10 +31,12 @@
 #' @export makeClear
 makeClear <- function(object, text, sw = "en", paragraph = FALSE){
   
-  if(sw %in% c("de", "ge", "german"))
-    sw <- c(tm::stopwords("german"), "dass", "fuer", "koennen", "koennte",
-      "ueber", "waehrend", "wuerde", "wuerden")
-  else sw <- tm::stopwords(sw)
+  if(length(sw) == 1){
+    if(sw %in% c("de", "ge", "german"))
+      sw <- c(tm::stopwords("german"), "dass", "fuer", "koennen", "koennte",
+        "ueber", "waehrend", "wuerde", "wuerden")
+    else sw <- tm::stopwords(sw)
+  }
   
   returnTextmeta <- FALSE
   if(!missing(object)){
