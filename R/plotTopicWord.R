@@ -146,6 +146,9 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   ldaVocab <- colnames(ldaresult$topics)
   uniqueWords <- unique(unlist(wordlist))
   uniqueWordsID <- match(uniqueWords, ldaVocab)-1
+  if(any(is.na(uniqueWordsID)))
+    cat("NOTE: At least one word from wordlist is not included in the vocabulary of LDA")
+  uniqueWordsID[is.na(uniqueWordsID)] <- -1 #set to a number which does not appear
   wordcount <- do.call(cbind, lapply(uniqueWordsID, function(wordX)
     sapply(docs, function(x) sum(x[1, ] == wordX))))
   tmp1 <- wordcount
