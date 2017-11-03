@@ -185,13 +185,13 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
     # are represented (per wordlist component)
     tmp1 <- do.call(cbind, lapply(wordlist,
       function(x) apply(as.matrix(tmp1[, uniqueWords %in% x]), 1,
-        function(y) all(y == 0))))
+        function(y) any(y == 0))))
     # set these counts to zero
     wordcount[tmp1] <- 0
     tmp2 <- do.call(cbind, lapply(2:length(summingIterator),
       function(x) apply(as.matrix(tmp2[,
         (summingIterator[x-1]+1):summingIterator[x]]), 1,
-        function(y) all(y == 0))))
+        function(y) any(y == 0))))
     # set these counts to zero
     topicwordcount[tmp2] <- 0
   }
