@@ -158,6 +158,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   selectInd <- rep(1:length(select), lengths(wordlist))
   allWords <- unlist(wordlist)
   allWordsID <- match(allWords, ldaVocab)-1
+  allWordsID[is.na(allWordsID)] <- -1
   summingIterator <- c(0, cumsum(lengths(wordlist)))
     
   topicwordcount <- do.call(cbind, lapply(1:length(allWordsID),
