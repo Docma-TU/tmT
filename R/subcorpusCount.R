@@ -19,12 +19,12 @@ subcorpusCount <- function(object, text, count = 1L, out = c("text", "bin", "cou
   
   returnTextmeta <- FALSE
   if (!missing(object)){
+    stopifnot(is.textmeta(object))
     text <- object$text
     returnTextmeta <- TRUE
   }
   
-  stopifnot((!returnTextmeta || is.textmeta(object)),
-    is.textmeta(textmeta(text = text)), as.integer(count) == count,
+  stopifnot(is.textmeta(textmeta(text = text)), as.integer(count) == count,
     all(out %in% c("text", "bin", "count")))
   
   counts <- stringr::str_count(unlist(lapply(lapply(text, unlist),
