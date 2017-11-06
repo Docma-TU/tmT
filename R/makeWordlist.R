@@ -15,7 +15,8 @@
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export makeWordlist
 makeWordlist <- function(text, k = 100000L){
-    stopifnot(is.list(text), is.numeric(k), as.integer(k) == k, length(k) == 1)
+    stopifnot(is.textmeta(textmeta(text = text)),
+      is.numeric(k), as.integer(k) == k, length(k) == 1)
     n <- length(text)
     cat(paste(n,"\n"))
     cat("wordlist\n")
