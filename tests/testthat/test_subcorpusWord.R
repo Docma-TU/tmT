@@ -11,7 +11,8 @@ test_that("subcorpusWord", {
   res <- subcorpusWord(text = text, search=wordlist1, out = "bin")
   expect_equal(res, rep(TRUE, 4))
 
-  res <- subcorpusWord(text = text, search = list(data.frame(pattern=wordlist1, word=FALSE, count=counts)), out = "bin")
+  res <- subcorpusWord(text = text, search = list(data.frame(pattern = wordlist1,
+    word = FALSE, count = counts, stringsAsFactors = FALSE)), out = "bin")
   expect_equal(res, c(TRUE, FALSE, FALSE, TRUE))
 
   res <- subcorpusWord(text = text, search=wordlist1, out = "count")
@@ -24,13 +25,17 @@ test_that("subcorpusWord", {
   colnames(test) <- "aa"
   expect_equal(res, test)
 
-  res <- subcorpusWord(text = text, search=data.frame(pattern=wordlist1, count=counts, word=FALSE), out = "text")
+  res <- subcorpusWord(text = text, search = data.frame(pattern = wordlist1,
+    count = counts, word = FALSE, stringsAsFactors = FALSE), out = "text")
   expect_equal(res, list("abaabcaa", c("aa", "aab", "bc")))
 
-  res <- subcorpusWord(text = text, search= list(data.frame(pattern=wordlist1[1], count=counts[1], word=FALSE), data.frame(pattern=wordlist1[2], count=counts[2], word=FALSE)), out = "text")
+  res <- subcorpusWord(text = text, search = list(data.frame(pattern = wordlist1[1],
+    count = counts[1], word = FALSE, stringsAsFactors = FALSE),
+    data.frame(pattern = wordlist1[2], count = counts[2], word = FALSE,
+      stringsAsFactors = FALSE)), out = "text")
   expect_equal(res, text)
 
-  res <- subcorpusWord(text = text, search = data.frame(pattern=wordlist2, count=2, word=FALSE), out = "text")
+  res <- subcorpusWord(text = text, search = data.frame(pattern = wordlist2, count = 2, word = FALSE), out = "text")
   expect_equal(res, list("abaabcaa", c("aa", "aab", "bc")))
 
   res <- subcorpusWord(text = text, search = data.frame(pattern=wordlist2, count=3, word=FALSE), out = "text")
