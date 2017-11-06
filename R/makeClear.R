@@ -40,11 +40,12 @@ makeClear <- function(object, text, sw = "en", paragraph = FALSE){
   
   returnTextmeta <- FALSE
   if(!missing(object)){
+    stopifnot(is.textmeta(object))
     text <- object$text
     returnTextmeta <- TRUE
   }
-  stopifnot(is.list(text), is.character(sw), is.logical(paragraph),
-    length(paragraph) == 1)
+  stopifnot(is.textmeta(textmeta(text = text)), is.character(sw),
+    is.logical(paragraph), length(paragraph) == 1)
   cat("punctuation \n")
   text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE)
   cat("numbers \n")
