@@ -19,22 +19,30 @@
 subcorpusWord <- function(object, text, search, ignore.case = FALSE,
                           out = c("text", "bin", "count")){
 
-    ## stopifnot((is.list(text) || is.character(text)),
-    ##           all(sapply(wordlist, is.character)), all(sapply(counts, is.numeric)),
-    ##           all.equal(drop(unlist(sapply(counts, as.integer))), unlist(counts)),
-    ##           is.logical(ignore.case), is.logical(perl), is.logical(fixed),
-    ##           is.logical(useBytes), length(ignore.case) == 1, length(perl) == 1,
-    ##           length(fixed) == 1, length(useBytes) == 1, is.character(out))
-
     returnTextmeta <- FALSE
     if (!missing(object)){
+      stopifnot(is.textmeta(object))
       text <- object$text
       returnTextmeta <- TRUE
     }
+    
+    stopifnot(is.textmeta(textmeta(text = text)),
+      is.logical(ignore.case), length(ignore.case) == 1, is.character(out),
+      all(out %in% c("text", "bin", "count")))
+    
     text <- lapply(text, unlist)
     if(ignore.case) text <- lapply(text, tolower)
-    if(is.character(search)) search <- lapply(search, function(x)data.frame(pattern=x, word=FALSE, count=1) )
+    if(is.character(search))
+      search <- lapply(search, function(x) data.frame(pattern = x, word = FALSE, count = 1))
     if(is.data.frame(search)) search <- list(search)
+    
+    stopifnot(is.list(search), all(sapply(search, is.data.frame)),
+      all(sapply(search, function(x) c("pattern", "word", "count") %in% names(x))),
+      all(sapply(search, function(x) is.character(x$pattern))),
+      all(sapply(search, function(x) is.logical(x$word))),
+      all(sapply(search, function(x) is.numeric(x$count))),
+      all(sapply(search, function(x) all(as.integer(x$count) == x$count))))
+      
     subid <- integer(length(text))
     counts_out <- NULL
 
