@@ -136,8 +136,8 @@ plotTopic <- function(object, ldaresult, ldaID,
   zerosToAdd <- !(levs %in% docTopic$date)
   if(any(zerosToAdd)){
     matrixAdd <- matrix(0, nrow = sum(zerosToAdd), ncol = ncol(docTopic)-1)
-    if(rel) matrixAdd <- cbind(matrixAdd,
-      matrix(NA, nrow = sum(zerosToAdd), ncol = ncol(docTopic)-1))
+    #if(rel) matrixAdd <- cbind(matrixAdd,
+    #  matrix(NA, nrow = sum(zerosToAdd), ncol = ncol(docTopic)-1))
     zerosToAdd <- data.frame(levs[zerosToAdd], matrixAdd)
     names(zerosToAdd) <- names(docTopic)
     docTopic <- rbind(docTopic, zerosToAdd)
