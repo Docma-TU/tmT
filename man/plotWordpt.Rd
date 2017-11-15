@@ -38,7 +38,7 @@ as a list element represents one curve in the outcoming plot}
 or an \code{"or"}}
 
 \item{wordlist}{list of \code{character} vectors (default: the first
-\link{\code{top.topic.words}} per topic as simple
+\code{\link{top.topic.words}} per topic as simple
 \code{character} vector) which words - linked by an "or" every time -
 should be take into account for plotting the topic counts/proportion.}
 

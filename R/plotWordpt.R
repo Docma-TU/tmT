@@ -27,7 +27,7 @@
 #' \code{integer} vectors of each list element be linked by an \code{"and"}
 #' or an \code{"or"}
 #' @param wordlist list of \code{character} vectors (default: the first
-#' \link{\code{top.topic.words}} per topic as simple
+#' \code{\link{top.topic.words}} per topic as simple
 #' \code{character} vector) which words - linked by an "or" every time -
 #' should be take into account for plotting the topic counts/proportion.
 #' @param tnames \code{character} vector of same length as \code{select}
