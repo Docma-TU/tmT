@@ -1,9 +1,9 @@
-#' Plotting Counts of Topics-Words-Combination over Time (relative to Words)
+#' Plotting Counts of Topics-Words-Combination over Time (relative to Topics)
 #' 
 #' Creates a plot of the counts/proportion of specified combination of topics
 #' and words. It is important to keep in mind that the baseline for
-#' proportions are the sums of words, not sums of topics.
-#' See also \code{\link{plotWordpt}}.
+#' proportions are the sums of topics, not sums of words.
+#' See also \code{\link{plotTopicWord}}.
 #' There is an option to plot all curves in one plot or to create one plot for
 #' every curve (see \code{pages}). In addition the plots can be written to a pdf
 #' by setting \code{file}.
@@ -17,18 +17,19 @@
 #' \code{docs} as argument
 #' @param ldaID \code{character} vector of IDs of the documents in
 #' \code{ldaresult}
-#' @param wordlist list of \code{character} vectors. Every list element is an 'or'
-#' link, every \code{character} string in a vector is linked by the argument
-#' \code{link}. If \code{wordlist} is only a \code{character} vector it will be
+#' @param select list of \code{integer} vectors. Every list element is an 'or'
+#' link, every \code{integer} string in a vector is linked by the argument
+#' \code{link}. If \code{select} is only a \code{integer} vector it will be
 #' coerced to a list of the same length as the vector (see \code{\link{as.list}}),
-#' so that the argument \code{link} has no effect. Each \code{character} vector
+#' so that the argument \code{link} has no effect. Each \code{integer} vector
 #' as a list element represents one curve in the outcoming plot
 #' @param link \code{character} (default: \code{"and"}) should the (inner)
-#' \code{character} vectors of each list element be linked by an \code{"and"}
+#' \code{integer} vectors of each list element be linked by an \code{"and"}
 #' or an \code{"or"}
-#' @param select list of \code{integer} vectors (default: all topics as simple
-#' \code{integer} vector) which topics - linked by an "or" every time -
-#' should be take into account for plotting the word counts/proportion.
+#' @param wordlist list of \code{character} vectors (default: the first
+#' \link{\code{top.topic.words}} per topic as simple
+#' \code{character} vector) which words - linked by an "or" every time -
+#' should be take into account for plotting the topic counts/proportion.
 #' @param tnames \code{character} vector of same length as \code{select}
 #' - labels for the topics (default are the first returned words of
 #' @param wnames \code{character} vector of same length as \code{wordlist}
@@ -73,12 +74,12 @@
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #' ##---- Should be DIRECTLY executable !! ----
-#' @export plotTopicWord
+#' @export plotWordpt
 #'
 
-plotTopicWord <- function(object, docs, ldaresult, ldaID,
-  wordlist = lda::top.topic.words(ldaresult$topics, 1), link = c("and", "or"),
-  select = 1:nrow(ldaresult$document_sums),
+plotWordpt <- function(object, docs, ldaresult, ldaID,
+  select = 1:nrow(ldaresult$document_sums), link = c("and", "or"),
+  wordlist = lda::top.topic.words(ldaresult$topics, 1),
   tnames, wnames, rel = FALSE, mark = TRUE, unit = "month",
   curves = c("exact", "smooth", "both"), smooth = 0.05,
   legend = ifelse(pages, "onlyLast:topright", "topright"),
@@ -104,7 +105,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   if(missing(xlab)) xlab <- "date"
   # set y-label if missing
   if(missing(ylab))
-    ylab <- ifelse(rel, "proportion (topics per words)", "counts (topics per words)")
+    ylab <- ifelse(rel, "proportion (words per topics)", "counts (words per topics)")
   # set "both" - graphical parameters if missing
   if(missing(both.lwd)) both.lwd <- 1
   if(missing(both.lty)) both.lty <- 1
@@ -146,21 +147,34 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   meta <- object$meta$date
   names(meta) <- object$meta$id
   ldaVocab <- colnames(ldaresult$topics)
-  uniqueWords <- unique(unlist(wordlist))
-  uniqueWordsID <- match(uniqueWords, ldaVocab)-1
-  if(any(is.na(uniqueWordsID)))
-    cat("NOTE: At least one word from wordlist is not included in the vocabulary of LDA")
-  uniqueWordsID[is.na(uniqueWordsID)] <- -1 #set to a number which does not appear
-  wordcount <- do.call(cbind, lapply(uniqueWordsID, function(wordX)
-    sapply(docs, function(x) sum(x[1, ] == wordX))))
-  tmp1 <- wordcount
-  wordcount <- do.call(cbind, lapply(wordlist,
-    function(x) rowSums(as.matrix(wordcount[, uniqueWords %in% x]))))
+  
+  #uniqueWords <- unique(unlist(wordlist))
+  #uniqueWordsID <- match(uniqueWords, ldaVocab)-1
+  #if(any(is.na(uniqueWordsID)))
+  #  cat("NOTE: At least one word from wordlist is not included in the vocabulary of LDA")
+  #uniqueWordsID[is.na(uniqueWordsID)] <- -1 #set to a number which does not appear
+  #wordcount <- do.call(cbind, lapply(uniqueWordsID, function(wordX)
+  #  sapply(docs, function(x) sum(x[1, ] == wordX))))
+  #tmp1 <- wordcount
+  #wordcount <- do.call(cbind, lapply(wordlist,
+  #  function(x) rowSums(as.matrix(wordcount[, uniqueWords %in% x]))))
+  
+  ##
+  uniqueSelect <- unique(unlist(select))
+  assigntmp <- ldaresult$assignment
+  names(assigntmp) <- names(docs)
+  tmp1 <- do.call(cbind, lapply(uniqueSelect, function(topic)
+    sapply(assigntmp, function(x) sum(x == topic-1))))
+  topiccount <- do.call(cbind, lapply(select,
+    function(x) rowSums(as.matrix(tmp1[, uniqueSelect %in% x]))))
+  ##
   
   selectInd <- rep(1:length(select), lengths(wordlist))
   allWords <- unlist(wordlist)
   allWordsID <- match(allWords, ldaVocab)-1
   allWordsID[is.na(allWordsID)] <- -1
+  if(any(is.na(allWordsID)))
+    cat("NOTE: At least one word from wordlist is not included in the vocabulary of LDA")
   summingIterator <- c(0, cumsum(lengths(wordlist)))
     
   topicwordcount <- do.call(cbind, lapply(1:length(allWordsID),
@@ -177,10 +191,10 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
     # identifying articles where not all words of an wordlist component
     # are represented (per wordlist component)
     tmp1 <- do.call(cbind, lapply(wordlist,
-      function(x) apply(as.matrix(tmp1[, uniqueWords %in% x]), 1,
+      function(x) apply(as.matrix(tmp1[, uniqueSelect %in% x]), 1,
         function(y) any(y == 0))))
     # set these counts to zero
-    wordcount[tmp1] <- 0
+    topiccount[tmp1] <- 0
     tmp2 <- do.call(cbind, lapply(2:length(summingIterator),
       function(x) apply(as.matrix(tmp2[,
         (summingIterator[x-1]+1):summingIterator[x]]), 1,
@@ -189,7 +203,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
     topicwordcount[tmp2] <- 0
   }
   rm(tmp1, tmp2)
-  tmpdate <- meta[match(rownames(wordcount), names(meta))]
+  tmpdate <- meta[match(rownames(topiccount), names(meta))]
   tmpdate <- lubridate::floor_date(tmpdate, unit = unit)
   if (mark) markYears <- seq(from = lubridate::floor_date(
     min(tmpdate), unit = "year"), to = lubridate::ceiling_date(
@@ -198,14 +212,14 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   splt2 <- apply(topicwordcount, 2, function(x) sapply(split(x, tmpdate), sum))
   
   if(rel){
-    splt1 <- apply(wordcount, 2, function(x) sapply(split(x, tmpdate), sum))
+    splt1 <- apply(topiccount, 2, function(x) sapply(split(x, tmpdate), sum))
     tab <- cbind(as.Date(rownames(splt2)),
       data.frame(splt2 / splt1[match(rownames(splt2), rownames(splt1)), ]))
-    if(missing(main)) main <- "Proportion of Topics per Words over Time"
+    if(missing(main)) main <- "Proportion of Words per Topics over Time"
   }
   else{
     tab <- cbind(as.Date(rownames(splt2)), data.frame(splt2))
-    if(missing(main)) main <- "Counts of Topics per Words over Time"
+    if(missing(main)) main <- "Counts of Words per Topics over Time"
   }
   
   # identify levels to add as zeros
