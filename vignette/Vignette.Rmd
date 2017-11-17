@@ -73,7 +73,7 @@ earliestOfDups =
   sapply(dups$allTextDups,
     function(x) names(which.min(sapply(x,
       function(y) corpus$meta$date[corpus$meta$id == y]))))
-myUniques = c(dups$fullyUniqueTexts, earliestOfDups)
+myUniques = c(dups$notDuplicatedTexts, earliestOfDups)
 ```
 
 ## Clear Corpus - \texttt{makeClear}
@@ -219,7 +219,7 @@ subcorpusWord(text = list(c("i", "was", "here", "text"),
 In the case of \texttt{out = count} it is useful, that \texttt{search} is a simple \texttt{character} vector. Another application of \texttt{subcorpusWord} is to apply the function with \texttt{word = TRUE}, so that the function searchs only for single words, not for strings containing these words. This is displayed by the following example.
 ```{r}
 texts = list("land and and", c("and", "land", "and", "and"))
-term = data.frame(pattern = "and", word = c(TRUE, FALSE), count = NA)
+term = data.frame(pattern = "and", word = c(TRUE, FALSE), count = 1)
 subcorpusWord(text = texts, search = split(term, term$word), out = "count")
 ```
 The function returns counts \texttt{c(3, 4)} for the simple search of substrings and \texttt{c(2, 3)} for the restricted word search, cause the word \textit{and} appears once in every document of \texttt{texts} only as substring and not as own word.
@@ -230,7 +230,7 @@ words = list(
   data.frame(pattern = "journalism", word = FALSE, count = 1),
   data.frame(pattern = c("big", "data"), word = FALSE, count = 1),
   data.frame(pattern = "medicine", word = FALSE, count = 1))
-corpusFiltered = subcorpusWord(object = corpusDate, search = words)
+corpusFiltered = subcorpusWord(corpusDate, search = words)
 print(corpusFiltered)
 ```
 The date and word filtered corpus consists of 1460 pages.
@@ -255,7 +255,7 @@ print(a)
 The most often "word" which appears in the filtered corpora is the sign "-" with a count of 15431, so that it appears more than nine times on a page in mean. The second most often word is \textit{edit}. Maybe this word and \textit{retrieved} should be handled as a stopword, as well "-" as word is discussable. Nevertheless these words are also considered for analysis.
 ```{r}
 words5 = sort(names(sortedWords)[sortedWords > 5])
-pagesLDA = docLDA(corpus = corpusFiltered$text, vocab = words5)
+pagesLDA = docLDA(text = corpusFiltered$text, vocab = words5)
 ```
 After receiving the words which appears at least six times in the whole filtered corpus, the function \texttt{docLDA} is applied to the example corpus with \texttt{vocab = words5}. The object \texttt{pagesLDA} will be handed over to the function which performs a Latent Dirichlet Allocation.
 
@@ -316,7 +316,7 @@ intruderTopics(text = corpus$text, id = ldaID,
 For analysing topic similarities and looking for the right topic number for performing further LDA it is useful to cluster the topics. The function \texttt{clusterTopics} implements this. The main argument is \texttt{topics} and should be set to the \texttt{topics} element of your \texttt{result} object. You could specify \texttt{file}, \texttt{width} and \texttt{height} (both \texttt{integers}) to write the resulting plot to a pdf. Other options are \texttt{topicnames} for labelling the topics in the plot and \texttt{method} (default: \texttt{"average"}), which influences the way the topics are clustered. The \texttt{method} statement is used for applying the distance matrix tothe function \texttt{hclust}. The distance matrix is computed based on the hellinger distance and is returned in a list together with the value of the \texttt{hclust} call as invisible by \texttt{clusterTopics}.
 
 ```{r, fig.width=5, fig.height=3.3, fig.align=2}
-clustRes = clusterTopics(result$topics, xlab = "Topic", ylab = "Distance")
+clustRes = clusterTopics(ldaresult = result, xlab = "Topic", ylab = "Distance")
 names(clustRes)
 ```
 The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. Maybe it is of interest to look deeper at similar topics. In this example you could look at the topics 4 and 5.
@@ -333,14 +333,14 @@ As extension of the highly flexible functions \texttt{plotScot} and \texttt{plot
 
 Often it is useful to choose \texttt{curves = "smooth"} if you do not select topics, because there is a massive fluctuation of exact curves.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
-plotTopic(object = corpusFiltered, ldaresult = result, ldaid = ldaID,
+plotTopic(object = corpusFiltered, ldaresult = result, ldaID = ldaID,
   rel = TRUE, curves = "smooth", smooth = 0.1, legend = "none", ylim = c(0, 0.35))
 ```
 There are not less than three topics with clear peaks at the first quarter of the years 2012, 2014 and 2015. At the beginning of year 2013 there is also a small peak of another topic. This is a good example for identifying periods of time where reporting could be less diversely. In the given example it is cumbersome trying to find reasons for the peaks.
 
 There is no difference of handing over an inflated corpus with documents which were not used for LDA. But the corpus should contain all documents of the LDA.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
-plotTopic(object = corpusClear, ldaresult = result, ldaid = ldaID,
+plotTopic(object = corpusClear, ldaresult = result, ldaID = ldaID,
   select = c(1:2, 7:8), rel = TRUE, curves = "both", smooth = 0.1)
 ```
 In the graphic above you could see, that the the topic \textit{medicine} is nearly time independant. However the topic \textit{news} has a peak on the first half of the year 2012, the topic \textit{syndrome} on the first quarter of 2014. The topic \textit{data} is less represented. Therefore the peak at the end of 2013 is considerable. The light colors displays the exact curves. Obvoiusly they alternate irrregular. It is important to have a look at the exact curves, because the smoothed curves are someway manipulated by the statement \texttt{smooth}, so the user is tempted to optimise the smoothing parameter for getting the curves he or she wants.
@@ -350,12 +350,12 @@ The function \texttt{sedimentPlot} offers possibilities to create so called sedi
 
 As this seems to be interesting topics \textit{T1.syndrome} (red curve), \textit{T3.health} (green) and \textit{T7.medicine} (blue) are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"}.
 ```{r, eval = FALSE}
-sedimentPlot(ldaresult = result, ldaid = ldaID, meta = corpusFiltered$meta,
+sedimentPlot(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
   select = c(7, 3, 1), unit = "bimonth", sort = FALSE)
 ```
 ```{r, echo=FALSE, fig.width=5.5, fig.height=3, fig.align=2}
 par(mar = c(3.5,3,1.5,1.5)+0.1)
-sedimentPlot(ldaresult = result, ldaid = ldaID, meta = corpusFiltered$meta,
+sedimentPlot(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
   select = c(7, 3, 1), unit = "bimonth", sort = FALSE)
 # evtl legend optimieren, main, xlab, ylab
 # evtl plotSediment statt sedimentPlot
@@ -367,7 +367,7 @@ Another visualisation possibility of topics over time is given by \texttt{plotTo
 
 In the example corpus the proportion of the word \textit{medical} in the topics one, three and seven is explored. The chosen word is the fifth most frequently word in the filtered corpus. The \texttt{top.topic.words} of the three chosen topics are \textit{syndrome} (lightgreen curve), \textit{health} (orange) and \textit{medicine} (purple).
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
-plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaid = ldaID,
+plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
   wordlist = "medical", select = c(1, 3, 7), rel = TRUE, legend = "none")
 ```
 The graphic shows that the word \textit{medical} is associated to the topic \textit{health} most often. Drops of the orange curve goes with peaks of the purple curve (\textit{medicine}). Aspects like this can be find easily with \texttt{plotTopicWord} and should lead to further analysis of the corresponding dates. The little peak of the topic allocations at January 2014 does not surprise because the topic itself has a massive peak at this date like you could see in the graphic before.
@@ -396,7 +396,7 @@ By default the  proportions are calculated on the article lengths, but it is pos
 
 The peak of the topic \textit{T1.syndrome} in January 2014 was mentioned several times before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen. 
 ```{r, fig.height=6, fig.width=10}
-totHeat(object = corpusFiltered, ldaresult = result, ldaid = ldaID, unit = "quarter")
+totHeat(object = corpusFiltered, ldaresult = result, ldaID = ldaID, unit = "quarter")
 ```
 As expected the \textit{T1.syndrome} topics peak is clearly identifiable. The according rectangle at the first quarter of 2014 is colored by the deepest red of this figure. On the other hand mostly all other quarters of years concerning this topic are colored lightblue. Other remarkable quarters are for example the fourth quarter of 2015 or 2016, where the topic \textit{T2.data} or \textit{T4.cells} respectively has noticeable peaks. The dendrogramm shows that none of the topics are similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This approves the findings of clustering the topics with \texttt{clusterTopics}.
 
@@ -405,14 +405,14 @@ For some reason it is useful to look at some individual cases sometimes. Especia
 
 In the example the top four pages from the topics \textit{T1.syndrome}, \textit{T3.health} and \textit{T7.medicine} are requested.
 ```{r}
-topID = topArticles(ldaresult = result, ldaid = ldaID, select = c(1, 3, 7), limit = 4)
+topID = topArticles(ldaresult = result, ldaID = ldaID, select = c(1, 3, 7), limit = 4)
 dim(topID)
 ```
 Obviously the corresponding matrix has four rows and three columns.
 
 After identifying the top pages it is possible to have a deeper look at these articles. Therefore the mentioned function \texttt{showArticles} can be used. The returned value is a list with three entries with \texttt{data.frames} of four rows - the different pages - and four columns each - \textit{id}, \textit{title}, \textit{date} and \textit{text}. For displaying, the fourth column of each \texttt{data.frame} containing the pages content itself is removed.
 ```{r}
-topArt = showArticles(corpus = corpusFiltered, id = topID)
+topArt = showArticles(corpusFiltered, id = topID)
 lapply(topArt, function(x) x[, 1:3])
 ```
 The top three pages from topic \textit{T1.syndrome} were associated to their category on January 25th 2014. Once again this shows the peak of associations of this topic in January 2014.
@@ -422,7 +422,7 @@ At last the function \texttt{topicsInText} offers the possibilty to analyse a si
 The article \textit{Family medicine} with ID \textit{1656748} from topic \textit{T3.health} and category \textit{Medicine} is analysed with the function \texttt{topicsInText} in more detail.
 ```{r, eval = FALSE}
 topicsInText(text = pagesLDA, ldaresult = result, ldaID = ldaID,
-  id = topArt$`2`[4,1], words = words5, originaltext = corpus$text, wordOrder = "")
+  id = topArt$`2`[4,1], vocab = words5, originaltext = corpus$text, wordOrder = "")
 ```
 \begin{center}\includegraphics[width = 0.78\textwidth]{topicText} \end{center}
 In the part of the HTML output above at first the different topics in the order of its absolute appearences in the given document are displayed. The topics are represented by its 20 \texttt{top.topic.words} each and are colored each in its own color. Words which were deleted by clearing the corpus are colored black. The topic \textit{T3.health} occurs very frequently. Only two words in the extract are not allocated to this topic. The word \textit{named} belongs to the topic \textit{T10.retrieved}, the word \textit{underlying} to the topic \textit{T5.may}. This way you are able to check plausibility of individual documents, so \texttt{topicsInText} can be seen as individual cases validation as well.
