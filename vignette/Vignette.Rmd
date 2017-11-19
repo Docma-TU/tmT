@@ -38,7 +38,7 @@ The function \texttt{readWiki} was used to generate the corpus, which will be us
 journ = readWiki("Journalism")
 bigdata = readWiki("Big data")
 med = readWiki("Medicine")
-corpus = mergeTextmeta(mergeTextmeta(journ, bigdata), med)
+corpus = mergeTextmeta(list(journ, bigdata, med))
 ```
 The pages were downloaded on June 6, 2017 and merged to one corpus with the function \texttt{mergeTextmeta}. There are no complications expected merging the \texttt{meta data.frames}, because you will get always the same \texttt{meta} columns using \texttt{readWiki}, e.g. \texttt{date} is interpreted as the date when the page was added to a specific (sub)category. If consistency is not given the function will fill columns with \texttt{NAs} by default(\texttt{all = TRUE}) and will only return the columns which appears in all \texttt{data.frames} setting \texttt{all = FALSE}.
 
