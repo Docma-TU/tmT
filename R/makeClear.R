@@ -46,12 +46,12 @@ makeClear <- function(object, text, sw = "en", paragraph = FALSE){
   }
   stopifnot(is.textmeta(textmeta(text = text)), is.character(sw),
     is.logical(paragraph), length(paragraph) == 1)
+  cat("to lower \n")
+  text <- lapply(text, tolower)
   cat("punctuation \n")
   text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE)
   cat("numbers \n")
   text <- lapply(text, tm::removeNumbers)
-  cat("to lower \n")
-  text <- lapply(text, tolower)
   cat("stopwords \n")
   text <- lapply(text, tm::removeWords, sw)
   cat("whitespace \n")
