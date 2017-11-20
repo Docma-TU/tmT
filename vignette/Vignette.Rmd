@@ -362,7 +362,7 @@ sedimentPlot(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
 ```
 (TODO) Interpretation.
 
-## Visualisation of Words in Topic over Time - \texttt{plotTopicWord}
+## Visualisation of Words in Topic over Time - \texttt{plotTopicWord, plotWordpt}
 Another visualisation possibility of topics over time is given by \texttt{plotTopicword}. It displays the counts or proportion of given topic-word combinations. If \texttt{rel = TRUE} the baseline for normalisation are the words counts, not the counts of topics. Arguments which has to specified are \texttt{object} (corpus, \texttt{textmeta} object), \texttt{docs} (corpus manipulated by \texttt{docLDA}, the input for \texttt{LDAstandard}) and the \texttt{ldaresult} with its \texttt{ldaid} (IDs of documents in \texttt{docs} or \texttt{ldaresult} respectively). The function asks for \texttt{docs} for complexity reasons. The certain object should be created while preparation for LDA anyway. The options \texttt{wordlist} and \texttt{select} are known from other plot functions and offers a lot of different topics words combinations which should be plotted by \texttt{plotTopicword}.
 
 In the example corpus the proportion of the word \textit{medical} in the topics one, three and seven is explored. The chosen word is the fifth most frequently word in the filtered corpus. The \texttt{top.topic.words} of the three chosen topics are \textit{syndrome} (lightgreen curve), \textit{health} (orange) and \textit{medicine} (purple).
@@ -370,7 +370,7 @@ In the example corpus the proportion of the word \textit{medical} in the topics 
 plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
   wordlist = "medical", select = c(1, 3, 7), rel = TRUE, legend = "none")
 ```
-The graphic shows that the word \textit{medical} is associated to the topic \textit{health} most often. Drops of the orange curve goes with peaks of the purple curve (\textit{medicine}). Aspects like this can be find easily with \texttt{plotTopicWord} and should lead to further analysis of the corresponding dates. The little peak of the topic allocations at January 2014 does not surprise because the topic itself has a massive peak at this date like you could see in the graphic before.
+The graphic shows that the word \textit{medical} is associated to the topic \textit{health} most often. Drops of the orange curve goes with peaks of the purple curve (\textit{medicine}). Aspects like this can be find easily with \texttt{plotTopicWord} and should lead to further analysis of the corresponding dates. The little peak of the topic allocations at January 2014 does not surprise because the topic itself has a massive peak at this date which you could see in the graphic before.
 
 For interpretating it is important to keep in mind the baseline, the word counts of \textit{medical}. To display this the sums of all topic-word proportions are calculated and are expected to be one for all dates.
 ```{r, eval = FALSE}
@@ -384,10 +384,14 @@ all(round(rowSums(tab[, -1]), 10) == 1)
 ```{r, echo = FALSE}
 all(round(rowSums(tab[, -1]), 10) == 1)
 ```
-This is confirmed by the call above. For some analysis maybe it could be interesting to take the other possible baseline, the topic counts, into account. Therefore an additional function is planned called \texttt{plotWordTopic}.
-```{r, include = FALSE}
-#Ist evtl auch interessant: \texttt{plotWordTopic} fuer geg. Topic den Verlauf der Anzahlen/Prop gewaehlter Worte (deafault: die 6 top.topic.words) innerhalb des Topics
+This is confirmed by the call above. For some analysis maybe it could be interesting to take the other possible baseline, the topic counts, into account. Therefore there is an additional function called \texttt{plotWordpt}.
+
+The function \texttt{plotWordpt} works analogously like its pendant \texttt{plotTopicWord}, but with baseline topic sums instead of word sums. The difference between both functions \texttt{plotWordpt} and \texttt{plotTopicWord} is given by the fact that \texttt{plotWordpt} considers topic peaks. You will get the relative counts of the selected word(s) in the selected topic(s). Obviously all curves sum up to one if you choose any topic and the whole vocabulary list as wordlist.
+```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
+plotWordpt(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
+  wordlist = "medical", select = c(1, 3, 7), rel = TRUE)
 ```
+The plot indicates some peaks of the word \textit{medical} in the topic \textit{T3.health} especially in the middle of the years 2011, 2012 and 2014. The proportions of \textit{medical} in the other two topics do not differ from zero often. In the end of 2011 and the middle of 2013 the topic proportion of the word increases in both topics, but do not reach five percent of the topic words in the given months.
 
 ## Heatmap of Topics over Time including Clustering - \texttt{totHeat}
 Beside the plot functions using \texttt{Base R} there is one function using functionality from \texttt{gplots}. The function is called \texttt{totHeat}. Maybe there will be an opportunity to implement this function in \texttt{Base R} in later updates. The use case for \texttt{totHeat} is given by searching for explicit peaks of coverage of some topics. Therefore the resulting heatmap shows the deviation of the proportion of a given topic at this current time from its mean proportion. In addition a dendrogramm is plotted on the left side of the heatmap showing similarities of topics. The clustering is performed with \texttt{hclust} on the dissimilarities computed by \texttt{dist}.
