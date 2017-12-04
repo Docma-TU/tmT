@@ -42,6 +42,9 @@ test_that("plotWordSub", {
   restype1 <- plotWordSub(object = obj, ldaresult = lda, ldaID = ldaID,
     search = search, alloc = "best", rel = FALSE, type = "words")
   expect_true(all(restype1[,-1] == resalloc1[,-1]*50))
+  restype2 <- plotWordSub(object = obj, ldaresult = lda, ldaID = ldaID,
+    search = search, alloc = "best", type = "words")
+  expect_true(all(restype2[,-1] <= 1))
   res1 <- plotWordSub(object = obj, ldaresult = lda, ldaID = ldaID, search = search)
   expect_true(all(res1$date == seq(min(res1$date), max(res1$date), "month")))
   res2 <- plotWordSub(object = obj, ldaresult = lda, ldaID = ldaID,
