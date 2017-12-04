@@ -1,6 +1,6 @@
-context("plot Words in Topics relative to Words")
+context("plot Words in Topics relative to Topics")
 
-test_that("plotTopicWord", {
+test_that("plotWordpt", {
   set.seed(123)
   x1 <- matrix(sample(c(rep(0, 20), 1:20), 10000, replace = TRUE), 10, 1000)
   ldaID <- paste("ID", 1:200)
@@ -22,27 +22,27 @@ test_that("plotTopicWord", {
   
   obj <- textmeta(text = text, meta = meta)
   
-  res1 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res1 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID)
   expect_true(all(res1$date == seq(min(res1$date), max(res1$date), "month")))
-  res2 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res2 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID, unit = "week")
   expect_true(all(res2$date == seq(min(res2$date), max(res2$date), "week")))
-  res3 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res3 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID, pages = TRUE)
   expect_equal(res1, res3)
-  res4 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res4 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID,
     mark = FALSE, curves = "both", legend = "none", natozero = FALSE)
   expect_equal(res1, res4)
-  res5 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res5 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID, rel = TRUE, link = "or")
   expect_true(all(res5$date == res1$date), all(colnames(res1) == colnames(res5)),
     all(res5[, -1] <= 1))
-  res6 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res6 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID, file = "abc.pdf")
   expect_equal(res1, res6)
-  res7 <- plotTopicWord(object = obj, docs = LDAdoc, ldaresult = lda,
+  res7 <- plotWordpt(object = obj, docs = LDAdoc, ldaresult = lda,
     ldaID = ldaID, curves = "smooth")
   expect_equal(res1, res7)
 })
