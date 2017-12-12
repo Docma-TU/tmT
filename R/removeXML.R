@@ -9,6 +9,7 @@
 #' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.
+#' @param remove.html Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)
 #' @return Adjusted corpus
 #' @keywords manip
 #' @examples
@@ -18,7 +19,7 @@
 #' @export removeXML
 
 removeXML <- function(x, xml = TRUE, umlauts = FALSE,
-                      u.type = c("normal", "html", "all")){
+                      u.type = c("normal", "html", "all"), remove.html=TRUE){
   if(xml){
     x <- gsub(pattern="<[^><]*>", replacement=" ",x, perl=TRUE)}
   if(umlauts){
@@ -36,7 +37,7 @@ removeXML <- function(x, xml = TRUE, umlauts = FALSE,
         x <- gsub(pattern=paste0("&", i, "circ;"), replacement=i, x)
         x <- gsub(pattern=paste0("&", i, "tilde;"), replacement=i, x)
       }
-      x <- gsub(pattern="&[^;]*;", replacement="",x)
+      if(remove.html)x <- gsub(pattern="&[^;]*;", replacement="",x)
     }
     if(u.type[1]=="normal" | u.type[1]=="all"){
       x <- gsub(pattern="\U00E4", replacement="ae",x)
