@@ -5,7 +5,7 @@
 \title{Removes XML tags and umlauts}
 \usage{
 removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
-  "all"))
+  "all"), remove.html = TRUE)
 }
 \arguments{
 \item{x}{\code{character} vector.}
@@ -17,6 +17,8 @@ removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
 \item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
+
+\item{remove.html}{Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)}
 }
 \value{
 Adjusted corpus
