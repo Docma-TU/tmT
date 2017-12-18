@@ -20,7 +20,7 @@
 #' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
 #' If is \code{5} every fifth label is drawn.
 #' @param margins see \code{\link{heatmap}}
-#' @param ... additional graphical parameters passed to \link{\code{heatmap}}
+#' @param ... additional graphical parameters passed to \code{\link{heatmap}}
 #' @return A pdf.
 #' Invisible: A dataframe.
 #' @keywords ~kwd1 ~kwd2

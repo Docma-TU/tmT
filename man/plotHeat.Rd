@@ -35,7 +35,7 @@ If is \code{5} every fifth label is drawn.}
 
 \item{margins}{see \code{\link{heatmap}}}
 
-\item{...}{additional graphical parameters passed to \link{\code{heatmap}}}
+\item{...}{additional graphical parameters passed to \code{\link{heatmap}}}
 }
 \value{
 A pdf.
