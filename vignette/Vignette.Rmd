@@ -10,7 +10,6 @@ output:
     keep_tex: true
 ---
 ```{r, include = FALSE}
-#install.packages("tm", repos="http://R-Forge.R-project.org")
 library(devtools)
 install_github("DoCMA-TU/tmT")
 library(tmT)
@@ -332,7 +331,7 @@ As extension of the highly flexible functions \texttt{plotScot} and \texttt{plot
 Often it is useful to choose \texttt{curves = "smooth"} if you do not select topics, because there is a massive fluctuation of exact curves.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopic(object = corpusFiltered, ldaresult = result, ldaID = ldaID,
-  rel = TRUE, curves = "smooth", smooth = 0.1, legend = "none", ylim = c(0, 0.35))
+  rel = TRUE, curves = "smooth", smooth = 0.1, legend = "none", ylim = c(0, 0.4))
 ```
 There are not less than three topics with clear peaks at the first quarter of the years 2012, 2014 and 2015. At the beginning of year 2013 there is also a small peak of another topic. This is a good example for identifying periods of time where reporting could be less diversely. In the given example it is cumbersome trying to find reasons for the peaks.
 
@@ -393,7 +392,7 @@ The plot indicates some peaks of the word \textit{medical} in the topic \textit{
 
 ## Visualisation of Words in Articles allocated to Topics - \texttt{plotWordSub}
 Mention a problem where you want to identify words which are used frequently in articles allocated to a topic. The function which realizes a plot to the problem is called \texttt{plotWordSub}. The first problem is allocation of topics. Therefore you set a absolute or relative limit how often words of a given article are allocated to one topic. Additionally you have to specify whether one article is allocated exactly once, maximum once or multiple times depending on the \texttt{limit} argument. The default is \texttt{limit = 10} and \texttt{alloc = "multi"}, so an article is allocated to a topic if it contains at least 11 words which are allocated to the given topic. Multiple or no allocations are possible. After allocating the articles to the topics the function creates subcorpora using \texttt{subcorpusWord}. To control the filter you have to set the \texttt{search} argument. The counts of the subcorpora (normalized to their whole corpora) are plotted. There are many options to personalize your plot like in the other plot functions.
-```{r}
+```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 searchmed = data.frame(pattern = "medical", word = TRUE, count = 4)
 plotWordSub(object = corpusFiltered, ldaresult = result, ldaID = ldaID, limit = 1/3,
   select = c(1, 3, 7), search = searchmed, unit = "quarter", legend = "bottomright")
@@ -408,6 +407,9 @@ By default the  proportions are calculated on the article lengths, but it is pos
 The peak of the topic \textit{T1.syndrome} in January 2014 was mentioned several times before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen. 
 ```{r, fig.height=6, fig.width=10}
 totHeat(object = corpusFiltered, ldaresult = result, ldaID = ldaID, unit = "quarter")
+```
+```{r, fig.height=6, fig.width=10}
+plotHeat(object = corpusFiltered, ldaresult = result, ldaID = ldaID, unit = "quarter")
 ```
 As expected the \textit{T1.syndrome} topics peak is clearly identifiable. The according rectangle at the first quarter of 2014 is colored by the deepest red of this figure. On the other hand mostly all other quarters of years concerning this topic are colored lightblue. Other remarkable quarters are for example the fourth quarter of 2015 or 2016, where the topic \textit{T2.data} or \textit{T4.cells} respectively has noticeable peaks. The dendrogramm shows that none of the topics are similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This approves the findings of clustering the topics with \texttt{clusterTopics}.
 
