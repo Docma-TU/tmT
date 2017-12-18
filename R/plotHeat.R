@@ -19,10 +19,10 @@
 #' dates be floored
 #' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
 #' If is \code{5} every fifth label is drawn.
-#' @param margins see \link{\code{heatmap}}
+#' @param margins see \code{\link{heatmap}}
 #' @param ... additional graphical parameters passed to \link{\code{heatmap}}
 #' @return A pdf.
-#' @author Kira Schacht (<kira.schacht@@tu-dortmund.de>)
+#' Invisible: A dataframe.
 #' @keywords ~kwd1 ~kwd2
 #' @examples ##
 #' @export plotHeat

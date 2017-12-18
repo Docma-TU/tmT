@@ -33,12 +33,13 @@ dates be floored}
 \item{date_breaks}{(default: \code{1}) how many labels should be shown on the x axis.
 If is \code{5} every fifth label is drawn.}
 
-\item{margins}{see \link{\code{heatmap}}}
+\item{margins}{see \code{\link{heatmap}}}
 
 \item{...}{additional graphical parameters passed to \link{\code{heatmap}}}
 }
 \value{
 A pdf.
+Invisible: A dataframe.
 }
 \description{
 Creates a pdf including a heat map. For each topic, the heat map shows the deviation of 
@@ -47,9 +48,6 @@ Shares can be calculated in absolute deviation from the mean or relative to the 
 }
 \examples{
 ##
-}
-\author{
-Kira Schacht (<kira.schacht@tu-dortmund.de>)
 }
 \keyword{~kwd1}
 \keyword{~kwd2}
