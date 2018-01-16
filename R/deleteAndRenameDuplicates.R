@@ -6,7 +6,11 @@
 #' @param object A textmeta-object as a result of a read-function.
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
 #' list of character strings, representing the paragraphs.
-#' 
+#' @details Summary: Different types of duplicates: 
+#'  "complete duplicates" = same ID, same information in text, same information in meta
+#'  "real duplicates" = same ID, same information in text, different information in meta
+#'  "fake duplicates" = same ID, different information in text
+#' @return 
 #' @export deleteAndRenameDuplicates
 #'
 
