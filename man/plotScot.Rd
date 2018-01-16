@@ -65,7 +65,7 @@ which could be specified by \code{id}.
 }
 \details{
 \code{object} needs a textmeta object with strictly tokenized text component
-(character vectors) if you use \code{type = "words}.
+(character vectors) if you use \code{type = "words"}.
 If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
 }
 \examples{
