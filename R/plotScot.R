@@ -14,7 +14,8 @@
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
 #' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored
+#' dates be floored. Other possible units are "bimonth", "quarter", "season", 
+#' "halfyear", "year", for more units see \code{\link[lubridate]{round_date}} 
 #' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted
 #' @param smooth \code{numeric} (default: \code{0.05}) smoothing parameter
@@ -29,7 +30,9 @@
 #' to zeros. Only has effect if \code{rel = TRUE}.
 #' @param file \code{character} file path if a pdf should be created
 #' @param ... additional graphical parameters 
-#' @details \code{object} needs a	textmeta object with strictly tokenized text component (character vectors) if you use \code{type = "words}. If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
+#' @details \code{object} needs a	textmeta object with strictly tokenized text component 
+#' (character vectors) if you use \code{type = "words}. 
+#' If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{counts},
 #' respectively \code{proportion}
