@@ -26,7 +26,7 @@ of documents \code{"docs"} or words \code{"words"} be plotted}
 vertical lines}
 
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth}, \code{"quarter}, \code{"season"},
+dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},

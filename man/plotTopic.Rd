@@ -34,7 +34,8 @@ plotTopic(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
 vertical lines}
 
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored}
+dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+\code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
 \code{"smooth"} curve or \code{"both"} be plotted}

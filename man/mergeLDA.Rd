@@ -22,7 +22,4 @@ appears in all lda.
 
 ##---- Should be DIRECTLY executable !! ----
 }
-\author{
-Lars Koppers (<koppers@statistik.tu-dortmund.de>)
-}
 \keyword{manip}

@@ -30,7 +30,7 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
 #' @rdname textmeta
 #' @param x an R Object.
 # #' @return TRUE or FALSE.
-#' @export is.textmeta
+#' @export
 is.textmeta <- function(x){
   isMeta <- function(x){
     return(
