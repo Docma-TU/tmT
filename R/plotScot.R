@@ -1,8 +1,8 @@
 #' Plotting Counts of Documents or Words over Time (relative to Corpus)
-#' 
+#'
 #' Creates a plot of the counts/proportion of documents/words in the subcorpus,
 #' which could be specified by \code{id}.
-#' 
+#'
 #' @param object \code{\link{textmeta}} object - with strictly tokenized
 #' \code{text} component (\code{character} vectors) if \code{type = "words"}
 #' @param id \code{character} vector (default: \code{object$meta$id}) which IDs
@@ -14,8 +14,8 @@
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
 #' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth}, \code{"quarter}, \code{"season"}, 
-#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}} 
+#' dates be floored. Other possible units are \code{"bimonth}, \code{"quarter}, \code{"season"},
+#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted
 #' @param smooth \code{numeric} (default: \code{0.05}) smoothing parameter
@@ -29,9 +29,9 @@
 #' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
 #' to zeros. Only has effect if \code{rel = TRUE}.
 #' @param file \code{character} file path if a pdf should be created
-#' @param ... additional graphical parameters 
-#' @details \code{object} needs a	textmeta object with strictly tokenized text component 
-#' (character vectors) if you use \code{type = "words}. 
+#' @param ... additional graphical parameters
+#' @details \code{object} needs a textmeta object with strictly tokenized text component
+#' (character vectors) if you use \code{type = "words}.
 #' If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{counts},
@@ -44,13 +44,13 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact", "smooth", "both"),
   smooth = 0.05, main, xlab, ylim, both.lwd, both.col, both.lty,
   natozero = TRUE, file, ...){
-  
+
   stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
     is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
     length(unit) == 1, all(type %in% c("docs", "words")),
     all(curves %in% c("exact", "smooth", "both")), is.numeric(smooth),
     length(smooth) == 1)
-  
+
   if(!missing(file)) pdf(file, width = 15, height = 8)
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
@@ -74,7 +74,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
     counts <- sapply(split(docLengths, dates), sum)
   }
   else counts <- table(dates)
-  
+
   if (rel){
     # compute normalisation
     if (type[1] == "words"){
