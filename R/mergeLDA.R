@@ -8,7 +8,6 @@
 #' @return A matrix including all topics from all lda-results. Number of rows
 #' is the number of topics, the number of columns is the number of words which
 #' appear in all results.
-#' @author Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
 #' @examples
 #'
