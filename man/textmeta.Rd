@@ -2,9 +2,19 @@
 % Please edit documentation in R/textmeta.R
 \name{textmeta}
 \alias{textmeta}
+\alias{is.textmeta}
+\alias{print.textmeta}
+\alias{summary.textmeta}
 \title{"textmeta"-Objects}
 \usage{
 textmeta(meta = NULL, text = NULL, metamult = NULL)
+
+is.textmeta(x)
+
+\method{print}{textmeta}(x, ...)
+
+\method{summary}{textmeta}(object, list.names = names(object),
+  candidates = c("resource", "downloadDate"), ...)
 }
 \arguments{
 \item{meta}{data.frame of the meta-data.}
@@ -12,12 +22,22 @@ textmeta(meta = NULL, text = NULL, metamult = NULL)
 \item{text}{list or character of the text-data.}
 
 \item{metamult}{list of the metamult-data.}
+
+\item{x}{an R Object.}
+
+\item{object}{textmeta object}
+
+\item{list.names}{Character vector with names of textmeta lists (meta, text, metamult). Summaries where generated only for those lists. Default gives summaries for all lists.}
+
+\item{candidates}{Character vector with variable-names from the meta dataset. Summaries where only generated for those variables.}
 }
 \value{
 a "textmeta"-Object.
 }
 \description{
 Creates "textmeta"-Objects.
+
+Tests for "textmeta"-Objects.
 }
 \examples{
 

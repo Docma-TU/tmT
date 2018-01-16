@@ -44,6 +44,9 @@ result data.
 This function uses the \code{lda.collapsed.gibbs.sampler} from the LDA
 package and additional saves topwordlists and a R workspace.
 }
+\details{
+to be added
+}
 \examples{
 
 ##---- Should be DIRECTLY executable !! ----

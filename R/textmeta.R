@@ -27,9 +27,9 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL){
 #'
 #' Tests for "textmeta"-Objects.
 #'
+#' @rdname textmeta
 #' @param x an R Object.
-#' @return TRUE or FALSE.
-#'
+# #' @return TRUE or FALSE.
 #' @export is.textmeta
 is.textmeta <- function(x){
   isMeta <- function(x){
@@ -46,6 +46,7 @@ is.textmeta <- function(x){
       is.null(x$metamult) || is.list(x$metamult)))
 }
 
+#' @rdname textmeta
 #' @export
 print.textmeta <- function(x, ...){
   stopifnot(is.textmeta(x))
@@ -86,7 +87,11 @@ print.textmeta <- function(x, ...){
   invisible(x)
 }
 
+#' @rdname textmeta
 #' @export
+#' @param object textmeta object
+#' @param list.names Character vector with names of textmeta lists (meta, text, metamult). Summaries where generated only for those lists. Default gives summaries for all lists.
+#' @param candidates Character vector with variable-names from the meta dataset. Summaries where only generated for those variables.
 summary.textmeta <- function(object, list.names = names(object),
                              candidates = c("resource", "downloadDate"), ...){
   stopifnot(is.textmeta(object), is.character(list.names),

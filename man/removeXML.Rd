@@ -26,6 +26,10 @@ Adjusted corpus
 \description{
 Removes XML tags and changes umlauts to a standardized form.
 }
+\details{
+The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of the a word.
+To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
+}
 \examples{
 
 
