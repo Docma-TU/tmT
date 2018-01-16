@@ -14,7 +14,7 @@
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
 #' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth}, \code{"quarter}, \code{"season"},
+#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted
