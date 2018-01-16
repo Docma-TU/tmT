@@ -16,7 +16,7 @@
 #' @param file Character vector containing the path and name for the pdf output file.
 #' @param tnames Character vector with labels for the topics.
 #' @param unit \code{character} (default: \code{"year"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth}, \code{"quarter}, \code{"season"}, 
+#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}} 
 #' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
 #' If is \code{5} every fifth label is drawn.
