@@ -18,6 +18,7 @@
 #' @param count \code{logical} (default: \code{TRUE}) should article counts per
 #' top topic words be calculated for output in csv
 #' be used?
+#' @details to be filled added
 #' @return A .csv containing the topword list and a R workspace containing the
 #' result data.
 #' @seealso Documentation for the lda package.
