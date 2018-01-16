@@ -10,6 +10,8 @@
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.
 #' @param remove.html Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)
+#' @details The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of the a word.
+#' To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
 #' @return Adjusted corpus
 #' @keywords manip
 #' @examples
