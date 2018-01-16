@@ -25,6 +25,8 @@ is.textmeta(x)
 
 \item{x}{an R Object.}
 
+\item{...}{further arguments in print and summary. Not implemented.}
+
 \item{object}{textmeta object}
 
 \item{list.names}{Character vector with names of textmeta lists (meta, text, metamult). Summaries where generated only for those lists. Default gives summaries for all lists.}

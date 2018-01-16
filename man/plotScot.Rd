@@ -26,7 +26,8 @@ of documents \code{"docs"} or words \code{"words"} be plotted}
 vertical lines}
 
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored}
+dates be floored. Other possible units are "bimonth", "quarter", "season", 
+"halfyear", "year", for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
 \code{"smooth"} curve or \code{"both"} be plotted}
@@ -61,6 +62,11 @@ respectively \code{proportion}
 \description{
 Creates a plot of the counts/proportion of documents/words in the subcorpus,
 which could be specified by \code{id}.
+}
+\details{
+\code{object} needs a	textmeta object with strictly tokenized text component 
+(character vectors) if you use \code{type = "words}. 
+If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
 }
 \examples{
 ##

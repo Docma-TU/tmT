@@ -47,6 +47,7 @@ is.textmeta <- function(x){
 }
 
 #' @rdname textmeta
+#' @param ... further arguments in print and summary. Not implemented.
 #' @export
 print.textmeta <- function(x, ...){
   stopifnot(is.textmeta(x))

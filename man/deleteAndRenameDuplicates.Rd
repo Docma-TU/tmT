@@ -16,3 +16,9 @@ list of character strings, representing the paragraphs.}
 Deletes Articles with the same ID and same text. Renames the ID of Articles
 with the same ID but different text-component (_IDFakeDup, _IDRealDup).
 }
+\details{
+Summary: Different types of duplicates: 
+ "complete duplicates" = same ID, same information in text, same information in meta
+ "real duplicates" = same ID, same information in text, different information in meta
+ "fake duplicates" = same ID, different information in text
+}
