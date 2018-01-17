@@ -18,6 +18,7 @@
 #' @param legendLimit numeric between 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.
 #' @param peak numeric between 0 (default) and 1. Label peaks abov \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
 #' @param file \code{character} file path if a pdf should be created
+#' @details Example use case
 #' @return list of two matrices. \code{x} contains the topic proportions over time, \code{y} contains the cumulated topic proportions
 #' @keywords ~kwd1 ~kwd2
 #' @examples
