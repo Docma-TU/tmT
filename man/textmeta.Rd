@@ -7,21 +7,25 @@
 \alias{summary.textmeta}
 \title{"textmeta"-Objects}
 \usage{
-textmeta(meta = NULL, text = NULL, metamult = NULL)
+textmeta(meta = NULL, text = NULL, metamult = NULL,
+  dateFormat = "\%Y-\%m-\%d")
 
 is.textmeta(x)
 
 \method{print}{textmeta}(x, ...)
 
-\method{summary}{textmeta}(object, list.names = names(object),
-  candidates = c("resource", "downloadDate"), ...)
+\method{summary}{textmeta}(object, listnames = names(object),
+  metavariables = character(), ...)
 }
 \arguments{
-\item{meta}{data.frame of the meta-data.}
+\item{meta}{data.frame (or matrix) of the meta-data.}
 
-\item{text}{list or character of the text-data.}
+\item{text}{list (or character vector) of the text-data.}
 
 \item{metamult}{list of the metamult-data.}
+
+\item{dateFormat}{\code{character} string with the date format in the files
+for \code{\link{as.Date}}}
 
 \item{x}{an R Object.}
 
@@ -29,9 +33,9 @@ is.textmeta(x)
 
 \item{object}{textmeta object}
 
-\item{list.names}{Character vector with names of textmeta lists (meta, text, metamult). Summaries where generated only for those lists. Default gives summaries for all lists.}
+\item{listnames}{Character vector with names of textmeta lists (meta, text, metamult). Summaries are generated for those lists only. Default gives summaries for all lists.}
 
-\item{candidates}{Character vector with variable-names from the meta dataset. Summaries where only generated for those variables.}
+\item{metavariables}{Character vector with variable-names from the meta dataset. Summaries are generated for those variables only.}
 }
 \value{
 a "textmeta"-Object.
