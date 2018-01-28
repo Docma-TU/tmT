@@ -37,7 +37,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     # Delete duplicates of ID !and! text:
     to_del <- ind[duplicated(textvek)]
     if (length(to_del) > 0){
-      cat(paste("Delete Duplicates:", length(to_del)))
+      cat(paste("Delete \"Complete Duplicates\":", length(to_del)))
       object$text <- object$text[-to_del]
       cat("  next Step\n")
     }
@@ -47,7 +47,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     if (length(to_rename) > 0){
       ind_loop = logical(length(names(object$text)))
       ind_loop[to_rename] = TRUE
-      cat(paste("Rename Fake-Duplicates:", length(to_rename)))
+      cat(paste("Rename \"Fake Duplicates\":", length(to_rename)))
       for (i in na.omit(unique(names(object$text)[to_rename]))){
         to_rename_loop <- (names(object$text) == i) & ind_loop
         to_rename_loop[is.na(to_rename_loop)] <- FALSE
@@ -73,7 +73,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   else textvek <- unlist(object$text[ind])
   to_del <- ind[duplicated(object$meta[ind,]) & duplicated(textvek)]
   if (length(to_del) > 0){
-    cat(paste("Delete Duplicates:", length(to_del)))
+    cat(paste("Delete \"Complete Duplicates\":", length(to_del)))
     object$text <- object$text[-to_del]
     object$meta <- object$meta[-to_del,]
     object$metamult <- object$metamult[-to_del]
@@ -96,7 +96,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   if (length(to_rename) > 0){
     ind_loop = logical(length(names(object$text)))
     ind_loop[to_rename] = TRUE
-    cat(paste("Rename Real-Duplicates:", length(to_rename)))
+    cat(paste("Rename \"Real Duplicates\":", length(to_rename)))
     for (i in na.omit(unique(names(object$text)[to_rename]))){
       to_rename_loop <- names(object$text) == i & ind_loop
       to_rename_loop[is.na(to_rename_loop)] <- FALSE
@@ -118,7 +118,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   }
   ind_loop = logical(length(names(object$text)))
   ind_loop[to_rename] = TRUE
-  cat(paste("Rename remaining Fake-Duplicates:", length(to_rename)))
+  cat(paste("Rename remaining \"Fake Duplicates\":", length(to_rename)))
   for (i in na.omit(unique(names(object$text)[to_rename]))){
     to_rename_loop <- names(object$text) == i & ind_loop
     to_rename_loop[is.na(to_rename_loop)] <- FALSE
