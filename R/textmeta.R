@@ -113,7 +113,7 @@ summary.textmeta <- function(object, listnames = names(object),
                      NA.rel = round(na.text/n.text, 2)), row.names = FALSE)
   }
   # object$meta:
-  if ("meta" %in% list.names && !is.null(nrow(object$meta))){
+  if ("meta" %in% listnames && !is.null(nrow(object$meta))){
     cols <- colnames(object$meta)
     n.meta <- nrow(object$meta)
     na.meta <- sapply(object$meta, function(x) sum(is.na(x)))
@@ -145,7 +145,7 @@ summary.textmeta <- function(object, listnames = names(object),
     }
   
   }
-  if ("metamult" %in% list.names && length(object$metamult) > 0){
+  if ("metamult" %in% listnames && length(object$metamult) > 0){
     n.metamult <- sapply(object$metamult, function(x) sum(lengths(x)))
     na.metamult <- sapply(object$metamult, function(x) sum(is.na(x)))
     cat(paste0(nextprint, "metamult:\n"))
