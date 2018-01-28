@@ -147,7 +147,7 @@ plotWord <- function(object, id = names(object$text),
     proportion <- as.matrix(tab[, !(names(tab) %in% "date")] /
         allCounts[match(tab$date, names(allCounts))])
     # set main and ylim if missing
-    if (missing(main)) main <- paste("Proportion of", insert, "over time")
+    if (missing(main)) main <- paste("Proportion of", insert, "over time - link:", link)
     if (missing(ylim)) ylim <- c(0, 1)
     # set indices to plot
     toplot <- (ncol(tab)+1):(ncol(tab)+ncol(proportion))
@@ -159,7 +159,7 @@ plotWord <- function(object, id = names(object$text),
   else{
     # set main and ylim if missing
     if (missing(main))
-      main <- paste("Count of wordlist-filtered", insert, "over time")
+      main <- paste("Count of wordlist-filtered", insert, "over time - link:", link)
     if (missing(ylim)) ylim <- c(0, max(tab[, !(names(tab) %in% "date")]))
     # set indices to plot
     toplot <- 2:ncol(tab)

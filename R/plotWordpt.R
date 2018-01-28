@@ -115,8 +115,8 @@ plotWordpt <- function(object, docs, ldaresult, ldaID,
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(pages){
     tmpMain <- paste(tnames, wnames, sep = ": ")
-    mainP <- paste("Count of", tmpMain, "over time")
-    if(rel) mainP <- paste("Proportion of", tmpMain,"over time")
+    mainP <- paste("Count of", tmpMain, "over time - link:", link)
+    if(rel) mainP <- paste("Proportion of", tmpMain, "over time - link:", link)
     if(curves[1] == "both") colP <- c("grey", "black")
     else colP <- "black"
     stopifnot(length(tnames) == length(select),
@@ -217,11 +217,13 @@ plotWordpt <- function(object, docs, ldaresult, ldaID,
     splt1 <- apply(topiccount, 2, function(x) sapply(split(x, tmpdate), sum))
     tab <- cbind(as.Date(rownames(splt2)),
       data.frame(splt2 / splt1[match(rownames(splt2), rownames(splt1)), ]))
-    if(missing(main)) main <- "Proportion of Words per Topics over Time"
+    if(missing(main))
+      main <- paste("Proportion of Words per Topics over Time - link:", link)
   }
   else{
     tab <- cbind(as.Date(rownames(splt2)), data.frame(splt2))
-    if(missing(main)) main <- "Counts of Words per Topics over Time"
+    if(missing(main))
+      main <- paste("Counts of Words per Topics over Time - link:", link)
   }
   
   # identify levels to add as zeros
