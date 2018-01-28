@@ -13,9 +13,9 @@
 #'
 #' @export textmeta
 textmeta <- function(meta = NULL, text = NULL, metamult = NULL, dateFormat = "%Y-%m-%d"){
-  meta <- as.data.frame(meta, stringsAsFactors = FALSE)
+  if(!is.data.frame(meta)) meta <- as.data.frame(meta, stringsAsFactors = FALSE)
   meta$date <- as.Date(meta$date, format = dateFormat)
-  text <- lapply(text, identity)
+  if(!is.list(text)) text <- as.list(text)
   stopifnot(is.null(meta) || is.data.frame(meta),
             is.null(text) || is.list(text),
             is.null(metamult) || is.list(metamult))
