@@ -69,7 +69,7 @@ plotTopic <- function(object, ldaresult, ldaID,
   # set x-label if missing
   if(missing(xlab)) xlab <- "date"
   # set y-label if missing
-  if(missing(ylab)) ylab <- ifelse(rel, "proportion", "counts")
+  if(missing(ylab)) ylab <- paste(ifelse(rel, "proportion", "counts"), "per", unit)
   # set "both" - graphical parameters if missing
   if(missing(both.lwd)) both.lwd <- 1
   if(missing(both.lty)) both.lty <- 1

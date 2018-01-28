@@ -25,6 +25,7 @@
 #' @param both.lty graphical parameter for smoothed values if \code{curves = "both"}
 #' @param main \code{character} graphical parameter
 #' @param xlab \code{character} graphical parameter
+#' @param ylab \code{character} graphical parameter
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
 #' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
 #' to zeros. Only has effect if \code{rel = TRUE}.
@@ -42,7 +43,7 @@
 
 plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact", "smooth", "both"),
-  smooth = 0.05, main, xlab, ylim, both.lwd, both.col, both.lty,
+  smooth = 0.05, main, xlab, ylab, ylim, both.lwd, both.col, both.lty,
   natozero = TRUE, file, ...){
 
   stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
@@ -76,6 +77,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   else counts <- table(dates)
 
   if (rel){
+    if (missing(ylab)) ylab <- paste("proportion per", unit)
     # compute normalisation
     if (type[1] == "words"){
       allDates <- lubridate::floor_date(
@@ -98,6 +100,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
     tab = data.frame(date = dateNames, proportion = proportion)
   }
   else{
+    if (missing(ylab)) ylab <- paste("counts per", unit)
     # some preparation for plotting
     dateNames <- as.Date(names(counts))
     counts <- as.vector(counts)
@@ -120,7 +123,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   if(natozero) tab[is.na(tab)] <- 0
   row.names(tab) <- 1:nrow(tab)
   if (curves[1] %in% c("exact", "both")){
-    plot(tab, type = "l", main = main, xlab = xlab, ylim = ylim, ...)
+    plot(tab, type = "l", main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
     if (curves[1] == "both"){
       if (missing(both.lwd)) both.lwd <- 1
       if (missing(both.col)) both.col <- "red"
@@ -132,7 +135,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
   else{
     tab2 <- data.frame(date = tab$date, values = lowess(tab, f = smooth)$y)
     colnames(tab2) <- colnames(tab)
-    plot(tab2, type = "l", main = main, xlab = xlab, ylim = ylim, ...)
+    plot(tab2, type = "l", main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
   }
   abline(v = markYears, lty = 3)
   if(!missing(file)) dev.off()

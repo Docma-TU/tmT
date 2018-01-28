@@ -80,7 +80,7 @@ plotWordSub = function(object, ldaresult, ldaID, limit = 10,
     main <- paste(ifelse(rel, "Proportion", "Count"), "of",
       ifelse(type[1] == "docs", "Documents", "Words"), "in given Subcorpus over Time")
   if(missing(xlab)) xlab <- "date"
-  if(missing(ylab)) ylab <- ifelse(rel, "proportion", "counts")
+  if(missing(ylab)) ylab <- paste(ifelse(rel, "proportion", "counts"), "per", unit)
   if(missing(both.lwd)) both.lwd <- 1
   if(missing(both.lty)) both.lty <- 1
   if(mark)

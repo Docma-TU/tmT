@@ -105,7 +105,8 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   if(missing(xlab)) xlab <- "date"
   # set y-label if missing
   if(missing(ylab))
-    ylab <- ifelse(rel, "proportion (topics per words)", "counts (topics per words)")
+    ylab <- paste(ifelse(rel, "proportion (topics per words)",
+      "counts (topics per words)"), "per", unit)
   # set "both" - graphical parameters if missing
   if(missing(both.lwd)) both.lwd <- 1
   if(missing(both.lty)) both.lty <- 1

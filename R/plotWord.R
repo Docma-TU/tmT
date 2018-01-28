@@ -189,7 +189,7 @@ plotWord <- function(object, id = names(object$text),
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
   # set y-label if missing
-  if (missing(ylab)) ylab <- ifelse(rel, "proportion", "counts")
+  if (missing(ylab)) ylab <- paste(ifelse(rel, "proportion", "counts"), "per", unit)
   plot(tab$date, toplot[, 1], type = "n",
     main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
   abline(v = markYears, lty = 3)

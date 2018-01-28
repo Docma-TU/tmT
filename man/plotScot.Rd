@@ -6,8 +6,8 @@
 \usage{
 plotScot(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
-  "smooth", "both"), smooth = 0.05, main, xlab, ylim, both.lwd, both.col,
-  both.lty, natozero = TRUE, file, ...)
+  "smooth", "both"), smooth = 0.05, main, xlab, ylab, ylim, both.lwd,
+  both.col, both.lty, natozero = TRUE, file, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object - with strictly tokenized
@@ -38,6 +38,8 @@ which is handed over to \code{\link{lowess}} as \code{f}}
 \item{main}{\code{character} graphical parameter}
 
 \item{xlab}{\code{character} graphical parameter}
+
+\item{ylab}{\code{character} graphical parameter}
 
 \item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
 

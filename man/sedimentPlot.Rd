@@ -45,6 +45,9 @@ list of two matrices. \code{x} contains the topic proportions over time, \code{y
 \description{
 Creates a sediment plot of all or selected topics.
 }
+\details{
+Example use case
+}
 \examples{
 
 ##---- Should be DIRECTLY executable !! ----
