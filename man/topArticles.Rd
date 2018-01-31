@@ -5,7 +5,7 @@
 \title{Get The IDs Of The Most Representive Articles}
 \usage{
 topArticles(ldaresult, ldaID, limit = 20L, rel = TRUE,
-  select = 1:nrow(ldaresult$document_sums), minlength = 30L)
+  select = 1:nrow(ldaresult$document_sums), tnames, minlength = 30L)
 }
 \arguments{
 \item{ldaresult}{LDA result}
@@ -17,6 +17,8 @@ topArticles(ldaresult, ldaID, limit = 20L, rel = TRUE,
 \item{rel}{Logical: Should be the relative frequency be used?}
 
 \item{select}{which topics should be returned?}
+
+\item{tnames}{names of the selected topics}
 
 \item{minlength}{Minimal total number of words a text must have to be
 included.}

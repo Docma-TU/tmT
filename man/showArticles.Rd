@@ -4,18 +4,18 @@
 \alias{showArticles}
 \title{Export Readable Article Lists}
 \usage{
-showArticles(object, id = names(object$text),
-  file = deparse(substitute(object)))
+showArticles(object, id = names(object$text), file)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
 
-\item{id}{Vector or matrix inkluding article id's.}
+\item{id}{Character vector or matrix including article ids.}
 
-\item{file}{Filename for the export.}
+\item{file}{Character Filename for the export.}
 }
 \value{
-No output in R, only a csv including the requested articles.
+A list of the requested articles. If file is set, writes a csv including the meta-data of the
+requested articles.
 }
 \description{
 Exports the article id, text, title and date.
