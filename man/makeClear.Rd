@@ -4,7 +4,8 @@
 \alias{makeClear}
 \title{Some data preprocessing}
 \usage{
-makeClear(object, text, sw = "en", paragraph = FALSE)
+makeClear(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
+  rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
@@ -15,8 +16,20 @@ makeClear(object, text, sw = "en", paragraph = FALSE)
 \item{sw}{\code{character} vector of stopwords. If the vector is of length
 one, \code{sw} is interpretated as argument for \code{\link{stopwords}}}
 
-\item{paragraph}{Logical: Should be set to \code{TRUE} if the article is a
+\item{paragraph}{Logical: Should be set to \code{TRUE} if one article is a
 list of character strings, representing the paragraphs.}
+
+\item{lowercase}{Logical: Should be set to \code{TRUE} if all letters should
+be coerced to lowercase.}
+
+\item{rmPunctuation}{Logical: Should be set to \code{TRUE} if punctuation should
+be removed from articles.}
+
+\item{rmNumbers}{Logical: Should be set to \code{TRUE} if numbers should
+be removed from articles.}
+
+\item{checkUTF8}{Logical: Should be set to \code{TRUE} if articles should
+be tested on UTF-8 - which is package standard.}
 }
 \value{
 A list containing the preprocessed Article.

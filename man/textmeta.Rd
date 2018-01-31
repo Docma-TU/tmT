@@ -24,7 +24,7 @@ is.textmeta(x)
 
 \item{metamult}{list of the metamult-data.}
 
-\item{dateFormat}{\code{character} string with the date format in the files
+\item{dateFormat}{\code{character} string with the date format in meta.
 for \code{\link{as.Date}}}
 
 \item{x}{an R Object.}
