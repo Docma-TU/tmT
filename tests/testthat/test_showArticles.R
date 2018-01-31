@@ -8,10 +8,10 @@ test_that("showArticles", {
     M <- cbind(meta[,c(1,3,2)],text=unlist(text))
     M <- data.frame(apply(M,2,as.character), stringsAsFactors = FALSE)
     M2 <- M[c(1,3,2),]
-    M3 <- rbind(M[1,], c(NA,NA,NA,""), c(NA,NA,NA,""))
+    M3 <- M[3:1,]
     rownames(M) <- rownames(M2) <- rownames(M3)<- 1:3
     m <- showArticles(object,id=as.character(1:3), file="test.csv")
     expect_equal(M,m)
-    m <- showArticles(object,id=matrix(as.character(c(1:3,1,3,2,1,NA,NA)),3,3), file="test.csv")
+    m <- showArticles(object,id=matrix(as.character(c(1:3,1,3,2,3:1)),3,3), file="test.csv")
     expect_equal(list("1"=M, "2"=M2, "3"=M3),m)
 })
