@@ -1,13 +1,13 @@
-#' Plotting Sediment plot of topics over time
+#' Plotting topics over time as areas under curves.
 #'
-#' Creates a sediment plot of all or selected topics.
+#' Creates a area plot of all or selected topics.
 #'
 #'
 #' @param ldaresult LDA result object
 #' @param ldaID Character vector including IDs of the texts
 #' @param select Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.
 #' @param tnames Character vector of topic labels. Must have same length than number of topics in the model.
-#' @param threshold Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion abov the treshold
+#' @param threshold Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion above the treshold
 #' @param meta The meta data for the texts or a date-string.
 #' @param unit Time unit for x-axis. Possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}  
@@ -15,18 +15,18 @@
 #' @param color Color vector. Color vector would be replicated if the number of plotted topics is bigger than length of the vector.
 #' @param sort logical. Should the topics be sorted by topic proportion?
 #' @param legend Poisition of legend. If \code{NULL} (default), no legend will be plotted
-#' @param legendLimit numeric between 0 (default) and 1. Only Topics with proportions abov this limit appear in the legend.
-#' @param peak numeric between 0 (default) and 1. Label peaks abov \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
+#' @param legendLimit numeric between 0 (default) and 1. Only Topics with proportions above this limit appear in the legend.
+#' @param peak numeric between 0 (default) and 1. Label peaks above \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
 #' @param file \code{character} file path if a pdf should be created
 #' @details Example use case
-#' @return list of two matrices. \code{x} contains the topic proportions over time, \code{y} contains the cumulated topic proportions
+#' @return list of two matrices. \code{rel} contains the topic proportions over time, \code{relcum} contains the cumulated topic proportions
 #' @keywords ~kwd1 ~kwd2
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----
-#' @export sedimentPlot
-
-sedimentPlot <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
+#' @export plotArea
+#' 
+plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
   threshold = NULL, meta, unit = "quarter", xunit = "year", color = NULL,
   sort = TRUE, legend = "topleft", legendLimit = 0, peak = 0, file){
   
@@ -108,6 +108,6 @@ sedimentPlot <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
   x <- data.frame(t(x))
   y <- data.frame(t(y))[, -1]
   if(!missing(file)) dev.off()
-  invisible(list(x=x,y=y))
+  invisible(list(rel=x,relcum=y))
 }
 
