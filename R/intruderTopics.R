@@ -27,115 +27,123 @@
 
 intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
   if((is.null(beta) | is.null(theta)) & is.null(oldResult))stop("beta and theta needs to be specified")
-    if(is.null(beta) & is.null(oldResult))stop("beta and theta or oldResult needs to be specified")
-    if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
-    if((!is.null(theta) & (!is.matrix(theta) | !is.numeric(theta))))stop("theta needs to be a numeric matrix")
-    if(!is.null(oldResult)){beta <- oldResult$beta
-                            theta <- oldResult$theta
-                            byScore  <- oldResult$byScore
-                            id  <- oldResult$id
-                            numIntruder  <- oldResult$numIntruder
-                            numOuttopics  <- oldResult$numOuttopics
-                            minWords <- oldResult$minWords
-                            minOuttopics <- oldResult$minOuttopics
-                            stopTopics <- oldResult$stopTopics
-                            cat(paste("parameter from old result used \nbyScore = ", byScore, "\nnumIntruder = ", paste(numIntruder, collapse=" "), "\nnumOuttopics = ", numOuttopics, "\nminWords = ", minWords, "\nminOuttopics = ", minOuttopics, "\n \n", sep=""))}
-    if(is.null(oldResult)){
-        if(!is.null(id)) colnames(theta) <- id
-        if(minWords)theta <- theta[,colSums(theta)>=minWords]
-        if(!is.null(stopTopics)) theta <- theta[-stopTopics,]
-        if(minOuttopics){theta <- theta[,apply(theta,2,function(x)x[order(x, decreasing=TRUE)[numOuttopics-min(numIntruder)]]>=minOuttopics)]}
+  if(is.null(beta) & is.null(oldResult))stop("beta and theta or oldResult needs to be specified")
+  if((!is.null(beta) & (!is.matrix(beta) | !is.numeric(beta))))stop("beta needs to be a numeric matrix")
+  if((!is.null(theta) & (!is.matrix(theta) | !is.numeric(theta))))stop("theta needs to be a numeric matrix")
+  if(!is.null(oldResult)){beta <- oldResult$beta
+  theta <- oldResult$theta
+  byScore  <- oldResult$byScore
+  id  <- oldResult$id
+  numIntruder  <- oldResult$numIntruder
+  numOuttopics  <- oldResult$numOuttopics
+  minWords <- oldResult$minWords
+  minOuttopics <- oldResult$minOuttopics
+  stopTopics <- oldResult$stopTopics
+  cat(paste("parameter from old result used \nbyScore = ", byScore, "\nnumIntruder = ", paste(numIntruder, collapse=" "), "\nnumOuttopics = ", numOuttopics, "\nminWords = ", minWords, "\nminOuttopics = ", minOuttopics, "\n \n", sep=""))}
+  if(is.null(oldResult)){
+    if(!is.null(id)) colnames(theta) <- id
+    if(minWords)theta <- theta[,colSums(theta)>=minWords]
+    if(!is.null(stopTopics)) theta <- theta[-stopTopics,]
+    if(minOuttopics){theta <- theta[,apply(theta,2,function(x)x[order(x, decreasing=TRUE)[numOuttopics-min(numIntruder)]]>=minOuttopics)]}
     id <- colnames(theta)}
-    idmatch <- match(colnames(theta), names(text))
-    if(any(is.na(idmatch)))stop("Missing texts")
-    if(length(idmatch)==0)stop("Missing id's in id or colnames(theta) or wrong texts")
-    if(!all(rowSums(beta)==1)) beta <- beta / rowSums(beta)
-    if(byScore){scores <- apply(beta, 2, function(x) x *
-                                    (log(x + 1e-05) - sum(log(x + 1e-05))/length(x)))}else{scores <- beta}
-    topwords <- apply(scores, 1, function(x) colnames(scores)[order(x, decreasing = TRUE)[1:10]])
-    if(!is.null(stopTopics)) topwords <- topwords[,-stopTopics]
-    if(!all(rowSums(theta)==1)) theta <- t(t(theta) / colSums(theta))
-    input <- 0
-    if(is.null(oldResult)){
-        result <- data.frame(id=character(), numIntruder=integer(), missIntruder=integer(), falseIntruder=integer(), stringsAsFactors=FALSE)
-        unusedID <- id
-    }else{
+  idmatch <- match(colnames(theta), names(text))
+  if(any(is.na(idmatch)))stop("Missing texts")
+  if(length(idmatch)==0)stop("Missing id's in id or colnames(theta) or wrong texts")
+  if(!all(rowSums(beta)==1)) beta <- beta / rowSums(beta)
+  if(byScore){scores <- apply(beta, 2, function(x) x *
+      (log(x + 1e-05) - sum(log(x + 1e-05))/length(x)))}else{scores <- beta}
+  topwords <- apply(scores, 1, function(x) colnames(scores)[order(x, decreasing = TRUE)[1:10]])
+  if(!is.null(stopTopics)) topwords <- topwords[,-stopTopics]
+  if(!all(rowSums(theta)==1)) theta <- t(t(theta) / colSums(theta))
+  input <- 0
+  if(is.null(oldResult)){
+    result <- data.frame(id=character(), numIntruder=integer(), missIntruder=integer(), falseIntruder=integer(), stringsAsFactors=FALSE)
+    unusedID <- id
+  }else{
     result <- oldResult$result
     unusedID <- oldResult$unusedID
-}
-
-    while(!(input[1]=="q" | length(id)==0)){
-        cat(paste("counter = ",nrow(result)+1, "\n"))
-        sID <- sample(unusedID,1)
-        numIntruderS <- sample(numIntruder,1)
-        possibleIntruder <- which(theta[,sID]==0)
-        if(length(possibleIntruder)==0){ unusedID <- unusedID[-which(unusedID==sID)]; next}
-        toptopics <- topwords[,order(theta[,sID], decreasing=TRUE)[1:(numOuttopics-numIntruderS)]]
-        intruder <- topwords[,sample(possibleIntruder,numIntruderS)]
-        posIntruder <- sample(numOuttopics, numIntruderS)
-        toptopics2 <- matrix(NA, 10, numOuttopics)
-        toptopics2[,posIntruder] <- intruder
-        toptopics2[,-posIntruder] <- toptopics[,sample(ncol(toptopics))]
-        if(length(posIntruder)==0) toptopics2 <- toptopics[,sample(ncol(toptopics))]
-        toptopics2 <- rbind(1:ncol(toptopics2), toptopics2)
-        toptopics2 <- apply(toptopics2,2,paste, collapse=" ")
-
-        repeat{
-            htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
-            cat(c(paste(toptopics2, collapse= "\n"), "\n"))
-            if(!test[1]){input <- readline(prompt = "Input:")}else{input <- testinput[1]; testinput <- testinput[-1]}
-            if(input=="q"){break}#exit
-            if(input=="h"){cat(paste("h for help \nq for quit \n \nbyScore = ", byScore, "\nnumIntruder = ", numIntruder, "\nnumOuttopics = ", numOuttopics, "\n \n", sep="")); next}#exit
-            input <- as.numeric(strsplit(input, " ")[[1]])
-            if(any(is.na(input)) | any(!(input %in% 0:numOuttopics)) | length(input)==0){cat("Only space seperated input of line number or 0 \n \n") ; next}
-            break}
-
-        if(input[1]=="q"){break}#exit
-        if(length(posIntruder)==0){result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)), stringsAsFactors=FALSE))}else{
-        result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)[-posIntruder]), stringsAsFactors=FALSE))}
-        unusedID <- unusedID[-which(unusedID==sID)]
-        if(printSolution) cat(paste("True Intruder:", paste(sort(posIntruder), collapse=" "), "\n"))
-        cat(paste(length(unusedID), "left\n"))
-    }
-    result <- list(result=result, beta=beta, theta= theta, id=id, byScore=byScore, numIntruder=numIntruder, numOuttopics=numOuttopics, minWords=minWords, minOuttopics=minOuttopics, unusedID = unusedID, stopTopics = stopTopics)
-    class(result) <- "IntruderTopics"
-return(result)
+  }
+  
+  while(!(input[1]=="q" | length(id)==0)){
+    cat(paste("counter = ",nrow(result)+1, "\n"))
+    sID <- sample(unusedID,1)
+    numIntruderS <- sample(numIntruder,1)
+    possibleIntruder <- which(theta[,sID]==0)
+    if(length(possibleIntruder)==0){ unusedID <- unusedID[-which(unusedID==sID)]; next}
+    toptopics <- topwords[,order(theta[,sID], decreasing=TRUE)[1:(numOuttopics-numIntruderS)]]
+    intruder <- topwords[,sample(possibleIntruder,numIntruderS)]
+    posIntruder <- sample(numOuttopics, numIntruderS)
+    toptopics2 <- matrix(NA, 10, numOuttopics)
+    toptopics2[,posIntruder] <- intruder
+    toptopics2[,-posIntruder] <- toptopics[,sample(ncol(toptopics))]
+    if(length(posIntruder)==0) toptopics2 <- toptopics[,sample(ncol(toptopics))]
+    toptopics2 <- rbind(1:ncol(toptopics2), toptopics2)
+    toptopics2 <- apply(toptopics2,2,paste, collapse=" ")
+    
+    repeat{
+      htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
+      cat(c(paste(toptopics2, collapse= "\n"), "\n"))
+      if(!test[1]){input <- readline(prompt = "Input:")}else{input <- testinput[1]; testinput <- testinput[-1]}
+      if(input=="q"){break}#exit
+      if(input=="h"){cat(paste("h for help \nq for quit \n \nbyScore = ", byScore, "\nnumIntruder = ", numIntruder, "\nnumOuttopics = ", numOuttopics, "\n \n", sep="")); next}#exit
+      input <- as.numeric(strsplit(input, " ")[[1]])
+      if(any(is.na(input)) | any(!(input %in% 0:numOuttopics)) | length(input)==0){cat("Only space seperated input of line number or 0 \n \n") ; next}
+      break}
+    
+    if(input[1]=="q"){break}#exit
+    if(length(posIntruder)==0){result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)), stringsAsFactors=FALSE))}else{
+      result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)[-posIntruder]), stringsAsFactors=FALSE))}
+    unusedID <- unusedID[-which(unusedID==sID)]
+    if(printSolution) cat(paste("True Intruder:", paste(sort(posIntruder), collapse=" "), "\n"))
+    cat(paste(length(unusedID), "left\n"))
+  }
+  result <- list(result=result, beta=beta, theta= theta, id=id, byScore=byScore, numIntruder=numIntruder, numOuttopics=numOuttopics, minWords=minWords, minOuttopics=minOuttopics, unusedID = unusedID, stopTopics = stopTopics)
+  class(result) <- "IntruderTopics"
+  return(result)
 }
 
 
 #' @export
 print.IntruderTopics <- function(x, ...){
-    print(data.frame("byScore"=x$byScore, "numIntruder"=paste(x$numIntruder, collapse=" "), "numOuttopics"=x$numOuttopics, minWords=x$minWords, minOuttopics=x$minOuttopics, stopTopics=paste(x$stopTopics, collapse=" ")))
-    cat("\n Results: \n")
-print.default(x$result)
+  dat <- data.frame(
+    byScore = x$byScore,
+    numIntruder = paste(x$numIntruder, collapse=" "),
+    numOuttopics = x$numOuttopics,
+    minWords = x$minWords, minOuttopics = x$minOuttopics,
+    stopTopics = paste(x$stopTopics, collapse=" "), row.names = "")
+  cat("Parameters:\n")
+  print(dat)
+  cat("\nResults:\n")
+  print.default(x$result)
 }
 
 #' @export
 summary.IntruderTopics <- function(object, ...){
-    print(data.frame("byScore"=object$byScore, "numIntruder"=paste(object$numIntruder, collapse=" "),
-                     "numOuttopics"=object$numOuttopics, minWords=object$minWords,
-                     minOuttopics=object$minOuttopics, stopTopics=paste(object$stopTopics, collapse=" ")))
-
-    cat("\n",
-        "Number of evaluated articles:",
-        nrow(object$result),
-        "\n",
-        "Correct topics:",
-        sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE),
-        paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0
-                                 , na.rm=TRUE) / nrow(object$result)),2), "%)"),
-        "\n\n")
-    cat("\n", "Table of Intruders")
-    missIntTable <- table(object$result[,"numIntruder"])
-    print(missIntTable)
-    cat("\n",
-        "Mean of number of missed Intruder:", mean(object$result[,"missIntruder"], na.rm=TRUE),
-        "\n", "Table of missing Intruders")
-    missIntTable <- table(object$result[,"missIntruder"])
-    print(missIntTable)
-    cat("\n",
-        "Mean of number of false Intruder:", mean(object$result[,"falseIntruder"], na.rm=TRUE),
-        "\n", "Table of false Intruders")
-    missIntTable <- table(object$result[,"falseIntruder"])
-    print(missIntTable)
+  dat <- data.frame(
+    byScore = object$byScore,
+    numIntruder = paste(object$numIntruder, collapse=" "),
+    numOuttopics = object$numOuttopics,
+    minWords = object$minWords, minOuttopics = object$minOuttopics,
+    stopTopics = paste(object$stopTopics, collapse=" "), row.names = "")
+  cat("Parameters:\n")
+  print(dat)
+  cat("\nNumber of evaluated Articles:", nrow(object$result),
+    "\nCorrect Topics:",
+    sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE),
+    paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0
+      , na.rm=TRUE) / nrow(object$result)),2), " %)"),
+    "\n\n")
+  cat("Table of Intruders:")
+  missIntTable <- table(object$result[,"numIntruder"])
+  print(missIntTable)
+  cat("\nMean Number of missed Intruders:",
+    mean(object$result[,"missIntruder"], na.rm=TRUE),
+    "\nTable of missed Intruders:")
+  missIntTable <- table(object$result[,"missIntruder"])
+  print(missIntTable)
+  cat("\nMean Number of false Intruders:",
+    mean(object$result[,"falseIntruder"], na.rm=TRUE),
+    "\nTable of false Intruders:")
+  missIntTable <- table(object$result[,"falseIntruder"])
+  print(missIntTable)
 }
