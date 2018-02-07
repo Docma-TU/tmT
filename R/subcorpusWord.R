@@ -13,8 +13,19 @@
 #' @return Filtered list of texts.
 #' @keywords ~kwd1 ~kwd2
 #' @examples
+#' text <- list(A="Give a Man a Fish, and You Feed Him for a Day. Teach a Man To Fish, and You Feed Him for a Lifetime", B="So Long, and Thanks for All the Fish", C="A very able manipulative mathematician, Fisher enjoys a real mastery in evaluating complicated multiple integrals.")
+#' # search for pattern "fish"
+#' subcorpusWord(text=text, search="fish", ignore.case=TRUE)
+#' # search for word "fish"
+#' subcorpusWord(text=text, search=data.frame(pattern="fish", word="word", count=1), ignore.case=TRUE)
+#' # pattern must appear at least two times
+#' subcorpusWord(text=text, search=data.frame(pattern="fish", word="pattern", count=2), ignore.case=TRUE)
+#' # search for "fish" AND "day"
+#' subcorpusWord(text=text, search=data.frame(pattern=c("fish", "day"), word="word", count=1), ignore.case=TRUE)
+#' # search for "fish" OR "day"
+#' subcorpusWord(text=text, search=list(data.frame(pattern="Thanks", word="word", count=1), data.frame(pattern="integrals", word="word", count=1)))
 #'
-#' ##---- Should be DIRECTLY executable !! ----
+#'
 #' @export subcorpusWord
 subcorpusWord <- function(object, text, search, ignore.case = FALSE,
                           out = c("text", "bin", "count")){
@@ -25,17 +36,17 @@ subcorpusWord <- function(object, text, search, ignore.case = FALSE,
       text <- object$text
       returnTextmeta <- TRUE
     }
-    
+
     stopifnot(is.textmeta(textmeta(text = text)),
       is.logical(ignore.case), length(ignore.case) == 1, is.character(out),
       all(out %in% c("text", "bin", "count")))
-    
+
     text <- lapply(text, unlist)
     if(ignore.case) text <- lapply(text, tolower)
     if(is.character(search)) search <- lapply(search, function(x)
       data.frame(pattern = x, word = FALSE, count = 1, stringsAsFactors = FALSE))
     if(is.data.frame(search)) search <- list(search)
-    
+
     stopifnot(is.list(search), all(sapply(search, is.data.frame)),
       all(sapply(search, function(x) c("pattern", "word", "count") %in% names(x))),
       all(sapply(search, function(x) all(as.character(x$pattern) == x$pattern))),
@@ -43,7 +54,7 @@ subcorpusWord <- function(object, text, search, ignore.case = FALSE,
           (all(as.character(x$word) == x$word) & all(x$word %in% c("word", "pattern", "left", "right"))))),
       all(sapply(search, function(x) is.numeric(x$count))),
       all(sapply(search, function(x) all(as.integer(x$count) == x$count))))
-      
+
     subid <- integer(length(text))
     counts_out <- NULL
 

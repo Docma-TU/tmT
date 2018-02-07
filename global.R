@@ -8,7 +8,7 @@ setwd("/home/lars/Github/tmT")
 library(roxygen2)
 roxygenize(package.dir = ".")
 
-system("Rcmd Rd2pdf C:/Users/koppers/Desktop/tmT")
+system("R CMD Rd2pdf C:/Users/koppers/Desktop/tmT")
 
 ##############
 ## testthat ##
