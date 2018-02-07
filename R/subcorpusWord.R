@@ -23,16 +23,20 @@
 #' subcorpusWord(text=texts, search="fish", ignore.case=TRUE)
 #'
 #' # search for word "fish"
-#' subcorpusWord(text=texts, search=data.frame(pattern="fish", word="word", count=1), ignore.case=TRUE)
+#' subcorpusWord(text=texts, search=data.frame(pattern="fish", word="word", count=1),
+#' ignore.case=TRUE)
 #'
 #' # pattern must appear at least two times
-#' subcorpusWord(text=texts, search=data.frame(pattern="fish", word="pattern", count=2), ignore.case=TRUE)
+#' subcorpusWord(text=texts, search=data.frame(pattern="fish", word="pattern", count=2),
+#' ignore.case=TRUE)
 #'
 #' # search for "fish" AND "day"
-#' subcorpusWord(text=texts, search=data.frame(pattern=c("fish", "day"), word="word", count=1), ignore.case=TRUE)
+#' subcorpusWord(text=texts, search=data.frame(pattern=c("fish", "day"), word="word", count=1),
+#' ignore.case=TRUE)
 #'
 #' # search for "fish" OR "day"
-#' subcorpusWord(text=texts, search=list(data.frame(pattern="Thanks", word="word", count=1), data.frame(pattern="integrals", word="word", count=1)))
+#' subcorpusWord(text=texts, search=list(data.frame(pattern="Thanks", word="word", count=1),
+#' data.frame(pattern="integrals", word="word", count=1)))
 #'
 #'
 #' @export subcorpusWord

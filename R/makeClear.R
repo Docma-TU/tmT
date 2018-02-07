@@ -31,15 +31,13 @@
 #' @import tm
 #' @import lda
 #' @import lubridate
-#' @import ggplot2
-#' @import ggdendro
 #' @examples
 #'
 #' ##---- Should be DIRECTLY executable !! ----
 #' @export makeClear
 makeClear <- function(object, text, sw = "en", paragraph = FALSE,
   lowercase = TRUE, rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE){
-  
+
   if(length(sw) == 1){
     if(sw %in% c("de", "ge", "german"))
       sw <- c(tm::stopwords("german"), "dass", "fuer", "koennen", "koennte",
