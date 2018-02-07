@@ -17,10 +17,26 @@
 #' \item{textOnlyDups}{ list}
 #' \item{textMetaDups}{ list}
 #' \item{textOthersDups}{ character}
-#' 
+#'
 #' @keywords manip
 #' @examples
-#' 
+#' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
+#' Teach a Man To Fish, and You Feed Him for a Lifetime",
+#' A="A fake duplicate",
+#' B="So Long, and Thanks for All the Fish",
+#' B="So Long, and Thanks for All the Fish",
+#' C="A very able manipulative mathematician, Fisher enjoys a real mastery
+#' in evaluating complicated multiple integrals.",
+#' C="A very able manipulative mathematician, Fisher enjoys a real mastery
+#' in evaluating complicated multiple integrals.")
+#'
+#' corpus <- textmeta(meta=data.frame(id=c("A", "A", "B", "B", "C", "C"),
+#' title=c("Fishing", "Fake duplicate", "Don't panic!", "towel day", "Sir Ronald", "Sir Ronald"),
+#' date=c("1885-01-02", "1885-01-03", "1979-03-04", "1979-03-05", "1951-05-06", "1951-05-06"),
+#' stringsAsFactors=FALSE), text=texts)
+#'
+#' duplicates <- deleteAndRenameDuplicates(object=corpus)
+#' duplist(object=duplicates, paragraph = FALSE)
 #' @export duplist
 
 # Es existieren keine doppelten IDs durch deleteAndRenameDuplicates in read!
@@ -54,7 +70,7 @@ duplist <- function(object, paragraph = FALSE){
     names(dupType) <- dups_names
     return(dupType)
   }
-  
+
   # 2. idFakeDups 3. idRealDups
   cat("ID-Fake-Dups... ")
   idFakeDups <- foo_makeList(dupType = grep("_IDFakeDup", names(object$text)),
@@ -63,7 +79,7 @@ duplist <- function(object, paragraph = FALSE){
   idRealDups <- foo_makeList(dupType = grep("_IDRealDup", names(object$text)),
                              to_replace = "_IDRealDup1")
   cat("next Step\nUnique (and Not-Duplicated) Texts... ")
-  
+
   # 1. uniqueTexts a) allUniqueTexts:
   if (paragraph == TRUE){
     textvek <- unlist(lapply(object$text, paste, collapse = " "))
@@ -78,7 +94,7 @@ duplist <- function(object, paragraph = FALSE){
   ind = text_same | text_same_fromLast
   if (any(!ind)) allUniqueTexts <- names(object$text)[!ind]
   else allUniqueTexts <- character(0)
-  
+
   cat("next Step\nSame Texts... ")
   # 4. Same text, but different IDs:
   if (any(ind)){
@@ -101,7 +117,7 @@ duplist <- function(object, paragraph = FALSE){
       # remaining Indices for a) and c):
       ind <- ind[!meta_same]
       allTextDups_names <- allTextDups_names[!meta_same]
-      # a) textOnlyDups: 
+      # a) textOnlyDups:
       text_same <- duplicated(textvek[ind]) | duplicated(textvek[ind], fromLast = TRUE)
       if (any(text_same)){
         textOnlyDups_names <- allTextDups_names[text_same]
@@ -125,14 +141,14 @@ duplist <- function(object, paragraph = FALSE){
     textOthersDups <- list()
   }
   cat("Success\n\nNumber of IDs and Texts:\n")
-  
+
   res <- list(uniqueTexts = uniqueTexts, notDuplicatedTexts = allUniqueTexts,
               idFakeDups = idFakeDups, idRealDups = idRealDups,
               allTextDups = allTextDups, textOnlyDups = textOnlyDups,
               textMetaDups = textMetaDups, textOthersDups = textOthersDups)
   cat(" Number of Unique Texts:", length(res$uniqueTexts), "\n")
   cat(" Number of Not-Duplicated Texts:", length(res$notDuplicatedTexts), "\n")
-  
+
   cat(" Number of Fake-Dup IDs:", length(res$idFakeDups), "\n")
   cat("  Number of Texts with Fake-Dup IDs:", sum(lengths(res$idFakeDups)), "\n")
   cat(" Number of Real-Dup IDs:", length(res$idRealDups), "\n")
