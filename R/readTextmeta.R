@@ -19,21 +19,19 @@
 #' created \code{\link{textmeta}} object
 #' @return \code{\link{textmeta}} object
 #' @keywords manip
-#' @examples
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export readTextmeta
 
 readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id",
   dateCol = "date", titleCol = "title", textCol = "text",
   xmlAction = TRUE, duplicateAction = TRUE){
-  
+
   # setting missed parameters
   if(missing(path)) path <- getwd()
   if(missing(file)) file <- list.files(path = path, pattern = "*.csv$",
     full.names = FALSE, recursive = TRUE)
   if(missing(cols)) keepAllCols <- TRUE
   else keepAllCols <- FALSE
-  
+
   # stop if parameters set wrong
   stopifnot(is.character(file), is.character(path), length(path) == 1,
     is.logical(xmlAction), is.logical(duplicateAction), is.character(dateFormat),
@@ -41,25 +39,25 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
     is.character(textCol), length(dateFormat) == 1, length(idCol) == 1,
     length(dateCol) == 1, length(titleCol) == 1, length(textCol) == 1,
     length(xmlAction) == 1, length(duplicateAction) == 1)
-  
+
   # initialize
   text <- NULL
   meta <- NULL
-  
+
   # go along all files
   for(i in seq(along = file)){
     cat(paste0(i, "/", length(file), ": ", file[i], "\n"))
-    
+
     # read in a lone file
     lonefile <- read.csv(file = paste(path, file[i], sep = "/"), fileEncoding = "UTF-8")
-    
+
     if(keepAllCols) cols <- substr(colnames(lonefile), 1, nchar(colnames(lonefile))-2)
     else lonefile <- lonefile[, cols]
     if(!is.data.frame(lonefile)){
       lonefile <- data.frame(lonefile)
       colnames(lonefile) <- cols
     }
-    
+
     # set important meta information to NA if not given in file
     if(!(idCol %in% colnames(lonefile))){
       cat(paste0("NOTE: No ID-Column ", idCol, " in File, set to ascending numbers\n"))
@@ -78,20 +76,20 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
       cat(paste0("NOTE: No Text-Column ", textCol, " in File, set to NA\n"))
       lonefile[, textCol] <- NA
     }
-    
+
     # remove XML tags
     if(xmlAction){
       for(j in seq(ncol(lonefile))){
         lonefile[, j] <- removeXML(lonefile[, j])
       }
     }
-    
+
     # format date and rename id, date and title columns to standard
     lonefile[, dateCol] <- as.Date(lonefile[, dateCol], format = dateFormat)
     colnames(lonefile)[colnames(lonefile) == dateCol] <- "date"
     colnames(lonefile)[colnames(lonefile) == idCol] <- "id"
     colnames(lonefile)[colnames(lonefile) == titleCol] <- "title"
-    
+
     # get text from file and name with id
     newText <- lonefile[, textCol]
     names(newText) <- lonefile[, idCol]
@@ -100,18 +98,18 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
     lonefile <- data.frame(lonefile[, !(textCol == colnames(lonefile))],
       stringsAsFactors = FALSE)
     meta <- rbind(meta, lonefile)
-    
+
     # merge text with existing texts from other files
     text <- as.list(c(text, newText))
     }
-  
+
   # create textmeta
   res <- list("meta" = meta, "text" = text, "metamult" = NULL)
   class(res) <- "textmeta"
-  
+
   # remove duplicates
   if(duplicateAction) res <- deleteAndRenameDuplicates(res, paragraph = FALSE)
-  
+
   # print summary to console
   summary(res)
 }

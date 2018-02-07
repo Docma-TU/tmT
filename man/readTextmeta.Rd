@@ -40,7 +40,4 @@ created \code{\link{textmeta}} object}
 Reads CSV-files and seperates the text and meta data. The result is a
 \code{\link{textmeta}} object.
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-}
 \keyword{manip}
