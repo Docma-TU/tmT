@@ -12,9 +12,16 @@
 #' @return Filtered list of texts.
 #' @keywords ~kwd1 ~kwd2
 #' @examples
-#' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day. Teach a Man To Fish, and You Feed Him for a Lifetime", B="So Long, and Thanks for All the Fish", C="A very able manipulative mathematician, Fisher enjoys a real mastery in evaluating complicated multiple integrals.")
+#' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
+#' Teach a Man To Fish, and You Feed Him for a Lifetime",
+#' B="So Long, and Thanks for All the Fish",
+#' C="A very able manipulative mathematician, Fisher enjoys a real mastery
+#' in evaluating complicated multiple integrals.")
+#'
 #' subcorpusCount(text=texts, count=10L)
+#'
 #' subcorpusCount(text=texts, count=10L, out="bin")
+#'
 #' subcorpusCount(text=texts, count=10L, out="count")
 #' @export subcorpusCount
 subcorpusCount <- function(object, text, count = 1L, out = c("text", "bin", "count")){
