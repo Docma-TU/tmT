@@ -12,24 +12,26 @@
 #' @return Filtered list of texts.
 #' @keywords ~kwd1 ~kwd2
 #' @examples
-#'
-#' ##---- Should be DIRECTLY executable !! ----
+#' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day. Teach a Man To Fish, and You Feed Him for a Lifetime", B="So Long, and Thanks for All the Fish", C="A very able manipulative mathematician, Fisher enjoys a real mastery in evaluating complicated multiple integrals.")
+#' subcorpusCount(text=texts, count=10L)
+#' subcorpusCount(text=texts, count=10L, out="bin")
+#' subcorpusCount(text=texts, count=10L, out="count")
 #' @export subcorpusCount
 subcorpusCount <- function(object, text, count = 1L, out = c("text", "bin", "count")){
-  
+
   returnTextmeta <- FALSE
   if (!missing(object)){
     stopifnot(is.textmeta(object))
     text <- object$text
     returnTextmeta <- TRUE
   }
-  
+
   stopifnot(is.textmeta(textmeta(text = text)), as.integer(count) == count,
     all(out %in% c("text", "bin", "count")))
-  
+
   counts <- stringr::str_count(unlist(lapply(lapply(text, unlist),
     function(x) paste(x, collapse = " "))), pattern = "\\b[a-z,A-Z](.*?)\\b")
-  
+
   subid <- counts >= count
   subid[is.na(subid)] <- FALSE
   if(out[1] == "text"){

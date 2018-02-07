@@ -25,8 +25,10 @@ Filtered list of texts.
 Creates a subcorpus including specific articles.
 }
 \examples{
-
-##---- Should be DIRECTLY executable !! ----
+texts <- list(A="Give a Man a Fish, and You Feed Him for a Day. Teach a Man To Fish, and You Feed Him for a Lifetime", B="So Long, and Thanks for All the Fish", C="A very able manipulative mathematician, Fisher enjoys a real mastery in evaluating complicated multiple integrals.")
+subcorpusCount(text=texts, count=10L)
+subcorpusCount(text=texts, count=10L, out="bin")
+subcorpusCount(text=texts, count=10L, out="count")
 }
 \keyword{~kwd1}
 \keyword{~kwd2}

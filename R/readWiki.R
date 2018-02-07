@@ -2,11 +2,11 @@
 #'
 #' Downloads pages from Wikipedia and extracts some meta information
 #' with functions from the package \code{\link{WikipediR}}. Creates a
-#' \code{\link{textmeta}} object including the requested pages. 
+#' \code{\link{textmeta}} object including the requested pages.
 #'
 #'
 #' @param category \code{character} articles of which category should be
-#' downloaded, see \code{\link{pages_in_category}}, argument \code{categories} 
+#' downloaded, see \code{\link{pages_in_category}}, argument \code{categories}
 #' @param subcategories \code{logical} (default: \code{TRUE}) should
 #' subcategories be downloaded as well
 #' @param language \code{character} (default: \code{"en"}),
@@ -16,19 +16,19 @@
 #' @return \code{\link{textmeta}} object
 #' @keywords manip
 #' @examples
-#'
+#' \donttest{corpus <- readWiki(category="Person_(Studentenbewegung)", subcategories = FALSE, language = "de", project = "wikipedia")}
 #' @export readWiki
 #'
 
 readWiki <- function(category, subcategories = TRUE,
   language = "en", project = "wikipedia"){
-  
+
   stopifnot(
     is.character(category), length(category) == 1,
     is.logical(subcategories), length(subcategories) == 1,
     is.character(language), length(language) == 1,
     is.character(project), length(project) == 1)
-  
+
   level1pages <-
     WikipediR::pages_in_category(
       language = language, project = project, type = "page", limit = 500,
@@ -51,10 +51,10 @@ readWiki <- function(category, subcategories = TRUE,
             categories = x)$query$categorymembers))
   }
   pages = c(level1pages, level2pages)
-  
+
   cat("Downloading", length(pages), "articles in the category", category, "and",
     length(subs), "subcategories...")
-  
+
   id <- sapply(pages, function(x) x$pageid)
   title <- sapply(pages, function(x) x$title)
   date <- as.Date(sapply(pages, function(x) x$timestamp))
@@ -64,10 +64,10 @@ readWiki <- function(category, subcategories = TRUE,
       sapply(pages,
         function(x) WikipediR::page_info(language = language, project = project,
           page = x$title)$query$pages[[1]]$touched))
-  
+
   meta <- data.frame(id = as.character(id), date = date, title = title,
     categoryCall = categoryCall, touched = touched, stringsAsFactors = FALSE)
-  
+
   text <- lapply(meta$title,
     function(x) WikipediR::page_content(language = language, project = project,
       page_name = x)$parse$text$`*`)
