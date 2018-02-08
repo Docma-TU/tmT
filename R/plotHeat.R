@@ -1,9 +1,9 @@
 #' Plotting Topics over Time relative to Corpus
-#' 
-#' Creates a pdf including a heat map. For each topic, the heat map shows the deviation of 
+#'
+#' Creates a pdf including a heat map. For each topic, the heat map shows the deviation of
 #' its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 #' Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
-#' 
+#'
 #' @param object \code{\link{textmeta}} object with strictly tokenized \code{text}
 #' component (calculation of proportion on document lengths) or
 #' \code{\link{textmeta}} object which contains only the \code{meta} component
@@ -16,8 +16,8 @@
 #' @param file Character vector containing the path and name for the pdf output file.
 #' @param tnames Character vector with labels for the topics.
 #' @param unit \code{character} (default: \code{"year"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
-#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}} 
+#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
 #' If is \code{5} every fifth label is drawn.
 #' @param margins see \code{\link{heatmap}}
@@ -26,33 +26,31 @@
 #' for example \code{hclustfun}.
 #' @return A pdf.
 #' Invisible: A dataframe.
-#' @keywords ~kwd1 ~kwd2
-#' @examples ##
 #' @export plotHeat
 
 plotHeat <- function(object, ldaresult, ldaID,
   select = 1:nrow(ldaresult$document_sums), tnames,
   norm = FALSE, distfun, file, unit = "year", date_breaks = 1, margins = c(5,0), ...){
-  
+
   stopifnot(is.textmeta(object), is.character(ldaID),
     all(as.integer(select) == select), min(select) > 0,
     max(select) <= nrow(ldaresult$document_sums))
-  
+
   if(missing(tnames)) tnames <- paste0("T", select, ".",
     lda::top.topic.words(ldaresult$topics, 1)[select])
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(missing(distfun)) distfun = function(x) dist(x)/sqrt(2)
-  
+
   #create data frame. rows: documents, columns: topics
   tmp <- data.frame(t(ldaresult$document_sums))
-  
+
   #get dates for all documents to be visualized and
   #round to years, respectively unit
   tmpdate <- lubridate::floor_date(object$meta$date[
     match(ldaID, object$meta$id)], unit = unit)
   #sum document-levels values to months, respectively unit
   tmp <- aggregate(tmp, by = list(date = tmpdate), FUN = sum)
-  
+
   ### Prepare normalization data ###
   #get dates of every document in the corpus and
   #count words for every document
@@ -69,15 +67,15 @@ plotHeat <- function(object, ldaresult, ldaID,
   }
   #tidy up
   rm(normdates)
-  
+
   ### Normalize data ###
   normsums <- normsums[match(tmp$date, normsums$date),]
   tmp[,2:length(tmp)] <- apply(tmp[,2:length(tmp)],2,function(y) y/normsums$x)
   #cell values are now shares in document x of topic y
-  
+
   #filter for topics to be plotted
   tmp <- tmp[, c(1,select+1)]
-  
+
   #get mean for each topic over entire time: column means
   tmeans <- apply(tmp[2:length(tmp)], 2, mean)
   #calculate absolute distance to mean. normalize distance with mean if specified
@@ -87,11 +85,11 @@ plotHeat <- function(object, ldaresult, ldaID,
       tmp[i,2:length(tmp)] <- tmp[i,2:length(tmp)] / tmeans
     }
   }
-  
+
   breaks <- character(length(tmp$date))
   ind <- c(seq(1, length(breaks), by = date_breaks), length(breaks))
   breaks[ind] <- as.character(tmp$date[ind])
-  
+
   heatmap(t(as.matrix(tmp[-1])), Colv = NA, labRow = tnames, labCol = breaks,
     col = colorRampPalette(c("#0571b0", "#ffffff","#ca0020"))(50),
     scale = "none", margins = margins, distfun = distfun,

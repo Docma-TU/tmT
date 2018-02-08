@@ -9,8 +9,8 @@
 #' @param tnames Character vector of topic labels. Must have same length than number of topics in the model.
 #' @param threshold Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion above the treshold
 #' @param meta The meta data for the texts or a date-string.
-#' @param unit Time unit for x-axis. Possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
-#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}  
+#' @param unit Time unit for x-axis. Possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param xunit Time unit for tiks on the x-axis. Possible units see \code{\link[lubridate]{round_date}}
 #' @param color Color vector. Color vector would be replicated if the number of plotted topics is bigger than length of the vector.
 #' @param sort logical. Should the topics be sorted by topic proportion?
@@ -20,20 +20,16 @@
 #' @param file \code{character} file path if a pdf should be created
 #' @details Example use case
 #' @return list of two matrices. \code{rel} contains the topic proportions over time, \code{relcum} contains the cumulated topic proportions
-#' @keywords ~kwd1 ~kwd2
-#' @examples
-#'
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export plotArea
-#' 
+#'
 plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
   threshold = NULL, meta, unit = "quarter", xunit = "year", color = NULL,
   sort = TRUE, legend = "topleft", legendLimit = 0, peak = 0, file){
-  
+
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(is.null(color)) color <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)]
   if(is.null(tnames)) tnames <- paste0("T", 1:nrow(ldaresult$document_sums))
-  
+
   IDmatch <- match(ldaID,meta$id)
   if(any(is.na(IDmatch))){stop("missing id's in meta")}
   x <- as.data.frame(t(ldaresult$document_sums))
@@ -42,29 +38,29 @@ plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
   x <- sapply(x,colSums)
   x <- t(t(x)/colSums(x))
   rownames(x) <- tnames
-  
+
   ## reduce to used topics
   if(!is.null(select)){
     if(is.numeric(select) | is.integer(select)){x <- x[select,]
     }else{x <- x[match(select, tnames),]
     }
   }
-  
+
   ## reduce via threshold
   if(!is.null(threshold)){x <- x[apply(x,1, function(x)any(x>=threshold)),]}
-  
-  
+
+
   ## sort topics
   if(sort){topicVolume <- rowSums(x)
   x <- x[order(topicVolume, decreasing=FALSE),]}
-  
+
   ## cumsum
   y <- apply(x,2, cumsum)
   y <- rbind(0,y)
-  
+
   ## expand color vector if necessary
   if(length(color) < nrow(y)) color <- rep(color, ceiling(nrow(y)/length(color)))[1:nrow(x)]else color <- color[1:nrow(x)]
-  
+
   ## plotting
   tmplas <- par("las")
   par(las = 2)
@@ -74,7 +70,7 @@ plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
   }
   xvals <- seq(lubridate::floor_date(min(as.Date(colnames(y))), unit=xunit), max(as.Date(colnames(y))), by=xunit)
   axis(side = 1, xvals, format(xvals, "%b %y"), cex.axis = .85)
-  
+
   ## label peaks
   if(peak>0){
     xPeak <- x>peak
@@ -101,7 +97,7 @@ plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
       text(x=as.Date(names(wPeakNew)),y=(y[i,wPeakNew] + y[i+1,wPeakNew])/2, labels=rownames(y)[i+1])
     }
   }
-  
+
   ## legend
   if(!is.null(legend)){legend(x=legend, legend= rev(rownames(y)[-1][apply(x,1,function(z)any(z>legendLimit))]), bg="white", pch=15, col=rev(color[apply(x,1,function(z)any(z>legendLimit))]))}
   par(las=tmplas)

@@ -34,7 +34,7 @@ plotTopic(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
 vertical lines}
 
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
@@ -58,7 +58,7 @@ if \code{curves = "both"}}
 if \code{curves = "both"}}
 
 \item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
-the function will for every topicgroup plot at first the exact and then the 
+the function will for every topicgroup plot at first the exact and then the
 smoothed curve - this is important for your col order.}
 
 \item{legend}{\code{character} (default: \code{"topright"},
@@ -89,8 +89,3 @@ Creates a plot of the counts/proportion of specified topics of a result of
 or to create one plot for every curve (see \code{pages}).
 In addition the plots can be written to a pdf by setting \code{file}.
 }
-\examples{
-##
-}
-\keyword{~kwd1}
-\keyword{~kwd2}

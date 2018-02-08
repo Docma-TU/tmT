@@ -30,7 +30,7 @@ document)}
 \item{file}{Character vector containing the path and name for the pdf output file.}
 
 \item{unit}{\code{character} (default: \code{"year"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{date_breaks}{(default: \code{1}) how many labels should be shown on the x axis.
@@ -46,12 +46,7 @@ A pdf.
 Invisible: A dataframe.
 }
 \description{
-Creates a pdf including a heat map. For each topic, the heat map shows the deviation of 
+Creates a pdf including a heat map. For each topic, the heat map shows the deviation of
 its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 }
-\examples{
-##
-}
-\keyword{~kwd1}
-\keyword{~kwd2}

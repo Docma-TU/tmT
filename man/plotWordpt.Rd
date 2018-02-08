@@ -56,7 +56,7 @@ should be take into account for plotting the topic counts/proportion.}
 vertical lines}
 
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
@@ -95,7 +95,7 @@ if \code{curves = "both"}}
 if \code{curves = "both"}}
 
 \item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
-the function will for every wordgroup plot at first the exact and then the 
+the function will for every wordgroup plot at first the exact and then the
 smoothed curve - this is important for your col order.}
 
 \item{\dots}{additional graphical parameters}
@@ -114,8 +114,3 @@ There is an option to plot all curves in one plot or to create one plot for
 every curve (see \code{pages}). In addition the plots can be written to a pdf
 by setting \code{file}.
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-}
-\keyword{~kwd1}
-\keyword{~kwd2}

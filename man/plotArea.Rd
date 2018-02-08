@@ -21,7 +21,7 @@ plotArea(ldaresult, ldaID, select = NULL, tnames = NULL, threshold = NULL,
 
 \item{meta}{The meta data for the texts or a date-string.}
 
-\item{unit}{Time unit for x-axis. Possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+\item{unit}{Time unit for x-axis. Possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{xunit}{Time unit for tiks on the x-axis. Possible units see \code{\link[lubridate]{round_date}}}
@@ -47,9 +47,3 @@ Creates a area plot of all or selected topics.
 \details{
 Example use case
 }
-\examples{
-
-##---- Should be DIRECTLY executable !! ----
-}
-\keyword{~kwd1}
-\keyword{~kwd2}

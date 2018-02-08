@@ -1,10 +1,10 @@
 #' Plotting Counts of Topics over Time (relative to Corpus)
-#' 
+#'
 #' Creates a plot of the counts/proportion of specified topics of a result of
 #' \code{\link{LDAstandard}}. There is an option to plot all curves in one plot
 #' or to create one plot for every curve (see \code{pages}).
 #' In addition the plots can be written to a pdf by setting \code{file}.
-#' 
+#'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
 #' \code{\link{makeClear}}
@@ -21,8 +21,8 @@
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
 #' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
-#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}} 
+#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted
 #' @param smooth \code{numeric} (default: \code{0.05}) smoothing parameter
@@ -36,7 +36,7 @@
 #' @param ylab \code{character} graphical parameter
 #' @param ylim graphical parameter
 #' @param col graphical parameter, could be a vector. If \code{curves = "both"}
-#' the function will for every topicgroup plot at first the exact and then the 
+#' the function will for every topicgroup plot at first the exact and then the
 #' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: \code{"topright"},
 #' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively)
@@ -49,12 +49,10 @@
 #' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
 #' to zeros. Only has effect if \code{rel = TRUE}.
 #' @param file \code{character} file path if a pdf should be created
-#' @param ... additional graphical parameters 
+#' @param ... additional graphical parameters
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{tnames} with the
 #' counts/proportion of the selected topics.
-#' @keywords ~kwd1 ~kwd2
-#' @examples ##
 #' @export plotTopic
 
 plotTopic <- function(object, ldaresult, ldaID,
@@ -63,7 +61,7 @@ plotTopic <- function(object, ldaresult, ldaID,
   main, xlab, ylim, ylab, both.lwd, both.lty, col,
   legend = ifelse(pages, "onlyLast:topright", "topright"),
   pages = FALSE, natozero = TRUE, file, ...){
-  
+
   if(missing(tnames)) tnames <- paste0("T", select, ".",
     lda::top.topic.words(ldaresult$topics, 1)[select])
   # set x-label if missing
@@ -73,7 +71,7 @@ plotTopic <- function(object, ldaresult, ldaID,
   # set "both" - graphical parameters if missing
   if(missing(both.lwd)) both.lwd <- 1
   if(missing(both.lty)) both.lty <- 1
-  
+
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(pages){
     mainP <- paste("Count of topic", tnames, "over time")
@@ -88,7 +86,7 @@ plotTopic <- function(object, ldaresult, ldaID,
         legend = legend, both.lwd = both.lwd, both.lty = both.lty,
         xlab = xlab, ylab = ylab, pages = FALSE, ...)
   }
-  
+
   stopifnot(is.textmeta(object), is.list(ldaresult),
     is.matrix(ldaresult$document_sums), is.character(ldaID),
     all(as.integer(select) == select), length(tnames) == length(select),
@@ -99,10 +97,10 @@ plotTopic <- function(object, ldaresult, ldaID,
     is.character(xlab), is.character(ylab), is.numeric(both.lwd),
     is.numeric(both.lty), length(xlab) == 1, length(ylab) == 1,
     length(both.lty) == 1, length(both.lwd) == 1)
-  
+
   indMeta <- match(ldaID, object$meta$id)
   indText <- match(ldaID, names(object$text))
-  
+
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(object$meta$date[indMeta], unit)
   # generate markers on every beginning year
@@ -110,12 +108,12 @@ plotTopic <- function(object, ldaresult, ldaID,
     min(dates, na.rm = TRUE), unit = "year"), to = lubridate::ceiling_date(
       max(dates, na.rm = TRUE), unit = "year"), by = "year")
   else markYears <- NA
-  
+
   # columns: selected topics, rows: documents
   docTopic <- data.frame(t(ldaresult$document_sums)[, select])
   # sum words to unit
   docTopic <- aggregate(docTopic, by = list(date = dates), FUN = sum)
-  
+
   if (rel){
     # sum words to unit for normalization
     normsums <- aggregate(
@@ -129,7 +127,7 @@ plotTopic <- function(object, ldaresult, ldaID,
   else if(missing(main)) main <- "Count of topics over time"
   if(missing(ylim)) ylim <- c(0, max(docTopic[, 2:length(docTopic)]))
   names(docTopic) <- c("date", tnames)
-  
+
   # identify levels to add as zeros
   levs <-
     unique(lubridate::floor_date(seq(from = min(docTopic$date),
@@ -147,7 +145,7 @@ plotTopic <- function(object, ldaresult, ldaID,
   docTopic <- docTopic[order(docTopic$date),]
   if(natozero) docTopic[is.na(docTopic)] <- 0
   row.names(docTopic) <- 1:nrow(docTopic)
-  
+
   plot(docTopic$date, docTopic[, 2], type = "n",
     main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
   abline(v = markYears, lty = 3)
@@ -184,6 +182,6 @@ plotTopic <- function(object, ldaresult, ldaID,
       (grepl("onlyLast:", legend) && pages))
     legend(gsub("onlyLast:", "", x = legend), legend = tnames, col = col, pch = 20)
   if(!missing(file)) dev.off()
-  
+
   invisible(docTopic)
 }

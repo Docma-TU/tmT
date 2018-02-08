@@ -1,5 +1,5 @@
 #' Plotting Counts of Topics-Words-Combination over Time (relative to Words)
-#' 
+#'
 #' Creates a plot of the counts/proportion of specified combination of topics
 #' and words. It is important to keep in mind that the baseline for
 #' proportions are the sums of words, not sums of topics.
@@ -39,7 +39,7 @@
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
 #' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted
@@ -54,7 +54,7 @@
 #' @param ylab \code{character} graphical parameter
 #' @param ylim graphical parameter
 #' @param col graphical parameter, could be a vector. If \code{curves = "both"}
-#' the function will for every wordgroup plot at first the exact and then the 
+#' the function will for every wordgroup plot at first the exact and then the
 #' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: \code{"topright"},
 #' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively)
@@ -71,9 +71,6 @@
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{tnames: wnames}
 #' with the counts/proportion of the selected combination of topics and words.
-#' @keywords ~kwd1 ~kwd2
-#' @examples
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export plotTopicWord
 #'
 
@@ -85,7 +82,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   legend = ifelse(pages, "onlyLast:topright", "topright"),
   pages = FALSE, natozero = TRUE,
   file, main, xlab, ylab, ylim, both.lwd, both.lty, col, ...){
-  
+
   wordsLen <- length(wordlist)
   topicLen <- length(select)
   # coerce list
@@ -110,7 +107,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   # set "both" - graphical parameters if missing
   if(missing(both.lwd)) both.lwd <- 1
   if(missing(both.lty)) both.lty <- 1
-  
+
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(pages){
     tmpMain <- paste(tnames, wnames, sep = ": ")
@@ -129,7 +126,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
         legend = legend, both.lwd = both.lwd, both.lty = both.lty,
         xlab = xlab, ylab = ylab, pages = FALSE, natozero = natozero, ...)
   }
-  
+
   stopifnot(is.textmeta(object), is.list(ldaresult),
     is.matrix(ldaresult$topics), is.list(ldaresult$assignment),
     is.matrix(ldaresult$document_sums), is.character(ldaID), is.list(select),
@@ -144,7 +141,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
     is.character(xlab), is.character(ylab), is.numeric(both.lwd),
     is.numeric(both.lty), length(xlab) == 1, length(ylab) == 1,
     length(both.lty) == 1, length(both.lwd) == 1)
-  
+
   meta <- object$meta$date
   names(meta) <- object$meta$id
   ldaVocab <- colnames(ldaresult$topics)
@@ -158,13 +155,13 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   tmp1 <- wordcount
   wordcount <- do.call(cbind, lapply(wordlist,
     function(x) rowSums(as.matrix(wordcount[, uniqueWords %in% x]))))
-  
+
   selectInd <- rep(1:length(select), lengths(wordlist))
   allWords <- unlist(wordlist)
   allWordsID <- match(allWords, ldaVocab)-1
   allWordsID[is.na(allWordsID)] <- -1
   summingIterator <- c(0, cumsum(lengths(wordlist)))
-    
+
   topicwordcount <- do.call(cbind, lapply(1:length(allWordsID),
     function(wordindex) sapply(1:length(ldaresult$assignment),
       function(docindex)
@@ -174,7 +171,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   topicwordcount <- do.call(cbind, lapply(2:length(summingIterator),
     function(x) rowSums(as.matrix(
       topicwordcount[, (summingIterator[x-1]+1):summingIterator[x]]))))
-  
+
   if (link[1] == "and"){
     # identifying articles where not all words of an wordlist component
     # are represented (per wordlist component)
@@ -198,7 +195,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
       max(tmpdate), unit = "year"), by = "year")
   else markYears <- NA
   splt2 <- apply(topicwordcount, 2, function(x) sapply(split(x, tmpdate), sum))
-  
+
   if(rel){
     splt1 <- apply(wordcount, 2, function(x) sapply(split(x, tmpdate), sum))
     tab <- cbind(as.Date(rownames(splt2)),
@@ -211,7 +208,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
     if(missing(main))
       main <- paste("Counts of Topics per Words over Time - link:", link[1])
   }
-  
+
   # identify levels to add as zeros
   levs <-
     unique(lubridate::floor_date(seq(from = min(tab[, 1]),
@@ -229,7 +226,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   tab <- tab[order(tab$date),]
   if(natozero) tab[is.na(tab)] <- 0
   if(missing(ylim)) ylim <- c(0, max(tab[, 2:length(tab)], na.rm = TRUE))
-  
+
   plot(tab$date, tab[, 2], type = "n",
     main = main, xlab = xlab, ylab = ylab, ylim = ylim, ...)
   abline(v = markYears, lty = 3)
@@ -266,7 +263,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
   if(if1 || if2)
     legend(gsub("onlyLast:", "", x = legend),
       legend = paste(tnames, wnames, sep = ": "), col = col, pch = 20)
-  
+
   if(!missing(file)) dev.off()
   invisible(tab)
 }
