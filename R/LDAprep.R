@@ -32,11 +32,11 @@
 #'
 #' corpus <- makeClear(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' docLDA(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
+#' LDAprep(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
 #'
-#' @export docLDA
+#' @export LDAprep
 
-docLDA <- function(text, vocab, ldacorrect = TRUE, excludeNA = TRUE,
+LDAprep <- function(text, vocab, ldacorrect = TRUE, excludeNA = TRUE,
   reduce = TRUE){
 
   stopifnot(is.textmeta(textmeta(text = text)), is.character(vocab),

@@ -12,7 +12,6 @@
 #' @param ... additional parameter for \code{\link{plot}}
 #' @return A dendogram as pdf and a List \item{dist}{A distance matrix}
 #' \item{clust}{The result from \code{hclust}.}
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #'
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
@@ -28,9 +27,9 @@
 #'
 #' corpus <- makeClear(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
+#' ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 #'
-#' \donttest{LDA <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
+#' \donttest{LDA <- LDAgen(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 #' \donttest{clusterTopics(ldaresult=LDA)}
 #'
 #' @export clusterTopics

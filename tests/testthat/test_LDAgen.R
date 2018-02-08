@@ -1,19 +1,19 @@
-context("LDAstandard")
+context("LDAgen")
 
-test_that("LDAstandard", {
+test_that("LDAgen", {
 
 load("data/LDAdoc_compare.RData")
 
-test <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
+test <- LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
 
 csvTest <- read.csv("test-k3i20b70s24602alpha0.33eta0.33_orig.csv")
-counttest <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24602, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE, count=TRUE)
+counttest <- LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24602, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE, count=TRUE)
 csvTest2 <- read.csv("test-k3i20b70s24602alpha0.33eta0.33.csv")
 expect_equal(csvTest, csvTest2)
 
-expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE))
-expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = FALSE))
-expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, num.words = 10L, LDA = TRUE))
+expect_equal(lda1, LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE))
+expect_equal(lda1, LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = FALSE))
+expect_equal(lda1, LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, num.words = 10L, LDA = TRUE))
 })
 
 
@@ -29,11 +29,11 @@ expect_equal(lda1, LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, n
 
 ## text <- makeClear(text=text, paragraph=FALSE)
 ## wordlist <- makeWordlist(text)
-## LDAdoc <- docLDA(text, wordlist$words)
+## LDAdoc <- LDAprep(text, wordlist$words)
 
-## lda1 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
+## lda1 <- LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24601, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE)
 
-## lda2 <- LDAstandard(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24602, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE, count=TRUE) # add _orig in filename!
+## lda2 <- LDAgen(documents=LDAdoc, K = 3L, vocab=wordlist$words, num.iterations = 20L, burnin = 70L, seed=24602, folder=paste0(getwd(),"/test"), num.words = 10L, LDA = TRUE, count=TRUE) # add _orig in filename!
 
 
 ## setwd("//STORE/koppers/Textmining/tmT/tests/testthat")

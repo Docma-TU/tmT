@@ -18,10 +18,6 @@
 #' @return A html document
 #' @seealso tba
 #' @references tba
-#' @keywords ~kwd1 ~kwd2
-#' @examples
-#'
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export topicsInText
 
 

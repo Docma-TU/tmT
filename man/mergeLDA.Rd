@@ -32,10 +32,10 @@ additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 
 corpus <- makeClear(corpus)
 wordlist <- makeWordlist(corpus$text)
-ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
+ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 
-\donttest{LDA1 <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
-\donttest{LDA2 <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
+\donttest{LDA1 <- LDAgen(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
+\donttest{LDA2 <- LDAgen(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 \donttest{mergeLDA(list(LDA1=LDA1, LDA2=LDA2))}
 }
 \keyword{manip}

@@ -28,9 +28,9 @@
 #'
 #' corpus <- makeClear(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
+#' ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 #'
-#' \donttest{LDA <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
+#' \donttest{LDA <- LDAgen(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 #' \donttest{topTexts(ldaresult=LDA, ldaID=c("A","B","C"), limit = 1L, minlength=2)}
 #' @export topTexts
 topTexts <- function(ldaresult, ldaID, limit = 20L, rel = TRUE,
