@@ -115,7 +115,7 @@ makeClear <- function(object, text, sw = "en", paragraph = FALSE,
       sum(lengths(text) == 0 | is.na(text))))
     text <- text[!(lengths(text) == 0 | is.na(text))]
   }
-  cat(" Success")
+  cat(" Success \n")
   if(returnTextmeta){
     object$text <- text
     object$meta <- object$meta[object$meta$id %in% names(object$text), ]

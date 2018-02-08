@@ -23,7 +23,14 @@ Creates a wordlist and a frequency table.
 This function helps, if \code{table(x)} needs too much RAM.
 }
 \examples{
+texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
+Teach a Man To Fish, and You Feed Him for a Lifetime",
+B="So Long, and Thanks for All the Fish",
+C="A very able manipulative mathematician, Fisher enjoys a real mastery
+in evaluating complicated multiple integrals.")
 
-##---- Should be DIRECTLY executable !! ----
+texts <- makeClear(text=texts)
+makeWordlist(text=texts, k = 2L)
+
 }
 \keyword{manip}
