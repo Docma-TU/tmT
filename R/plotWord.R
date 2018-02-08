@@ -81,10 +81,10 @@ plotWord <- function(object, id = names(object$text),
   if(!is.list(wordlist)) wordlist <- as.list(wordlist)
   # set labels (wordnames) if missing
   if(missing(wnames)) wnames <- sapply(wordlist, paste, collapse = ".")
-  # collect word candidates for applying subcorpusWord with out = "count"
+  # collect word candidates for applying filterWord with out = "count"
   words <- unique(unlist(wordlist))
   # count appearences of candidates on subcorpus
-  tmp <- subcorpusWord(text = object$text[inds], search = words, out = "count",
+  tmp <- filterWord(text = object$text[inds], search = words, out = "count",
     ignore.case = ignore.case)
   # calculate rowSums for each of the wordlists components
   tab <- do.call(cbind, lapply(wordlist,
