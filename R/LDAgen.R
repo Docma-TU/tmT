@@ -4,7 +4,7 @@
 #' package and additional saves topwordlists and a R workspace.
 #'
 #'
-#' @param documents A list prepared by \code{\link{docLDA}}.
+#' @param documents A list prepared by \code{\link{LDAprep}}.
 #' @param K number of topics.
 #' @param vocab character vector containing the words in the corpus.
 #' @param num.iterations number of iterations for the gibbs sampler.
@@ -41,7 +41,7 @@
 #'
 #' corpus <- makeClear(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
+#' ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 #'
 #' \donttest{LDAgen(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 #'

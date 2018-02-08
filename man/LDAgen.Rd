@@ -9,7 +9,7 @@ LDAgen(documents, K = 100L, vocab, num.iterations = 200L, burnin = 70L,
   "/lda-result"), num.words = 50L, LDA = TRUE, count = FALSE)
 }
 \arguments{
-\item{documents}{A list prepared by \code{\link{docLDA}}.}
+\item{documents}{A list prepared by \code{\link{LDAprep}}.}
 
 \item{K}{number of topics.}
 
@@ -60,7 +60,7 @@ additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 
 corpus <- makeClear(corpus)
 wordlist <- makeWordlist(corpus$text)
-ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
+ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 
 \donttest{LDAgen(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 

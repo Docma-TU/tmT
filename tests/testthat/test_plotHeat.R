@@ -11,8 +11,8 @@ test_that("plotHeat", {
   names(text) <- paste("ID", 1:200)
   
   words <- makeWordlist(text)$words
-  LDAdoc <- docLDA(text, words)
-  lda <- LDAstandard(documents = LDAdoc, K = 3L, vocab = words,
+  LDAdoc <- LDAprep(text, words)
+  lda <- LDAgen(documents = LDAdoc, K = 3L, vocab = words,
     num.iterations = 20L, burnin = 70L, seed = 123)
   
   meta1 <- as.Date(sample(1:730, 1200, replace = TRUE), origin = "1990-10-03")
