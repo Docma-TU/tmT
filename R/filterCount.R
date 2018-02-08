@@ -18,13 +18,13 @@
 #' C="A very able manipulative mathematician, Fisher enjoys a real mastery
 #' in evaluating complicated multiple integrals.")
 #'
-#' subcorpusCount(text=texts, count=10L)
+#' filterCount(text=texts, count=10L)
 #'
-#' subcorpusCount(text=texts, count=10L, out="bin")
+#' filterCount(text=texts, count=10L, out="bin")
 #'
-#' subcorpusCount(text=texts, count=10L, out="count")
-#' @export subcorpusCount
-subcorpusCount <- function(object, text, count = 1L, out = c("text", "bin", "count")){
+#' filterCount(text=texts, count=10L, out="count")
+#' @export filterCount
+filterCount <- function(object, text, count = 1L, out = c("text", "bin", "count")){
 
   returnTextmeta <- FALSE
   if (!missing(object)){
