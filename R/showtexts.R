@@ -21,9 +21,9 @@
 #' date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
 #' additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 #'
-#' \donttest{showArticles(object=corpus, id = c("A","C"), file="test")}
-#' @export showArticles
-showArticles <- function(object, id = names(object$text), file){
+#' \donttest{showTexts(object=corpus, id = c("A","C"), file="test")}
+#' @export showTexts
+showTexts <- function(object, id = names(object$text), file){
   stopifnot(is.textmeta(object), all(id %in% object$meta$id),
     all(id %in% names(object$text)))
   more_files <- TRUE
