@@ -25,6 +25,13 @@
 #' summary(corpus)
 #' str(corpus)
 #'
+#' @import graphics
+#' @import grDevices
+#' @import stats
+#' @import utils
+#' @import tm
+#' @import lda
+#' @import lubridate
 #' @export textmeta
 textmeta <- function(meta = NULL, text = NULL, metamult = NULL, dateFormat = "%Y-%m-%d"){
   if(!is.null(meta)){
