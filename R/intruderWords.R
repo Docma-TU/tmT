@@ -15,10 +15,6 @@
 #' @return tba
 #' @seealso tba
 #' @references tba
-#' @keywords ~kwd1 ~kwd2
-#' @examples
-#'
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export intruderWords
 
 intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
@@ -37,7 +33,7 @@ intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntru
   stopifnot(is.logical(byScore), is.integer(numTopwords), is.integer(numIntruder), is.integer(numOutwords), is.logical(noTopic), length(byScore)==1, length(numTopwords)==1, length(numOutwords)==1, length(noTopic)==1)
   if(numTopwords<numOutwords)stop("numTopwords needs to be greater then numOutwords")
   if(max(numIntruder) > 0.25 * numOutwords)stop("Too many intruder")
-  
+
   if(any(beta==0)) beta <- beta #+ 1e-05
   if(!all(rowSums(beta)==1)) beta <- beta / rowSums(beta)
   if(byScore){scores <- apply(beta, 2, function(x) x *

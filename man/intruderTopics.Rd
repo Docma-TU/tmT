@@ -44,15 +44,9 @@ tba
 \description{
 tba
 }
-\examples{
-
-##---- Should be DIRECTLY executable !! ----
-}
 \references{
 tba
 }
 \seealso{
 tba
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

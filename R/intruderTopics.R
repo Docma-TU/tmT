@@ -19,10 +19,6 @@
 #' @return tba
 #' @seealso tba
 #' @references tba
-#' @keywords ~kwd1 ~kwd2
-#' @examples
-#'
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export intruderTopics
 
 intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
@@ -63,7 +59,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
     result <- oldResult$result
     unusedID <- oldResult$unusedID
   }
-  
+
   while(!(input[1]=="q" | length(id)==0)){
     cat(paste("counter = ",nrow(result)+1, "\n"))
     sID <- sample(unusedID,1)
@@ -79,7 +75,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
     if(length(posIntruder)==0) toptopics2 <- toptopics[,sample(ncol(toptopics))]
     toptopics2 <- rbind(1:ncol(toptopics2), toptopics2)
     toptopics2 <- apply(toptopics2,2,paste, collapse=" ")
-    
+
     repeat{
       htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
       cat(c(paste(toptopics2, collapse= "\n"), "\n"))
@@ -89,7 +85,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
       input <- as.numeric(strsplit(input, " ")[[1]])
       if(any(is.na(input)) | any(!(input %in% 0:numOuttopics)) | length(input)==0){cat("Only space seperated input of line number or 0 \n \n") ; next}
       break}
-    
+
     if(input[1]=="q"){break}#exit
     if(length(posIntruder)==0){result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)), stringsAsFactors=FALSE))}else{
       result <- rbind(result,data.frame(id=sID, numIntruder=numIntruderS, missIntruder=numIntruderS - sum(input %in% posIntruder), falseIntruder=sum(input %in% (1:numOuttopics)[-posIntruder]), stringsAsFactors=FALSE))}
