@@ -24,11 +24,11 @@
 #' date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
 #' additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 #'
-#' subcorpus <- subcorpusDate(object=corpus, s.date = "1951-05-06")
+#' subcorpus <- filterDate(object=corpus, s.date = "1951-05-06")
 #' subcorpus$meta
 #' subcorpus$text
-#' @export subcorpusDate
-subcorpusDate <- function(object, text = object$text, meta = object$meta,
+#' @export filterDate
+filterDate <- function(object, text = object$text, meta = object$meta,
   s.date = min(meta$date, na.rm = TRUE),
   e.date = max(meta$date, na.rm = TRUE)){
 

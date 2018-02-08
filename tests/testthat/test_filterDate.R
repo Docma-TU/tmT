@@ -1,6 +1,6 @@
-context("subcorpusDate")
+context("filterDate")
 
-test_that("subcorpusDate", {
+test_that("filterDate", {
     text <- as.list(paste("text", 1:200))
     names(text) <- paste("id", 101:300)
     set.seed(24601)
@@ -10,11 +10,11 @@ test_that("subcorpusDate", {
       title = as.character(NA),
       stringsAsFactors = FALSE)
 
-    expect_equal(text, subcorpusDate(text = text, meta = meta,
+    expect_equal(text, filterDate(text = text, meta = meta,
       s.date = min(meta$date), e.date = max(meta$date)))
-    expect_equal(text[17:22], subcorpusDate(text = text, meta = meta,
+    expect_equal(text[17:22], filterDate(text = text, meta = meta,
       s.date = as.Date("1991-01-28"),  e.date = as.Date("1991-02-02")))
-    expect_equal(text, subcorpusDate(text = text, meta = meta,
+    expect_equal(text, filterDate(text = text, meta = meta,
       s.date = as.Date("1960-01-28"),  e.date = as.Date("1999-02-02")))
-    expect_true(is.textmeta(subcorpusDate(textmeta(text = text, meta = meta))))
+    expect_true(is.textmeta(filterDate(textmeta(text = text, meta = meta))))
 })
