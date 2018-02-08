@@ -1,10 +1,10 @@
 #' Plotting Counts of specified Wordgroups over Time (relative to Corpus)
-#' 
+#'
 #' Creates a plot of the counts/proportion of given wordgroups (\code{wordlist})
 #' in the subcorpus. The counts/proportion can be calculated on document or word
 #' level - with an 'and' or 'or' link - and additionally can be normalised by
 #' a subcorporus, which could be specified by \code{id}.
-#' 
+#'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
 #' \code{\link{makeClear}}
@@ -30,7 +30,7 @@
 #' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
 #' vertical lines
 #' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted
@@ -45,20 +45,18 @@
 #' @param ylab \code{character} graphical parameter
 #' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
 #' @param col graphical parameter, could be a vector. If \code{curves = "both"}
-#' the function will for every wordgroup plot at first the exact and then the 
+#' the function will for every wordgroup plot at first the exact and then the
 #' smoothed curve - this is important for your col order.
 #' @param legend \code{character} (default: "topright") value(s) to specify the
 #' legend coordinates. If "none" no legend is plotted.
 #' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
 #' to zeros. Only has effect if \code{rel = TRUE}.
 #' @param file \code{character} file path if a pdf should be created
-#' @param ... additional graphical parameters 
+#' @param ... additional graphical parameters
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
 #' additionally columns \code{wnames_rel} for \code{rel = TRUE} - with the
 #' counts (and proportion) of the given wordgroups.
-#' @keywords ~kwd1 ~kwd2
-#' @examples ##
 #' @export plotWord
 
 plotWord <- function(object, id = names(object$text),
@@ -68,13 +66,13 @@ plotWord <- function(object, id = names(object$text),
   curves = c("exact", "smooth", "both"), smooth = 0.05,
   both.lwd, both.lty, main, xlab, ylab, ylim, col, legend = "topright",
   natozero = TRUE, file, ...){
-  
+
   stopifnot(is.textmeta(object), is.character(id), is.logical(rel),
     is.logical(mark), length(rel) == 1, length(mark) == 1, is.character(unit),
     length(unit) == 1, all(type %in% c("docs", "words")),
     all(curves %in% c("exact", "smooth", "both")), is.numeric(smooth),
     length(smooth) == 1, all(link %in% c("and", "or")))
-  
+
   if(!missing(file)) pdf(file, width = 15, height = 8)
   # match id with id which appears in object$text
   inds <- names(object$text) %in% id
@@ -104,7 +102,7 @@ plotWord <- function(object, id = names(object$text),
   rm(tmp)
   rownames(tab) <- id
   colnames(tab) <- wnames
-  
+
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(
     object$meta$date[match(id, object$meta$id)], unit)
@@ -127,7 +125,7 @@ plotWord <- function(object, id = names(object$text),
   # compute counts (of words/documents)
   tab <- apply(tab, 2, function(x) sapply(split(x, dates), aggr))
   tab <- data.frame(date = row.names(tab), tab, row.names = 1:nrow(tab))
-  
+
   if (rel){
     # compute normalisation
     if (type[1] == "words"){
@@ -185,7 +183,7 @@ plotWord <- function(object, id = names(object$text),
   row.names(tab) <- 1:nrow(tab)
   # set y values to plot
   toplot <- as.matrix(tab[, toplot])
-  
+
   # set x-label if missing
   if (missing(xlab)) xlab <- "date"
   # set y-label if missing

@@ -45,7 +45,7 @@ from \code{\link{grepl}}.}
 vertical lines}
 
 \item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"}, 
+dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
@@ -69,7 +69,7 @@ if \code{curves = "both"}}
 \item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
 
 \item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
-the function will for every wordgroup plot at first the exact and then the 
+the function will for every wordgroup plot at first the exact and then the
 smoothed curve - this is important for your col order.}
 
 \item{legend}{\code{character} (default: "topright") value(s) to specify the
@@ -94,8 +94,3 @@ in the subcorpus. The counts/proportion can be calculated on document or word
 level - with an 'and' or 'or' link - and additionally can be normalised by
 a subcorporus, which could be specified by \code{id}.
 }
-\examples{
-##
-}
-\keyword{~kwd1}
-\keyword{~kwd2}

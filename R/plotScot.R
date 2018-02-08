@@ -38,7 +38,6 @@
 #' Invisible: A dataframe with columns \code{date} and \code{counts},
 #' respectively \code{proportion}
 #' @keywords ~kwd1 ~kwd2
-#' @examples ##
 #' @export plotScot
 
 plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
