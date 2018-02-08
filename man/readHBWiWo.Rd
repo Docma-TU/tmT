@@ -26,7 +26,4 @@ klassifikation (mehrere moeglich) thema sachgruppe serie}
 Reads the XML-files from the HB WiWo corpus and seperates the text and meta
 data.
 }
-\examples{
-
-}
 \keyword{manip}

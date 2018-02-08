@@ -27,7 +27,4 @@ series graphic copyright}
 Reads the HTML-files from preprocessed Lexis Nexis files and seperates the
 text and meta data.
 }
-\examples{
-
-}
 \keyword{manip}

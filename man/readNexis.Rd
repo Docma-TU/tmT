@@ -28,9 +28,6 @@ leadtext downloadDate}
 Reads the XML-files from preprocessed Lexis Nexis files and seperates the text and meta
 data.
 }
-\examples{
-
-}
 \author{
 Sakander Zirai (<s.zirai@live.de>), Lars Koppers (<koppers@statistik.tu-dortmund.de>)
 }

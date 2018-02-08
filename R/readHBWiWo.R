@@ -11,7 +11,6 @@
 #' \item{text}{ Text} \item{metamult}{ person company industry country author category
 #' klassifikation (mehrere moeglich) thema sachgruppe serie}
 #' @keywords manip
-#' @examples
 #'
 #' @export readHBWiWo
 #'
@@ -37,7 +36,7 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
         id <- gsub(pattern="ID=|\"", replacement="", x=id)
         abstract <- stringr::str_extract(article, "<Abstract>(.*?)</Abstract>")
         abstract <- removeXML(abstract)
-        
+
         if(do.meta){
             source <- stringr::str_extract(article, "<Source>(.*?)</Source>|<Quelle>(.*?)</Quelle>")
             source <- removeXML(source)

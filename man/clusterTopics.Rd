@@ -44,7 +44,7 @@ additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 
 corpus <- makeClear(corpus)
 wordlist <- makeWordlist(corpus$text)
-ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
+ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
 
 \donttest{LDA <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 \donttest{clusterTopics(ldaresult=LDA)}

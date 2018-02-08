@@ -14,7 +14,6 @@
 #' \item{text}{text}
 #' @author Sakander Zirai (<s.zirai@@live.de>), Lars Koppers (<koppers@@statistik.tu-dortmund.de>)
 #' @keywords manip
-#' @examples
 #'
 #' @export readNexis
 #'
@@ -45,7 +44,7 @@ readNexis <- function(path = getwd(),
     leadtext <- removeXML(leadtext)
     leadtext <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
                      replacement = "", leadtext, perl = TRUE)
-    
+
     if (do.meta) {
       url <- stringr::str_extract(article, "<source_id>(.*?)</source_id>")
       url <- removeXML(url)

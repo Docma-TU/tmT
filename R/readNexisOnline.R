@@ -13,7 +13,6 @@
 #' series graphic copyright}
 #' \item{text}{text}
 #' @keywords manip
-#' @examples
 #'
 #' @export readNexisOnline
 #'
@@ -35,11 +34,11 @@ readNexisOnline <- function(path = getwd(),
     article <- gsub(pattern = "&nbsp;", replacement = "", article)
     article <- gsub(pattern = "&quot;", replacement = "\"", article)
     article <- gsub(pattern = "&amp;", replacement = "&", article)
-    
+
     header <- grep(pattern = "<META", article, value = TRUE)
-    
+
     style <- article[grep(pattern = "<STYLE", article):grep(pattern = "</STYLE>", article)]
-    
+
     lines <- cbind(grep(pattern = "<DOCFULL>", article), grep(pattern = "</DOCFULL>", article))
     nr <- article[lines[, 1] + 1]
     source <- article[lines[, 1] + 3]
@@ -48,21 +47,21 @@ readNexisOnline <- function(path = getwd(),
     article <- apply(lines, 1, function(x) paste(article[x[1]:x[2]], collapse = " "))
     n <- length(article)
     id <- paste("ID", paste(i, 1L:n, sep = "-"), sep = " ")
-    
+
     if (do.meta) {
       # meta-data in header (identical for all documents in the same file):
       from <- stringr::str_extract(header, "DOCUMENTS=\"(.*?)\"")
       from <- as.integer(gsub(pattern = "DOCUMENTS=|\"", replacement = "", from))
       from <- rep(from, times = n)
-      
+
       topic <- stringr::str_extract(header, "TOPIC=\"(.*?)\"")
       topic <- rep(gsub(pattern = "TOPIC=|\"", replacement = "", topic), times = n)
       topic <- ifelse(topic == "null", NA, topic)
-      
+
       downloadDate <- stringr::str_extract(header, "UPDATED=\"(.*?)\"")
       downloadDate <- gsub(pattern = "UPDATED=|\"", replacement = "", downloadDate)
       downloadDate <- rep(as.Date(downloadDate, format = "%A, %B %d, %Y  %T"), times = n)
-      
+
       # meta-data in each document:
       cand <- paste0(c("LOAD-DATE", "LANGUAGE", "LENGTH", "DATELINE", "BYLINE",
                        "SECTION","TYPE", "PUBLICATION-TYPE", "SERIES", "GRAPHIC"), ": ")
@@ -78,7 +77,7 @@ readNexisOnline <- function(path = getwd(),
       colnames(mData) <- cand_names
       mData$length <- as.integer(gsub(pattern = " words", replacement = "", mData$length))
       mData$loadDate <- as.Date(mData$loadDate, format = "%B %d, %Y")
-      
+
       nr <- as.integer(removeXML(gsub(pattern = "of [0-9]{1,7} DOCUMENTS",
                                       replacement = "", x = nr)))
       source <- removeXML(source)
@@ -89,7 +88,7 @@ readNexisOnline <- function(path = getwd(),
       date <- as.Date(stringr::str_extract(date, "(.*?) [1-9][0-9]{0,5}, [12][0-9]{3}"),
                       format = "%B %d, %Y")
       copyright <- removeXML(copyright)
-      
+
       titlestyle <- character(4)
       titlestyle[1] <- grep(pattern = " \\{ text-align: left; \\}", style, value = TRUE)
       titlestyle[2] <- grep(pattern = " \\{ text-align: left; margin-top: 0em; margin-bottom: 0em; \\}", style, value = TRUE)
@@ -101,7 +100,7 @@ readNexisOnline <- function(path = getwd(),
                            "\"><SPAN CLASS=\"c(", titlestyle[3],"|", titlestyle[4], ")\">")
       title <- stringr::str_extract(article, paste0(titlestyle, "(.*?)</DIV>"))
       title <- removeXML(title)
-      
+
       mData <- cbind(id, topic, nr, from, title, source, date, releaseNote,
                      downloadDate, mData, copyright, stringsAsFactors = FALSE)
       meta <- rbind(meta, mData)
@@ -117,9 +116,9 @@ readNexisOnline <- function(path = getwd(),
       textstyle <- gsub(pattern = " \\{(.*?) \\}|\\.c", replacement = "", textstyle)
       textstyle <- paste0("<BR><DIV CLASS=\"c", textstyle[1], "\">(<BR>)?<P CLASS=\"c(", textstyle[2], "|",
                           textstyle[3], ")\">(<BR>)?<SPAN CLASS=\"c(", textstyle[4],"|", textstyle[5], ")\">")
-      
+
       text_new <- stringr::str_extract(article, paste0(textstyle, "(.*?)</DIV>"))
-      
+
       text_new <- removeXML(text_new)
       names(text_new) <- id
       text <- as.list(c(text, text_new))

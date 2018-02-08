@@ -23,7 +23,7 @@
 #'
 #' corpus <- makeClear(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
+#' ldaPrep <- docLDA(text=corpus$text, vocab=wordlist$words)
 #'
 #' \donttest{LDA1 <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
 #' \donttest{LDA2 <- LDAstandard(documents=ldaPrep, K = 3L, vocab=wordlist$words, num.words=3)}
