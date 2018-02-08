@@ -11,9 +11,9 @@
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
 #' \code{\link{makeClear}}
-#' @param docs object as a result of \code{\link{docLDA}} which was handed over
-#' to \code{\link{LDAstandard}}
-#' @param ldaresult the result of a function call \code{\link{LDAstandard}} with
+#' @param docs object as a result of \code{\link{LDAprep}} which was handed over
+#' to \code{\link{LDAgen}}
+#' @param ldaresult the result of a function call \code{\link{LDAgen}} with
 #' \code{docs} as argument
 #' @param ldaID \code{character} vector of IDs of the documents in
 #' \code{ldaresult}

@@ -16,7 +16,7 @@ plotWordSub(object, ldaresult, ldaID, limit = 10, alloc = c("multi",
 \code{text} component (\code{character} vectors) - like a result of
 \code{\link{makeClear}}}
 
-\item{ldaresult}{the result of a function call \code{\link{LDAstandard}}}
+\item{ldaresult}{the result of a function call \code{\link{LDAgen}}}
 
 \item{ldaID}{\code{character} vector of IDs of the documents in
 \code{ldaresult}}

@@ -11,7 +11,7 @@
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
 #' \code{\link{makeClear}}
-#' @param ldaresult the result of a function call \code{\link{LDAstandard}}
+#' @param ldaresult the result of a function call \code{\link{LDAgen}}
 #' @param ldaID \code{character} vector of IDs of the documents in
 #' \code{ldaresult}
 #' @param limit \code{integer/numeric} (default: \code{10}) the limit for how

@@ -10,7 +10,7 @@ topicsInText(text, ldaID, id, ldaresult, label = NULL, vocab,
   unclearTopicAssignment = TRUE, htmlreturn = FALSE)
 }
 \arguments{
-\item{text}{the result of \code{\link{docLDA}}}
+\item{text}{the result of \code{\link{LDAprep}}}
 
 \item{ldaID}{list of ids for \code{text}}
 

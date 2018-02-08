@@ -3,7 +3,7 @@
 #' Makes a cluster analysis with the hellinger distance.
 #'
 #'
-#' @param ldaresult  the result of a function call \code{\link{LDAstandard}}
+#' @param ldaresult  the result of a function call \code{\link{LDAgen}}
 #' @param file File for the dendogram pdf.
 #' @param topicnames Character vector as label for the topics.
 #' @param method Method statement from \code{\link{hclust}}

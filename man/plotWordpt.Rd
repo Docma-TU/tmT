@@ -17,10 +17,10 @@ plotWordpt(object, docs, ldaresult, ldaID,
 \code{text} component (\code{character} vectors) - like a result of
 \code{\link{makeClear}}}
 
-\item{docs}{object as a result of \code{\link{docLDA}} which was handed over
-to \code{\link{LDAstandard}}}
+\item{docs}{object as a result of \code{\link{LDAprep}} which was handed over
+to \code{\link{LDAgen}}}
 
-\item{ldaresult}{the result of a function call \code{\link{LDAstandard}} with
+\item{ldaresult}{the result of a function call \code{\link{LDAgen}} with
 \code{docs} as argument}
 
 \item{ldaID}{\code{character} vector of IDs of the documents in

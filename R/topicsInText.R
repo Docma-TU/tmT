@@ -2,7 +2,7 @@
 #'
 #' tba
 #'
-#' @param text the result of \code{\link{docLDA}}
+#' @param text the result of \code{\link{LDAprep}}
 #' @param ldaID list of ids for \code{text}
 #' @param id id of the article of interest
 #' @param ldaresult a result object from the \code{standardLDA}

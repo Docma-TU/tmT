@@ -15,7 +15,7 @@ plotTopic(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
 \code{text} component (\code{character} vectors) - like a result of
 \code{\link{makeClear}}}
 
-\item{ldaresult}{the result of a function call \code{\link{LDAstandard}}}
+\item{ldaresult}{the result of a function call \code{\link{LDAgen}}}
 
 \item{ldaID}{\code{character} vector of IDs of the documents in
 \code{ldaresult}}
@@ -85,7 +85,7 @@ counts/proportion of the selected topics.
 }
 \description{
 Creates a plot of the counts/proportion of specified topics of a result of
-\code{\link{LDAstandard}}. There is an option to plot all curves in one plot
+\code{\link{LDAgen}}. There is an option to plot all curves in one plot
 or to create one plot for every curve (see \code{pages}).
 In addition the plots can be written to a pdf by setting \code{file}.
 }
