@@ -23,6 +23,12 @@ requested meta data.
 Exports requested meta-data of articles for given ids.
 }
 \examples{
+meta <- data.frame(id=c("A", "B", "C", "D"),
+title=c("Fishing", "Don't panic!", "Sir Ronald", "Berlin"),
+date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
+additionalVariable=1:4, stringsAsFactors=FALSE)
+
+\donttest{showMeta(meta=meta, cols = c("title", "date"), file="meta")}
 
 }
 \keyword{manip}
