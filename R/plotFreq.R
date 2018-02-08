@@ -57,9 +57,9 @@
 #' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
 #' additionally columns \code{wnames_rel} for \code{rel = TRUE} - with the
 #' counts (and proportion) of the given wordgroups.
-#' @export plotWord
+#' @export plotFreq
 
-plotWord <- function(object, id = names(object$text),
+plotFreq <- function(object, id = names(object$text),
   type = c("docs", "words"), wordlist, link = c("and", "or"), wnames,
   ignore.case = FALSE,
   rel = FALSE, mark = TRUE, unit = "month",
