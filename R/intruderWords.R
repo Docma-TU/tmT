@@ -1,17 +1,17 @@
-#' Function to fit LDA model
+#' Function to validate the fit of the LDA model
 #'
-#' tba
+#' This function validates a LDA result by presenting a mix of words from a topic and intruder words to a human user, who has to identity them. 
 #'
 #' @param beta A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.
-#' @param byScore logical should the score of \code{top.topic.words} from the \code{lda} package be used?
-#' @param numTopwords the number of topwords to be used for the intruder words.
-#' @param numIntruder intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.
-#' @param numOutwords integer. Number of words per topic, including the intruder words.
-#' @param noTopic logical. Is \code{x} input allowed to mark nonsense topics?
+#' @param byScore Logical: Should the score of \code{top.topic.words} from the \code{lda} package be used?
+#' @param numTopwords The number of topwords to be used for the intruder words
+#' @param numIntruder Intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.
+#' @param numOutwords Integer: Number of words per topic, including the intruder words.
+#' @param noTopic Logical: Is \code{x} input allowed to mark nonsense topics?
 #' @param printSolution tba
-#' @param oldResult result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
-#' @param test logical enables test mode
-#' @param testinput input for function tests
+#' @param oldResult Result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
+#' @param test Logical: Enables test mode
+#' @param testinput Input for function tests
 #' @return tba
 #' @seealso tba
 #' @references tba
