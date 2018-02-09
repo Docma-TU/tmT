@@ -1,13 +1,13 @@
 #' create lda-ready dataset
 #'
-#' This function transforms a text corpus like the result from
-#' \code{\link{makeClear}} in a form needed by the lda-package.
+#' This function transforms a text corpus such as the result from
+#' \code{\link{makeClear}} into the form needed by the \code{\link[lda]}-package.
 #'
 #'
-#' @param text a list of tokenized texts.
-#' @param vocab a character vector containing all words which should beused for
-#' lda.
-#' @param ldacorrect logical: If \code{TRUE}, every word repetition gets an own
+#' @param text A list of tokenized texts
+#' @param vocab A character vector containing all words which should beused for
+#' lda
+#' @param ldacorrect logical: If \code{TRUE}, every word repetition gets a separate
 #' column.
 #' @param excludeNA logical: Should \code{NA}s be removed?
 #' @param reduce logical: Should empty texts be deleted?
