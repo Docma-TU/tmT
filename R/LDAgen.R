@@ -1,25 +1,24 @@
 #' Function to fit LDA model
 #'
-#' This function uses the \code{lda.collapsed.gibbs.sampler} from the LDA
-#' package and additional saves topwordlists and a R workspace.
+#' This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link[lda]}-
+#' package and additionally saves topword lists and a R workspace.
 #'
 #'
 #' @param documents A list prepared by \code{\link{LDAprep}}.
-#' @param K number of topics.
-#' @param vocab character vector containing the words in the corpus.
-#' @param num.iterations number of iterations for the gibbs sampler.
-#' @param burnin number of iterations for the burnin.
-#' @param alpha Hyperparameter for the topic proportions.
-#' @param eta Hyperparameter for the word distributions.
+#' @param K Number of topics
+#' @param vocab Character vector containing the words in the corpus
+#' @param num.iterations Number of iterations for the gibbs sampler
+#' @param burnin Number of iterations for the burnin
+#' @param alpha Hyperparameter for the topic proportions
+#' @param eta Hyperparameter for the word distributions
 #' @param seed A seed for reproducability.
-#' @param folder file for the results.
-#' @param num.words number of words in the top topic words list.
-#' @param LDA logical: Should a new model be fitted or a existing R workspace
-#' @param count \code{logical} (default: \code{TRUE}) should article counts per
-#' top topic words be calculated for output in csv
-#' be used?
-#' @details to be added
-#' @return A .csv containing the topword list and a R workspace containing the
+#' @param folder File for the results
+#' @param num.words Number of words in the top topic words list
+#' @param LDA logical: Should a new model be fitted or an existing R workspace?
+#' @param count logical: Should article counts calculated
+#' per top topic words be used for output as csv
+#' (default: \code{TRUE})?
+#' @return A .csv file containing the topword list and a R workspace containing the
 #' result data.
 #' @seealso Documentation for the lda package.
 #' @references Blei, David M. and Ng, Andrew and Jordan, Michael. Latent
