@@ -1,25 +1,25 @@
-#' Plotting topics over time as areas under curves.
+#' Plotting topics over time as stacked areas below plotted lines.
 #'
-#' Creates a area plot of all or selected topics.
+#' Creates a stacked area plot of all or selected topics.
 #'
 #'
 #' @param ldaresult LDA result object
 #' @param ldaID Character vector including IDs of the texts
 #' @param select Selects all topics if parameter is null. Otherwise vector of integers or topic label. Only topics belonging to that numbers, and labels respectively would be plotted.
-#' @param tnames Character vector of topic labels. Must have same length than number of topics in the model.
-#' @param threshold Numeric treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion above the treshold
+#' @param tnames Character vector of topic labels. It must have same length than number of topics in the model.
+#' @param threshold Numeric: Treshold between 0 and 1. Topics would only be used if at least one time unit exist with a topic proportion above the treshold
 #' @param meta The meta data for the texts or a date-string.
 #' @param unit Time unit for x-axis. Possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
-#' @param xunit Time unit for tiks on the x-axis. Possible units see \code{\link[lubridate]{round_date}}
+#' @param xunit Time unit for tiks on the x-axis. For possible units see \code{\link[lubridate]{round_date}}
 #' @param color Color vector. Color vector would be replicated if the number of plotted topics is bigger than length of the vector.
-#' @param sort logical. Should the topics be sorted by topic proportion?
-#' @param legend Poisition of legend. If \code{NULL} (default), no legend will be plotted
-#' @param legendLimit numeric between 0 (default) and 1. Only Topics with proportions above this limit appear in the legend.
-#' @param peak numeric between 0 (default) and 1. Label peaks above \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
-#' @param file \code{character} file path if a pdf should be created
-#' @details Example use case
-#' @return list of two matrices. \code{rel} contains the topic proportions over time, \code{relcum} contains the cumulated topic proportions
+#' @param sort Logical: Should the topics be sorted by topic proportion?
+#' @param legend Position of legend. If \code{NULL} (default), no legend will be plotted
+#' @param legendLimit Numeric between 0 (default) and 1. Only Topics with proportions above this limit appear in the legend.
+#' @param peak Numeric between 0 (default) and 1. Label peaks above \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
+#' @param file Character: File path if a pdf should be created
+#' @details This function is useful to visualize the volume of topics and to show trends over time. 
+#' @return List of two matrices. \code{rel} contains the topic proportions over time, \code{relcum} contains the cumulated topic proportions
 #' @export plotArea
 #'
 plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
