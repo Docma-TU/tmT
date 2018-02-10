@@ -1,6 +1,6 @@
 #' Plotting Topics over Time relative to Corpus
 #'
-#' Creates a pdf including a heat map. For each topic, the heat map shows the deviation of
+#' Creates a pdf showing a heat map. For each topic, the heat map shows the deviation of
 #' its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 #' Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 #'
@@ -12,18 +12,19 @@
 #' @param select Numeric vector containing the numbers of the topics to be plotted. Defaults to all topics.
 #' @param ldaresult LDA result object.
 #' @param ldaID Character vector containing IDs of the texts.
-#' @param norm Logical. Should the values be normalized by the mean topic share to account for differently sized topics? Defaults to FALSE.
+#' @param norm Logical: Should the values be normalized by the mean topic share to account for differently sized topics (default: \code{FALSE})?
 #' @param file Character vector containing the path and name for the pdf output file.
-#' @param tnames Character vector with labels for the topics.
-#' @param unit \code{character} (default: \code{"year"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' @param tnames Character vector with labels for the topics. 
+#' @param unit Character:  To which unit should dates be floored (default: \code{"year"})? 
+#' Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
-#' @param date_breaks (default: \code{1}) how many labels should be shown on the x axis.
-#' If is \code{5} every fifth label is drawn.
-#' @param margins see \code{\link{heatmap}}
-#' @param distfun see \code{\link{heatmap}}
-#' @param ... additional graphical parameters passed to \code{\link{heatmap}},
+#' @param date_breaks How many labels should be shown on the x axis (default: \code{1})?
+#' If \code{data_breaks} is \code{5} every fifth label is drawn.
+#' @param margins See \code{\link{heatmap}}
+#' @param distfun See \code{\link{heatmap}}
+#' @param ... Additional graphical parameters passed to \code{\link{heatmap}},
 #' for example \code{hclustfun}.
+#' details The function is useful to search for peaks in the coverage of topics. 
 #' @return A pdf.
 #' Invisible: A dataframe.
 #' @export plotHeat
