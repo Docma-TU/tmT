@@ -13,79 +13,80 @@ plotWordSub(object, ldaresult, ldaID, limit = 10, alloc = c("multi",
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
-\code{text} component (\code{character} vectors) - like a result of
+\code{text} component (character vectors) - such as a result of
 \code{\link{makeClear}}}
 
-\item{ldaresult}{the result of a function call \code{\link{LDAgen}}}
+\item{ldaresult}{The result of a function call \code{\link{LDAgen}}}
 
-\item{ldaID}{\code{character} vector of IDs of the documents in
+\item{ldaID}{Character vector of IDs of the documents in
 \code{ldaresult}}
 
-\item{limit}{\code{integer/numeric} (default: \code{10}) the limit for how
-often a word must be allocated to a topic to count these article as belonging
-to this topic - if \code{0<limit<1} proportion is used}
+\item{limit}{Integer/numeric: How often a word must be
+ allocated to a topic to count these article as belonging
+to this topic - if \code{0<limit<1} proportion is used (default: \code{10})?}
 
-\item{alloc}{\code{character} (default: \code{"multi"}) should every article
+\item{alloc}{Character:  Should every article
 be allocated to multiple topics (\code{"multi"}), or maximum one
-topic (\code{"unique"}), or the - exactly one - most represantative
-topic (\code{"best"}). If \code{alloc = "best"} \code{limit} has no effect}
+topic (\code{"unique"}), or the most represantative  - exactly one -
+topic (\code{"best"}) (default: \code{"multi"})? If \code{alloc = "best"} \code{limit} has no effect.}
 
-\item{select}{\code{integer} vector (default: all topics) which topics of
-\code{ldaresult} should be plotted}
+\item{select}{Integer vector: Which topics of
+\code{ldaresult} should be plotted (default: all topics)?}
 
-\item{tnames}{\code{character} vector of same length as \code{select}
+\item{tnames}{Character vector of same length as \code{select}
 - labels for the topics (default are the first returned words of
 \code{\link{top.topic.words}} from the \code{lda} package for each topic)}
 
-\item{search}{see \code{\link{filterWord}}}
+\item{search}{See \code{\link{filterWord}}}
 
-\item{ignore.case}{see \code{\link{filterWord}}}
+\item{ignore.case}{See \code{\link{filterWord}}}
 
-\item{type}{\code{character} (default: \code{"docs"}) should counts/proportion
-of documents, where every  \code{"docs"} or words \code{"words"} be plotted}
+\item{type}{Character: Should counts/proportion of documents, where every
+\code{"docs"} or words \code{"words"} be plotted (default: \code{"docs"})?}
 
-\item{rel}{\code{logical} (default: \code{TRUE}) should counts
-(\code{FALSE}) or proportion (\code{TRUE}) be plotted}
+\item{rel}{Logical. Should counts (\code{FALSE})
+or proportion (\code{TRUE}) be plotted (default: \code{TRUE})?}
 
-\item{mark}{\code{logical} (default: \code{TRUE}) should years be marked by
-vertical lines}
+\item{mark}{Logical:  Should years be marked by
+vertical lines (default: \code{TRUE})?}
 
-\item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored}
+\item{unit}{Character: To which unit should dates be floored 
+(default: \code{"month"})? Other possible units are "bimonth", "quarter", "season", 
+"halfyear", "year", for more units see \code{\link[lubridate]{round_date}}}
 
-\item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
-\code{"smooth"} curve or \code{"both"} be plotted}
+\item{curves}{Character: Should \code{"exact"},
+\code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?}
 
-\item{smooth}{\code{numeric} (default: \code{0.05}) smoothing parameter
-which is handed over to \code{\link{lowess}} as \code{f}}
+\item{smooth}{Numeric: Smoothing parameter
+which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05})}
 
-\item{main}{\code{character} graphical parameter}
+\item{main}{Character: Graphical parameter}
 
-\item{xlab}{\code{character} graphical parameter}
+\item{xlab}{Character: Graphical parameter}
 
-\item{ylab}{\code{character} graphical parameter}
+\item{ylab}{Character: Graphical parameter}
 
-\item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
+\item{ylim}{Graphical parameter (default if \code{rel = TRUE}: \code{c(0, 1)})}
 
-\item{both.lwd}{graphical parameter for smoothed values
+\item{both.lwd}{Graphical parameter for smoothed values
 if \code{curves = "both"}}
 
-\item{both.lty}{graphical parameter for smoothed values
+\item{both.lty}{Graphical parameter for smoothed values
 if \code{curves = "both"}}
 
-\item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
+\item{col}{Graphical parameter, could be a vector. If \code{curves = "both"}
 the function will for every wordgroup plot at first the exact and then the
 smoothed curve - this is important for your col order.}
 
-\item{legend}{\code{character} (default: "topright") value(s) to specify the
-legend coordinates. If "none" no legend is plotted.}
+\item{legend}{Character: Value(s) to specify the
+legend coordinates (default: "topright"). If "none" no legend is plotted.}
 
-\item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
-to zeros. Only has effect if \code{rel = TRUE}.}
+\item{natozero}{Logical. Should NAs be coerced
+to zeros (default: \code{TRUE})? Only has effect if \code{rel = TRUE}.}
 
-\item{file}{\code{character} file path if a pdf should be created}
+\item{file}{Character: File path if a pdf should be created}
 
-\item{...}{additional graphical parameters}
+\item{...}{Additional graphical parameters}
 }
 \value{
 A plot.
@@ -97,7 +98,7 @@ Creates a plot of the counts/proportion of words/docs in corpora which are
 generated by a \code{ldaresult}. Therefore an article is allocated to a topic
 - and then to the topics corpus - if there are enough (see \code{limit} and
 \code{alloc}) allocations of words in the article to the corresponding topic.
-Additionally the corpora are reduced by \code{\link{filterWord}} and an
+Additionally the corpora are reduced by \code{\link{filterWord}} and a
 \code{search}-argument. The plot shows counts of subcorpora or if
-\code{rel = TRUE} proportion of subcorpora on its corresponding whole corpora.
+\code{rel = TRUE} proportion of subcorpora to its corresponding whole corpus.
 }

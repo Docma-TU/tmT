@@ -32,7 +32,7 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = 1,
 
 \item{umlauts}{\code{logical}: Should umlauts be changed?}
 
-\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{Ã¼}{u}
+\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts 
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
 
