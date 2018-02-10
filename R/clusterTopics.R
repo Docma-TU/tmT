@@ -1,17 +1,18 @@
 #' Cluster Analysis
 #'
-#' Makes a cluster analysis with the hellinger distance.
+#' This function makes a cluster analysis using the Hellinger distance.
 #'
-#'
-#' @param ldaresult  the result of a function call \code{\link{LDAgen}}
+#' @param ldaresult  The result of a function call \code{\link{LDAgen}}
 #' @param file File for the dendogram pdf.
 #' @param topicnames Character vector as label for the topics.
 #' @param method Method statement from \code{\link{hclust}}
-#' @param width grafical parameter for pdf output. See \code{\link{pdf}}
-#' @param height grafical parameter for pdf output. See \code{\link{pdf}}
-#' @param ... additional parameter for \code{\link{plot}}
-#' @return A dendogram as pdf and a List \item{dist}{A distance matrix}
-#' \item{clust}{The result from \code{hclust}.}
+#' @param width Grafical parameter for pdf output. See \code{\link{pdf}}
+#' @param height Grafical parameter for pdf output. See \code{\link{pdf}}
+#' @param ... Additional parameter for \code{\link{plot}}
+#' @return A dendogram as pdf and a list \item{dist}{A distance matrix}
+#' \item{clust}{The result from \code{hclust}}
+#' @details This function is useful to analyze 
+#' topic similarities and while evaluating the right number of topics of LDAs.
 #' @examples
 #'
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
