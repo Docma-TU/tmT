@@ -27,16 +27,6 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = 1,
 \item{delete}{delete other entitys?}
 
 \item{symbols}{check symbols?}
-
-\item{xml}{\code{logical} Should XML-TAGs be removed?}
-
-\item{umlauts}{\code{logical}: Should umlauts be changed?}
-
-\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts 
--> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
-\code{all} for both.}
-
-\item{html}{Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)}
 }
 \value{
 Adjusted corpus

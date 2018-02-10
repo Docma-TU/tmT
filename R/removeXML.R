@@ -4,12 +4,6 @@
 #'
 #'
 #' @param x \code{character} vector.
-#' @param xml \code{logical} Should XML-TAGs be removed?
-#' @param umlauts \code{logical}: Should umlauts be changed?
-#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts 
-#' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
-#' \code{all} for both.
-#' @param html Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)
 #' @details The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of the a word.
 #' To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
 #' @return Adjusted corpus

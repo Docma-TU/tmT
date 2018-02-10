@@ -40,7 +40,7 @@ A .csv file containing the topword list and a R workspace containing the
 result data.
 }
 \description{
-This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link[lda]}-
+This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link{lda}}-
 package and additionally saves topword lists and a R workspace.
 }
 \examples{

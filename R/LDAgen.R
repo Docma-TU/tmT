@@ -1,6 +1,6 @@
 #' Function to fit LDA model
 #'
-#' This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link[lda]}-
+#' This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link{lda}}-
 #' package and additionally saves topword lists and a R workspace.
 #'
 #'
