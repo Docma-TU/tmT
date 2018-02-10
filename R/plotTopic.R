@@ -1,4 +1,4 @@
-#' Plotting Counts of Topics over Time (relative to Corpus)
+#' Plotting Counts of Topics over Time (Relative to Corpus)
 #'
 #' Creates a plot of the counts/proportion of specified topics of a result of
 #' \code{\link{LDAgen}}. There is an option to plot all curves in one plot
@@ -6,50 +6,50 @@
 #' In addition the plots can be written to a pdf by setting \code{file}.
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
-#' \code{text} component (\code{character} vectors) - like a result of
+#' \code{text} component (character vectors) - such as a result of
 #' \code{\link{makeClear}}
-#' @param ldaresult the result of a function call \code{\link{LDAgen}}
-#' @param ldaID \code{character} vector of IDs of the documents in
+#' @param ldaresult The result of a function call \code{\link{LDAgen}}
+#' @param ldaID Character vector of IDs of the documents in
 #' \code{ldaresult}
-#' @param select \code{integer} vector (default: all topics) which topics of
-#' \code{ldaresult} should be plotted
-#' @param tnames \code{character} vector of same length as \code{select}
+#' @param select Integer: Which topics of
+#' \code{ldaresult} should be plotted (default: all topics)?
+#' @param tnames Character vector of same length as \code{select}
 #' - labels for the topics (default are the first returned words of
 #' \code{\link{top.topic.words}} from the \code{lda} package for each topic)
-#' @param rel \code{logical} (default: \code{FALSE}) should counts
-#' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
-#' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
-#' vertical lines
-#' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' @param rel Logical: Should counts (\code{FALSE}) or
+#' proportion (\code{TRUE}) be plotted (default: \code{FALSE})? 
+#' @param mark Logical: Should years be marked by
+#' vertical lines (default: \code{TRUE})?
+#' @param unit Character: To which unit should dates be floored
+#' (default: \code{"month"})? Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
-#' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
-#' \code{"smooth"} curve or \code{"both"} be plotted
-#' @param smooth \code{numeric} (default: \code{0.05}) smoothing parameter
-#' which is handed over to \code{\link{lowess}} as \code{f}
-#' @param both.lwd graphical parameter for smoothed values
+#' @param curves Character: Should \code{"exact"},
+#' \code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?
+#' @param smooth Numeric: Smoothing parameter
+#' which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05})
+#' @param both.lwd Graphical parameter for smoothed values
 #' if \code{curves = "both"}
-#' @param both.lty graphical parameter for smoothed values
+#' @param both.lty Graphical parameter for smoothed values
 #' if \code{curves = "both"}
-#' @param main \code{character} graphical parameter
-#' @param xlab \code{character} graphical parameter
-#' @param ylab \code{character} graphical parameter
-#' @param ylim graphical parameter
-#' @param col graphical parameter, could be a vector. If \code{curves = "both"}
+#' @param main Character: Graphical parameter
+#' @param xlab Character: Graphical parameter
+#' @param ylab Character: Graphical parameter
+#' @param ylim Graphical parameter
+#' @param col Graphical parameter, could be a vector. If \code{curves = "both"}
 #' the function will for every topicgroup plot at first the exact and then the
 #' smoothed curve - this is important for your col order.
-#' @param legend \code{character} (default: \code{"topright"},
-#' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively)
-#' value(s) to specify the legend coordinates. If "none" no legend is plotted.
-#' @param pages \code{logical} (default: \code{FALSE}) should all curves be
-#' plotted in a single plot. In addtion you could set
+#' @param legend Character: Value(s) to specify the legend coordinates (default: \code{"topright"},
+#' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively).
+#' If "none" no legend is plotted.
+#' @param pages Logical: Should all curves be
+#' plotted in a single plot (default: \code{FALSE})? In addtion you could set
 #' \code{legend = "onlyLast:<argument>"} with \code{<argument>} as a
 #' \code{character} \code{legend} argument
 #' for only plotting a legend on the last plot of set.
-#' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
-#' to zeros. Only has effect if \code{rel = TRUE}.
-#' @param file \code{character} file path if a pdf should be created
-#' @param ... additional graphical parameters
+#' @param natozero Logical: Should NAs be coerced
+#' to zeros (default: \code{TRUE})? Only has effect if \code{rel = TRUE}.
+#' @param file Character: File path if a pdf should be created
+#' @param ... Additional graphical parameters
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{tnames} with the
 #' counts/proportion of the selected topics.
