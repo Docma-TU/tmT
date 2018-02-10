@@ -6,7 +6,7 @@
 #' @param x \code{character} vector.
 #' @param xml \code{logical} Should XML-TAGs be removed?
 #' @param umlauts \code{logical}: Should umlauts be changed?
-#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts (\enc{Ã¼}{u}
+#' @param u.type Type of umlaut changing: \code{normal} for normal umlauts 
 #' -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 #' \code{all} for both.
 #' @param html Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)
