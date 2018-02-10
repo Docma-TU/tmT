@@ -78,14 +78,6 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=1, delete=
     return(x)
 }
 
-x <- c("&#216; &#x00D8; &Oslash;",
-           "&#268; &#x010C; 268 010C",
-               "&#160;")
-
-removeHTML(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=1, delete=TRUE, symbols=FALSE)
-
-
-
 ISO8859 <- function(x){
     ISO <- list(
         ISO1=matrix(dim=list(NULL,c("htmlDec","htmlHex","htmlName","Character")),c(
