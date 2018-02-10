@@ -1,11 +1,12 @@
-#' Preparation of different LDAs For Clustering
+#' Preparation of Different LDAs For Clustering
 #'
 #' Merges different lda-results to one matrix, including only the words which
-#' appears in all lda.
+#' appears in all lda-results.
 #'
 #'
 #' @param x A list of lda results.
-#' @return A matrix including all topics from all lda-results. Number of rows
+#' @details The function is useful for merging lda-results prior to a cluster analysis with \code{\link{clusterTopics}}. 
+#' @return A matrix including all topics from all lda-results. The number of rows
 #' is the number of topics, the number of columns is the number of words which
 #' appear in all results.
 #' @keywords manip
