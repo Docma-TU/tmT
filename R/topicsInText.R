@@ -1,21 +1,21 @@
-#' Word coloring by topics
+#' Coloring the words of a text corresponding to topic allocation
 #'
-#' tba
+#' The function creates a HTML document with the words of texts colored depending on the topic allocation of each word.
 #'
-#' @param text the result of \code{\link{LDAprep}}
-#' @param ldaID list of ids for \code{text}
-#' @param id id of the article of interest
-#' @param ldaresult a result object from the \code{standardLDA}
-#' @param label optional label for each topic.
-#' @param vocab Character vector of \code{vocab} corresponding to the \code{text} object
-#' @param wordOrder type of output: \code{"alphabetical"} prints the words of the article in alphabetical order, \code{"topics"} sorts by topic (biggest topic first) and \code{"both"} prints both versions. All other inputs will result to no output (this makes only sense in combination with \code{originaltext}.
-#' @param colors character vector of colors. If the vector is shorter than the number of topics it will be completed by "black" entrys.
-#' @param fixColors logical. If \code{FALSE} the first color will be used for the biggest topic and so on. If \code{fixColors=TRUE} the the color-entry corresponding to the position of the topic is choosen.
-#' @param meta optional input for meta data. Will be printed in the header of the output.
-#' @param originaltext optional a list of texts (the \code{text} list of the \code{textmeta} object) including the desired text. Listnames must be id's. Necessary for Output in original text.
-#' @param unclearTopicAssignment logical. If TRUE all words which are assigned to more than one topic will not be colored. Otherwise the words will be colored in order of topic apperance in the \code{ldaresult}.
-#' @param htmlreturn logical. html output for tests.
-#' @return A html document
+#' @param text The result of \code{\link{LDAprep}}
+#' @param ldaID List of IDs for \code{text}
+#' @param id ID of the article of interest
+#' @param ldaresult A result object from the \code{standardLDA}
+#' @param label Optional label for each topic
+#' @param vocab Character: Vector of \code{vocab} corresponding to the \code{text} object
+#' @param wordOrder Type of output: \code{"alphabetical"} prints the words of the article in alphabetical order, \code{"topics"} sorts by topic (biggest topic first) and \code{"both"} prints both versions. All other inputs will result to no output (this makes only sense in combination with \code{originaltext}.
+#' @param colors Character vector of colors. If the vector is shorter than the number of topics it will be completed by "black" entrys.
+#' @param fixColors Logical: If \code{FALSE} the first color will be used for the biggest topic and so on. If \code{fixColors=TRUE} the the color-entry corresponding to the position of the topic is choosen.
+#' @param meta Optional input for meta data. It will be printed in the header of the output.
+#' @param originaltext Optional a list of texts (the \code{text} list of the \code{textmeta} object) including the desired text. Listnames must be IDs. Necessary for output in original text
+#' @param unclearTopicAssignment Logical: If TRUE all words which are assigned to more than one topic will not be colored. Otherwise the words will be colored in order of topic apperance in the \code{ldaresult}.
+#' @param htmlreturn Logical: HTML output for tests
+#' @return A HTML document
 #' @seealso tba
 #' @references tba
 #' @export topicsInText
