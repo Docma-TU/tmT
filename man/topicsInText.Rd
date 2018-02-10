@@ -2,7 +2,7 @@
 % Please edit documentation in R/topicsInText.R
 \name{topicsInText}
 \alias{topicsInText}
-\title{Word coloring by topics}
+\title{Coloring the words of a text corresponding to topic allocation}
 \usage{
 topicsInText(text, ldaID, id, ldaresult, label = NULL, vocab,
   wordOrder = c("both", "alphabetical", "topics", ""), colors = NULL,
@@ -10,37 +10,37 @@ topicsInText(text, ldaID, id, ldaresult, label = NULL, vocab,
   unclearTopicAssignment = TRUE, htmlreturn = FALSE)
 }
 \arguments{
-\item{text}{the result of \code{\link{LDAprep}}}
+\item{text}{The result of \code{\link{LDAprep}}}
 
-\item{ldaID}{list of ids for \code{text}}
+\item{ldaID}{List of IDs for \code{text}}
 
-\item{id}{id of the article of interest}
+\item{id}{ID of the article of interest}
 
-\item{ldaresult}{a result object from the \code{standardLDA}}
+\item{ldaresult}{A result object from the \code{standardLDA}}
 
-\item{label}{optional label for each topic.}
+\item{label}{Optional label for each topic}
 
-\item{vocab}{Character vector of \code{vocab} corresponding to the \code{text} object}
+\item{vocab}{Character: Vector of \code{vocab} corresponding to the \code{text} object}
 
-\item{wordOrder}{type of output: \code{"alphabetical"} prints the words of the article in alphabetical order, \code{"topics"} sorts by topic (biggest topic first) and \code{"both"} prints both versions. All other inputs will result to no output (this makes only sense in combination with \code{originaltext}.}
+\item{wordOrder}{Type of output: \code{"alphabetical"} prints the words of the article in alphabetical order, \code{"topics"} sorts by topic (biggest topic first) and \code{"both"} prints both versions. All other inputs will result to no output (this makes only sense in combination with \code{originaltext}.}
 
-\item{colors}{character vector of colors. If the vector is shorter than the number of topics it will be completed by "black" entrys.}
+\item{colors}{Character vector of colors. If the vector is shorter than the number of topics it will be completed by "black" entrys.}
 
-\item{fixColors}{logical. If \code{FALSE} the first color will be used for the biggest topic and so on. If \code{fixColors=TRUE} the the color-entry corresponding to the position of the topic is choosen.}
+\item{fixColors}{Logical: If \code{FALSE} the first color will be used for the biggest topic and so on. If \code{fixColors=TRUE} the the color-entry corresponding to the position of the topic is choosen.}
 
-\item{meta}{optional input for meta data. Will be printed in the header of the output.}
+\item{meta}{Optional input for meta data. It will be printed in the header of the output.}
 
-\item{originaltext}{optional a list of texts (the \code{text} list of the \code{textmeta} object) including the desired text. Listnames must be id's. Necessary for Output in original text.}
+\item{originaltext}{Optional a list of texts (the \code{text} list of the \code{textmeta} object) including the desired text. Listnames must be IDs. Necessary for output in original text}
 
-\item{unclearTopicAssignment}{logical. If TRUE all words which are assigned to more than one topic will not be colored. Otherwise the words will be colored in order of topic apperance in the \code{ldaresult}.}
+\item{unclearTopicAssignment}{Logical: If TRUE all words which are assigned to more than one topic will not be colored. Otherwise the words will be colored in order of topic apperance in the \code{ldaresult}.}
 
-\item{htmlreturn}{logical. html output for tests.}
+\item{htmlreturn}{Logical: HTML output for tests}
 }
 \value{
-A html document
+A HTML document
 }
 \description{
-tba
+The function creates a HTML document with the words of texts colored depending on the topic allocation of each word.
 }
 \references{
 tba

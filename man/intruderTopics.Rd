@@ -2,7 +2,7 @@
 % Please edit documentation in R/intruderTopics.R
 \name{intruderTopics}
 \alias{intruderTopics}
-\title{Function to fit LDA model}
+\title{Function to validate the fit of the LDA model}
 \usage{
 intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
   numIntruder = 1, numOuttopics = 4, byScore = TRUE, minWords = 0L,
@@ -18,11 +18,11 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
 
 \item{id}{tba}
 
-\item{numIntruder}{intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.}
+\item{numIntruder}{Intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.}
 
-\item{numOuttopics}{tba integer. Number of words per topic, including the intruder words.}
+\item{numOuttopics}{tba Integer: Number of words per topic, including the intruder words}
 
-\item{byScore}{logical should the score of \code{top.topic.words} from the \code{lda} package be used?}
+\item{byScore}{Logical: Should the score of \code{top.topic.words} from the \code{lda} package be used?}
 
 \item{minWords}{tba}
 
@@ -32,17 +32,17 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
 
 \item{printSolution}{tba}
 
-\item{oldResult}{result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
+\item{oldResult}{Result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
 
-\item{test}{logical enables test mode}
+\item{test}{Logical: Enables test mode}
 
-\item{testinput}{input for function tests}
+\item{testinput}{Input for function tests}
 }
 \value{
 tba
 }
 \description{
-tba
+This function validates a LDA result by presenting a mix of topics and intruder topics to a human user, who has to identity them.
 }
 \references{
 tba

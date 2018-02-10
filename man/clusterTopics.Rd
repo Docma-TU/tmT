@@ -8,7 +8,7 @@ clusterTopics(ldaresult, file, topicnames = NULL, method = "average",
   width = 30, height = 15, ...)
 }
 \arguments{
-\item{ldaresult}{the result of a function call \code{\link{LDAgen}}}
+\item{ldaresult}{The result of a function call \code{\link{LDAgen}}}
 
 \item{file}{File for the dendogram pdf.}
 
@@ -16,18 +16,22 @@ clusterTopics(ldaresult, file, topicnames = NULL, method = "average",
 
 \item{method}{Method statement from \code{\link{hclust}}}
 
-\item{width}{grafical parameter for pdf output. See \code{\link{pdf}}}
+\item{width}{Grafical parameter for pdf output. See \code{\link{pdf}}}
 
-\item{height}{grafical parameter for pdf output. See \code{\link{pdf}}}
+\item{height}{Grafical parameter for pdf output. See \code{\link{pdf}}}
 
-\item{...}{additional parameter for \code{\link{plot}}}
+\item{...}{Additional parameter for \code{\link{plot}}}
 }
 \value{
-A dendogram as pdf and a List \item{dist}{A distance matrix}
-\item{clust}{The result from \code{hclust}.}
+A dendogram as pdf and a list \item{dist}{A distance matrix}
+\item{clust}{The result from \code{hclust}}
 }
 \description{
-Makes a cluster analysis with the hellinger distance.
+This function makes a cluster analysis using the Hellinger distance.
+}
+\details{
+This function is useful to analyze 
+topic similarities and while evaluating the right number of topics of LDAs.
 }
 \examples{
 

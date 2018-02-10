@@ -2,7 +2,7 @@
 % Please edit documentation in R/intruderWords.R
 \name{intruderWords}
 \alias{intruderWords}
-\title{Function to fit LDA model}
+\title{Function to validate the fit of the LDA model}
 \usage{
 intruderWords(beta = NULL, byScore = TRUE, numTopwords = 30L,
   numIntruder = 1L, numOutwords = 5L, noTopic = TRUE,
@@ -12,29 +12,29 @@ intruderWords(beta = NULL, byScore = TRUE, numTopwords = 30L,
 \arguments{
 \item{beta}{A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.}
 
-\item{byScore}{logical should the score of \code{top.topic.words} from the \code{lda} package be used?}
+\item{byScore}{Logical: Should the score of \code{top.topic.words} from the \code{lda} package be used?}
 
-\item{numTopwords}{the number of topwords to be used for the intruder words.}
+\item{numTopwords}{The number of topwords to be used for the intruder words}
 
-\item{numIntruder}{intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.}
+\item{numIntruder}{Intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.}
 
-\item{numOutwords}{integer. Number of words per topic, including the intruder words.}
+\item{numOutwords}{Integer: Number of words per topic, including the intruder words.}
 
-\item{noTopic}{logical. Is \code{x} input allowed to mark nonsense topics?}
+\item{noTopic}{Logical: Is \code{x} input allowed to mark nonsense topics?}
 
 \item{printSolution}{tba}
 
-\item{oldResult}{result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
+\item{oldResult}{Result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
 
-\item{test}{logical enables test mode}
+\item{test}{Logical: Enables test mode}
 
-\item{testinput}{input for function tests}
+\item{testinput}{Input for function tests}
 }
 \value{
 tba
 }
 \description{
-tba
+This function validates a LDA result by presenting a mix of words from a topic and intruder words to a human user, who has to identity them.
 }
 \references{
 tba

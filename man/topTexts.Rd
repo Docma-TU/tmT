@@ -2,7 +2,7 @@
 % Please edit documentation in R/topTexts.R
 \name{topTexts}
 \alias{topTexts}
-\title{Get The IDs Of The Most Representive Articles}
+\title{Get The IDs Of The Most Representive Texts}
 \usage{
 topTexts(ldaresult, ldaID, limit = 20L, rel = TRUE,
   select = 1:nrow(ldaresult$document_sums), tnames, minlength = 30L)
@@ -12,22 +12,22 @@ topTexts(ldaresult, ldaID, limit = 20L, rel = TRUE,
 
 \item{ldaID}{Vector of text IDs}
 
-\item{limit}{Integer, number of article ids per topic.}
+\item{limit}{Integer: Number of text IDs per topic.}
 
 \item{rel}{Logical: Should be the relative frequency be used?}
 
-\item{select}{which topics should be returned?}
+\item{select}{Which topics should be returned?}
 
-\item{tnames}{names of the selected topics}
+\item{tnames}{Names of the selected topics}
 
 \item{minlength}{Minimal total number of words a text must have to be
-included.}
+included}
 }
 \value{
-Matrix of Article IDs.
+Matrix of text IDs.
 }
 \description{
-Extract the article IDs belonging to the articles with the most relative or
+The function extracts the text IDs belonging to the texts with the highest relative or
 absolute number of words per topic.
 }
 \examples{

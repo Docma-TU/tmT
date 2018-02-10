@@ -2,23 +2,41 @@
 % Please edit documentation in R/removeXML.R
 \name{removeXML}
 \alias{removeXML}
+\alias{removeUmlauts}
+\alias{removeHTML}
 \title{Removes XML tags and umlauts}
 \usage{
-removeXML(x, xml = TRUE, umlauts = FALSE, u.type = c("normal", "html",
-  "all"), remove.html = TRUE)
+removeXML(x)
+
+removeUmlauts(x)
+
+removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = 1,
+  delete = TRUE, symbols = FALSE)
 }
 \arguments{
 \item{x}{\code{character} vector.}
+
+\item{dec}{logical remove html decimal?}
+
+\item{hex}{logical remove html hex?}
+
+\item{entity}{logical remove html name?}
+
+\item{symbolList}{Which ISO-8859 Lists?}
+
+\item{delete}{delete other entitys?}
+
+\item{symbols}{check symbols?}
 
 \item{xml}{\code{logical} Should XML-TAGs be removed?}
 
 \item{umlauts}{\code{logical}: Should umlauts be changed?}
 
-\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{ü}{u}
+\item{u.type}{Type of umlaut changing: \code{normal} for normal umlauts (\enc{Ã¼}{u}
 -> ue), \code{html} for html representation of umlauts (&uuml; -> ue) and
 \code{all} for both.}
 
-\item{remove.html}{Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)}
+\item{html}{Logical: Should Numeric character references beeing deleted (after replacing umlauts etc.)}
 }
 \value{
 Adjusted corpus

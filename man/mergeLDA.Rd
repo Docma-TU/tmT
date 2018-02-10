@@ -2,7 +2,7 @@
 % Please edit documentation in R/mergeLDA.R
 \name{mergeLDA}
 \alias{mergeLDA}
-\title{Preparation of different LDAs For Clustering}
+\title{Preparation of Different LDAs For Clustering}
 \usage{
 mergeLDA(x)
 }
@@ -10,13 +10,16 @@ mergeLDA(x)
 \item{x}{A list of lda results.}
 }
 \value{
-A matrix including all topics from all lda-results. Number of rows
+A matrix including all topics from all lda-results. The number of rows
 is the number of topics, the number of columns is the number of words which
 appear in all results.
 }
 \description{
 Merges different lda-results to one matrix, including only the words which
-appears in all lda.
+appears in all lda-results.
+}
+\details{
+The function is useful for merging lda-results prior to a cluster analysis with \code{\link{clusterTopics}}.
 }
 \examples{
 texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.

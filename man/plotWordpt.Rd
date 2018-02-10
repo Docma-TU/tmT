@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotWordpt.R
 \name{plotWordpt}
 \alias{plotWordpt}
-\title{Plotting Counts of Topics-Words-Combination over Time (relative to Topics)}
+\title{Plotting Counts of Topics-Words-Combination over Time (Relative to Topics)}
 \usage{
 plotWordpt(object, docs, ldaresult, ldaID,
   select = 1:nrow(ldaresult$document_sums), link = c("and", "or"),
@@ -17,88 +17,87 @@ plotWordpt(object, docs, ldaresult, ldaID,
 \code{text} component (\code{character} vectors) - like a result of
 \code{\link{makeClear}}}
 
-\item{docs}{object as a result of \code{\link{LDAprep}} which was handed over
+\item{docs}{Object as a result of \code{\link{LDAprep}} which was handed over
 to \code{\link{LDAgen}}}
 
-\item{ldaresult}{the result of a function call \code{\link{LDAgen}} with
+\item{ldaresult}{The result of a function call \code{\link{LDAgen}} with
 \code{docs} as argument}
 
-\item{ldaID}{\code{character} vector of IDs of the documents in
+\item{ldaID}{Character vector of IDs of the documents in
 \code{ldaresult}}
 
-\item{select}{list of \code{integer} vectors. Every list element is an 'or'
-link, every \code{integer} string in a vector is linked by the argument
+\item{select}{List of integer vectors. Every list element is an 'or'
+link, every integer string in a vector is linked by the argument
 \code{link}. If \code{select} is only a \code{integer} vector it will be
 coerced to a list of the same length as the vector (see \code{\link{as.list}}),
-so that the argument \code{link} has no effect. Each \code{integer} vector
+so that the argument \code{link} has no effect. Each integer vector
 as a list element represents one curve in the outcoming plot}
 
-\item{link}{\code{character} (default: \code{"and"}) should the (inner)
-\code{integer} vectors of each list element be linked by an \code{"and"}
-or an \code{"or"}}
+\item{link}{Character:  Should the (inner)
+integer vectors of each list element be linked by an \code{"and"}
+or an \code{"or"} (default: \code{"and"})?}
 
-\item{wordlist}{list of \code{character} vectors (default: the first
-\code{\link{top.topic.words}} per topic as simple
-\code{character} vector) which words - linked by an "or" every time -
-should be take into account for plotting the topic counts/proportion.}
+\item{wordlist}{List of character vectors: Which words - linked by an "or" every time - 
+should be take into account for plotting the topic counts/proportion
+(default: the first \code{\link{top.topic.words}} per topic as simple character vector)?}
 
-\item{tnames}{\code{character} vector of same length as \code{select}
+\item{tnames}{Character vector of same length as \code{select}
 - labels for the topics (default are the first returned words of}
 
-\item{wnames}{\code{character} vector of same length as \code{wordlist}
+\item{wnames}{Character vector of same length as \code{wordlist}
 - labels for every group of 'and' linked words
 \code{\link{top.topic.words}} from the \code{lda} package for each topic)}
 
-\item{rel}{\code{logical} (default: \code{FALSE}) should counts
-(\code{FALSE}) or proportion (\code{TRUE}) be plotted}
+\item{rel}{Logical:  Should counts
+(\code{FALSE}) or proportion (\code{TRUE}) be plotted (default: \code{FALSE})?}
 
-\item{mark}{\code{logical} (default: \code{TRUE}) should years be marked by
-vertical lines}
+\item{mark}{Logical Should years be marked by
+vertical lines (default: \code{TRUE})?}
 
-\item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+\item{unit}{Character To which unit should dates be floored 
+(default: \code{"month"})? Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
-\item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
-\code{"smooth"} curve or \code{"both"} be plotted}
+\item{curves}{Character:  Should \code{"exact"},
+\code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?}
 
-\item{smooth}{\code{numeric} (default: \code{0.05}) smoothing parameter
-which is handed over to \code{\link{lowess}} as \code{f}}
+\item{smooth}{Numeric: Smoothing parameter
+which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05})}
 
-\item{legend}{\code{character} (default: \code{"topright"},
-\code{"onlyLast:topright"} for \code{pages = TRUE} respectively)
-value(s) to specify the legend coordinates. If "none" no legend is plotted.}
+\item{legend}{Character: Value(s) to specify the legend coordinates (default: \code{"topright"},
+\code{"onlyLast:topright"} for \code{pages = TRUE} respectively).
+If "none" no legend is plotted.}
 
-\item{pages}{\code{logical} (default: \code{FALSE}) should all curves be
-plotted in a single plot. In addtion you could set
+\item{pages}{Logical: Should all curves be
+plotted in a single plot (default: \code{FALSE})? In addtion you could set
 \code{legend = "onlyLast:<argument>"} with \code{<argument>} as a
-\code{character} \code{legend} argument
+character \code{legend} argument
 for only plotting a legend on the last plot of set.}
 
-\item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
-to zeros}
+\item{natozero}{Logical:  Should NAs be coerced
+to zeros (default: \code{TRUE})?}
 
-\item{file}{\code{character} file path if a pdf should be created}
+\item{file}{Character: File path if a pdf should be created}
 
-\item{main}{\code{character} graphical parameter}
+\item{main}{Character: Graphical parameter}
 
-\item{xlab}{\code{character} graphical parameter}
+\item{xlab}{Ccharacter: Graphical parameter}
 
-\item{ylab}{\code{character} graphical parameter}
+\item{ylab}{Character: Graphical parameter}
 
-\item{ylim}{graphical parameter}
+\item{ylim}{Graphical parameter}
 
-\item{both.lwd}{graphical parameter for smoothed values
+\item{both.lwd}{Graphical parameter for smoothed values
 if \code{curves = "both"}}
 
-\item{both.lty}{graphical parameter for smoothed values
+\item{both.lty}{Graphical parameter for smoothed values
 if \code{curves = "both"}}
 
-\item{col}{graphical parameter, could be a vector. If \code{curves = "both"}
+\item{col}{Graphical parameter, could be a vector. If \code{curves = "both"}
 the function will for every wordgroup plot at first the exact and then the
 smoothed curve - this is important for your col order.}
 
-\item{\dots}{additional graphical parameters}
+\item{\dots}{Additional graphical parameters}
 }
 \value{
 A plot.
@@ -107,7 +106,7 @@ with the counts/proportion of the selected combination of topics and words.
 }
 \description{
 Creates a plot of the counts/proportion of specified combination of topics
-and words. It is important to keep in mind that the baseline for
+and words. The plot shows how often a word appears in a topic. It is important to keep in mind that the baseline for
 proportions are the sums of topics, not sums of words.
 See also \code{\link{plotTopicWord}}.
 There is an option to plot all curves in one plot or to create one plot for

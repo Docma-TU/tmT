@@ -27,7 +27,6 @@ removeXML <- function(x){
 }
 
 #' @rdname removeXML
-#' @param x an R Object.
 #' @export
 
 removeUmlauts <- function(x){
@@ -42,18 +41,17 @@ removeUmlauts <- function(x){
 }
 
 #' @rdname removeXML
-#' @param x an R Object.
+#' @param dec logical remove html decimal?
+#' @param hex logical remove html hex?
+#' @param entity logical remove html name?
+#' @param symbolList Which ISO-8859 Lists?
+#' @param delete delete other entitys?
+#' @param symbols check symbols?
 #' @export
-
-   x <- "ø"
-    x <- "\370"
-    x <- "\U00F8"
- x <- c("&#268; &#x010C; 268 010C")
 
 removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=1, delete=TRUE, symbols=FALSE){
     entityList <- NULL
-    if(1 %in% symbolList)entityList <- rbind(entityList, ISO1)
-    ## weitere Listen
+    entityList <- ISO8859(symbolList)
     entityList <- entityList[!duplicated(entityList),]
 
     if(!symbols){ # remove symbols from entityList
@@ -88,19 +86,6 @@ removeHTML(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=1, delete=TRUE, symbol
 
 
 
-setwd("C:/Users/koppers/Desktop/ISO-8859")
-ISO1 <- read.csv("ISO8859-1.csv", encoding="UTF-8", stringsAsFactors=FALSE, allowEscapes=TRUE)
-str(ISO1)
-
-## entities <- read.csv("entities.csv", encoding="UTF-8", stringsAsFactors=FALSE)
-## htmlChar <- read.csv("HTMLcharacters.csv", encoding="UTF-8", stringsAsFactors=FALSE, header=FALSE)
-## htmlChar <- as.matrix(htmlChar)
-## htmlChar <- rbind(htmlChar[,1:2], htmlChar[,3:4])
-## htmlChar <- data.frame(utf8=htmlChar[,1], html=htmlChar[,2], stringsAsFactors=FALSE)
-## htmlChar <- htmlChar[!duplicated(htmlChar),]
-## htmlChar$unicode <- entities[match(htmlChar[,2], entities[,1]),2]
-## str(htmlChar)
-## write.csv(htmlChar, file="characters.csv", fileEncoding="utf-8")
 ISO8859 <- function(x){
     ISO <- list(
         ISO1=matrix(dim=list(NULL,c("htmlDec","htmlHex","htmlName","Character")),c(
@@ -1590,5 +1575,7 @@ ISO8859 <- function(x){
 "&#255;","&#x00FF;","&yuml;","ÿ"
         ), byrow=TRUE, ncol=4))
 
-
+    out <- NULL
+    for(i in x) out <- rbind(out, ISO[[i]])
+               return(out)
 }

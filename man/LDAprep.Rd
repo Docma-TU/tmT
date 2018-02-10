@@ -7,12 +7,12 @@
 LDAprep(text, vocab, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
 }
 \arguments{
-\item{text}{a list of tokenized texts.}
+\item{text}{A list of tokenized texts}
 
-\item{vocab}{a character vector containing all words which should beused for
-lda.}
+\item{vocab}{A character vector containing all words which should beused for
+lda}
 
-\item{ldacorrect}{logical: If \code{TRUE}, every word repetition gets an own
+\item{ldacorrect}{logical: If \code{TRUE}, every word repetition gets a separate
 column.}
 
 \item{excludeNA}{logical: Should \code{NA}s be removed?}
@@ -28,8 +28,8 @@ occurrence of the word will be shown by the number of columns belonging to
 this word.
 }
 \description{
-This function transforms a text corpus like the result from
-\code{\link{makeClear}} in a form needed by the lda-package.
+This function transforms a text corpus such as the result from
+\code{\link{makeClear}} into the form needed by the \code{\link[lda]}-package.
 }
 \examples{
 texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.

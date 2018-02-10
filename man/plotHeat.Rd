@@ -23,30 +23,31 @@ document)}
 
 \item{tnames}{Character vector with labels for the topics.}
 
-\item{norm}{Logical. Should the values be normalized by the mean topic share to account for differently sized topics? Defaults to FALSE.}
+\item{norm}{Logical: Should the values be normalized by the mean topic share to account for differently sized topics (default: \code{FALSE})?}
 
-\item{distfun}{see \code{\link{heatmap}}}
+\item{distfun}{See \code{\link{heatmap}}}
 
 \item{file}{Character vector containing the path and name for the pdf output file.}
 
-\item{unit}{\code{character} (default: \code{"year"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+\item{unit}{Character:  To which unit should dates be floored (default: \code{"year"})? 
+Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 
-\item{date_breaks}{(default: \code{1}) how many labels should be shown on the x axis.
-If is \code{5} every fifth label is drawn.}
+\item{date_breaks}{How many labels should be shown on the x axis (default: \code{1})?
+If \code{data_breaks} is \code{5} every fifth label is drawn.}
 
-\item{margins}{see \code{\link{heatmap}}}
+\item{margins}{See \code{\link{heatmap}}}
 
-\item{...}{additional graphical parameters passed to \code{\link{heatmap}},
-for example \code{hclustfun}.}
+\item{...}{Additional graphical parameters passed to \code{\link{heatmap}},
+for example \code{hclustfun}.
+details The function is useful to search for peaks in the coverage of topics.}
 }
 \value{
 A pdf.
 Invisible: A dataframe.
 }
 \description{
-Creates a pdf including a heat map. For each topic, the heat map shows the deviation of
+Creates a pdf showing a heat map. For each topic, the heat map shows the deviation of
 its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 }
