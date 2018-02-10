@@ -19,6 +19,7 @@ setwd("D:/DoCMA/tmT/tests/testthat")
 setwd("/home/lars/Github/tmT/tests/testthat")
 library(testthat)
 setwd("//STORE/koppers/Textmining/tmT/tests")
+setwd("/home/lars/Github/tmT/tests")
 test_check("tmT")
 
 ###################
