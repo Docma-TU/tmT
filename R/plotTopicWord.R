@@ -1,4 +1,4 @@
-#' Plotting Counts of Topics-Words-Combination over Time (relative to Words)
+#' Plotting Counts of Topics-Words-Combination over Time (Relative to Words)
 #'
 #' Creates a plot of the counts/proportion of specified combination of topics
 #' and words. It is important to keep in mind that the baseline for
@@ -9,65 +9,65 @@
 #' by setting \code{file}.
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
-#' \code{text} component (\code{character} vectors) - like a result of
+#' \code{text} component (Character vectors) - such as a result of
 #' \code{\link{makeClear}}
-#' @param docs object as a result of \code{\link{LDAprep}} which was handed over
+#' @param docs Object as a result of \code{\link{LDAprep}} which was handed over
 #' to \code{\link{LDAgen}}
-#' @param ldaresult the result of a function call \code{\link{LDAgen}} with
+#' @param ldaresult The result of a function call \code{\link{LDAgen}} with
 #' \code{docs} as argument
-#' @param ldaID \code{character} vector of IDs of the documents in
+#' @param ldaID Character vector of IDs of the documents in
 #' \code{ldaresult}
-#' @param wordlist list of \code{character} vectors. Every list element is an 'or'
-#' link, every \code{character} string in a vector is linked by the argument
-#' \code{link}. If \code{wordlist} is only a \code{character} vector it will be
+#' @param wordlist List of Ccharacter vectors. Every list element is an 'or'
+#' link, every character string in a vector is linked by the argument
+#' \code{link}. If \code{wordlist} is only a character vector it will be
 #' coerced to a list of the same length as the vector (see \code{\link{as.list}}),
-#' so that the argument \code{link} has no effect. Each \code{character} vector
-#' as a list element represents one curve in the outcoming plot
-#' @param link \code{character} (default: \code{"and"}) should the (inner)
-#' \code{character} vectors of each list element be linked by an \code{"and"}
-#' or an \code{"or"}
-#' @param select list of \code{integer} vectors (default: all topics as simple
-#' \code{integer} vector) which topics - linked by an "or" every time -
-#' should be take into account for plotting the word counts/proportion.
-#' @param tnames \code{character} vector of same length as \code{select}
+#' so that the argument \code{link} has no effect. Each character vector
+#' as a list element represents one curve in the emerging plot.
+#' @param link Character: Should the (inner)
+#' character vectors of each list element be linked by an \code{"and"}
+#' or an \code{"or"} (default: \code{"and"})? 
+#' @param select List of integer vectors: Which topics - linked by an "or" every time -  
+#' should be take into account for plotting the
+#' word counts/proportion (default: all topics as simple integer vector)?
+#' @param tnames Character vector of same length as \code{select}
 #' - labels for the topics (default are the first returned words of
-#' @param wnames \code{character} vector of same length as \code{wordlist}
+#' @param wnames Character vector of same length as \code{wordlist}
 #' - labels for every group of 'and' linked words
 #' \code{\link{top.topic.words}} from the \code{lda} package for each topic)
-#' @param rel \code{logical} (default: \code{FALSE}) should counts
-#' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
-#' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
-#' vertical lines
-#' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' @param rel Logical: Should counts
+#' (\code{FALSE}) or proportion (\code{TRUE}) be plotted (default: \code{FALSE})?
+#' @param mark Logical: Should years be marked by
+#' vertical lines (default: \code{TRUE})?
+#' @param unit Character: To which unit should dates be floored
+#' (default: \code{"month"})? Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
-#' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
-#' \code{"smooth"} curve or \code{"both"} be plotted
-#' @param smooth \code{numeric} (default: \code{0.05}) smoothing parameter
-#' which is handed over to \code{\link{lowess}} as \code{f}
-#' @param both.lwd graphical parameter for smoothed values
+#' @param curves Character: Should \code{"exact"},
+#' \code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?
+#' @param smooth Numeric: Smoothing parameter
+#' which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05}) 
+#' @param both.lwd Graphical parameter for smoothed values
 #' if \code{curves = "both"}
-#' @param both.lty graphical parameter for smoothed values
+#' @param both.lty Graphical parameter for smoothed values
 #' if \code{curves = "both"}
-#' @param main \code{character} graphical parameter
-#' @param xlab \code{character} graphical parameter
-#' @param ylab \code{character} graphical parameter
-#' @param ylim graphical parameter
-#' @param col graphical parameter, could be a vector. If \code{curves = "both"}
+#' @param main Character: Graphical parameter
+#' @param xlab Character: Graphical parameter
+#' @param ylab Character: Graphical parameter
+#' @param ylim Graphical parameter
+#' @param col Graphical parameter, could be a vector. If \code{curves = "both"}
 #' the function will for every wordgroup plot at first the exact and then the
 #' smoothed curve - this is important for your col order.
-#' @param legend \code{character} (default: \code{"topright"},
-#' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively)
-#' value(s) to specify the legend coordinates. If "none" no legend is plotted.
-#' @param pages \code{logical} (default: \code{FALSE}) should all curves be
-#' plotted in a single plot. In addtion you could set
+#' @param legend Character: Value(s) to specify the legend coordinates (default: \code{"topright"},
+#' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively).
+#' If "none" no legend is plotted.
+#' @param pages Logical: Should all curves be
+#' plotted in a single plot (default: \code{FALSE})? In addition you could set
 #' \code{legend = "onlyLast:<argument>"} with \code{<argument>} as a
-#' \code{character} \code{legend} argument
+#' character \code{legend} argument
 #' for only plotting a legend on the last plot of set.
-#' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
-#' to zeros
-#' @param file \code{character} file path if a pdf should be created
-#' @param \dots additional graphical parameters
+#' @param natozero Logical: Should NAs be coerced
+#' to zeros (default: \code{TRUE})?
+#' @param file Character: File path if a pdf should be created
+#' @param \dots Additional graphical parameters
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{tnames: wnames}
 #' with the counts/proportion of the selected combination of topics and words.
