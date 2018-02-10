@@ -1,18 +1,18 @@
-#' Get The IDs Of The Most Representive Articles
+#' Get The IDs Of The Most Representive Texts
 #'
-#' Extract the article IDs belonging to the articles with the most relative or
+#' The function extracts the text IDs belonging to the texts with the highest relative or
 #' absolute number of words per topic.
 #'
 #'
 #' @param ldaresult LDA result
 #' @param ldaID Vector of text IDs
-#' @param limit Integer, number of article ids per topic.
+#' @param limit Integer: Number of text IDs per topic.
 #' @param rel Logical: Should be the relative frequency be used?
-#' @param select which topics should be returned?
-#' @param tnames names of the selected topics
+#' @param select Which topics should be returned?
+#' @param tnames Names of the selected topics
 #' @param minlength Minimal total number of words a text must have to be
-#' included.
-#' @return Matrix of Article IDs.
+#' included
+#' @return Matrix of text IDs.
 #' @keywords manip
 #' @examples
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
