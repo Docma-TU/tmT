@@ -54,23 +54,24 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=1, delete=
     if(dec){cat("Decimal html \n")
         for(i in entityList){
             cat(eval(parse(text = paste0("'\\u", i, "'"))))
-            x <- gsub(pattern=paste0("&#",strtoi(i, base=16L),";"), replacement=eval(parse(text = paste0("'\\u", i, "'"))),x)}}
+            x <- gsub(pattern=paste0("&#",strtoi(i, base=16L),";"), replacement=eval(parse(text = paste0("'\\u", i, "'"))),x, useBytes=TRUE)}}
 
     if(hex){cat("Hex html \n")
       for(i in entityList){
         cat(eval(parse(text = paste0("'\\u", i, "'"))))
-        x <- gsub(pattern=paste0("&#x",i,";"), replacement=eval(parse(text = paste0("'\\u", i, "'"))),x, ignore.case = TRUE)}}
-    
+        x <- gsub(pattern=paste0("&#x",i,";"), replacement=eval(parse(text = paste0("'\\u", i, "'"))),x, ignore.case = TRUE, useBytes=TRUE)}}
+
     if(entity){cat("Entity html \n")
       entities <- namedEntity()
       matchedEntities <- entities[match(entityList, entities[,2]),]
       matchedEntities <- matchedEntities[!is.na(matchedEntities[,1]),]
       for(i in 1:nrow(matchedEntities)){
         cat(eval(parse(text = paste0("'\\u", matchedEntities[i,2], "'"))))
-            x <- gsub(pattern=matchedEntities[i,1], replacement=eval(parse(text = paste0("'\\u", matchedEntities[i,2], "'"))),x)}}
+            x <- gsub(pattern=matchedEntities[i,1], replacement=eval(parse(text = paste0("'\\u", matchedEntities[i,2], "'"))),x, useBytes=TRUE)}}
 
         if(delete) x <- gsub(pattern="&[^;]*;", replacement="", x)
     x <- trimws(x)
+    Encoding(x) <- "UTF-8"
     return(x)
 }
 
