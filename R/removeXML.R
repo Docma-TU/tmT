@@ -75,7 +75,7 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
     if(delete) x <- gsub(pattern="&[^;]*;", replacement="", x)
     x <- trimws(x)
     Encoding(x) <- "UTF-8"
-    cat(\n)
+    cat("\n")
     return(x)
 }
 
