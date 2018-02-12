@@ -16,11 +16,33 @@ umlauts <- c("aba ab caa","ab&dgv;abc","\UE4\UC4\UF6\UD6\UFC\UDC\UDF","aa","aab"
 exp1 <- c("aba ab caa", "ab&dgv;abc", "aeAeoeOeueUess", "aa", "aab", "bc")
 expect_equal(removeUmlauts(x=umlauts), exp1)
 
+
+x <- c("&#x00f8;&#248;&oslash;")
+
+expect_equal(removeHTML(x=x, symbolList = 1, dec=TRUE, hex=FALSE, entity=FALSE, delete = FALSE), "&#xf8;\UF8&oslash;")
+expect_equal(removeHTML(x=x, symbolList = 1, dec=FALSE, hex=TRUE, entity=FALSE, delete = TRUE), "\UF8")
+expect_equal(removeHTML(x=x, symbolList = 1, dec=FALSE, hex=FALSE, entity=TRUE, delete = TRUE), "\UF8")
+
+ISOtest <- sort(unique(as.vector(ISO8859())))[-1]
+ISOtest2 <- sapply(ISOtest, function(x)eval(parse(text = paste0("'\\u", x, "'"))))
+ISOtestSymbols <- ISOtest %in% toupper(paste0("00",as.hexmode(c(32:64,91:96,123:126,160:191,215,247))))
+ISOtest2Symbols <- ISOtest2
+ISOtest2Symbols[ISOtestSymbols] <- ""
+
+
+
+ISOtestDec <- paste0("&#", strtoi(ISOtest, base=16L), ";")
+ISOtestHex <- paste0("&#x", ISOtest, ";")
+ISOtestEnt <- namedEntity()[match(ISOtest, namedEntity()[,2]),1]
+EntNA <- is.na(ISOtestEnt)
+
+expect_equal(removeHTML(x=ISOtestDec, symbolList = c(1:11,13:16), dec=TRUE, hex=FALSE, entity=FALSE, symbols=TRUE), unname(ISOtest2))
+expect_equal(removeHTML(x=ISOtestHex, symbolList = c(1:11,13:16), dec=FALSE, hex=TRUE, entity=FALSE, symbols=TRUE), unname(ISOtest2))
+expect_equal(removeHTML(x=ISOtestEnt, symbolList = c(1:11,13:16), dec=FALSE, hex=FALSE, entity=TRUE, symbols=TRUE)[!EntNA], unname(ISOtest2)[!EntNA])
+
+expect_equal(removeHTML(x=ISOtestDec, symbolList = c(1:11,13:16), dec=TRUE, hex=FALSE, entity=FALSE), unname(ISOtest2Symbols))
 })
 
-# removeHTML(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=1, delete=TRUE, symbols=FALSE)
-# removeUmlautsfunction(x)
-# removeXML(x)
 
 ## text <- "&Auml;&Ouml;"
 ## text <- gsub(pattern="&Auml;", replacement="\u00C4", x=text, useBytes=TRUE)
@@ -33,8 +55,3 @@ expect_equal(removeUmlauts(x=umlauts), exp1)
 ## text=="\u00C4\u00D6"
 
 
-##         cat(eval(parse(text = paste0("'\\u", matchedEntities[i,2], "'"))))
-
-
-
-## expect_equal(removeHTML(x=text, symbolList = 1, dec=FALSE, hex=FALSE, delete = FALSE), text2)
