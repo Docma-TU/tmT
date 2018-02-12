@@ -19,7 +19,7 @@ expect_equal(removeUmlauts(x=umlauts), exp1)
 
 x <- c("&#x00f8;&#248;&oslash;")
 
-expect_equal(removeHTML(x=x, symbolList = 1, dec=TRUE, hex=FALSE, entity=FALSE, delete = FALSE), "&#xf8;\UF8&oslash;")
+expect_equal(removeHTML(x=x, symbolList = 1, dec=TRUE, hex=FALSE, entity=FALSE, delete = FALSE), "&#x00f8;\UF8&oslash;")
 expect_equal(removeHTML(x=x, symbolList = 1, dec=FALSE, hex=TRUE, entity=FALSE, delete = TRUE), "\UF8")
 expect_equal(removeHTML(x=x, symbolList = 1, dec=FALSE, hex=FALSE, entity=TRUE, delete = TRUE), "\UF8")
 
