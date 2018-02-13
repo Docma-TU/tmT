@@ -5,6 +5,7 @@
 \alias{is.textmeta}
 \alias{print.textmeta}
 \alias{summary.textmeta}
+\alias{plot.textmeta}
 \title{"textmeta"-Objects}
 \usage{
 textmeta(meta = NULL, text = NULL, metamult = NULL,
@@ -16,6 +17,8 @@ is.textmeta(x)
 
 \method{summary}{textmeta}(object, listnames = names(object),
   metavariables = character(), ...)
+
+\method{plot}{textmeta}(x, ...)
 }
 \arguments{
 \item{meta}{data.frame (or matrix) of the meta-data.}
@@ -29,7 +32,7 @@ for \code{\link{as.Date}}}
 
 \item{x}{an R Object.}
 
-\item{...}{further arguments in print and summary. Not implemented.}
+\item{...}{further arguments in plot. Not implemented for print and summary.}
 
 \item{object}{textmeta object}
 
@@ -41,9 +44,7 @@ for \code{\link{as.Date}}}
 a "textmeta"-Object.
 }
 \description{
-Creates "textmeta"-Objects.
-
-Tests for "textmeta"-Objects.
+Creates a "textmeta"-Object, tests for it, summarises it, plots it.
 }
 \examples{
 texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.

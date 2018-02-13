@@ -6,7 +6,7 @@
 \usage{
 readTextmeta(path, file, cols, dateFormat = "\%Y-\%m-\%d", idCol = "id",
   dateCol = "date", titleCol = "title", textCol = "text",
-  xmlAction = TRUE, duplicateAction = TRUE)
+  encoding = "UTF-8", xmlAction = TRUE, duplicateAction = TRUE)
 }
 \arguments{
 \item{path}{\code{character} string with path where the data files are}
@@ -25,6 +25,8 @@ for \code{\link{as.Date}}}
 \item{titleCol}{\code{character} string with column name of the Titles}
 
 \item{textCol}{\code{character} string with column name of the Texts}
+
+\item{encoding}{character string with encoding specification of the files}
 
 \item{xmlAction}{\code{logical} whether all columns of the csv should be
 handled with \code{\link{removeXML}}}

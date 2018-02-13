@@ -12,6 +12,7 @@
 #' @param dateCol \code{character} string with column name of the Dates
 #' @param titleCol \code{character} string with column name of the Titles
 #' @param textCol \code{character} string with column name of the Texts
+#' @param encoding character string with encoding specification of the files
 #' @param xmlAction \code{logical} whether all columns of the csv should be
 #' handled with \code{\link{removeXML}}
 #' @param duplicateAction \code{logical}
@@ -22,7 +23,7 @@
 #' @export readTextmeta
 
 readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id",
-  dateCol = "date", titleCol = "title", textCol = "text",
+  dateCol = "date", titleCol = "title", textCol = "text", encoding = "UTF-8",
   xmlAction = TRUE, duplicateAction = TRUE){
 
   # setting missed parameters
@@ -49,7 +50,7 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
     cat(paste0(i, "/", length(file), ": ", file[i], "\n"))
 
     # read in a lone file
-    lonefile <- read.csv(file = paste(path, file[i], sep = "/"), fileEncoding = "UTF-8")
+    lonefile <- read.csv(file = paste(path, file[i], sep = "/"), fileEncoding = encoding)
 
     if(keepAllCols) cols <- substr(colnames(lonefile), 1, nchar(colnames(lonefile))-2)
     else lonefile <- lonefile[, cols]

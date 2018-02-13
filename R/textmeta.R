@@ -1,6 +1,6 @@
 #' "textmeta"-Objects
 #'
-#' Creates "textmeta"-Objects.
+#' Creates a "textmeta"-Object, tests for it, summarises it, plots it.
 #'
 #' @param meta data.frame (or matrix) of the meta-data.
 #' @param text list (or character vector) of the text-data.
@@ -51,13 +51,8 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL, dateFormat = "%Y
   return(res)
 }
 
-#' "textmeta"-Objects
-#'
-#' Tests for "textmeta"-Objects.
-#'
 #' @rdname textmeta
 #' @param x an R Object.
-# #' @return TRUE or FALSE.
 #' @export
 is.textmeta <- function(x){
   isMeta <- function(x){
@@ -75,7 +70,6 @@ is.textmeta <- function(x){
 }
 
 #' @rdname textmeta
-#' @param ... further arguments in print and summary. Not implemented.
 #' @export
 print.textmeta <- function(x, ...){
   stopifnot(is.textmeta(x))
@@ -174,4 +168,11 @@ summary.textmeta <- function(object, listnames = names(object),
                 NA.rel = ifelse(n.metamult > 0, round(na.metamult/n.metamult, 2), 0)))
   }
   invisible(object)
+}
+
+#' @rdname textmeta
+#' @param ... further arguments in plot. Not implemented for print and summary.
+#' @export
+plot.textmeta <- function(x, ...){
+  plotScot(object = x, ...)
 }
