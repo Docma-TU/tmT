@@ -79,7 +79,7 @@ plotTopic <- function(object, ldaresult, ldaID,
     if(curves[1] == "both") colP <- c("grey", "black")
     else colP <- "black"
     for (i in seq_along(select))
-      plotTopic(object = object, ldaresult = ldaresult, ldaID = ldaID,
+      Recall(object = object, ldaresult = ldaresult, ldaID = ldaID,
         select = select[i], tnames = tnames[i], rel = rel, mark = mark,
         unit = unit, curves = curves, smooth = smooth,
         main = ifelse(missing(main), mainP[i], main), col = colP,

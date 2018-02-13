@@ -118,7 +118,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
     stopifnot(length(tnames) == length(select),
       length(wnames) == length(select), length(wordlist) == length(select))
     for (i in seq_along(select))
-      plotTopicWord(object = object, docs = docs, ldaresult = ldaresult,
+      Recall(object = object, docs = docs, ldaresult = ldaresult,
         ldaID = ldaID, wordlist = wordlist[[i]], link = link, select = select[[i]],
         tnames = tnames[i], wnames = wnames[i], rel = rel, mark = mark,
         unit = unit, curves = curves, smooth = smooth,
