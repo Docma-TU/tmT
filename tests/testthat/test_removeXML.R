@@ -48,13 +48,17 @@ expect_equal(removeHTML(x=ISOtestDec, symbolList = c(1:11,13:16), dec=TRUE, hex=
 
 
 ## text <- "&Auml;&Ouml;"
-## text <- gsub(pattern="&Auml;", replacement="\u00C4", x=text, useBytes=TRUE)
-## text <- gsub(pattern="&Ouml;", replacement="\u00D6", x=text, useBytes=TRUE)
+## Encoding(text)
+## text <- gsub(pattern="&Auml;", replacement="\u00C4", x=text)
+## Encoding(text)
+## text <- gsub(pattern="&Ouml;", replacement="\u00D6", x=text)
 ## text
 ## text=="\u00C4\u00D6"
 
 ## Encoding(text) <- "UTF-8"
 ## text
 ## text=="\u00C4\u00D6"
+## text <- gsub(pattern="&Auml;", replacement="\u00C4", x=text, useBytes=TRUE)
+## text <- gsub(pattern="&Ouml;", replacement="\u00D6", x=text, useBytes=TRUE)
 
 

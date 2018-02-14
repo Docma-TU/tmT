@@ -9,9 +9,16 @@
 #' @return Adjusted corpus
 #' @keywords manip
 #' @examples
+#' xml <- "<text>Some <b>important</b> text</text>"
+#' removeXML(xml)
 #'
+#' x <- "&#x00f8; &#248; &oslash;"
+#' removeHTML(x=x, symbolList = 1, dec=TRUE, hex=FALSE, entity=FALSE, delete = FALSE)
+#' removeHTML(x=x, symbolList = c(1,3))
 #'
-#' ##---- Should be DIRECTLY executable !! ----
+#' y <- c("Bl\UFChende Apfelb\UE4ume")
+#' removeUmlauts(y)
+#'
 #' @export removeXML
 
 removeXML <- function(x){
@@ -47,7 +54,7 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
     entityList <- sort(unique(as.vector(ISO8859()[,symbolList])))
 
     if(!symbols){ # remove symbols from entityList
-        symbolList <- toupper(paste0("00",as.hexmode(c(32:64,91:96,123:126,160:191,215,247))))
+        symbolList <- toupper(paste0(as.hexmode(c(32:64,91:96,123:126,160:191,215,247))))
         entityList <- entityList[!entityList %in% symbolList]
     }
 
@@ -55,12 +62,14 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
             for(i in entityList){
                 cat(eval(parse(text = paste0("'\\u", i, "'"))))
                 x <- gsub(pattern=paste0("&#[0]*",strtoi(i, base=16L),";"), replacement=eval(parse(text = paste0("'\\u", i, "'"))),x, useBytes=TRUE)}
+                    cat("\n")
                 }
 
     if(hex){cat("Hex html \n")
             for(i in entityList){
                 cat(eval(parse(text = paste0("'\\u", i, "'"))))
                 x <- gsub(pattern=paste0("&#x[0]*",i,";"), replacement=eval(parse(text = paste0("'\\u", i, "'"))),x, ignore.case = TRUE, useBytes=TRUE)}
+                    cat("\n")
                 }
 
     if(entity){cat("Entity html \n")
@@ -70,12 +79,14 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
                for(i in 1:nrow(matchedEntities)){
                    cat(eval(parse(text = paste0("'\\u", matchedEntities[i,2], "'"))))
                    x <- gsub(pattern=matchedEntities[i,1], replacement=eval(parse(text = paste0("'\\u", matchedEntities[i,2], "'"))),x, useBytes=TRUE)}
+               cat("\n")
            }
 
-    if(delete) x <- gsub(pattern="&[^;]*;", replacement="", x)
+    if(delete){
+        cat("delete remaining entities\n")
+        x <- gsub(pattern="&[^;]*;", replacement="", x)}
     x <- trimws(x)
     Encoding(x) <- "UTF-8"
-    cat("\n")
     return(x)
 }
 

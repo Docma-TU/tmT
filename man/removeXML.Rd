@@ -39,8 +39,15 @@ The decision which u.type is used should consider the language of the corpus, be
 To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
 }
 \examples{
+xml <- "<text>Some <b>important</b> text</text>"
+removeXML(xml)
 
+x <- "&#x00f8; &#248; &oslash;"
+removeHTML(x=x, symbolList = 1, dec=TRUE, hex=FALSE, entity=FALSE, delete = FALSE)
+removeHTML(x=x, symbolList = c(1,3))
 
-##---- Should be DIRECTLY executable !! ----
+y <- c("Bl\\UFChende Apfelb\\UE4ume")
+removeUmlauts(y)
+
 }
 \keyword{manip}
