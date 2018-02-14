@@ -30,7 +30,7 @@ expect_equal(removeHTML(x=x, symbolList = 1, dec=FALSE, hex=TRUE, entity=FALSE, 
 
 ISOtest <- sort(unique(as.vector(ISO8859())))[-1]
 ISOtest2 <- sapply(ISOtest, function(x)eval(parse(text = paste0("'\\u", x, "'"))))
-ISOtestSymbols <- ISOtest %in% toupper(paste0("00",as.hexmode(c(32:64,91:96,123:126,160:191,215,247))))
+ISOtestSymbols <- ISOtest %in% toupper(paste0(as.hexmode(c(32:64,91:96,123:126,160:191,215,247))))
 ISOtest2Symbols <- ISOtest2
 ISOtest2Symbols[ISOtestSymbols] <- ""
 
