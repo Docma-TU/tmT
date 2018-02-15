@@ -91,8 +91,7 @@ plotHeat <- function(object, ldaresult, ldaID,
 
   heatmap(t(as.matrix(tmp[-1])), Colv = NA, labRow = tnames, labCol = breaks,
     col = colorRampPalette(c("#0571b0", "#ffffff","#ca0020"))(50),
-    scale = "none", margins = margins, distfun = distfun,
-    main = ifelse(norm == T,
+    scale = "none", margins = margins, main = ifelse(norm == T,
       "Normalized Deviation of Topic Shares from Mean Topic Share",
       "Absolute Deviation of Topic Shares from Mean Topic Share"), ...)
   if(!missing(file)) dev.off()
