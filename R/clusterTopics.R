@@ -2,7 +2,8 @@
 #'
 #' This function makes a cluster analysis using the Hellinger distance.
 #'
-#' @param ldaresult  The result of a function call \code{\link{LDAgen}}
+#' @param ldaresult The result of a function call \code{\link{LDAgen}} -
+#' alternatively the corresponding matrix \code{result$topics}
 #' @param file File for the dendogram pdf.
 #' @param topicnames Character vector as label for the topics.
 #' @param method Method statement from \code{\link{hclust}}
@@ -36,17 +37,19 @@
 #' @export clusterTopics
 clusterTopics <- function(ldaresult, file, topicnames = NULL,
   method = "average", width = 30, height = 15, ...){
-    if(is.null(topicnames)) topicnames <- 1:nrow(ldaresult$topics)
-    topics <- ldaresult$topics/rowSums(ldaresult$topics)
-    topics <- sqrt(topics)
-    Dist <- 1/sqrt(2) * dist(topics)
-    attr(Dist, "method") <- "hellinger"
-    clust <- hclust(d=Dist, method)
-    if(!missing(file)){
-      pdf(file, width, height)
-      plot(clust, label=topicnames, ...)
-      dev.off()
-    }
-    else plot(clust, label=topicnames, ...)
-    invisible(list(dist=Dist, cluster=clust))
+  if(is.matrix(ldaresult)) ldaresult <- list(topics = ldaresult)
+  if(is.null(topicnames)) topicnames <- 1:nrow(ldaresult$topics)
+  stopifnot(is.list(ldaresult), is.matrix(ldaresult$topics))
+  topics <- ldaresult$topics/rowSums(ldaresult$topics)
+  topics <- sqrt(topics)
+  Dist <- 1/sqrt(2) * dist(topics)
+  attr(Dist, "method") <- "hellinger"
+  clust <- hclust(d=Dist, method)
+  if(!missing(file)){
+    pdf(file, width, height)
+    plot(clust, label=topicnames, ...)
+    dev.off()
+  }
+  else plot(clust, label=topicnames, ...)
+  invisible(list(dist=Dist, cluster=clust))
 }

@@ -5,7 +5,7 @@
 \title{Plotting Topics over Time relative to Corpus}
 \usage{
 plotHeat(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
-  tnames, norm = FALSE, distfun, file, unit = "year", date_breaks = 1,
+  tnames, norm = FALSE, file, unit = "year", date_breaks = 1,
   margins = c(5, 0), ...)
 }
 \arguments{
@@ -25,8 +25,6 @@ document)}
 
 \item{norm}{Logical: Should the values be normalized by the mean topic share to account for differently sized topics (default: \code{FALSE})?}
 
-\item{distfun}{See \code{\link{heatmap}}}
-
 \item{file}{Character vector containing the path and name for the pdf output file.}
 
 \item{unit}{Character:  To which unit should dates be floored (default: \code{"year"})? 
@@ -39,7 +37,7 @@ If \code{data_breaks} is \code{5} every fifth label is drawn.}
 \item{margins}{See \code{\link{heatmap}}}
 
 \item{...}{Additional graphical parameters passed to \code{\link{heatmap}},
-for example \code{hclustfun}.
+for example \code{distfun} or \code{hclustfun}.
 details The function is useful to search for peaks in the coverage of topics.}
 }
 \value{

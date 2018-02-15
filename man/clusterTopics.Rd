@@ -8,7 +8,8 @@ clusterTopics(ldaresult, file, topicnames = NULL, method = "average",
   width = 30, height = 15, ...)
 }
 \arguments{
-\item{ldaresult}{The result of a function call \code{\link{LDAgen}}}
+\item{ldaresult}{The result of a function call \code{\link{LDAgen}} -
+alternatively the corresponding matrix \code{result$topics}}
 
 \item{file}{File for the dendogram pdf.}
 

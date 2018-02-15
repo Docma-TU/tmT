@@ -21,9 +21,8 @@
 #' @param date_breaks How many labels should be shown on the x axis (default: \code{1})?
 #' If \code{data_breaks} is \code{5} every fifth label is drawn.
 #' @param margins See \code{\link{heatmap}}
-#' @param distfun See \code{\link{heatmap}}
 #' @param ... Additional graphical parameters passed to \code{\link{heatmap}},
-#' for example \code{hclustfun}.
+#' for example \code{distfun} or \code{hclustfun}.
 #' details The function is useful to search for peaks in the coverage of topics. 
 #' @return A pdf.
 #' Invisible: A dataframe.
@@ -31,7 +30,7 @@
 
 plotHeat <- function(object, ldaresult, ldaID,
   select = 1:nrow(ldaresult$document_sums), tnames,
-  norm = FALSE, distfun, file, unit = "year", date_breaks = 1, margins = c(5,0), ...){
+  norm = FALSE, file, unit = "year", date_breaks = 1, margins = c(5,0), ...){
 
   stopifnot(is.textmeta(object), is.character(ldaID),
     all(as.integer(select) == select), min(select) > 0,
@@ -40,7 +39,6 @@ plotHeat <- function(object, ldaresult, ldaID,
   if(missing(tnames)) tnames <- paste0("T", select, ".",
     lda::top.topic.words(ldaresult$topics, 1)[select])
   if(!missing(file)) pdf(file, width = 15, height = 8)
-  if(missing(distfun)) distfun = function(x) dist(x)/sqrt(2)
 
   #create data frame. rows: documents, columns: topics
   tmp <- data.frame(t(ldaresult$document_sums))
