@@ -138,7 +138,7 @@ duplist <- function(object, paragraph = FALSE){
     allTextDups <- list()
     textOnlyDups <- list()
     textMetaDups <- list()
-    textOthersDups <- list()
+    textOthersDups <- character(0)
   }
   cat("Success\n")
   res <- list(uniqueTexts = uniqueTexts, notDuplicatedTexts = allUniqueTexts,
