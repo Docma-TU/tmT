@@ -2,15 +2,25 @@
 % Please edit documentation in R/duplist.R
 \name{duplist}
 \alias{duplist}
+\alias{print.duplist}
+\alias{summary.duplist}
 \title{Creating List of Duplicates}
 \usage{
 duplist(object, paragraph = FALSE)
+
+\method{print}{duplist}(x, ...)
+
+\method{summary}{duplist}(object, ...)
 }
 \arguments{
 \item{object}{A textmeta-object.}
 
 \item{paragraph}{Logical: Should be set to \code{TRUE} if the article is a
 list of character strings, representing the paragraphs.}
+
+\item{x}{an R Object.}
+
+\item{...}{further arguments for print and summary. Not implemented.}
 }
 \value{
 Named List:
