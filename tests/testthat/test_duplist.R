@@ -14,4 +14,8 @@ test_that("duplist", {
   expect_equal(SPduplist2, SPduplist)
   expect_equal(SZduplist2, SZduplist)
   expect_equal(Nexisduplist2, Nexisduplist)
+  
+  expect_true(is.duplist(SPduplist2))
+  expect_true(is.duplist(SZduplist2))
+  expect_true(is.duplist(Nexisduplist2))
 })

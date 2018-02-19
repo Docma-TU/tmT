@@ -152,18 +152,49 @@ duplist <- function(object, paragraph = FALSE){
 
 #' @rdname duplist
 #' @param x an R Object.
+#' @export
+is.duplist <- function(x){
+  if(class(x) != "duplist"){
+    cat("Object is not of class \"duplist\".\n")
+    return(FALSE)
+  }
+  if(!is.list(x)){
+    cat("Object is not a list.\n")
+    return(FALSE)
+  }
+  if(!all(c("uniqueTexts", "notDuplicatedTexts", "idFakeDups", "idRealDups",
+    "allTextDups", "textOnlyDups", "textMetaDups", "textOthersDups") %in% names(x))){
+    cat("Listnames incorrect.\n")
+    return(FALSE)
+  }
+  if(!all(is.character(x$uniqueTexts), is.character(x$notDuplicatedTexts),
+    is.list(x$idFakeDups), is.list(x$idRealDups), is.list(x$allTextDups),
+    is.list(x$textOnlyDups), is.list(x$textMetaDups), is.character(x$textOthersDups))){
+    cat("Structure of List incorrect.\n")
+    return(FALSE)
+  }
+  return(TRUE)
+}
+
+#' @rdname duplist
 #' @param ... further arguments for print and summary. Not implemented.
 #' @export
 print.duplist <- function(x, ...){
+  if(!is.duplist(x)){
+    print.default(x)
+  }
+  else{
   cat("Duplist, List of (Lists of) IDs with Names:
  \"uniqueTexts\", \"notDuplicatedTexts\", \"idFakeDups\", \"idRealDups\",
- \"allTextDups\", \"textOnlyDups\", \"textMetaDups\", \"textOthersDups\".")
+ \"allTextDups\", \"textOnlyDups\", \"textMetaDups\", \"textOthersDups\".\n")
   invisible(x)
+  }
 }
 
 #' @rdname duplist
 #' @export
 summary.duplist <- function(object, ...){
+  stopifnot(is.duplist(object))
   print(object)
   cat("Calculate Numbers of IDs and Texts...\n")
   cat(" Number of Unique Texts:", length(object$uniqueTexts), "\n")

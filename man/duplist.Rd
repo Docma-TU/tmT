@@ -2,11 +2,14 @@
 % Please edit documentation in R/duplist.R
 \name{duplist}
 \alias{duplist}
+\alias{is.duplist}
 \alias{print.duplist}
 \alias{summary.duplist}
 \title{Creating List of Duplicates}
 \usage{
 duplist(object, paragraph = FALSE)
+
+is.duplist(x)
 
 \method{print}{duplist}(x, ...)
 
