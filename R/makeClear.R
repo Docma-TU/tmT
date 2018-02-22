@@ -1,17 +1,17 @@
-#' Some data preprocessing
+#' Data Preprocessing
 #'
-#' Removes punctuation, numbers and stopwords, change into lowercase letters
-#' and tokenization.
+#' Removes punctuation, numbers and stopwords, changes letters into lowercase
+#' and tokenizes.
 #'
 #' Removes punctuation, numbers and stopwords, change into lowercase letters
 #' and tokenization. Additional some cleaning steps: remove empty words /
 #' paragraphs / article.
 #'
 #' @param object \code{\link{textmeta}} object
-#' @param text not necassary if \code{object} is specified, else should be
-#' \code{object\$text}: list of article texts
-#' @param sw \code{character} vector of stopwords. If the vector is of length
-#' one, \code{sw} is interpretated as argument for \code{\link{stopwords}}
+#' @param text Bot necassary if \code{object} is specified, else should be
+#' \code{object\$text}: List of article texts.
+#' @param sw Character: Vector of stopwords. If the vector is of length
+#' one, \code{sw} is interpreted as argument for \code{\link{stopwords}}
 #' @param paragraph Logical: Should be set to \code{TRUE} if one article is a
 #' list of character strings, representing the paragraphs.
 #' @param lowercase Logical: Should be set to \code{TRUE} if all letters should
