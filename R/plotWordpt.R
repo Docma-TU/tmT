@@ -1,4 +1,4 @@
-#' Plotting Counts of Topics-Words-Combination over Time (Relative to Topics)
+#' Plots Counts of Topics-Words-Combination over Time (Relative to Topics)
 #'
 #' Creates a plot of the counts/proportion of specified combination of topics
 #' and words. The plot shows how often a word appears in a topic. It is important to keep in mind that the baseline for
@@ -9,7 +9,7 @@
 #' by setting \code{file}.
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
-#' \code{text} component (\code{character} vectors) - like a result of
+#' \code{text} component (character vectors) - e.g. a result of
 #' \code{\link{makeClear}}
 #' @param docs Object as a result of \code{\link{LDAprep}} which was handed over
 #' to \code{\link{LDAgen}}
@@ -26,8 +26,8 @@
 #' @param link Character:  Should the (inner)
 #' integer vectors of each list element be linked by an \code{"and"}
 #' or an \code{"or"} (default: \code{"and"})?
-#' @param wordlist List of character vectors: Which words - linked by an "or" every time - 
-#' should be take into account for plotting the topic counts/proportion
+#' @param wordlist List of character vectors: Which words - always linked by an "or" - 
+#' should be taken into account for plotting the topic counts/proportion
 #' (default: the first \code{\link{top.topic.words}} per topic as simple character vector)? 
 #' @param tnames Character vector of same length as \code{select}
 #' - labels for the topics (default are the first returned words of
@@ -36,9 +36,9 @@
 #' \code{\link{top.topic.words}} from the \code{lda} package for each topic)
 #' @param rel Logical:  Should counts
 #' (\code{FALSE}) or proportion (\code{TRUE}) be plotted (default: \code{FALSE})?
-#' @param mark Logical Should years be marked by
+#' @param mark Logical: Should years be marked by
 #' vertical lines (default: \code{TRUE})?
-#' @param unit Character To which unit should dates be floored 
+#' @param unit Character: To which unit should dates be floored 
 #' (default: \code{"month"})? Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param curves Character:  Should \code{"exact"},
@@ -54,7 +54,7 @@
 #' @param ylab Character: Graphical parameter
 #' @param ylim Graphical parameter
 #' @param col Graphical parameter, could be a vector. If \code{curves = "both"}
-#' the function will for every wordgroup plot at first the exact and then the
+#' the function will plot for every wordgroup the exact at first and then the
 #' smoothed curve - this is important for your col order.
 #' @param legend Character: Value(s) to specify the legend coordinates (default: \code{"topright"},
 #' \code{"onlyLast:topright"} for \code{pages = TRUE} respectively).
