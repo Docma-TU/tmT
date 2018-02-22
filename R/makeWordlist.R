@@ -1,14 +1,14 @@
-#' Count words in text corpora
+#' Counts Words in Text Corpora
 #'
 #' Creates a wordlist and a frequency table.
 #'
 #' This function helps, if \code{table(x)} needs too much RAM.
 #'
 #' @param text List of texts.
-#' @param k Integer, how many Texts should be processed at one time (RAM
+#' @param k Integer: How many texts should be processed at once (RAM
 #' usage)?
-#' @return \item{words}{An alphabetical list of the words in the corpus.}
-#' \item{wordtable}{A frequency table of the words in the corpus.}
+#' @return \item{words}{An alphabetical list of the words in the corpus}
+#' \item{wordtable}{A frequency table of the words in the corpus}
 #' @keywords manip
 #' @examples
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
