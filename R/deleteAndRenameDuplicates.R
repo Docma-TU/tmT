@@ -1,9 +1,9 @@
-#' Delete And Rename Articles with the same ID
+#' Deletes and Renames Articles with the same ID
 #'
-#' Deletes Articles with the same ID and same text. Renames the ID of Articles
+#' Deletes articles with the same ID and same text. Renames the ID of articles
 #' with the same ID but different text-component (_IDFakeDup, _IDRealDup).
 #'
-#' @param object A textmeta-object as a result of a read-function.
+#' @param object A \code{textmeta}-object as a result of a read-function.
 #' @param paragraph Logical: Should be set to \code{TRUE} if the article is a
 #' list of character strings, representing the paragraphs.
 #' @details Summary: Different types of duplicates:
