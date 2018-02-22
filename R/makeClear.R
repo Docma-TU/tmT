@@ -22,7 +22,7 @@
 #' be removed from articles.
 #' @param checkUTF8 Logical: Should be set to \code{TRUE} if articles should
 #' be tested on UTF-8 - which is package standard.
-#' @return A list containing the preprocessed Article.
+#' @return A list containing the preprocessed articles.
 #' @keywords manip
 
 #' @examples
