@@ -1,10 +1,10 @@
-#' Removes XML tags and umlauts
+#' Removes XML Tags and Umlauts
 #'
-#' Removes XML tags and changes umlauts to a standardized form.
+#' Removes XML tags and changes umlauts in a standardized form.
 #'
 #'
-#' @param x \code{character} vector.
-#' @details The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of the a word.
+#' @param x Character: Vector
+#' @details The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of a word.
 #' To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
 #' @return Adjusted corpus
 #' @keywords manip
