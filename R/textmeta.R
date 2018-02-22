@@ -1,13 +1,13 @@
 #' "textmeta"-Objects
 #'
-#' Creates a "textmeta"-Object, tests for it, summarises it, plots it.
+#' Creates, Tests, Summarises and Plots Textmeta-Objects
 #'
-#' @param meta data.frame (or matrix) of the meta-data.
-#' @param text list (or character vector) of the text-data.
-#' @param metamult list of the metamult-data.
-#' @param dateFormat \code{character} string with the date format in meta.
+#' @param meta Data.frame (or matrix) of the meta-data
+#' @param text List (or character vector) of the text-data
+#' @param metamult List of the metamult-data
+#' @param dateFormat Charachter string with the date format in meta
 #' for \code{\link{as.Date}}
-#' @return a "textmeta"-Object.
+#' @return A \code{textmeta} object.
 #' @keywords manip
 #' @examples
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
