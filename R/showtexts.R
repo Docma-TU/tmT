@@ -1,11 +1,11 @@
-#' Export Readable Article Lists
+#' Exports Readable Text Lists
 #'
 #' Exports the article id, text, title and date.
 #'
 #'
 #' @param object \code{\link{textmeta}} object
-#' @param id Character vector or matrix including article ids.
-#' @param file Character Filename for the export.
+#' @param id Character vector or matrix including article ids
+#' @param file Character Filename for the export
 #' @return A list of the requested articles. If file is set, writes a csv including the meta-data of the
 #' requested articles.
 #' @keywords manip
