@@ -21,13 +21,13 @@ is.textmeta(x)
 \method{plot}{textmeta}(x, ...)
 }
 \arguments{
-\item{meta}{data.frame (or matrix) of the meta-data.}
+\item{meta}{Data.frame (or matrix) of the meta-data}
 
-\item{text}{list (or character vector) of the text-data.}
+\item{text}{List (or character vector) of the text-data}
 
-\item{metamult}{list of the metamult-data.}
+\item{metamult}{List of the metamult-data}
 
-\item{dateFormat}{\code{character} string with the date format in meta.
+\item{dateFormat}{Charachter string with the date format in meta
 for \code{\link{as.Date}}}
 
 \item{x}{an R Object.}
@@ -41,10 +41,10 @@ for \code{\link{as.Date}}}
 \item{metavariables}{Character vector with variable-names from the meta dataset. Summaries are generated for those variables only.}
 }
 \value{
-a "textmeta"-Object.
+A \code{textmeta} object.
 }
 \description{
-Creates a "textmeta"-Object, tests for it, summarises it, plots it.
+Creates, Tests, Summarises and Plots Textmeta-Objects
 }
 \examples{
 texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.

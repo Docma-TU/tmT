@@ -2,16 +2,16 @@
 % Please edit documentation in R/showtexts.R
 \name{showTexts}
 \alias{showTexts}
-\title{Export Readable Article Lists}
+\title{Exports Readable Text Lists}
 \usage{
 showTexts(object, id = names(object$text), file)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
 
-\item{id}{Character vector or matrix including article ids.}
+\item{id}{Character vector or matrix including article ids}
 
-\item{file}{Character Filename for the export.}
+\item{file}{Character Filename for the export}
 }
 \value{
 A list of the requested articles. If file is set, writes a csv including the meta-data of the

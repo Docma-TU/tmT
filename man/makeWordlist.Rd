@@ -2,19 +2,19 @@
 % Please edit documentation in R/makeWordlist.R
 \name{makeWordlist}
 \alias{makeWordlist}
-\title{Count words in text corpora}
+\title{Counts Words in Text Corpora}
 \usage{
 makeWordlist(text, k = 100000L)
 }
 \arguments{
 \item{text}{List of texts.}
 
-\item{k}{Integer, how many Texts should be processed at one time (RAM
+\item{k}{Integer: How many texts should be processed at once (RAM
 usage)?}
 }
 \value{
-\item{words}{An alphabetical list of the words in the corpus.}
-\item{wordtable}{A frequency table of the words in the corpus.}
+\item{words}{An alphabetical list of the words in the corpus}
+\item{wordtable}{A frequency table of the words in the corpus}
 }
 \description{
 Creates a wordlist and a frequency table.

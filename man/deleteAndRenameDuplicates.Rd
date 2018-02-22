@@ -2,12 +2,12 @@
 % Please edit documentation in R/deleteAndRenameDuplicates.R
 \name{deleteAndRenameDuplicates}
 \alias{deleteAndRenameDuplicates}
-\title{Delete And Rename Articles with the same ID}
+\title{Deletes and Renames Articles with the same ID}
 \usage{
 deleteAndRenameDuplicates(object, paragraph = FALSE)
 }
 \arguments{
-\item{object}{A textmeta-object as a result of a read-function.}
+\item{object}{A \code{textmeta} object as a result of a read-function.}
 
 \item{paragraph}{Logical: Should be set to \code{TRUE} if the article is a
 list of character strings, representing the paragraphs.}
@@ -16,7 +16,7 @@ list of character strings, representing the paragraphs.}
 tba
 }
 \description{
-Deletes Articles with the same ID and same text. Renames the ID of Articles
+Deletes articles with the same ID and same text. Renames the ID of articles
 with the same ID but different text-component (_IDFakeDup, _IDRealDup).
 }
 \details{

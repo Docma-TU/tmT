@@ -2,23 +2,23 @@
 % Please edit documentation in R/mergeTextmeta.R
 \name{mergeTextmeta}
 \alias{mergeTextmeta}
-\title{Merge textmeta objects}
+\title{Merge Textmeta Objects}
 \usage{
 mergeTextmeta(x, all = TRUE)
 }
 \arguments{
-\item{x}{a list of \code{\link{textmeta}} objects}
+\item{x}{A list of \code{\link{textmeta}} objects}
 
-\item{all}{\code{logical} (default: \code{TRUE}) should the result contain
-\code{\link{union}} (\code{TRUE}) or \code{\link{intersect}} of columns of
-all objects, if \code{TRUE} columns which only appears in one of
-the meta components the merged meta component is filled with \code{NA}s}
+\item{all}{Logical: Should the result contain
+\code{\link{union}} (\code{TRUE}) or \code{\link{intersection}} (\code{FAULT}) of columns of
+all objects? If \code{TRUE}, the columns which at least appear in one of
+the meta components are filled with \code{NA}s in the merged meta component.}
 }
 \value{
 \code{\link{textmeta}} object
 }
 \description{
-Merges a list of textmeta objects to one. It is possible to control whether all
+Merges a list of textmeta objects to a single object. It is possible to control whether all
 columns or the intersect should be considered.
 }
 \examples{

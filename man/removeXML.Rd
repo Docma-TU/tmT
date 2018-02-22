@@ -4,7 +4,7 @@
 \alias{removeXML}
 \alias{removeUmlauts}
 \alias{removeHTML}
-\title{Removes XML tags and umlauts}
+\title{Removes XML Tags and Umlauts}
 \usage{
 removeXML(x)
 
@@ -14,7 +14,7 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = c(1:4,
   9, 13, 15, 16), delete = TRUE, symbols = FALSE)
 }
 \arguments{
-\item{x}{\code{character} vector.}
+\item{x}{Character: Vector}
 
 \item{dec}{logical remove html decimal?}
 
@@ -32,10 +32,10 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = c(1:4,
 Adjusted corpus
 }
 \description{
-Removes XML tags and changes umlauts to a standardized form.
+Removes XML tags and changes umlauts in a standardized form.
 }
 \details{
-The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of the a word.
+The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of a word.
 To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
 }
 \examples{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeClear.R
 \name{makeClear}
 \alias{makeClear}
-\title{Some data preprocessing}
+\title{Data Preprocessing}
 \usage{
 makeClear(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
   rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE)
@@ -10,11 +10,11 @@ makeClear(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
 
-\item{text}{not necassary if \code{object} is specified, else should be
-\code{object\$text}: list of article texts}
+\item{text}{Bot necassary if \code{object} is specified, else should be
+\code{object\$text}: List of article texts.}
 
-\item{sw}{\code{character} vector of stopwords. If the vector is of length
-one, \code{sw} is interpretated as argument for \code{\link{stopwords}}}
+\item{sw}{Character: Vector of stopwords. If the vector is of length
+one, \code{sw} is interpreted as argument for \code{\link{stopwords}}}
 
 \item{paragraph}{Logical: Should be set to \code{TRUE} if one article is a
 list of character strings, representing the paragraphs.}
@@ -32,11 +32,11 @@ be removed from articles.}
 be tested on UTF-8 - which is package standard.}
 }
 \value{
-A list containing the preprocessed Article.
+A list containing the preprocessed articles.
 }
 \description{
-Removes punctuation, numbers and stopwords, change into lowercase letters
-and tokenization.
+Removes punctuation, numbers and stopwords, changes letters into lowercase
+and tokenizes.
 }
 \details{
 Removes punctuation, numbers and stopwords, change into lowercase letters

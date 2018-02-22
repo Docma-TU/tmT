@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotScot.R
 \name{plotScot}
 \alias{plotScot}
-\title{Plotting Counts of Documents or Words over Time (relative to Corpus)}
+\title{Plots Counts of Documents or Words over Time (relative to Corpus)}
 \usage{
 plotScot(object, id = object$meta$id, type = c("docs", "words"),
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
@@ -10,54 +10,54 @@ plotScot(object, id = object$meta$id, type = c("docs", "words"),
   both.col, both.lty, natozero = TRUE, file, ...)
 }
 \arguments{
-\item{object}{\code{\link{textmeta}} object - with strictly tokenized
-\code{text} component (\code{character} vectors) if \code{type = "words"}}
+\item{object}{\code{\link{textmeta}} object with strictly tokenized
+\code{text} component vectors if \code{type = "words"}}
 
-\item{id}{\code{character} vector (default: \code{object$meta$id}) which IDs
+\item{id}{Character: Vector (default: \code{object$meta$id}) which IDs
 specify the subcorpus}
 
-\item{type}{\code{character} (default: \code{"docs"}) should counts/proportion
-of documents \code{"docs"} or words \code{"words"} be plotted}
+\item{type}{Character: Should counts/proportion
+of documents \code{"docs"} (default) or words \code{"words"} be plotted?}
 
-\item{rel}{\code{logical} (default: \code{FALSE}) should counts
-(\code{FALSE}) or proportion (\code{TRUE}) be plotted}
+\item{rel}{Logical: Should counts
+(default: \code{FALSE}) or proportion (\code{TRUE}) be plotted?}
 
-\item{mark}{\code{logical} (default: \code{TRUE}) should years be marked by
-vertical lines}
+\item{mark}{Logical: Should years be marked by
+vertical lines (default: \code{TRUE})?}
 
-\item{unit}{\code{character} (default: \code{"month"}) to which unit should
-dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
-\code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
+\item{unit}{Character: To which unit should
+dates be floored (default: \code{"month"}). Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+\code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}.}
 
-\item{curves}{\code{character} (default: \code{"exact"}) should \code{"exact"},
-\code{"smooth"} curve or \code{"both"} be plotted}
+\item{curves}{Character: Should \code{"exact"},
+\code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?}
 
-\item{smooth}{\code{numeric} (default: \code{0.05}) smoothing parameter
-which is handed over to \code{\link{lowess}} as \code{f}}
+\item{smooth}{Numeric: Smoothing parameter
+which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05}).}
 
-\item{main}{\code{character} graphical parameter}
+\item{main}{Character: Graphical parameter}
 
-\item{xlab}{\code{character} graphical parameter}
+\item{xlab}{Character: Graphical parameter}
 
-\item{ylab}{\code{character} graphical parameter}
+\item{ylab}{Character: Graphical parameter}
 
-\item{ylim}{(default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter}
+\item{ylim}{Graphical parameter (default if \code{rel = TRUE}: \code{c(0, 1)})}
 
-\item{both.lwd}{graphical parameter for smoothed values if \code{curves = "both"}}
+\item{both.lwd}{Graphical parameter for smoothed values if \code{curves = "both"}}
 
-\item{both.col}{graphical parameter for smoothed values if \code{curves = "both"}}
+\item{both.col}{Graphical parameter for smoothed values if \code{curves = "both"}}
 
-\item{both.lty}{graphical parameter for smoothed values if \code{curves = "both"}}
+\item{both.lty}{Graphical parameter for smoothed values if \code{curves = "both"}}
 
-\item{natozero}{\code{logical} (default: \code{TRUE}) should NAs be coerced
-to zeros. Only has effect if \code{rel = TRUE}.}
+\item{natozero}{Logical: Should NAs be coerced
+to zeros (default: \code{TRUE})? Only has an effect if \code{rel = TRUE}.}
 
-\item{file}{\code{character} file path if a pdf should be created}
+\item{file}{Character: File path if a pdf should be created.}
 
 \item{...}{additional graphical parameters}
 }
 \value{
-A plot.
+A plot
 Invisible: A dataframe with columns \code{date} and \code{counts},
 respectively \code{proportion}
 }
@@ -68,7 +68,7 @@ which could be specified by \code{id}.
 \details{
 \code{object} needs a textmeta object with strictly tokenized text component
 (character vectors) if you use \code{type = "words"}.
-If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
+If you use \code{type = "docs"} you can use a tokenized or a non-tokenized text component.
 }
 \keyword{~kwd1}
 \keyword{~kwd2}
