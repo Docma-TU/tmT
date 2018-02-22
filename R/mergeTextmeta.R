@@ -1,14 +1,14 @@
-#' Merge textmeta objects
+#' Merge Textmeta Objects
 #'
-#' Merges a list of textmeta objects to one. It is possible to control whether all
+#' Merges a list of textmeta objects to a single object. It is possible to control whether all
 #' columns or the intersect should be considered.
 #'
 #'
-#' @param x a list of \code{\link{textmeta}} objects
-#' @param all \code{logical} (default: \code{TRUE}) should the result contain
-#' \code{\link{union}} (\code{TRUE}) or \code{\link{intersect}} of columns of
-#' all objects, if \code{TRUE} columns which only appears in one of
-#' the meta components the merged meta component is filled with \code{NA}s
+#' @param x A list of \code{\link{textmeta}} objects
+#' @param all Logical: Should the result contain
+#' \code{\link{union}} (\code{TRUE}) or \code{\link{intersection}} (\code{FAULT}) of columns of
+#' all objects? If \code{TRUE}, the columns which at least appear in one of
+#' the meta components are filled with \code{NA}s in the merged meta component. 
 #' @return \code{\link{textmeta}} object
 #' @keywords manip
 #' @examples
