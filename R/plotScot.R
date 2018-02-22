@@ -1,40 +1,40 @@
-#' Plotting Counts of Documents or Words over Time (relative to Corpus)
+#' Plots Counts of Documents or Words over Time (relative to Corpus)
 #'
 #' Creates a plot of the counts/proportion of documents/words in the subcorpus,
 #' which could be specified by \code{id}.
 #'
-#' @param object \code{\link{textmeta}} object - with strictly tokenized
-#' \code{text} component (\code{character} vectors) if \code{type = "words"}
-#' @param id \code{character} vector (default: \code{object$meta$id}) which IDs
+#' @param object \code{\link{textmeta}} object with strictly tokenized
+#' \code{text} component vectors if \code{type = "words"}
+#' @param id Character: Vector (default: \code{object$meta$id}) which IDs
 #' specify the subcorpus
-#' @param type \code{character} (default: \code{"docs"}) should counts/proportion
-#' of documents \code{"docs"} or words \code{"words"} be plotted
-#' @param rel \code{logical} (default: \code{FALSE}) should counts
-#' (\code{FALSE}) or proportion (\code{TRUE}) be plotted
-#' @param mark \code{logical} (default: \code{TRUE}) should years be marked by
-#' vertical lines
-#' @param unit \code{character} (default: \code{"month"}) to which unit should
-#' dates be floored. Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
-#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
-#' @param curves \code{character} (default: \code{"exact"}) should \code{"exact"},
-#' \code{"smooth"} curve or \code{"both"} be plotted
-#' @param smooth \code{numeric} (default: \code{0.05}) smoothing parameter
-#' which is handed over to \code{\link{lowess}} as \code{f}
-#' @param both.lwd graphical parameter for smoothed values if \code{curves = "both"}
-#' @param both.col graphical parameter for smoothed values if \code{curves = "both"}
-#' @param both.lty graphical parameter for smoothed values if \code{curves = "both"}
-#' @param main \code{character} graphical parameter
-#' @param xlab \code{character} graphical parameter
-#' @param ylab \code{character} graphical parameter
-#' @param ylim (default if \code{rel = TRUE}: \code{c(0, 1)}) graphical parameter
-#' @param natozero \code{logical} (default: \code{TRUE}) should NAs be coerced
-#' to zeros. Only has effect if \code{rel = TRUE}.
-#' @param file \code{character} file path if a pdf should be created
+#' @param type Character: Should counts/proportion
+#' of documents \code{"docs"} (default) or words \code{"words"} be plotted?
+#' @param rel Logical: Should counts
+#' (default: \code{FALSE}) or proportion (\code{TRUE}) be plotted?
+#' @param mark Logical: Should years be marked by
+#' vertical lines (default: \code{TRUE})?
+#' @param unit Character: To which unit should
+#' dates be floored (default: \code{"month"}). Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
+#' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}.
+#' @param curves Character: Should \code{"exact"},
+#' \code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?
+#' @param smooth Numeric: Smoothing parameter
+#' which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05}).
+#' @param both.lwd Graphical parameter for smoothed values if \code{curves = "both"}
+#' @param both.col Graphical parameter for smoothed values if \code{curves = "both"}
+#' @param both.lty Graphical parameter for smoothed values if \code{curves = "both"}
+#' @param main Character: Graphical parameter
+#' @param xlab Character: Graphical parameter
+#' @param ylab Character: Graphical parameter
+#' @param ylim Graphical parameter (default if \code{rel = TRUE}: \code{c(0, 1)})
+#' @param natozero Logical: Should NAs be coerced
+#' to zeros (default: \code{TRUE})? Only has an effect if \code{rel = TRUE}.
+#' @param file Character: File path if a pdf should be created.
 #' @param ... additional graphical parameters
 #' @details \code{object} needs a textmeta object with strictly tokenized text component
 #' (character vectors) if you use \code{type = "words"}.
-#' If you use \code{type = "docs"} use can use a tokenized or a not tokenized text component.
-#' @return A plot.
+#' If you use \code{type = "docs"} you can use a tokenized or a non-tokenized text component.
+#' @return A plot
 #' Invisible: A dataframe with columns \code{date} and \code{counts},
 #' respectively \code{proportion}
 #' @keywords ~kwd1 ~kwd2
