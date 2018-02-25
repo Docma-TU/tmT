@@ -6,9 +6,9 @@
 #' @param text Not necessary if \code{object} is specified, else should be
 #' \code{object\$text}: list of article texts.
 #' @param search List of data frames. Every List element is an 'or'
-#' link, every entry in a data frame is linked by an 'and'. The dataframe must have following tree variables: \code{pattern} a character string including the search terms, \code{word}, a logical value displying if a word (TRUE) or character (search) is wanted and \code{count} an integer marking how many times the word must at least be found in the text. \code{word} can alternatively be a character string containing the keywords \code{pattern} for character search, \code{word} for word-search and \code{left} and \code{right} for truncated search.
+#' link, every entry in a data frame is linked by an 'and'. The dataframe must have following tree variables: \code{pattern} a character string including the search terms, \code{word}, a logical value displaying if a word (TRUE) or character (search) is wanted and \code{count} an integer marking how many times the word must at least be found in the text. \code{word} can alternatively be a character string containing the keywords \code{pattern} for character search, \code{word} for word-search and \code{left} and \code{right} for truncated search.
 #' If \code{wordlist} is only a character Vector the link is 'or', and a character search will be used with \code{count=1}
-#' @param ignore.case logical. lower and upper case will be ignored.
+#' @param ignore.case Logical: Lower and upper case will be ignored.
 #' @param out Type of output: \code{text} filtered corpus, \code{bin} logical vector for all texts, \code{count} the number of matches (max one match per character string).
 #' @return Filtered list of texts.
 #' @keywords ~kwd1 ~kwd2
