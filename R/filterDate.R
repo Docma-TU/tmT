@@ -1,6 +1,6 @@
 #' Subcorpus With Date Filter
 #'
-#' Generates a Subcorpus by Restricting it to a Specific Time Window
+#' Generates a subcorpus by restricting it to a specific time window
 #'
 #' @param object \code{\link{textmeta}} object
 #' @param text Not necessary if \code{object} is specified, else should be
