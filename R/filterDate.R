@@ -1,11 +1,11 @@
 #' Subcorpus With Date Filter
 #'
-#' Creates a subcorpus including a specific time span.
+#' Generates a Subcorpus by Restricting it to a Specific Time Window
 #'
 #' @param object \code{\link{textmeta}} object
-#' @param text not necassary if \code{object} is specified, else should be
+#' @param text Not necessary if \code{object} is specified, else should be
 #' \code{object\$text}
-#' @param meta not necassary if \code{object} is specified, else should be
+#' @param meta Not necessary if \code{object} is specified, else should be
 #' \code{object\$meta}
 #' @param s.date Start date of subcorpus as date object
 #' @param e.date End date of subcorpus as date object
