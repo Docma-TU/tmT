@@ -2,7 +2,7 @@
 % Please edit documentation in R/LDAprep.R
 \name{LDAprep}
 \alias{LDAprep}
-\title{create lda-ready dataset}
+\title{Create Lda-ready Dataset}
 \usage{
 LDAprep(text, vocab, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
 }
@@ -12,15 +12,15 @@ LDAprep(text, vocab, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
 \item{vocab}{A character vector containing all words which should beused for
 lda}
 
-\item{ldacorrect}{logical: If \code{TRUE}, every word repetition gets a separate
+\item{ldacorrect}{Logical: If \code{TRUE}, every word repetition gets a separate
 column.}
 
-\item{excludeNA}{logical: Should \code{NA}s be removed?}
+\item{excludeNA}{Logical: Should \code{NA}s be removed?}
 
-\item{reduce}{logical: Should empty texts be deleted?}
+\item{reduce}{Logical: Should empty texts be deleted?}
 }
 \value{
-A list in which every entry contains a matrix with two rows: the
+A list in which every entry contains a matrix with two rows: The
 first row gives the number of the entry of the word in \code{vocab} minus
 one, the second row the number of the occurrence of the word in the article.
 If \code{ldacorrect=TRUE} the second row is 1 and the number of the
@@ -28,7 +28,7 @@ occurrence of the word will be shown by the number of columns belonging to
 this word.
 }
 \description{
-This function transforms a text corpus such as the result from
+This function transforms a text corpus such as the result of
 \code{\link{makeClear}} into the form needed by the \code{\link{lda}}-package.
 }
 \examples{

@@ -11,10 +11,10 @@ filterDate(object, text = object$text, meta = object$meta,
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
 
-\item{text}{not necassary if \code{object} is specified, else should be
+\item{text}{Not necessary if \code{object} is specified, else should be
 \code{object\$text}}
 
-\item{meta}{not necassary if \code{object} is specified, else should be
+\item{meta}{Not necessary if \code{object} is specified, else should be
 \code{object\$meta}}
 
 \item{s.date}{Start date of subcorpus as date object}
@@ -26,7 +26,7 @@ filterDate(object, text = object$text, meta = object$meta,
 else only the filtered \code{text}.
 }
 \description{
-Creates a subcorpus including a specific time span.
+Generates a subcorpus by restricting it to a specific time window
 }
 \examples{
 texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
