@@ -24,8 +24,6 @@ full.names = FALSE, recursive = TRUE)){
   for (i in seq_along(file)) {
     cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path,file[i], sep="/"), encoding = "UTF-8")
-    article[64]
-    write.csv(article[64], file="test.csv", fileEncoding="UTF-8")
 
     lines <- grep(pattern = "</page>", article)
     lines <- cbind(c(1,lines[-length(lines)]),lines)
