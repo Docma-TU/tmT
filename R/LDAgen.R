@@ -101,7 +101,7 @@ LDAgen <- function(documents, K = 100L, vocab, num.iterations = 200L,
     }
     rownames(ttw) <- c("Topic", 1:num.words)
     write.csv(ttw, file = paste(folder, "-k", K, "i", num.iterations, "b", burnin, "s",
-                  seed, "alpha", round(alpha,2), "eta", round(eta,2), ".csv", sep = ""))
+                  seed, "alpha", round(alpha,2), "eta", round(eta,2), ".csv", sep = ""), fileEncoding="UTF-8")
     invisible(result)
 }
 
