@@ -16,7 +16,7 @@ readWikinews(path = getwd(), file = list.files(path = path, pattern =
 textmeta-object
 }
 \description{
-Reads the XML-files from the Wikinews Export page \link(https://en.wikinews.org/wiki/Special:Export).
+Reads the XML-files from the Wikinews Export page \url{https://en.wikinews.org/wiki/Special:Export}.
 }
 \examples{
 

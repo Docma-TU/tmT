@@ -1,6 +1,6 @@
 #' Read the SZ corpus
 #'
-#' Reads the XML-files from the Wikinews Export page \link(https://en.wikinews.org/wiki/Special:Export).
+#' Reads the XML-files from the Wikinews Export page \url{https://en.wikinews.org/wiki/Special:Export}.
 #'
 #'
 #' @param path Path where the data files are.
