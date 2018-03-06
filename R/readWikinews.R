@@ -35,6 +35,7 @@ full.names = FALSE, recursive = TRUE)){
     id <- stringr::str_extract(article, "<ns>(.*?)</id>")
     id <- stringr::str_extract(id, "<id>(.*?)</id>")
     id <- removeXML(id)
+    id <- paste0("ID",id)
     title <- stringr::str_extract(article, "<title>(.*?)</title>")
     title <- removeHTML(removeXML(title), dec=FALSE, hex=FALSE, entity=FALSE)
     date <- stringr::str_extract(article, "\\{\\{(.*?)[Dd]ate(.*?)\\}\\}")
@@ -47,7 +48,7 @@ full.names = FALSE, recursive = TRUE)){
 
     # text:
     text_new <- stringr::str_extract(article,"<text(.*?)==\\s?(Sources|Sister links)\\s?==")
-    text_new <- removeHTML(removeXML(text_new), dec=FALSE, hex=FALSE, entity=FALSE)
+#    text_new <- removeHTML(removeXML(text_new), dec=FALSE, hex=FALSE, entity=FALSE)
     text_new <- gsub(pattern = "\\{\\{(.*?)[Dd]ate[\\|=](.*?)\\}\\}",
       replacement = "", text_new, perl = TRUE)
     text_new <- gsub(pattern = "==\\s?(Sources|Sister links)\\s?==", replacement = "",

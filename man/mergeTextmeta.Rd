@@ -10,7 +10,7 @@ mergeTextmeta(x, all = TRUE)
 \item{x}{A list of \code{\link{textmeta}} objects}
 
 \item{all}{Logical: Should the result contain
-\code{\link{union}} (\code{TRUE}) or \code{\link{intersection}} (\code{FAULT}) of columns of
+\code{\link{union}} (\code{TRUE}) or \code{\link{intersection}} (\code{FALSE}) of columns of
 all objects? If \code{TRUE}, the columns which at least appear in one of
 the meta components are filled with \code{NA}s in the merged meta component.}
 }

@@ -1,3 +1,7 @@
 [#]*
 [.#]*
 *R~
+*.aux
+*fdb_latexmk
+Vignette.R
+Vignette.tex
