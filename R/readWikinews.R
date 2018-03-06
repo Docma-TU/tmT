@@ -37,7 +37,7 @@ full.names = FALSE, recursive = TRUE)){
     id <- removeXML(id)
     id <- paste0("ID",id)
     title <- stringr::str_extract(article, "<title>(.*?)</title>")
-    title <- removeHTML(removeXML(title), dec=FALSE, hex=FALSE, entity=FALSE)
+#    title <- removeHTML(removeXML(title), dec=FALSE, hex=FALSE, entity=FALSE)
     date <- stringr::str_extract(article, "\\{\\{(.*?)[Dd]ate(.*?)\\}\\}")
     date <- stringr::str_extract(date, "[^:alpha:][Dd]ate[\\|=](.*?)[\\}|]")
     date <- stringr::str_extract(date, "[:alpha:]*[ ]*[0-9]?[0-9], [1-2][0-9]{3}")
