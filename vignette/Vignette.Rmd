@@ -86,39 +86,43 @@ For further analysis, especially performing the Latent Dirichlet Allocation, it 
 ## Clear Corpus - \texttt{makeClear}
 For further preprocessing of text corpora tosca offers the function \texttt{makeClear}. It removes punctuation, numbers and stopwords. By default it removes english stopwords. It uses the stopword list of the function \texttt{stopwords} from the \texttt{tm} package. For the german stopword list are some additional words implemented (e.g. "dass" and "fuer"). You can control which stopwords should be removed with the argument \texttt{sw}. In addition the function changes all words to lowercase and tokenizes the documents. The result is a \texttt{list} of \texttt{character} vectors, or if \texttt{paragraph} is set \texttt{TRUE} (default) a \texttt{list} of \texttt{lists} of \texttt{character} vectors. The sublists should represent paragraphs of a document. If you hand over a \texttt{textmeta} object instead of a \texttt{list} of texts you will receive one back. In this case you have to hand it over to the parameter \texttt{object} instead of \texttt{text}.
 
-The examples corpus language is english, so that \texttt{sw} should be set to \texttt{stopwords()} from the \texttt{tm} package, which includes english stopwords by default (\texttt{kind = "en"}). To create a new \texttt{textmeta} object the corresponding function is used.
+The examples corpus language is english, so that \texttt{sw} should be set to \texttt{stopwords()} from the \texttt{tm} package, which includes english stopwords by default (\texttt{kind = "en"}). 
 ```{r}
-#textClear = makeClear(text = myUniqueTexts, sw = tm::stopwords(), paragraph = FALSE)
-#corpusClear = textmeta(text = textClear, meta = corpus$meta)
 corpusClear <- makeClear(object = corpus)
 ```
 
-<!-- ## Generate Wordlist - \texttt{makeWordlist} -->
-<!-- When you cleared your corpus with the function \texttt{makeClear} you are also able to call the function \texttt{makeWordlist}, which creates a table of occuring words in a given corpus. For complexity reasons you can handover a parameter \texttt{k} to the function (default: \texttt{100000L}). This parameter controls how many documents should be processed at once. Large \texttt{k}s lead to faster calculation but more RAM usage. -->
+The function \texttt{makeClear} deletes all \texttt{meta} entries which did not belong to one of the texts (e.g. deleted empty texts).
+To create a \texttt{textmeta} object including this data the corresponding function is used.
 
-<!-- For calculating wordlists a tokenized corpus must be used. In the given example \texttt{corpusClear\$text} is handed over to the function accordingly. -->
-<!-- ```{r} -->
-<!-- wordtable = makeWordlist(corpusClear$text) -->
-<!-- ``` -->
-<!-- ```{r, include = FALSE} -->
-<!-- load("corpusClear.RData") -->
-<!-- ``` -->
+```{r}
+textClear2 = makeClear(text = corpus$text)
+corpusClear2 = textmeta(text = textClear2, meta = corpus$meta)
+```
 
-<!-- # Descriptive Analysis -->
-<!-- After preprocessing the text data there is a typical workflow we recommend for looking at the corpus. This workflow contains the generic functions \texttt{print} and \texttt{summary} as well as the highly adaptable and more advanced functions \texttt{plotScot} and \texttt{plotWord}. These graphical functions should be part of any initial analysis of text data. -->
 
-<!-- ## Generic Functions - \texttt{print}, \texttt{summary} -->
-<!-- Some information about the (one to) three components of the \texttt{textmeta} object is obtained by calling the generic function \texttt{print}. -->
-<!-- ```{r} -->
-<!-- print(corpus) -->
-<!-- ``` -->
-<!-- The function provides the count of pages in the corpus (3458) and there are two additional columns in \texttt{meta} to the mandatory ones \texttt{id}, \texttt{date} and \texttt{title}. The pages are dated from July 25, 2004 to June 6, 2017. -->
+## Generate Wordlist - \texttt{makeWordlist}
+After clearing the corpus with the function \texttt{makeClear} we are able to call the function \texttt{makeWordlist}, which creates a table of occuring words in a given corpus. THe function \texttt{table} needs much RAM. That's a problem for bis Corpora. In \texttt{makeWordlist}  we use the parameter \texttt{k} (default: \texttt{100000L}) to reduce the number of texts which are processed at once. Large \texttt{k}s lead to faster calculation but more RAM usage.
 
-<!-- You will get more information, especially about counts of \texttt{NA}s and tables of some \texttt{candidates} (default: \texttt{resource} and \texttt{downloadDate}) with the generic function \texttt{summary}. In addition to \texttt{candidates} you can handover the argument \texttt{list.names} (default: \texttt{names(object)}) for specifying the components out of \texttt{text}, \texttt{meta} and \texttt{metamult} which should be analysed by the function. -->
-<!-- ```{r} -->
-<!-- summary(corpus) -->
-<!-- ``` -->
-<!-- Apparently there are no \texttt{NA}s in the corpus as expected. The additional \texttt{meta} columns are \texttt{categoryCall} and \texttt{touched}, which are provided by \texttt{readWiki} always and contain the call of \texttt{category} in \texttt{readWiki} and the date of last revision. -->
+For calculating wordlists a tokenized corpus must be used. In the given example \texttt{corpusClear\$text} is handed over to the function accordingly.
+```{r}
+wordtable = makeWordlist(corpusClear$text)
+```
+
+# Descriptive Analysis
+After preprocessing the text data there is a typical workflow we recommend for looking at the corpus. This workflow contains the generic functions \texttt{print} and \texttt{summary} as well as the highly adaptable functions \texttt{plotScot} and \texttt{plotWord}. These graphical functions should be part of any initial analysis of text data.
+
+## Generic Functions - \texttt{print}, \texttt{summary}
+Some information about the (one to) three components of the \texttt{textmeta} object is obtained by calling the generic function \texttt{print}.
+```{r}
+print(corpus)
+```
+The function provides the count of pages in the corpus (7041) and there are two additional columns in \texttt{meta} to the mandatory ones \texttt{id}, \texttt{date} and \texttt{title}. The pages are dated from 2004-11-13 till 2018-03-04.
+
+You will get more information, especially about counts of \texttt{NA}s and tables of some \texttt{candidates} (default: \texttt{resource} and \texttt{downloadDate}) with the generic function \texttt{summary}. In addition to \texttt{candidates} you can handover the argument \texttt{list.names} (default: \texttt{names(object)}) for specifying the components out of \texttt{text}, \texttt{meta} and \texttt{metamult} which should be analysed by the function.
+```{r}
+summary(corpus)
+```
+Apparently there are 191 \texttt{NA}s in the variable \texttt{date}.
 
 <!-- ## Visualisation of Corpus over Time - \texttt{plotScot} -->
 <!-- One of the descriptive plotting functions in the package is \texttt{plotScot} (\textbf{S}ub\textbf{C}orpus\textbf{O}ver\textbf{T}ime) which creates a plot of counts or proportion of either documents or words in a (sub)corpus over time. The subcorpus is specified by \texttt{id} and it is possible to set the \texttt{unit} to which the dates should be floored (default: \texttt{"month"}). The argument \texttt{curves = c("exact", "smooth", "both")} determine which curve(s) should be plotted. If you select \texttt{type = "words"}, the object which you handover should be a cleared \texttt{textmeta} object. If \texttt{type = "docs"} (default) you can hand over untokenized \texttt{textmeta} object as well. -->
