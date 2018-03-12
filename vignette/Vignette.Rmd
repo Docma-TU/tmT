@@ -124,30 +124,27 @@ summary(corpus)
 ```
 Apparently there are 191 \texttt{NA}s in the variable \texttt{date}.
 
-<!-- ## Visualisation of Corpus over Time - \texttt{plotScot} -->
-<!-- One of the descriptive plotting functions in the package is \texttt{plotScot} (\textbf{S}ub\textbf{C}orpus\textbf{O}ver\textbf{T}ime) which creates a plot of counts or proportion of either documents or words in a (sub)corpus over time. The subcorpus is specified by \texttt{id} and it is possible to set the \texttt{unit} to which the dates should be floored (default: \texttt{"month"}). The argument \texttt{curves = c("exact", "smooth", "both")} determine which curve(s) should be plotted. If you select \texttt{type = "words"}, the object which you handover should be a cleared \texttt{textmeta} object. If \texttt{type = "docs"} (default) you can hand over untokenized \texttt{textmeta} object as well. -->
+## Visualisation of Corpus over Time - \texttt{plotScot}
+One of the descriptive plotting functions in the package is \texttt{plotScot} (\textbf{S}ub\textbf{C}orpus\textbf{O}ver\textbf{T}ime) which creates a plot of counts or proportion of either documents or words in a (sub)corpus over time. The subcorpus is specified by \texttt{id} and it is possible to set the \texttt{unit} to which the dates should be floored (default: \texttt{"month"}). The argument \texttt{curves = c("exact", "smooth", "both")} determine which curve(s) should be plotted. If you select \texttt{type = "words"}, the object which you handover should be a tokenized \texttt{textmeta} object. If \texttt{type = "docs"} (default) you can hand over untokenized \texttt{textmeta} object as well.
 
-<!-- First of all the complete example corpus is plotted, as exact and smoothed curve. -->
-<!-- ```{r, fig.width=5, fig.height=2.8, fig.align=2} -->
-<!-- plotScot(corpusClear, curves = "both") -->
-<!-- ``` -->
-<!-- The black curve is the exact one and the red curve represents the smoothed values. As you can see there is a peak of assignments of pages to (sub)categories between December 2012 and January 2013. This is the result of 239 pages which were assigned on January 9, 2013 to one of the subcategories of the category "Medicine". The earliest pages of the subcorpus \texttt{bigdata} were assigned on September 9, 2013. -->
-<!-- ```{r} -->
-<!-- print(bigdata) -->
-<!-- ``` -->
-<!-- The following visualisation is one of the most important you should look at while analysing text data because it is useful to identify duplicates. -->
-<!-- ```{r, fig.width=5, fig.height=2.8, fig.align=2} -->
-<!-- plotScot(corpus, id = myUniques, rel = TRUE) -->
-<!-- ``` -->
-<!-- The proportion of the pages which IDs are in \texttt{myUnique} (relative to the whole corpus) is very useful for identifying time effects concerning duplicates. In the wikipedia corpus there are some drops for example on October 2011 with $0.79$ and on July 2015 with $0.83$. The zeros from August to November of 2004, January and March of 2005 and May of 2006 results from no articles in the whole corpus during these time periods. It is possible to get these values as \texttt{NAs} by setting \texttt{natozero = FALSE} in \texttt{plotScot}. This only has an effect if \texttt{rel = TRUE} and is offered by many other functions in the package. Usually all plot functions in the package \texttt{tmT} return the data belonging to the plot as invisible output. These plot functions offer a lot more functionality, which cannot be displayed in detail here. You can have a look at the corresponding help functions for further possibilities. -->
+First of all the number of texts per month in the complete example corpus is plotted, as exact and smoothed curve.
+```{r, fig.width=5, fig.height=2.8, fig.align=2}
+plotScot(corpusClear, curves = "both")
+```
+The black curve is the exact one and the red curve represents the smoothed values. The grafic gives a first impression about the distribution of the texts over time. Most of the news articles where written between 2005 and 2009. 
+\colorbox{red}{If we want to identify} the distribution of duplicates over the time we can use \texttt{plotScot} to plot the IDs of the not duplicated texts in the corpus. 
+```{r, fig.width=5, fig.height=2.8, fig.align=2}
+plotScot(corpus, id = dups$notDuplicatedTexts, rel = TRUE)
+```
+Most zeros in the plot result from no articles in the whole corpus during these time periods. It is possible to get these values as \texttt{NAs} by setting \texttt{natozero = FALSE} in \texttt{plotScot}. This option works if \texttt{rel = TRUE} and is offered by many other functions in the package. Usually all plot functions in the package return the data belonging to the plot as invisible output. These plot functions offer a lot more functionality, which is described in the corresponding help functions.
 
-<!-- ## Frequency Analysis - \texttt{plotWord} -->
-<!-- The other descriptive plotting function is \texttt{plotWord} which performs a frequency analysis. Most of the arguments does not differ from \texttt{plotScot}. But the options \texttt{wordlist} and \texttt{link = c("and", "or")} are added for specifying the words of the frequency analysis and their link within one vector. In detail \texttt{wordlist} could either be a \texttt{list} of \texttt{character} vectors or a single \texttt{character} vector, which will be coerced to a \texttt{list} of the vectors length. Each \texttt{list} entry represents a set of words which all (default \texttt{link = "and"}) or one of them (\texttt{link = "or"}) should appear in a article to be counted. The function uses \texttt{subcorpusWord} with \texttt{out = "count"}, which is explained later on, for counting. -->
+## Frequency Analysis - \texttt{plotWord}
+The other descriptive plotting function is \texttt{plotWord} which performs a frequency analysis. Most of the arguments does not differ from \texttt{plotScot}. But the options \texttt{wordlist} and \texttt{link = c("and", "or")} are added for specifying the words of the frequency analysis and their link within one vector. In detail \texttt{wordlist} could either be a \texttt{list} of \texttt{character} vectors or a single \texttt{character} vector, which will be coerced to a \texttt{list} of the vectors length. Each \texttt{list} entry represents a set of words which all (default \texttt{link = "and"}) or one of them (\texttt{link = "or"}) should appear in a article to be counted. The function uses \texttt{filterWord} with \texttt{out = "count"}, which is explained later on, for counting.
 
-<!-- The example corpus contains pages from Wikipedia concerning the categories (and their subcategories) "Journalism", "Medicine" and "Big data". Therefore some typical words out of these categories were taken to perform a frequency analysis. First of all the words \textit{hospital}, \textit{pill} and \textit{drug} were taken. -->
+<!-- The example corpus contains Wikinews articles concerning the categories *Politics_and_conflicts* and *Economy_and_business*. Therefore some typical words out of these categories were taken to perform a frequency analysis. First of all the words \textit{hospital}, \textit{pill} and \textit{drug} were taken. -->
 <!-- ```{r, fig.width=5, fig.height=3.5, fig.align=2, fig.show="hold"} -->
-<!-- wordsMed = list("hospital", "pill", "drug", c("hospital", "pill", "drug")) -->
-<!-- plotWord(corpusClear, wordlist = wordsMed, curves = "smooth", -->
+<!-- wordsEconomy <- list("dow", "economy", "bank", c("dow", "economy", "bank")) -->
+<!-- plotWord(corpusClear, wordlist = wordsEconomy, curves = "smooth", -->
 <!--   ylim = c(0, 20), legend = "topleft") -->
 <!-- plotWord(corpusClear, wordlist = wordsMed, link = "or", curves = "smooth", -->
 <!--   ylim = c(0, 20), legend = "topleft") -->
@@ -161,86 +158,84 @@ Apparently there are 191 \texttt{NA}s in the variable \texttt{date}.
 <!-- ``` -->
 <!-- With setting \texttt{curves = "both"}, which means that exact and smoothed curves are plotted, you can see the event on January 2013, like in the first figure of \texttt{plotScot}, in the light blue (exact) curve. This shows that the event is not limited to pages from the category "Medicine". Therefore the event could have to do with some database structuring of Wikipedia at these dates or maybe the curve which should specify words from the category "Big data" includes pages from the category "Medicine". The bigger and deeper colored curves represents the smoothed values. This ones increases for later dates. This fits to the expectation of "Big data" as a more modern category than the other ones. However there is no chance of validation due to this figure. -->
 
-<!-- ## Write CSV Files - \texttt{showArticles}, \texttt{showMetadata} -->
-<!-- There are two functions for writing csv files implemented in the \texttt{tmT} package. Both needs an any-formated \texttt{textmeta} object in \texttt{showArticles}, respectively the \texttt{meta} component of any-formated \texttt{textmeta} object in \texttt{showMetadata}, so you can even handover a \texttt{textmeta} object with tokenized documents to \texttt{showArticles}. The default of the parameter \texttt{id} in \texttt{showArticles} are all document IDs of the corpus as a \texttt{character} vector, but it is possible to handover a \texttt{character} matrix as well, so that each column will be represented in seperated csv file. In the first column of the csv file there will be the ID of each document, in the second and third the title and the date, whereas in the fourth column there will be the text itself. -->
+## Write CSV Files - \texttt{showTexta}, \texttt{showMeta}
+There are two functions for writing csv files implemented in the package. Both needs an \texttt{textmeta} object in \texttt{showTexts}, respectively the \texttt{meta} component of any-formated \texttt{textmeta} object in \texttt{showMeta}. The default of the parameter \texttt{id} in \texttt{showTexts} are all document IDs of the corpus as a \texttt{character} vector, but it is possible to handover a \texttt{character} matrix as well, so that each column will be represented in seperated csv file. In the first column of the csv file there will be the ID of each document, in the second and third the title and the date, whereas in the fourth column there will be the text itself.
 
-<!-- Six IDs are sampled from the whole corpus with a given seed. These pages are saved as \texttt{corpus1lesen.csv} and are returned as invisible to \texttt{temp}. -->
-<!-- ```{r} -->
-<!-- set.seed(123) -->
-<!-- id = sample(corpus$meta$id, 6) -->
-<!-- temp = showArticles(corpus, id = id) -->
-<!-- temp[, c("id", "date", "title")] -->
-<!-- ``` -->
-<!-- These six pages contain a "real duplicate". Looking at the column \texttt{id} you can identify them. The six titles seems to lead to pages which are from different categories. Therefore you can have a look at the meta data. -->
+Six IDs are sampled from the whole corpus with a given seed. These pages are saved as \texttt{corpus1lesen.csv} and are returned as invisible to \texttt{temp}.
+```{r}
+set.seed(123)
+id <- sample(corpus$meta$id, 6)
+temp <- showTexts(corpus, id = id)
+temp[, c("id", "date", "title")]
+```
 
-<!-- The default of the parameter \texttt{id} in \texttt{showMetadata} are the IDs which are in the column \texttt{meta\$id}. You can also handover a matrix of IDs like in \texttt{showArticles} and you can specify which columns of the \texttt{meta} component you want to be written in the csv by setting the argument \texttt{cols} (default: \texttt{colnames(meta)}). -->
+We now have a look at the meta data. The default of the parameter \texttt{id} in \texttt{showMeta} are the IDs which are in the column \texttt{meta\$id}. You can also handover a matrix of IDs like in \texttt{showTexts} and you can specify which columns of the \texttt{meta} component you want to be written in the csv by setting the argument \texttt{cols} (default: \texttt{colnames(meta)}).
 
-<!-- Analogously to \texttt{showArticles} the following code example will create three files named \texttt{corpus<i>meta.csv}, where $i = 1,2,3$ stands for the $i$-th column of the matrix of IDs. -->
-<!-- ```{r} -->
-<!-- temp = showMetadata(corpus$meta, id = matrix(id, nrow = 2), -->
-<!--   cols = c("title", "categoryCall", "touched")) -->
-<!-- temp -->
-<!-- ``` -->
-<!-- The function shows that the sampled pages are from all three category calls "Medicine", "Journalism" and "Big data". Five out of six pages were touched in the last month before downloading. -->
+Analogously to \texttt{showTexts} the following code example will create three files named \texttt{corpus<i>meta.csv}, where $i = 1,2,3$ stands for the $i$-th column of the matrix of IDs.
+```{r}
+temp <- showMeta(corpus$meta, id = matrix(id, nrow = 2),
+  cols = c("title", "date"))
+temp
+```
 
-<!-- # Generating Subcorpora -->
-<!-- The preprocessing which was done before is mandatory. For further preparation the package offers functions for filtering the corpus by dates, wordcount or search terms to generate subcorpora. -->
+# Generating Subcorpora
+The preprocessing which was done before is mandatory. For further preparation the package offers functions for filtering the corpus by dates, wordcount or search terms to generate subcorpora.
 
-<!-- ## Filter Corpus by Dates - \texttt{subcorpusDate} -->
-<!-- There are two implemented ways to filter your text corpora: One of these is the function \texttt{subcorpusDate}, which filters a given \texttt{textmeta} object by a time period. The function works on any formated objects of \texttt{class} \texttt{textmeta} and extracts documents out of the \texttt{text} component, from which the date column in the \texttt{meta} component is in between \texttt{s.date} and \texttt{e.date} - including texts from both dates. The return value is the filtered \texttt{textmeta} object or a \texttt{list} which could be the \texttt{text} component of a \texttt{textmeta} object respectively, if you hand over the \texttt{text} and \texttt{meta} component not as a \texttt{textmeta} object. -->
+## Filter Corpus by Dates - \texttt{filterDate}
+There are three implemented ways to filter your text corpora: One of these is the function \texttt{filterDate}, which filters a given \texttt{textmeta} object by a time period. The function works on any formated objects of class \texttt{textmeta} and extracts documents out of the \texttt{text} component, from which the date column in the \texttt{meta} component is in between \texttt{s.date} and \texttt{e.date} - including texts from both dates. The return value is the filtered \texttt{textmeta} object or a \texttt{list} which could be the \texttt{text} component of a \texttt{textmeta} object respectively, if you hand over the \texttt{text} and \texttt{meta} component not as a \texttt{textmeta} object.
 
-<!-- The example corpus is filtered to pages which are first associated between 2011 and 2016. -->
-<!-- ```{r} -->
-<!-- corpusDate = subcorpusDate(corpusClear, s.date = "2011-01-01", e.date = "2016-12-31") -->
-<!-- print(corpusClear) -->
-<!-- print(corpusDate) -->
-<!-- ``` -->
-<!-- The filtered corpus contains 2353 pages. TODO:(differenz ...) -->
+The example corpus is filtered to pages which are first associated between 2006 and 2009.
+```{r}
+corpusDate <- filterDate(corpusClear, s.date = "2006-01-01", e.date = "2009-12-31")
+print(corpusClear)
+print(corpusDate)
+```
+The filtered corpus contains only the 3909 texts of the period 2006 till 2009. 
 
-<!-- ## Filter Corpus by Wordcount - \texttt{subcorpusCount} -->
-<!-- TODO:(folgt...) -->
+## Filter Corpus by Wordcount - \texttt{filterCount}
+\colorbox{red}{TODO:(folgt...)}
 
-<!-- ## Filter Corpus by Words - \texttt{subcorpusWord} -->
-<!-- The use of \texttt{subcorpusWord} works analogously. It filters the \texttt{text} component of a \texttt{textmeta} object by appearances of specific words. The function uses regular expressions and is very powerful by this. It filters the given documents in the \texttt{text} component by some words handed over by \texttt{search}, which could be a simple \texttt{character} vector or a \texttt{list} of \texttt{data.frames}. In the case of a character vector handed over the entries of the vector are linked by an \textit{or}, so \textit{any} of the words must appear in one specific document for it to be returned. -->
+## Filter Corpus by Words - \texttt{filterWord}
+The use of \texttt{filterWord} works analogously. It filters the \texttt{text} component of a \texttt{textmeta} object by appearances of specific words. The function uses regular expressions. It filters the given documents in the \texttt{text} component by some words handed over by \texttt{search}, which could be a simple \texttt{character} vector or a \texttt{list} of \texttt{data.frames}. In the case of a character vector handed over the entries of the vector are linked by an \textit{or}, so \textit{any} of the words must appear in one specific document for it to be returned.
 
 <!-- Maybe you are not interested in the texts of the documents itself. Therefore you can set \texttt{out} to control the output: By default (\texttt{out = text}) you get the filtered documents or if you hand over the argument \texttt{object} the corresponding \texttt{textmeta} respectively back. If you choose \texttt{out = bin} you get the corresponding logical vector of indices and if you choose \texttt{out = count} you get a matrix - with the number of documents rows and the \texttt{search}-length respectively vector-length columns - which indicates in row \textit{i} and column \textit{j} how often the \textit{j}-th word of the \texttt{wordlist} appears in the according \textit{i}-th document. -->
 
-<!-- First of all small examples are given for understanding the functionality of the function \texttt{subcorpusWord}. An examples for the \textit{or}-link is given by the next code example. -->
+<!-- First of all small examples are given for understanding the functionality of the function \texttt{filterWord}. An examples for the \textit{or}-link is given by the next code example. -->
 <!-- ```{r} -->
 <!-- toyCorpus = list(text1 = "schaafdung", text2 = "anything") -->
 <!-- searchterm = c("schaaf", "afd", "dung", "anything") -->
-<!-- subcorpusWord(text = toyCorpus, search = searchterm, out = "bin") -->
+<!-- filterWord(text = toyCorpus, search = searchterm, out = "bin") -->
 <!-- ``` -->
 <!-- The returned values are \texttt{TRUE} twice. There is at least one pattern in the \texttt{searchterm} vector which appears at least once in each of the strings \textit{schaafdung} and \textit{anything}. -->
 
 <!-- In the case of a \texttt{list} of \texttt{data.frames} handed over each \texttt{data.frame} is linked by an \textit{or} and should contain columns \texttt{pattern}, \texttt{word} and \texttt{count}. The parameter \texttt{pattern} includs the search terms, the column \texttt{word} is a logical variable which controls whether words (\texttt{TRUE}) or patterns are searched. Alternatively \texttt{word} can be a \texttt{character} string containing the keyword \texttt{left} or \texttt{right} for left- or right-truncated search. You must set the argument \texttt{count} to an \texttt{integer}. As you can imagine this argument controls how often a word or pattern must appear in a document for it to be returned. Rows in each \texttt{data.frame} are linked by an \textit{and}. An example is given by the following code. -->
 <!-- ```{r} -->
 <!-- searchframe = data.frame(pattern = searchterm, word = FALSE, count = 1) -->
-<!-- subcorpusWord(text = toyCorpus, search = searchframe, out = "bin") -->
+<!-- filterWord(text = toyCorpus, search = searchframe, out = "bin") -->
 <!-- ``` -->
 <!-- In the case that \texttt{words} is handed over as \texttt{data.frame}, the \textit{and} link is active. The function checks whether all of the patterns appear as part of words in the two entries of \texttt{texts}. Therefore the function returns \texttt{FALSE} twice. -->
 
 <!-- In another use case delete the word \textit{anything} from the search terms. -->
 <!-- ```{r} -->
-<!-- subcorpusWord(text = toyCorpus, search = searchframe[1:3,], out = "bin") -->
+<!-- filterWord(text = toyCorpus, search = searchframe[1:3,], out = "bin") -->
 <!-- ``` -->
 <!-- If you omit the word \textit{anything} from \texttt{words} you receive a \texttt{TRUE} for text1 (\textit{schaafdung}) - all three patterns appear in it - and a \texttt{FALSE} for text2 (\textit{anything}), because not all patterns appear in it, not even one of them. -->
 
 <!-- An example of \texttt{out = count} to receive a count for each text and search term combination is given by the following. -->
 <!-- ```{r} -->
-<!-- subcorpusWord(text = list(text1 = c("i", "was", "here", "text"), -->
+<!-- filterWord(text = list(text1 = c("i", "was", "here", "text"), -->
 <!--   text2 = c("some", "text", "about", "some", "text", "and", "something", "other")), -->
 <!--   search = c("some", "text"), out = "count") -->
 <!-- ``` -->
 <!-- In the case of \texttt{out = count} it is useful, that \texttt{search} is a simple \texttt{character} vector. -->
 
-<!-- Another application of \texttt{subcorpusWord} is to apply the function with \texttt{word = TRUE}, so that the function searchs only for single words, not for strings containing these words. This is displayed by the following example. -->
+<!-- Another application of \texttt{filterWord} is to apply the function with \texttt{word = TRUE}, so that the function searchs only for single words, not for strings containing these words. This is displayed by the following example. -->
 <!-- ```{r} -->
 <!-- searchterm = list(text1 = "land and and", text2 = c("and", "land", "and", "and")) -->
 <!-- searchframe = list( -->
 <!--   data.frame(pattern = "and", word = FALSE, count = 1), -->
 <!--   data.frame(pattern = "and", word = TRUE, count = 1)) -->
-<!-- subcorpusWord(text = searchterm, search = searchframe, out = "count") -->
+<!-- filterWord(text = searchterm, search = searchframe, out = "count") -->
 <!-- ``` -->
 <!-- The function returns counts \texttt{c(3, 4)} for the simple pattern search and \texttt{c(2, 3)} for the word search, cause the word \textit{and} appears once in every document of \texttt{searchterm} only as pattern and not as single word. -->
 
@@ -250,7 +245,7 @@ Apparently there are 191 \texttt{NA}s in the variable \texttt{date}.
 <!--   data.frame(pattern = "journalism", word = FALSE, count = 1), -->
 <!--   data.frame(pattern = c("big", "data"), word = FALSE, count = 1), -->
 <!--   data.frame(pattern = "medicine", word = FALSE, count = 1)) -->
-<!-- corpusFiltered = subcorpusWord(corpusDate, search = searchterm) -->
+<!-- corpusFiltered = filterWord(corpusDate, search = searchterm) -->
 <!-- print(corpusDate) -->
 <!-- print(corpusFiltered) -->
 <!-- ``` -->
@@ -417,13 +412,13 @@ Apparently there are 191 \texttt{NA}s in the variable \texttt{date}.
 <!-- The plot indicates some peaks of the word \textit{medical} in the topic \textit{T3.health} especially in the middle of the years 2011, 2012 and 2014. The proportions of \textit{medical} in the other two topics do not differ from zero often. In the end of 2011 and the middle of 2013 the topic proportion of the word increases in both topics, but do not reach five percent of the topic words in the given months. -->
 
 <!-- ## Visualisation of Words in Articles allocated to Topics - \texttt{plotWordSub} -->
-<!-- Mention a problem where you want to identify words which are used frequently in articles allocated to a topic. The function which realizes a plot to the problem is called \texttt{plotWordSub}. The first problem is allocation of topics. Therefore you set a absolute or relative limit how often words of a given article are allocated to one topic. Additionally you have to specify whether one article is allocated exactly once, maximum once or multiple times depending on the \texttt{limit} argument. The default is \texttt{limit = 10} and \texttt{alloc = "multi"}, so an article is allocated to a topic if it contains at least 11 words which are allocated to the given topic. Multiple or no allocations are possible. After allocating the articles to the topics the function creates subcorpora using \texttt{subcorpusWord}. To control the filter you have to set the \texttt{search} argument. The counts of the subcorpora (normalized to their whole corpora) are plotted. There are many options to personalize your plot like in the other plot functions. -->
+<!-- Mention a problem where you want to identify words which are used frequently in articles allocated to a topic. The function which realizes a plot to the problem is called \texttt{plotWordSub}. The first problem is allocation of topics. Therefore you set a absolute or relative limit how often words of a given article are allocated to one topic. Additionally you have to specify whether one article is allocated exactly once, maximum once or multiple times depending on the \texttt{limit} argument. The default is \texttt{limit = 10} and \texttt{alloc = "multi"}, so an article is allocated to a topic if it contains at least 11 words which are allocated to the given topic. Multiple or no allocations are possible. After allocating the articles to the topics the function creates subcorpora using \texttt{filterWord}. To control the filter you have to set the \texttt{search} argument. The counts of the subcorpora (normalized to their whole corpora) are plotted. There are many options to personalize your plot like in the other plot functions. -->
 <!-- ```{r, fig.width=5.5, fig.height=3.5, fig.align=2} -->
 <!-- searchmed = data.frame(pattern = "medical", word = TRUE, count = 4) -->
 <!-- plotWordSub(object = corpusFiltered, ldaresult = result, ldaID = ldaID, limit = 1/3, -->
 <!--   select = c(1, 3, 7), search = searchmed, unit = "quarter", legend = "bottomright") -->
 <!-- ``` -->
-<!-- The plot shows subcorpora generated by the \texttt{search} argument above, which means articles must contain the word \textit{medical} at least four times. The corpora from which these subcorpora are generated have to contain one third of words which are allocated to the corresponding topic (\texttt{limit = 1/3}). The curves of the topics \textit{T1.syndrome}, \textit{T3.health} and \textit{T7.medicine} differ lot from one to another quarter. This could be a problem of this example corpus, because the publication dates appears in groups, so that there are many quarters where no articles were published. This effect can be seen in the green curve best. The orange and purple curves seems to be interpretable, but time effects are difficult to determine from this plot. The function \texttt{subcorpusWord} could be used as a indicator how journalism reports in a given topic in dependence to the time. -->
+<!-- The plot shows subcorpora generated by the \texttt{search} argument above, which means articles must contain the word \textit{medical} at least four times. The corpora from which these subcorpora are generated have to contain one third of words which are allocated to the corresponding topic (\texttt{limit = 1/3}). The curves of the topics \textit{T1.syndrome}, \textit{T3.health} and \textit{T7.medicine} differ lot from one to another quarter. This could be a problem of this example corpus, because the publication dates appears in groups, so that there are many quarters where no articles were published. This effect can be seen in the green curve best. The orange and purple curves seems to be interpretable, but time effects are difficult to determine from this plot. The function \texttt{filterWord} could be used as a indicator how journalism reports in a given topic in dependence to the time. -->
 
 <!-- ## Heatmap of Topics over Time including Clustering - \texttt{totHeat} -->
 <!-- Beside the plot functions using \texttt{Base R} there is one function using functionality from \texttt{gplots}. The function is called \texttt{totHeat}. Maybe there will be an opportunity to implement this function in \texttt{Base R} in later updates. The use case for \texttt{totHeat} is given by searching for explicit peaks of coverage of some topics. Therefore the resulting heatmap shows the deviation of the proportion of a given topic at this current time from its mean proportion. In addition a dendrogramm is plotted on the left side of the heatmap showing similarities of topics. The clustering is performed with \texttt{hclust} on the dissimilarities computed by \texttt{dist}. -->
@@ -449,9 +444,9 @@ Apparently there are 191 \texttt{NA}s in the variable \texttt{date}.
 <!-- ``` -->
 <!-- Obviously the corresponding matrix has four rows and three columns. -->
 
-<!-- After identifying the top pages it is possible to have a deeper look at these articles. Therefore the mentioned function \texttt{showArticles} can be used. The returned value is a list with three entries with \texttt{data.frames} of four rows - the different pages - and four columns each - \textit{id}, \textit{title}, \textit{date} and \textit{text}. For displaying, the fourth column of each \texttt{data.frame} containing the pages content itself is removed. -->
+<!-- After identifying the top pages it is possible to have a deeper look at these articles. Therefore the mentioned function \texttt{showTexta} can be used. The returned value is a list with three entries with \texttt{data.frames} of four rows - the different pages - and four columns each - \textit{id}, \textit{title}, \textit{date} and \textit{text}. For displaying, the fourth column of each \texttt{data.frame} containing the pages content itself is removed. -->
 <!-- ```{r} -->
-<!-- topArt = showArticles(corpusFiltered, id = topID) -->
+<!-- topArt = showTexta(corpusFiltered, id = topID) -->
 <!-- lapply(topArt, function(x) x[, 1:3]) -->
 <!-- ``` -->
 <!-- The top three pages from topic \textit{T1.syndrome} were associated to their category on January 25th 2014. Once again this shows the peak of associations of this topic in January 2014. -->
