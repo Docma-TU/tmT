@@ -61,20 +61,20 @@ readTextmeta <- function(path, file, cols, dateFormat = "%Y-%m-%d", idCol = "id"
 
     # set important meta information to NA if not given in file
     if(!(idCol %in% colnames(lonefile))){
-      message(paste0("NOTE: No ID-Column ", idCol, " in File, set to ascending numbers"))
+      message(paste0("NOTE: No ID-Column \"", idCol, "\" in File, set to ascending numbers"))
       lonefile[, idCol] <- paste0("ID-", 1:nrow(lonefile) +
           ifelse(is.null(meta), 0, nrow(meta)))
     }
     if(!(dateCol %in% colnames(lonefile))){
-      message(paste0("NOTE: No Date-Column ", dateCol, " in File, set to NA"))
+      message(paste0("NOTE: No Date-Column \"", dateCol, "\" in File, set to NA"))
       lonefile[, dateCol] <- NA
     }
     if(!(titleCol %in% colnames(lonefile))){
-      message(paste0("NOTE: No Title-Column ", titleCol, " in File, set to NA"))
+      message(paste0("NOTE: No Title-Column \"", titleCol, "\" in File, set to NA"))
       lonefile[, titleCol] <- NA
     }
     if(!(textCol %in% colnames(lonefile))){
-      message(paste0("NOTE: No Text-Column ", textCol, " in File, set to NA"))
+      message(paste0("NOTE: No Text-Column \"", textCol, "\" in File, set to NA"))
       lonefile[, textCol] <- NA
     }
 

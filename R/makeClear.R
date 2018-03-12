@@ -112,7 +112,7 @@ makeClear <- function(object, text, sw = "en", paragraph = FALSE,
   else{
     message("Tokenize: ", appendLF = FALSE)
     text <- sapply(text, function(x) strsplit(x, "\\s")[1])
-    message(paste("next Step\nRemove empty Articles: ",
+    message(paste0("next Step\nRemove empty Articles: ",
       sum(lengths(text) == 0 | is.na(text))), appendLF = FALSE)
     text <- text[!(lengths(text) == 0 | is.na(text))]
   }
