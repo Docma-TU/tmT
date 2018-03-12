@@ -40,7 +40,7 @@ mergeTextmeta <- function(x, all = TRUE){
   stopifnot(is.list(x), all(sapply(x, is.textmeta)),
     is.logical(all), length(all) == 1)
   if (any(duplicated(unlist(lapply(x, function(y) names(y$text))))))
-    cat(paste0("NOTE: There are duplicates in the names of texts",
+    message(paste0("NOTE: There are duplicates in the names of texts",
       ", could result in problems with unambiguity."))
   if (all) cols <- Reduce(union, lapply(x, function(y) colnames(y$meta)))
   else cols <- Reduce(intersect, lapply(x, function(y) colnames(y$meta)))
