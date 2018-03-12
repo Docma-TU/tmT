@@ -53,7 +53,7 @@ readWiki <- function(category, subcategories = TRUE,
   }
   pages = c(level1pages, level2pages)
 
-  cat("Downloading", length(pages), "articles in the category", category, "and",
+  message("Downloading", length(pages), "articles in the category", category, "and",
     length(subs), "subcategories...")
 
   id <- sapply(pages, function(x) x$pageid)

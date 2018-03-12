@@ -72,13 +72,13 @@ duplist <- function(object, paragraph = FALSE){
   }
   
   # 2. idFakeDups 3. idRealDups
-  cat("ID-Fake-Dups... ")
+  message("ID-Fake-Dups... ", appendLF = FALSE)
   idFakeDups <- foo_makeList(dupType = grep("_IDFakeDup", names(object$text)),
     to_replace = "_IDFakeDup1")
-  cat("next Step\nID-Real-Dups... ")
+  message("next Step\nID-Real-Dups... ", appendLF = FALSE)
   idRealDups <- foo_makeList(dupType = grep("_IDRealDup", names(object$text)),
     to_replace = "_IDRealDup1")
-  cat("next Step\nUnique (and Not-Duplicated) Texts... ")
+  message("next Step\nUnique (and Not-Duplicated) Texts... ", appendLF = FALSE)
   
   # 1. uniqueTexts a) allUniqueTexts:
   if (paragraph == TRUE){
@@ -95,7 +95,7 @@ duplist <- function(object, paragraph = FALSE){
   if (any(!ind)) allUniqueTexts <- names(object$text)[!ind]
   else allUniqueTexts <- character(0)
   
-  cat("next Step\nSame Texts... ")
+  message("next Step\nSame Texts... ", appendLF = FALSE)
   # 4. Same text, but different IDs:
   if (any(ind)){
     ind <- which(ind)
@@ -140,7 +140,7 @@ duplist <- function(object, paragraph = FALSE){
     textMetaDups <- list()
     textOthersDups <- character(0)
   }
-  cat("Success\n")
+  message("Success")
   res <- list(uniqueTexts = uniqueTexts, notDuplicatedTexts = allUniqueTexts,
     idFakeDups = idFakeDups, idRealDups = idRealDups,
     allTextDups = allTextDups, textOnlyDups = textOnlyDups,
@@ -155,22 +155,22 @@ duplist <- function(object, paragraph = FALSE){
 #' @export
 is.duplist <- function(x){
   if(class(x) != "duplist"){
-    cat("Object is not of class \"duplist\".\n")
+    message("Object is not of class \"duplist\".")
     return(FALSE)
   }
   if(!is.list(x)){
-    cat("Object is not a list.\n")
+    message("Object is not a list.")
     return(FALSE)
   }
   if(!all(c("uniqueTexts", "notDuplicatedTexts", "idFakeDups", "idRealDups",
     "allTextDups", "textOnlyDups", "textMetaDups", "textOthersDups") %in% names(x))){
-    cat("Listnames incorrect.\n")
+    message("Listnames incorrect.")
     return(FALSE)
   }
   if(!all(is.character(x$uniqueTexts), is.character(x$notDuplicatedTexts),
     is.list(x$idFakeDups), is.list(x$idRealDups), is.list(x$allTextDups),
     is.list(x$textOnlyDups), is.list(x$textMetaDups), is.character(x$textOthersDups))){
-    cat("Structure of List incorrect.\n")
+    message("Structure of List incorrect.")
     return(FALSE)
   }
   return(TRUE)

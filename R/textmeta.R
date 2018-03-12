@@ -45,7 +45,7 @@ textmeta <- function(meta = NULL, text = NULL, metamult = NULL, dateFormat = "%Y
   res <- list(meta = meta, text = text, metamult = metamult)
   class(res) <- "textmeta"
   if (!is.textmeta(res)){
-    cat("Error: One of the components does not meet the requirements of a textmeta object.")
+    warning("Error: One of the components does not meet the requirements of a textmeta object.")
     break
   }
   return(res)

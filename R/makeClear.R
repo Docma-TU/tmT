@@ -67,55 +67,56 @@ makeClear <- function(object, text, sw = "en", paragraph = FALSE,
   stopifnot(is.textmeta(textmeta(text = text)), is.character(sw),
     is.logical(paragraph), length(paragraph) == 1,
     all(is.logical(c(lowercase, rmPunctuation, rmNumbers))))
-  cat("Check Articles on UTF8: ")
+  message("Check Articles on UTF8: ", appendLF = FALSE)
   if(checkUTF8){
     stopifnot(all(unlist(lapply(text, function(x) lapply(x, validUTF8)))))
-    cat("next Step\n")
+    message("next Step")
   }
-  else cat("skip\n")
-  cat("Change to Lowercase: ")
+  else message("skip")
+  message("Change to Lowercase: ", appendLF = FALSE)
   if(lowercase){
     text <- lapply(text, tolower)
-    cat("next Step\n")
+    message("next Step")
   }
-  else cat("skip\n")
-  cat("Remove Punctuation: ")
+  else message("skip")
+  message("Remove Punctuation: ", appendLF = FALSE)
   if(rmPunctuation){
     text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE)
-    cat("next Step\n")
+    message("next Step")
   }
-  else cat("skip\n")
-  cat("Remove Numbers: ")
+  else message("skip")
+  message("Remove Numbers: ", appendLF = FALSE)
   if(rmNumbers){
     text <- lapply(text, tm::removeNumbers)
-    cat("next Step\n")
+    message("next Step")
   }
-  else cat("skip\n")
-  cat("Remove Stopwords: ")
+  else message("skip")
+  message("Remove Stopwords: ", appendLF = FALSE)
   text <- lapply(text, tm::removeWords, sw)
-  cat("next Step\nRemove redundant Whitespace: ")
+  message("next Step\nRemove redundant Whitespace: ", appendLF = FALSE)
   text <- lapply(text, tm::stripWhitespace)
   text <- lapply(text, trimws)
-  cat("next Step\n")
+  message("next Step")
   if(paragraph){
-    cat("Tokenize: ")
+    message("Tokenize: ", appendLF = FALSE)
     text <- lapply(text, strsplit, "\\s")
-    cat(paste("next Step\nRemove empty Articles: ",
-      sum(lengths(text) == 0 | is.na(text))))
+    message(paste("next Step\nRemove empty Articles: ",
+      sum(lengths(text) == 0 | is.na(text))), appendLF = FALSE)
     text <- text[!(lengths(text) == 0 | is.na(text))]
-    cat(" next Step\nRemove empty Paragraphs: ")
+    message(" next Step\nRemove empty Paragraphs: ", appendLF = FALSE)
     text <- lapply(text, function(x) x[!(lengths(x) == 0 | is.na(x))])
-    cat(paste(" next Step\nRemove empty Articles (2): ", sum(lengths(text) == 0)))
+    message(paste(" next Step\nRemove empty Articles (2): ", sum(lengths(text) == 0)),
+      appendLF = FALSE)
     text <- text[!(lengths(text) == 0)]
   }
   else{
-    cat("Tokenize: ")
+    message("Tokenize: ", appendLF = FALSE)
     text <- sapply(text, function(x) strsplit(x, "\\s")[1])
-    cat(paste("next Step\nRemove empty Articles: ",
-      sum(lengths(text) == 0 | is.na(text))))
+    message(paste("next Step\nRemove empty Articles: ",
+      sum(lengths(text) == 0 | is.na(text))), appendLF = FALSE)
     text <- text[!(lengths(text) == 0 | is.na(text))]
   }
-  cat(" Success \n")
+  message(" Success")
   if(returnTextmeta){
     object$text <- text
     object$meta <- object$meta[object$meta$id %in% names(object$text), ]
