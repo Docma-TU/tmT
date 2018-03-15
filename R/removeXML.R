@@ -29,7 +29,7 @@ removeXML <- function(x){
                    inputlist <- TRUE}
     x <- gsub(pattern="<[^><]*>", replacement=" ", x, perl=TRUE)
     x <- trimws(x)
-    if(inputlist){x <- split(x, f=rep(listid, listlength))}
+    if(inputlist){x <- split(unname(x), f=rep(listid, listlength))}
     return(x)
 }
 
@@ -49,7 +49,7 @@ removeUmlauts <- function(x){
     x <- gsub(pattern="\U00FC", replacement="ue",x)
     x <- gsub(pattern="\U00DC", replacement="Ue",x)
     x <- gsub(pattern="\U00DF", replacement="ss",x)
-    if(inputlist){x <- split(x, f=rep(listid, listlength))}
+    if(inputlist){x <- split(unname(x), f=rep(listid, listlength))}
     return(x)
 }
 
@@ -106,7 +106,7 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
         x <- gsub(pattern="&[^;]*;", replacement="", x)}
     x <- trimws(x)
     Encoding(x) <- "UTF-8"
-    if(inputlist){x <- split(x, f=rep(listid, listlength))}
+    if(inputlist){x <- split(unname(x), f=rep(listid, listlength))}
     return(x)
 }
 

@@ -44,6 +44,15 @@ expect_equal(removeHTML(x=ISOtestHex, symbolList = c(1:11,13:16), dec=FALSE, hex
 expect_equal(removeHTML(x=ISOtestEnt, symbolList = c(1:11,13:16), dec=FALSE, hex=FALSE, entity=TRUE, symbols=TRUE)[!EntNA], unname(ISOtest2)[!EntNA])
 
 expect_equal(removeHTML(x=ISOtestDec, symbolList = c(1:11,13:16), dec=TRUE, hex=FALSE, entity=FALSE), unname(ISOtest2Symbols))
+
+## lists
+
+testlist <- list(ID1=c("a", "b"), ID2=NULL, ID3=c("<gh>", "&auml; \UE4"))
+
+expect_equal(removeXML(testlist), list(ID1=c("a", "b"), ID3=c("", "&auml; \UE4")))
+expect_equal(removeHTML(testlist), list(ID1=c("a", "b"), ID3=c("<gh>", "\UE4 \UE4")))
+expect_equal(removeUmlauts(testlist), list(ID1=c("a", "b"), ID3=c("<gh>", "&auml; ae")))
+
 })
 
 

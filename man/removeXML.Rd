@@ -14,7 +14,7 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = c(1:4,
   9, 13, 15, 16), delete = TRUE, symbols = FALSE)
 }
 \arguments{
-\item{x}{Character: Vector}
+\item{x}{Character: Vector or list of character vectors.}
 
 \item{dec}{logical remove html decimal?}
 
