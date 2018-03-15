@@ -6,4 +6,8 @@ test_that("showMeta", {
 
     expect_equal(showMeta(meta=meta, id = as.character(c(1,3)), cols = colnames(meta)), meta[c(1,3),])
     expect_equal(showMeta(meta=meta, cols = colnames(meta)), meta)
+    idmatrix <- matrix(as.character(c(1,3,2,2)),ncol=2)
+    expect_equal(showMeta(meta=meta, id = idmatrix, cols = colnames(meta)), list("1"=meta[c(1,3),], "2"=meta[2,]))
+    colnames(idmatrix) <- c("ID1", "ID2")
+    expect_equal(showMeta(meta=meta, id = idmatrix, cols = colnames(meta)), list("ID1"=meta[c(1,3),], "ID2"=meta[2,]))
 })

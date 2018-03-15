@@ -27,7 +27,7 @@ T6 <- topicsInText(text=text, ldaID=ldaID, id="ID1", ldaresult=ldaresult, label=
 
 T7 <- topicsInText(text=text, ldaID=ldaID, id="ID1", ldaresult=ldaresult, label=c("T1", "T2", "T3"), vocab=vocab, wordOrder="", colors=c("red", "blue", "green"), fixColors=FALSE, meta=meta, originaltext=originaltext, unclearTopicAssignment=TRUE, htmlreturn=TRUE)
 
-T8 <- topicsInText(text=text, ldaID=ldaID, id="ID1", ldaresult=ldaresult, label=c("T1", "T2", "T3"), vocab=vocab, wordOrder="", colors=c("red", "blue", "green"), fixColors=TRUE, meta=meta, originaltext=originaltext, unclearTopicAssignment=TRUE, htmlreturn=TRUE)
+T8 <- topicsInText(text=text, colors=c(2), ldaID=ldaID, id="ID1", ldaresult=ldaresult, label=c("T1", "T2", "T3"), vocab=vocab, wordOrder="", fixColors=TRUE, meta=meta, originaltext=originaltext, unclearTopicAssignment=TRUE, htmlreturn=TRUE)
 
 ## setwd("//STORE/koppers/Textmining/tmT/tests/testthat")
 ## write.csv(c(T1, T2, T3, T4, T5, T6, T7, T8), file="data/topicsInText.csv", fileEncoding="UTF-8")

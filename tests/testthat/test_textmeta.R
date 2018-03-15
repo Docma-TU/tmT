@@ -24,4 +24,11 @@ test_that("textmeta", {
     expect_equal(summary(tm2), summary.textmeta(tm2))
     expect_equal(summary(tm1), tm1)
     expect_equal(summary(tm2), tm2)
+    expect_error(textmeta(meta=data.frame(id="a", date="2000-01-01", title=5)))
+    meta2 <- meta
+    meta2$date <- as.Date(c("1987-05-25", "1987-06-25", "1987-07-25"))
+    expect_equal(plot.textmeta(textmeta(meta = meta2, text = text), unit="month"), data.frame(date=as.Date(c("1987-05-01", "1987-06-01", "1987-07-01")), counts=1))
+    expect_equal(summary(tm2, metavariables="title"), tm2)
+
 })
+
