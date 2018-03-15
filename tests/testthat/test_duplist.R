@@ -30,5 +30,5 @@ test_that("duplist", {
     allTextDups=NULL, textOnlyDups=NULL, textMetaDups=NULL, textOthersDups=NULL)
   expect_false(is.duplist(a))
 
-  expect_error(print.duplist("a"))
+  print.duplist("a")
 })
