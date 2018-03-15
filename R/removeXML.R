@@ -58,6 +58,13 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
         entityList <- entityList[!entityList %in% symbolList]
     }
 
+    # if list
+    inputlist <- FALSE
+    if(is.list(x)){listlength <- lengths(x)
+                   listid <- names(x)
+                   x <- unlist(x)
+                   inputlist <- TRUE}
+
     if(dec){cat("Decimal html \n")
             for(i in entityList){
                 cat(eval(parse(text = paste0("'\\u", i, "'"))))
@@ -87,6 +94,7 @@ removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13
         x <- gsub(pattern="&[^;]*;", replacement="", x)}
     x <- trimws(x)
     Encoding(x) <- "UTF-8"
+    if(inputlist){x <- split(x, f=rep(listid, listlength))}
     return(x)
 }
 
