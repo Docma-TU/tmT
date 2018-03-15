@@ -3,7 +3,7 @@
 #' Removes XML tags and changes umlauts in a standardized form.
 #'
 #'
-#' @param x Character: Vector
+#' @param x Character: Vector or list of character vectors.
 #' @details The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of a word.
 #' To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
 #' @return Adjusted corpus
@@ -22,8 +22,14 @@
 #' @export removeXML
 
 removeXML <- function(x){
+    inputlist <- FALSE
+    if(is.list(x)){listlength <- lengths(x)
+                   listid <- names(x)
+                   x <- unlist(x)
+                   inputlist <- TRUE}
     x <- gsub(pattern="<[^><]*>", replacement=" ", x, perl=TRUE)
     x <- trimws(x)
+    if(inputlist){x <- split(x, f=rep(listid, listlength))}
     return(x)
 }
 
@@ -31,6 +37,11 @@ removeXML <- function(x){
 #' @export
 
 removeUmlauts <- function(x){
+    inputlist <- FALSE
+    if(is.list(x)){listlength <- lengths(x)
+                   listid <- names(x)
+                   x <- unlist(x)
+                   inputlist <- TRUE}
     x <- gsub(pattern="\U00E4", replacement="ae",x)
     x <- gsub(pattern="\U00C4", replacement="Ae",x)
     x <- gsub(pattern="\U00F6", replacement="oe",x)
@@ -38,6 +49,7 @@ removeUmlauts <- function(x){
     x <- gsub(pattern="\U00FC", replacement="ue",x)
     x <- gsub(pattern="\U00DC", replacement="Ue",x)
     x <- gsub(pattern="\U00DF", replacement="ss",x)
+    if(inputlist){x <- split(x, f=rep(listid, listlength))}
     return(x)
 }
 
