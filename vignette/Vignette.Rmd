@@ -50,14 +50,14 @@ We get a note about duplicated texts (text that appear in both categories). We h
 After reading the raw data the text needs some preprocessing.
 
 ## Remove Umlauts and XML/HTML Tags - \texttt{removeXML removeHTML removeUmlauts}
-You can use \texttt{removeXML} to delete XML-tags (\texttt{<...>}) in character strings or a \texttt{list} of \texttt{character} vectors of length one. The value you receive back will be a \texttt{character} vector. If you wish to use \texttt{removeXML} on a \texttt{list} of documents with length greater than one, you should use \texttt{lapply(object, removeXML, ...)}. 
+You can use \texttt{removeXML} to delete XML-tags (\texttt{<...>}) in character strings or a \texttt{list} of \texttt{character} vectors. The value you receive back will be a \texttt{character} vector or a list, if the input was a list.  
 If your texts contain html entities use \texttt{removeHTML}. If you want to transform the entities in UTF-8 characters you can choose between the entity-type (\texttt{dec=TRUE}: \&#248;, \texttt{hex=TRUE}: \&#xf8; or \texttt{entity=TRUE}: \&oslash;). To choose which character should be replaced you can choose from all 16 ISO-8859 lists, e.g. \texttt{symbolList=c(1,15)} for ISO-8859-1 (latin1) and ISO-8859-15 (latin9). If \texttt{delete=TRUE} all remaining entities will be deleted.
 To replace german umlauts (ä ö ü ß -> ae oe ue ss) use \texttt{removeUmlauts}.
 
 We remove XML-tags and HTML-entities from our Wikinews corpus. Since we have only punctuation as HTML-entities in the Corpus we remove all of them.
 ```{r, eval = FALSE, results='hide'}
-corpus$text <- lapply(corpus$text, removeXML)
-corpus$text <- lapply(corpus$text, removeHTML, dec=FALSE, hex=FALSE, entity=FALSE)
+corpus$text <- removeXML(corpus$text)
+corpus$text <- removeHTML(corpus$text, dec=FALSE, hex=FALSE, entity=FALSE)
 ```
 It is possible to apply the function to the \texttt{meta} component of a \texttt{textmeta} object as well, for example to remove XML tags or umlauts from the title of the Wikipedia pages.
 ```{r}
