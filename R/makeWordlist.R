@@ -25,17 +25,17 @@ makeWordlist <- function(text, k = 100000L){
   stopifnot(is.textmeta(textmeta(text = text)),
     is.numeric(k), as.integer(k) == k, length(k) == 1)
   n <- length(text)
-  message(paste("Number of Articles:", n,""))
-  message("Find out Vocabularies...\n Done:")
+  message(paste("number of articles:", n,""))
+  message("find out vocabularies...\n done:")
   N <- 0:floor(n/k)
   words <- NULL
   for(i in N){
     message("  ", i*k)
     words <- c(words, unique(unlist(text[(i*k+1):(min(n, i*k+k))])))
   }
-  message("  ", n, " next Step")
+  message("  ", n, " next step")
   words <- sort(unique(words))
-  message("Calculate Counts...\n Done:")
+  message("calculate counts...\n done:")
   wordtable <- rep(0, length(words))
   names(wordtable) <- words
   for(i in N){
@@ -44,6 +44,6 @@ makeWordlist <- function(text, k = 100000L){
     mtch <- match(names(tmp), names(wordtable))
     wordtable[mtch] <- wordtable[mtch] + tmp
   }
-  message("  ", n, " Success")
+  message("  ", n, " success")
   return(list(words = words, wordtable = wordtable))
 }

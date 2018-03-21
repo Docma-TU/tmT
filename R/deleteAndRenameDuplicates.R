@@ -55,9 +55,9 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     # Delete duplicates of ID !and! text:
     to_del <- ind[duplicated(textvek)]
     if (length(to_del) > 0){
-      message(paste("Delete \"Complete Duplicates\":", length(to_del)), appendLF = FALSE)
+      message(paste("delete \"complete duplicates\":", length(to_del)), appendLF = FALSE)
       object$text <- object$text[-to_del]
-      message("  next Step")
+      message("  next step")
     }
     # Rename if text differs:
     to_rename <- which(duplicated(names(object$text)) | duplicated(names(object$text),
@@ -65,16 +65,16 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     if (length(to_rename) > 0){
       ind_loop = logical(length(names(object$text)))
       ind_loop[to_rename] = TRUE
-      message(paste("Rename \"Fake Duplicates\":", length(to_rename)), appendLF = FALSE)
+      message(paste("rename \"fake duplicates\":", length(to_rename)), appendLF = FALSE)
       for (i in na.omit(unique(names(object$text)[to_rename]))){
         to_rename_loop <- (names(object$text) == i) & ind_loop
         to_rename_loop[is.na(to_rename_loop)] <- FALSE
         names(object$text)[to_rename_loop] <- paste0(names(object$text)[to_rename_loop],
                                                      "_IDFakeDup", 1:sum(to_rename_loop))
       }
-      message("  next Step")
+      message("  next step")
     }
-    message("Success")
+    message("success")
     return(object)
   }
   # Ansonsten existieren text und meta:
@@ -82,7 +82,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                            fromLast = TRUE))
   if (length(ind) < 1){
-    message("Success")
+    message("success")
     return(object)
   }
   if (paragraph == TRUE){
@@ -91,18 +91,18 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   else textvek <- unlist(object$text[ind])
   to_del <- ind[duplicated(object$meta[ind,]) & duplicated(textvek)]
   if (length(to_del) > 0){
-    message(paste("Delete \"Complete Duplicates\":", length(to_del)), appendLF = FALSE)
+    message(paste("selete \"complete duplicates\":", length(to_del)), appendLF = FALSE)
     object$text <- object$text[-to_del]
     object$meta <- object$meta[-to_del,]
     object$metamult <- object$metamult[-to_del]
-    message("  next Step")
+    message("  next step")
     ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                              fromLast = TRUE))
   }
 
   # 2. Artikel mit identischer ID und Text (aber unterschiedlichen Meta-Daten):
   if (length(ind) < 1){
-    message("Success")
+    message("success")
     return(object)
   }
   if (paragraph == TRUE){
@@ -114,7 +114,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   if (length(to_rename) > 0){
     ind_loop = logical(length(names(object$text)))
     ind_loop[to_rename] = TRUE
-    message(paste("Rename \"Real Duplicates\":", length(to_rename)), appendLF = FALSE)
+    message(paste("rename \"real duplicates\":", length(to_rename)), appendLF = FALSE)
     for (i in na.omit(unique(names(object$text)[to_rename]))){
       to_rename_loop <- names(object$text) == i & ind_loop
       to_rename_loop[is.na(to_rename_loop)] <- FALSE
@@ -125,18 +125,18 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
       if (!is.null(object$metamult))
         names(object$metamult)[to_rename_loop] <- new_ids
     }
-    message("  next Step")
+    message("  next step")
   }
 
   # 1. Artikel-IDs, deren IDs gleich, der Text aber unterschiedlich ist:
   to_rename <- ind[!text_same]
   if (length(to_rename) < 1){
-    message("Success")
+    message("success")
     return(object)
   }
   ind_loop = logical(length(names(object$text)))
   ind_loop[to_rename] = TRUE
-  message(paste("Rename remaining \"Fake Duplicates\":", length(to_rename)), appendLF = FALSE)
+  message(paste("rename remaining \"fake duplicates\":", length(to_rename)), appendLF = FALSE)
   for (i in na.omit(unique(names(object$text)[to_rename]))){
     to_rename_loop <- names(object$text) == i & ind_loop
     to_rename_loop[is.na(to_rename_loop)] <- FALSE
@@ -147,6 +147,6 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     if (!is.null(object$metamult))
       names(object$metamult)[to_rename_loop] <- new_ids
   }
-  message("  Success")
+  message("  success")
   return(object)
 }
