@@ -184,7 +184,7 @@ print.duplist <- function(x, ...){
     print.default(x)
   }
   else{
-  cat("Duplist, List of (Lists of) IDs with Names:
+  cat("Duplist, list of (lists of) IDs with names:
  \"uniqueTexts\", \"notDuplicatedTexts\", \"idFakeDups\", \"idRealDups\",
  \"allTextDups\", \"textOnlyDups\", \"textMetaDups\", \"textOthersDups\".\n")
   invisible(x)
@@ -196,17 +196,18 @@ print.duplist <- function(x, ...){
 summary.duplist <- function(object, ...){
   stopifnot(is.duplist(object))
   print(object)
-  cat("Calculate Numbers of IDs and Texts...\n")
-  cat(" Number of Unique Texts:", length(object$uniqueTexts), "\n")
-  cat(" Number of Not-Duplicated Texts:", length(object$notDuplicatedTexts), "\n")
-  cat(" Number of Fake-Dup IDs:", length(object$idFakeDups), "\n")
-  cat("  Number of Texts with Fake-Dup IDs:", sum(lengths(object$idFakeDups)), "\n")
-  cat(" Number of Real-Dup IDs:", length(object$idRealDups), "\n")
-  cat("  Number of Texts with Real-Dup IDs:", sum(lengths(object$idRealDups)), "\n")
-  cat(" Number of different Text-Dups:", length(object$allTextDups), "\n")
-  cat("  Number of all Text-Dups:", sum(lengths(object$allTextDups)), "\n")
-  cat("   Number of different Text-Dups with identical Meta (except ID):", length(object$textMetaDups), "\n")
-  cat("    Number of all Text-Meta-Dups:", sum(lengths(object$textMetaDups)), "\n")
-  cat("   Number of Text-Dups which do not pass criteria above:", length(object$textOthersDups), "\n")
+  cat(length(object$uniqueTexts), "unique texts\n")
+  cat(length(object$notDuplicatedTexts), "not-duplicated texts\n")
+  cat(sum(lengths(object$idFakeDups)), "texts with",
+    length(object$idFakeDups), "different Fake-Dup IDs (ID equals, text differs)\n")
+  cat(sum(lengths(object$idRealDups)), "texts with",
+    length(object$idRealDups), "different Real-Dup IDs (ID and text equals, meta differs)\n")
+  cat(sum(lengths(object$allTextDups)), "text-duplicates with",
+    length(object$allTextDups), "different texts\n")
+  cat(sum(lengths(object$textOnlyDups)), "textOnly-duplicates (text equals, meta differs) with",
+    length(object$textOnlyDups), "different texts\n")
+  cat(sum(lengths(object$textMetaDups)), "(text and meta)-duplicates with",
+    length(object$textMetaDups), "different (text and meta) combinations, excluding ID\n")
+  cat(length(object$textOthersDups), "other text-duplicates\n")
   invisible(object)
 }
