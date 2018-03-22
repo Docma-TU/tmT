@@ -91,7 +91,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
   else textvek <- unlist(object$text[ind])
   to_del <- ind[duplicated(object$meta[ind,]) & duplicated(textvek)]
   if (length(to_del) > 0){
-    message(paste("selete \"complete duplicates\":", length(to_del)), appendLF = FALSE)
+    message(paste("delete \"complete duplicates\":", length(to_del)), appendLF = FALSE)
     object$text <- object$text[-to_del]
     object$meta <- object$meta[-to_del,]
     object$metamult <- object$metamult[-to_del]
