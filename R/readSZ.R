@@ -51,6 +51,7 @@ readSZ <- function(path = getwd(),
             AnzWoerter <- as.integer(gsub(pattern = "NUM.WORDS=\"|\"", replacement = "", x = AnzWoerter))
 
             author <- stringr::str_extract(article, "<AUTHOR>(.*?)</AUTHOR>")
+            author <- removeXML(author)
             dachzeile <- stringr::str_extract(article, "<SZ.DT>(.*?)</SZ.DT>")
             dachzeile <- removeXML(dachzeile)
             title <- stringr::str_extract(article, "<SZ.T>(.*?)</SZ.T>")
