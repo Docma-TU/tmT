@@ -123,21 +123,21 @@ summary.IntruderTopics <- function(object, ...){
     stopTopics = paste(object$stopTopics, collapse=" "), row.names = "")
   cat("Parameters:\n")
   print(dat)
-  cat("\nNumber of evaluated Articles:", nrow(object$result),
-    "\nCorrect Topics:",
+  cat("\n", nrow(object$result), "evaluated texts\n",
     sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0, na.rm=TRUE),
+    "correct topics",
     paste0("(", round(100*(sum(object$result[,"missIntruder"]==0 & object$result[,"falseIntruder"]==0
       , na.rm=TRUE) / nrow(object$result)),2), " %)"),
     "\n\n")
   cat("Table of Intruders:")
   missIntTable <- table(object$result[,"numIntruder"])
   print(missIntTable)
-  cat("\nMean Number of missed Intruders:",
+  cat("\nMean number of missed Intruders:",
     mean(object$result[,"missIntruder"], na.rm=TRUE),
     "\nTable of missed Intruders:")
   missIntTable <- table(object$result[,"missIntruder"])
   print(missIntTable)
-  cat("\nMean Number of false Intruders:",
+  cat("\nMean number of false Intruders:",
     mean(object$result[,"falseIntruder"], na.rm=TRUE),
     "\nTable of false Intruders:")
   missIntTable <- table(object$result[,"falseIntruder"])
