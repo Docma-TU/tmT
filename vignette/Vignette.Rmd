@@ -55,7 +55,7 @@ If your texts contain html entities use \texttt{removeHTML}. If you want to tran
 To replace german umlauts (ä ö ü ß -> ae oe ue ss) use \texttt{removeUmlauts}.
 
 We remove XML-tags and HTML-entities from our Wikinews corpus. Since we have only punctuation as HTML-entities in the Corpus we remove it completely.
-```{r, eval = FALSE, results='hide'}
+```{r}
 corpus$text <- removeXML(corpus$text)
 corpus$text <- removeHTML(corpus$text, dec=FALSE, hex=FALSE, entity=FALSE)
 ```
@@ -374,17 +374,17 @@ plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaI
 ```
 The graphic shows that the word \textit{economy} is associated to the topic \colorbox{red}{\textit{health}} most often.
 
-For interpretating it is important to keep in mind the baseline, the word counts of \textit{economy}. To display this the sums of all topic-word proportions are calculated and are expected to be one for all dates.
+For interpretating it is important to keep in mind the baseline, the word counts of \textit{economy}. To display this the sums of all topic-word proportions are calculated and are expected to be one for all dates which appear at least once, otherwise zero.
 ```{r, eval = FALSE}
 tab <- plotTopicWord(corpusFiltered, pagesLDA, result, ldaID, "economy", rel = TRUE)
-all(round(rowSums(tab[, -1]), 10) == 1)
+all(round(rowSums(tab[, -1]), 10) %in% c(1, 0))
 ```
 ```{r, include = FALSE}
 tab <- plotTopicWord(corpusFiltered, pagesLDA, result, ldaID, "economy", rel = TRUE)
-all(round(rowSums(tab[, -1]), 10) == 1)
+all(round(rowSums(tab[, -1]), 10) %in% c(1, 0))
 ```
 ```{r, echo = FALSE}
-all(round(rowSums(tab[, -1]), 10) == 1)
+all(round(rowSums(tab[, -1]), 10) %in% c(1, 0))
 ```
 This is confirmed by the call above. For some analysis maybe it could be interesting to take the other possible baseline, the topic counts, into account. Therefore there is an additional function called \texttt{plotWordpt}.
 
