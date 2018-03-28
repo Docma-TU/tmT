@@ -214,12 +214,12 @@ plotWordpt <- function(object, docs, ldaresult, ldaID,
     tab <- cbind(as.Date(rownames(splt2)),
       data.frame(splt2 / splt1[match(rownames(splt2), rownames(splt1)), ]))
     if(missing(main))
-      main <- paste("Proportion of Words per Topics over Time - link:", link[1])
+      main <- paste("Proportion of words per topics over time - link:", link[1])
   }
   else{
     tab <- cbind(as.Date(rownames(splt2)), data.frame(splt2))
     if(missing(main))
-      main <- paste("Counts of Words per Topics over Time - link:", link[1])
+      main <- paste("Counts of words per topics over time - link:", link[1])
   }
 
   # identify levels to add as zeros

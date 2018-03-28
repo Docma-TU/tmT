@@ -59,7 +59,7 @@ plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
     id <- names(object$text)[names(object$text) %in% id]
     insert <- "words"
   }
-  else insert <- "documents"
+  else insert <- "texts"
   # generate x-values date (non-unique at this point)
   dates <- lubridate::floor_date(
     object$meta$date[match(id, object$meta$id)], unit)

@@ -120,7 +120,7 @@ plotFreq <- function(object, id = names(object$text),
   else{
     aggr <- function(x) sum(x > 0)
     # set main label for plotting
-    insert <- "documents"
+    insert <- "texts"
   }
   # compute counts (of words/documents)
   tab <- apply(tab, 2, function(x) sapply(split(x, dates), aggr))
