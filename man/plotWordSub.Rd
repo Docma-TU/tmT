@@ -14,7 +14,7 @@ plotWordSub(object, ldaresult, ldaID, limit = 10, alloc = c("multi",
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
 \code{text} component (character vectors) - such as a result of
-\code{\link{makeClear}}}
+\code{\link{cleanTexts}}}
 
 \item{ldaresult}{The result of a function call \code{\link{LDAgen}}}
 
@@ -50,8 +50,8 @@ or proportion (\code{TRUE}) be plotted (default: \code{TRUE})?}
 \item{mark}{Logical:  Should years be marked by
 vertical lines (default: \code{TRUE})?}
 
-\item{unit}{Character: To which unit should dates be floored 
-(default: \code{"month"})? Other possible units are "bimonth", "quarter", "season", 
+\item{unit}{Character: To which unit should dates be floored
+(default: \code{"month"})? Other possible units are "bimonth", "quarter", "season",
 "halfyear", "year", for more units see \code{\link[lubridate]{round_date}}}
 
 \item{curves}{Character: Should \code{"exact"},

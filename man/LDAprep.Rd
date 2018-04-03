@@ -29,7 +29,7 @@ this word.
 }
 \description{
 This function transforms a text corpus such as the result of
-\code{\link{makeClear}} into the form needed by the \code{\link{lda}}-package.
+\code{\link{cleanTexts}} into the form needed by the \code{\link{lda}}-package.
 }
 \examples{
 texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
@@ -43,7 +43,7 @@ title=c("Fishing", "Don't panic!", "Sir Ronald", "Berlin"),
 date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
 additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 
-corpus <- makeClear(corpus)
+corpus <- cleanTexts(corpus)
 wordlist <- makeWordlist(corpus$text)
 LDAprep(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
 

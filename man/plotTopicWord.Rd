@@ -15,7 +15,7 @@ plotTopicWord(object, docs, ldaresult, ldaID,
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
 \code{text} component (Character vectors) - such as a result of
-\code{\link{makeClear}}}
+\code{\link{cleanTexts}}}
 
 \item{docs}{Object as a result of \code{\link{LDAprep}} which was handed over
 to \code{\link{LDAgen}}}

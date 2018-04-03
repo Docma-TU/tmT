@@ -13,7 +13,7 @@ plotFreq(object, id = names(object$text), type = c("docs", "words"),
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
 \code{text} component (\code{character} vectors) - like a result of
-\code{\link{makeClear}}}
+\code{\link{cleanTexts}}}
 
 \item{id}{\code{character} vector (default: \code{object$meta$id}) which IDs
 specify the subcorpus}

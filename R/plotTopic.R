@@ -7,7 +7,7 @@
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (character vectors) - such as a result of
-#' \code{\link{makeClear}}
+#' \code{\link{cleanTexts}}
 #' @param ldaresult The result of a function call \code{\link{LDAgen}}
 #' @param ldaID Character vector of IDs of the documents in
 #' \code{ldaresult}
@@ -17,7 +17,7 @@
 #' - labels for the topics (default are the first returned words of
 #' \code{\link{top.topic.words}} from the \code{lda} package for each topic)
 #' @param rel Logical: Should counts (\code{FALSE}) or
-#' proportion (\code{TRUE}) be plotted (default: \code{FALSE})? 
+#' proportion (\code{TRUE}) be plotted (default: \code{FALSE})?
 #' @param mark Logical: Should years be marked by
 #' vertical lines (default: \code{TRUE})?
 #' @param unit Character: To which unit should dates be floored

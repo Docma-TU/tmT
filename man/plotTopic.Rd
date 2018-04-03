@@ -13,7 +13,7 @@ plotTopic(object, ldaresult, ldaID, select = 1:nrow(ldaresult$document_sums),
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
 \code{text} component (character vectors) - such as a result of
-\code{\link{makeClear}}}
+\code{\link{cleanTexts}}}
 
 \item{ldaresult}{The result of a function call \code{\link{LDAgen}}}
 

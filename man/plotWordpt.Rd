@@ -15,7 +15,7 @@ plotWordpt(object, docs, ldaresult, ldaID,
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
 \code{text} component (character vectors) - e.g. a result of
-\code{\link{makeClear}}}
+\code{\link{cleanTexts}}}
 
 \item{docs}{Object as a result of \code{\link{LDAprep}} which was handed over
 to \code{\link{LDAgen}}}
@@ -37,7 +37,7 @@ as a list element represents one curve in the outcoming plot}
 integer vectors of each list element be linked by an \code{"and"}
 or an \code{"or"} (default: \code{"and"})?}
 
-\item{wordlist}{List of character vectors: Which words - always linked by an "or" - 
+\item{wordlist}{List of character vectors: Which words - always linked by an "or" -
 should be taken into account for plotting the topic counts/proportion
 (default: the first \code{\link{top.topic.words}} per topic as simple character vector)?}
 
@@ -54,7 +54,7 @@ should be taken into account for plotting the topic counts/proportion
 \item{mark}{Logical: Should years be marked by
 vertical lines (default: \code{TRUE})?}
 
-\item{unit}{Character: To which unit should dates be floored 
+\item{unit}{Character: To which unit should dates be floored
 (default: \code{"month"})? Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 

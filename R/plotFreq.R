@@ -7,7 +7,7 @@
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (\code{character} vectors) - like a result of
-#' \code{\link{makeClear}}
+#' \code{\link{cleanTexts}}
 #' @param id \code{character} vector (default: \code{object$meta$id}) which IDs
 #' specify the subcorpus
 #' @param type \code{character} (default: \code{"docs"}) should counts/proportion

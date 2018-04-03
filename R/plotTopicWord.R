@@ -10,7 +10,7 @@
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (Character vectors) - such as a result of
-#' \code{\link{makeClear}}
+#' \code{\link{cleanTexts}}
 #' @param docs Object as a result of \code{\link{LDAprep}} which was handed over
 #' to \code{\link{LDAgen}}
 #' @param ldaresult The result of a function call \code{\link{LDAgen}} with
@@ -25,8 +25,8 @@
 #' as a list element represents one curve in the emerging plot.
 #' @param link Character: Should the (inner)
 #' character vectors of each list element be linked by an \code{"and"}
-#' or an \code{"or"} (default: \code{"and"})? 
-#' @param select List of integer vectors: Which topics - linked by an "or" every time -  
+#' or an \code{"or"} (default: \code{"and"})?
+#' @param select List of integer vectors: Which topics - linked by an "or" every time -
 #' should be take into account for plotting the
 #' word counts/proportion (default: all topics as simple integer vector)?
 #' @param tnames Character vector of same length as \code{select}
@@ -44,7 +44,7 @@
 #' @param curves Character: Should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?
 #' @param smooth Numeric: Smoothing parameter
-#' which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05}) 
+#' which is handed over to \code{\link{lowess}} as \code{f} (default: \code{0.05})
 #' @param both.lwd Graphical parameter for smoothed values
 #' if \code{curves = "both"}
 #' @param both.lty Graphical parameter for smoothed values

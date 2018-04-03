@@ -10,7 +10,7 @@
 #'
 #' @param object \code{\link{textmeta}} object with strictly tokenized
 #' \code{text} component (character vectors) - such as a result of
-#' \code{\link{makeClear}}
+#' \code{\link{cleanTexts}}
 #' @param ldaresult The result of a function call \code{\link{LDAgen}}
 #' @param ldaID Character vector of IDs of the documents in
 #' \code{ldaresult}
@@ -22,7 +22,7 @@
 #' topic (\code{"unique"}), or the most represantative  - exactly one -
 #' topic (\code{"best"}) (default: \code{"multi"})? If \code{alloc = "best"} \code{limit} has no effect.
 #' @param select Integer vector: Which topics of
-#' \code{ldaresult} should be plotted (default: all topics)? 
+#' \code{ldaresult} should be plotted (default: all topics)?
 #' @param tnames Character vector of same length as \code{select}
 #' - labels for the topics (default are the first returned words of
 #' \code{\link{top.topic.words}} from the \code{lda} package for each topic)
@@ -34,9 +34,9 @@
 #'  or proportion (\code{TRUE}) be plotted (default: \code{TRUE})?
 #' @param mark Logical:  Should years be marked by
 #' vertical lines (default: \code{TRUE})?
-#' @param unit Character: To which unit should dates be floored 
-#' (default: \code{"month"})? Other possible units are "bimonth", "quarter", "season", 
-#' "halfyear", "year", for more units see \code{\link[lubridate]{round_date}} 
+#' @param unit Character: To which unit should dates be floored
+#' (default: \code{"month"})? Other possible units are "bimonth", "quarter", "season",
+#' "halfyear", "year", for more units see \code{\link[lubridate]{round_date}}
 #' @param curves Character: Should \code{"exact"},
 #' \code{"smooth"} curve or \code{"both"} be plotted (default: \code{"exact"})?
 #' @param smooth Numeric: Smoothing parameter
@@ -48,7 +48,7 @@
 #' @param main Character: Graphical parameter
 #' @param xlab Character: Graphical parameter
 #' @param ylab Character: Graphical parameter
-#' @param ylim Graphical parameter (default if \code{rel = TRUE}: \code{c(0, 1)}) 
+#' @param ylim Graphical parameter (default if \code{rel = TRUE}: \code{c(0, 1)})
 #' @param col Graphical parameter, could be a vector. If \code{curves = "both"}
 #' the function will for every wordgroup plot at first the exact and then the
 #' smoothed curve - this is important for your col order.
