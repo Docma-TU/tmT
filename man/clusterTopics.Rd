@@ -31,7 +31,7 @@ A dendogram as pdf and a list \item{dist}{A distance matrix}
 This function makes a cluster analysis using the Hellinger distance.
 }
 \details{
-This function is useful to analyze 
+This function is useful to analyze
 topic similarities and while evaluating the right number of topics of LDAs.
 }
 \examples{
@@ -47,7 +47,7 @@ title=c("Fishing", "Don't panic!", "Sir Ronald", "Berlin"),
 date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
 additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 
-corpus <- makeClear(corpus)
+corpus <- cleanTexts(corpus)
 wordlist <- makeWordlist(corpus$text)
 ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 
