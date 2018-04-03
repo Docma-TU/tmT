@@ -37,7 +37,7 @@
 #' date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
 #' additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 #'
-#' makeClear(object=corpus)
+#' cleanTexts(object=corpus)
 #'
 #' texts <- list(A=c("Give a Man a Fish, and You Feed Him for a Day.",
 #' "Teach a Man To Fish, and You Feed Him for a Lifetime"),
@@ -45,11 +45,11 @@
 #' C=c("A very able manipulative mathematician,",
 #' "Fisher enjoys a real mastery in evaluating complicated multiple integrals."))
 #'
-#' makeClear(text=texts, sw = "en", paragraph = TRUE)
+#' cleanTexts(text=texts, sw = "en", paragraph = TRUE)
 #'
 #' ##---- Should be DIRECTLY executable !! ----
-#' @export makeClear
-makeClear <- function(object, text, sw = "en", paragraph = FALSE,
+#' @export cleanTexts
+cleanTexts <- function(object, text, sw = "en", paragraph = FALSE,
   lowercase = TRUE, rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE){
 
   if(length(sw) == 1){
