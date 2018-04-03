@@ -5,7 +5,7 @@
 #'
 #'
 #' @param x A list of lda results.
-#' @details The function is useful for merging lda-results prior to a cluster analysis with \code{\link{clusterTopics}}. 
+#' @details The function is useful for merging lda-results prior to a cluster analysis with \code{\link{clusterTopics}}.
 #' @return A matrix including all topics from all lda-results. The number of rows
 #' is the number of topics, the number of columns is the number of words which
 #' appear in all results.
@@ -22,7 +22,7 @@
 #' date=c("1885-01-02", "1979-03-04", "1951-05-06", "1967-06-02"),
 #' additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 #'
-#' corpus <- makeClear(corpus)
+#' corpus <- cleanTexts(corpus)
 #' wordlist <- makeWordlist(corpus$text)
 #' ldaPrep <- LDAprep(text=corpus$text, vocab=wordlist$words)
 #'
