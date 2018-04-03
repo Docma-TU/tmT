@@ -17,7 +17,7 @@
 #' C="A very able manipulative mathematician, Fisher enjoys a real mastery
 #' in evaluating complicated multiple integrals.")
 #'
-#' texts <- makeClear(text=texts)
+#' texts <- cleanTexts(text=texts)
 #' makeWordlist(text=texts, k = 2L)
 #'
 #' @export makeWordlist
