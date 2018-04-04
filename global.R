@@ -36,7 +36,6 @@ system("Rcmd INSTALL tmT_0.1.tar.gz")
 ## Install from github ##
 #########################
 
-library(devtools)
-install_github("DoCMA-TU/tmT")
+devtools::install_github("DoCMA-TU/tmT")
 library(tmT)
 
