@@ -1,4 +1,11 @@
 ---
+output:
+  pdf_document: default
+  html_document: default
+---
+%\VignetteEngine{knitr::knitr}
+
+---
 title: "Package 'tmT'"
 author: "Lars Koppers, Jonas Rieger, Karin Boczek, Gerret von Nordheim"
 date: \today

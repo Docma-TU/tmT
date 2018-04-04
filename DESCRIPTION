@@ -23,5 +23,8 @@ Imports:
     WikipediR
 Suggests:
     testthat
+	knitr
+	rmarkdown
 RoxygenNote: 6.0.1
 LazyData: true
+VignetteBuilder: knitr rmarkdown
