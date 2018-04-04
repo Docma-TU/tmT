@@ -1,6 +1,6 @@
 ---
 title: "Package 'tmT'"
-author: "author"
+author: "Lars Koppers, Jonas Rieger, Karin Boczek, Gerret von Nordheim"
 date: \today
 output:
   pdf_document:
@@ -11,14 +11,19 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
+\newpage
+# Introduction
+
+This package offers different functions to explore corpora and topic models. The package focuses on the visualisation and validation of text corpora for content analysis. Therefor it offers some filter for preprocessing and a wrapper for the lda from the lda-package to include a topic model.
+Most visualisations aim on presentation of measures for corpora, subcorpora or topics from lda over time. To use this functionality every text needs a data as metadata. To harmonize different text sources we use a S3 \texttt{textmeta} object.
+
+The actual version of the package can be installed with the \texttt{devtools} package.
 ```{r, include = FALSE}
 devtools::install_github("DoCMA-TU/tmT")
 library(tmT)
 ```
-\newpage
-# Introduction
-(TODO) how to install and so on, main target group...
-textmeta objekte sind grundlage des pakets; was bei eigenen texten; was wenn restriktionen nicht erfüllt von textmeta objekt, standard-Datum erklären; readTextmeta erklären; hilfeseiten anpreisen...
+This vignette gives an overview over the functionality of the package. For a detailed description of the functions see the help pages.
+
 ```{r, eval = FALSE}
 install.packages("tmT")
 library("tmT")
@@ -83,25 +88,25 @@ There is a possibility to visualize duplicates over time by the function \texttt
 
 For further analysis, especially performing the Latent Dirichlet Allocation, it is important that for each duplicate only one page is considered. Therefore it is the aim to reduce the corpus, so that it contains all pages which appear only once and a represantative page for all pages which appear twice or more frequent. In our example we have only duplicated texts containing the empty string \texttt{""} or small relicts like \texttt{"\_\_NOTOC\_\_"} or \texttt{"* * *"}
 
-## Clear Corpus - \texttt{makeClear}
-For further preprocessing of text corpora tosca offers the function \texttt{makeClear}. It removes punctuation, numbers and stopwords. By default it removes english stopwords. It uses the stopword list of the function \texttt{stopwords} from the \texttt{tm} package. For the german stopword list are some additional words implemented (e.g. "dass" and "fuer"). You can control which stopwords should be removed with the argument \texttt{sw}. In addition the function changes all words to lowercase and tokenizes the documents. The result is a \texttt{list} of \texttt{character} vectors, or if \texttt{paragraph} is set \texttt{TRUE} (default) a \texttt{list} of \texttt{lists} of \texttt{character} vectors. The sublists should represent paragraphs of a document. If you hand over a \texttt{textmeta} object instead of a \texttt{list} of texts you will receive one back. In this case you have to hand it over to the parameter \texttt{object} instead of \texttt{text}.
+## Clear Corpus - \texttt{cleanTexts}
+For further preprocessing of text corpora tosca offers the function \texttt{cleanTexts}. It removes punctuation, numbers and stopwords. By default it removes english stopwords. It uses the stopword list of the function \texttt{stopwords} from the \texttt{tm} package. For the german stopword list are some additional words implemented (e.g. "dass" and "fuer"). You can control which stopwords should be removed with the argument \texttt{sw}. In addition the function changes all words to lowercase and tokenizes the documents. The result is a \texttt{list} of \texttt{character} vectors, or if \texttt{paragraph} is set \texttt{TRUE} (default) a \texttt{list} of \texttt{lists} of \texttt{character} vectors. The sublists should represent paragraphs of a document. If you hand over a \texttt{textmeta} object instead of a \texttt{list} of texts you will receive one back. In this case you have to hand it over to the parameter \texttt{object} instead of \texttt{text}.
 
 The examples corpus language is english, so that \texttt{sw} should be set to \texttt{stopwords()} from the \texttt{tm} package, which includes english stopwords by default (\texttt{kind = "en"}). 
 ```{r}
-corpusClear <- makeClear(object = corpus)
+corpusClear <- cleanTexts(object = corpus)
 ```
 
-The function \texttt{makeClear} deletes all \texttt{meta} entries which did not belong to one of the texts (e.g. deleted empty texts).
+The function \texttt{cleanTexts} deletes all \texttt{meta} entries which did not belong to one of the texts (e.g. deleted empty texts).
 To create a \texttt{textmeta} object including this data the corresponding function is used.
 
 ```{r}
-textClear2 = makeClear(text = corpus$text)
+textClear2 = cleanTexts(text = corpus$text)
 corpusClear2 = textmeta(text = textClear2, meta = corpus$meta)
 ```
 
 
 ## Generate Wordlist - \texttt{makeWordlist}
-After clearing the corpus with the function \texttt{makeClear} we are able to call the function \texttt{makeWordlist}, which creates a table of occuring words in a given corpus. THe function \texttt{table} needs much RAM. That's a problem for bis Corpora. In \texttt{makeWordlist}  we use the parameter \texttt{k} (default: \texttt{100000L}) to reduce the number of texts which are processed at once. Large \texttt{k}s lead to faster calculation but more RAM usage.
+After clearing the corpus with the function \texttt{cleanTexts} we are able to call the function \texttt{makeWordlist}, which creates a table of occuring words in a given corpus. THe function \texttt{table} needs much RAM. That's a problem for bis Corpora. In \texttt{makeWordlist}  we use the parameter \texttt{k} (default: \texttt{100000L}) to reduce the number of texts which are processed at once. Large \texttt{k}s lead to faster calculation but more RAM usage.
 
 For calculating wordlists a tokenized corpus must be used. In the given example \texttt{corpusClear\$text} is handed over to the function accordingly.
 ```{r}
@@ -317,7 +322,7 @@ Applying \texttt{summary} to an object of type \texttt{intruderWords} will resul
 intWords <- intruderWords(oldResult = intWords)
 ```
 
-Analogously to \texttt{intruderWords} you can use \texttt{intruderTopics} for validation the other way around. This function is used for validation of topics associated to a specific document instead of validation of words associated to one topic. Therefore the document is displayed in another window and a sample of topics - represented by the ten \texttt{top.topic.words} - is shown in the console. You should hand over in \texttt{text} the text component of the original untokenized corpus before manipulation by \texttt{makeClear}, so that the document is kind of readable. The user then names the intruder(s). There are options for different numbers of topics and intruders as in \texttt{intruderWords} as well. The parameter \texttt{theta} should be set to \texttt{result\$document\_expects} given \texttt{result} is the LDA result. An example call is given below.
+Analogously to \texttt{intruderWords} you can use \texttt{intruderTopics} for validation the other way around. This function is used for validation of topics associated to a specific document instead of validation of words associated to one topic. Therefore the document is displayed in another window and a sample of topics - represented by the ten \texttt{top.topic.words} - is shown in the console. You should hand over in \texttt{text} the text component of the original untokenized corpus before manipulation by \texttt{cleanTexts}, so that the document is kind of readable. The user then names the intruder(s). There are options for different numbers of topics and intruders as in \texttt{intruderWords} as well. The parameter \texttt{theta} should be set to \texttt{result\$document\_expects} given \texttt{result} is the LDA result. An example call is given below.
 ```{r, eval = FALSE}
 intruderTopics(text = corpus$text, id = ldaID,
   beta = result$topics, theta = result$document_expects)
