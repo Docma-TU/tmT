@@ -50,6 +50,11 @@ economy <- readWikinews(file="Wikinews-20180305080159_economy.xml")
 corpus2 <- mergeTextmeta(list(politics, economy))
 ```
 
+```{r, eval = FALSE, echo=FALSE}
+save(politics, file = "../data/politics.rda")
+save(economy, file = "../data/economy.rda")
+```
+
 We get a note about duplicated texts (texts that appear in both categories). We have to handle this issue later. If we merge corpora with different meta-variables we can decide if  all variables will be used for the merged corpora (\texttt{all = TRUE}, default) or only variables that appear in all corpora (\texttt{all = FALSE}).
 
 After reading the raw data the texts need to be preprocessed.

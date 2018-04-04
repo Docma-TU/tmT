@@ -65,6 +65,5 @@ C=c("A very able manipulative mathematician,",
 
 cleanTexts(text=texts, sw = "en", paragraph = TRUE)
 
-##---- Should be DIRECTLY executable !! ----
 }
 \keyword{manip}

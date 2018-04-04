@@ -47,7 +47,6 @@
 #'
 #' cleanTexts(text=texts, sw = "en", paragraph = TRUE)
 #'
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export cleanTexts
 cleanTexts <- function(object, text, sw = "en", paragraph = FALSE,
   lowercase = TRUE, rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE){
