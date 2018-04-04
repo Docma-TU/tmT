@@ -22,8 +22,8 @@ Imports:
     stringr,
     WikipediR
 Suggests:
-    testthat
-	knitr
+    testthat,
+	knitr,
 	rmarkdown
 RoxygenNote: 6.0.1
 LazyData: true
