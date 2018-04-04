@@ -12,6 +12,7 @@ editor_options:
   chunk_output_type: console
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Vignette tmT}
 ---
 \newpage
 # Introduction

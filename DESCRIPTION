@@ -23,7 +23,8 @@ Imports:
     WikipediR
 Suggests:
     testthat,
-	knitr
+	knitr,
+	devtools
 RoxygenNote: 6.0.1
 LazyData: true
 VignetteBuilder: knitr
