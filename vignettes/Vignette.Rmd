@@ -38,16 +38,16 @@ You can test whether your object meets the requirements of a \texttt{textmeta} o
 
 A read-function which is part of the package \texttt{tmT} is the function \texttt{readWikinews}. \texttt{readWikinews} reads XML-files created by the wikinews export page: [https://en.wikinews.org/wiki/Special:Export](https://en.wikinews.org/wiki/Special:Export "Wikinews Export pages"). By default \texttt{readWikinews} reads all XML-files in the working directory. The function creates a \texttt{textmeta} object. For this Vignette we used two categories: *Politics_and_conflicts* and *Economy_and_business*. The pages were downloaded on 2018-03-05 in a file for each category. We can use \texttt{readWikinews} for reading both files, if they are in the same folder.
 
-```{r, eval = TRUE}
+```{r, eval = FALSE}
 corpus <- readWikinews()
 ```
 
-Another method to read both files is to read both files seperately and merge them with the function \texttt{mergeTextmeta}. This function should be used if we want to merge data from different sources using different read-functions.
+Another method to read both files is to read both files seperately and merge them with the function \texttt{mergeTextmeta}. This function should be used if we want to merge data from different sources using different read-functions. We use the two example datasets from the package.
 
 ```{r, eval = TRUE}
-politics <- readWikinews(file="Wikinews-20180305075910_politics.xml")
-economy <- readWikinews(file="Wikinews-20180305080159_economy.xml")
-corpus2 <- mergeTextmeta(list(politics, economy))
+data(politics)
+data(economy)
+corpus <- mergeTextmeta(list(politics, economy))
 ```
 
 ```{r, eval = FALSE, echo=FALSE}
