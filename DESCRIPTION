@@ -27,4 +27,6 @@ Suggests:
 	rmarkdown
 RoxygenNote: 6.0.1
 LazyData: true
-VignetteBuilder: knitr rmarkdown
+VignetteBuilder:
+knitr,
+rmarkdown
