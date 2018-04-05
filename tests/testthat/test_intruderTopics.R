@@ -33,7 +33,7 @@ test_that("intruderWords", {
 
 
 
-    ## save(beta, theta, text, iT, iTo, iTs, file="data/intruderTopics.RData")
+    ## save(beta, theta, text, iT, iTo, iTs, file="data/intruderTopics.RData", compress="bzip2")
 
     load("data/intruderTopics.RData")
 
