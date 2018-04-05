@@ -63,7 +63,7 @@ plotTopic <- function(object, ldaresult, ldaID,
   pages = FALSE, natozero = TRUE, file, ...){
 
   if(missing(tnames)) tnames <- paste0("T", select, ".",
-    lda::top.topic.words(ldaresult$topics, num.words = 1, by.score = TRUE)[select]))
+    lda::top.topic.words(ldaresult$topics, num.words = 1, by.score = TRUE)[select])
   # set x-label if missing
   if(missing(xlab)) xlab <- "date"
   # set y-label if missing
