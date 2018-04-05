@@ -14,8 +14,8 @@
 #' @param ldaID Character vector containing IDs of the texts.
 #' @param norm Logical: Should the values be normalized by the mean topic share to account for differently sized topics (default: \code{FALSE})?
 #' @param file Character vector containing the path and name for the pdf output file.
-#' @param tnames Character vector with labels for the topics. 
-#' @param unit Character:  To which unit should dates be floored (default: \code{"year"})? 
+#' @param tnames Character vector with labels for the topics.
+#' @param unit Character:  To which unit should dates be floored (default: \code{"year"})?
 #' Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 #' \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}
 #' @param date_breaks How many labels should be shown on the x axis (default: \code{1})?
@@ -23,7 +23,7 @@
 #' @param margins See \code{\link{heatmap}}
 #' @param ... Additional graphical parameters passed to \code{\link{heatmap}},
 #' for example \code{distfun} or \code{hclustfun}.
-#' details The function is useful to search for peaks in the coverage of topics. 
+#' details The function is useful to search for peaks in the coverage of topics.
 #' @return A pdf.
 #' Invisible: A dataframe.
 #' @export plotHeat
@@ -37,7 +37,7 @@ plotHeat <- function(object, ldaresult, ldaID,
     max(select) <= nrow(ldaresult$document_sums))
 
   if(missing(tnames)) tnames <- paste0("T", select, ".",
-    lda::top.topic.words(ldaresult$topics, 1)[select])
+    lda::top.topic.words(ldaresult$topics, num.words = 1, by.score = TRUE)[select])
   if(!missing(file)) pdf(file, width = 15, height = 8)
 
   #create data frame. rows: documents, columns: topics

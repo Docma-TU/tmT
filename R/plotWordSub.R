@@ -76,7 +76,7 @@ plotWordSub = function(object, ldaresult, ldaID, limit = 10,
 
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(missing(tnames)) tnames <- paste0("T", select, ".",
-    lda::top.topic.words(ldaresult$topics, 1)[select])
+    lda::top.topic.words(ldaresult$topics, num.words = 1, by.score = TRUE)[select])
   if(missing(main))
     main <- paste(ifelse(rel, "Proportion", "Count"), "of",
       ifelse(type[1] == "docs", "texts", "words"), "in given subcorpus over time")

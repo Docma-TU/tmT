@@ -95,7 +95,7 @@ plotWordpt <- function(object, docs, ldaresult, ldaID,
     select <- as.list(select)
   }
   if(missing(tnames)) tnames <- sapply(select, function(x)
-    paste(paste0("T", x, ".", lda::top.topic.words(ldaresult$topics, 1)[x]),
+    paste(paste0("T", x, ".", lda::top.topic.words(ldaresult$topics, num.words = 1, by.score = TRUE)[x]),
       collapse = "."))
   if(missing(wnames)) wnames <- sapply(wordlist, paste, collapse = ".")
   # set x-label if missing
