@@ -17,10 +17,10 @@ vignette: >
 \newpage
 # Introduction
 
-This package offers different functions to explore corpora and topic models. The package focuses on the visualisation and validation of text corpora for content analysis. Therefor it offers some filter for preprocessing and a wrapper for the lda from the lda-package to include a topic model.
-Most visualisations aim on presentation of measures for corpora, subcorpora or topics from lda over time. To use this functionality every text needs a data as metadata. To harmonize different text sources we use a S3 \texttt{textmeta} object.
+This package offers different functions to explore text corpora with topic models. The package focuses on the visualisation and validation of content analysis. Therefor it offers some filter for preprocessing and a wrapper for the lda from the lda-package to include a topic model.
+Most visualisations aim on presentation of measures for corpora, subcorpora or topics from lda over time. To use this functionality every text needs a date specification as metadata. To harmonize different text sources we use a S3 \texttt{textmeta} object.
 
-The actual version of the package can be installed with the \texttt{devtools} package.
+The current version of the package can be installed with the \texttt{devtools} package.
 ```{r, include = FALSE}
 devtools::install_github("DoCMA-TU/tmT")
 library(tmT)
@@ -39,7 +39,7 @@ A basic functionality of the package is data preprocessing. Therefore several fu
 Read the corpus data through one of your self implemented read-functions and create a \texttt{textmeta} object with the function of the same name and the arguments \texttt{text}, \texttt{meta} and \texttt{metamult}. The \texttt{text} component should be a \texttt{list} of \texttt{character} vectors or a \texttt{list} of \texttt{lists} of \texttt{character} vectors, whereas \texttt{meta} is a \texttt{data.frame} and \texttt{metamult} is intended for mainly unstructured meta-information as a \texttt{list}. Furthermore \texttt{meta} must contain columns \texttt{id}, \texttt{date} and \texttt{title}.
 You can test whether your object meets the requirements of a \texttt{textmeta} object with the function \texttt{is.textmeta}.
 
-A read-function which is part of the package \texttt{tmT} is the function \texttt{readWikinews}. \texttt{readWikinews} reads XML-files created by the wikinews export page: [https://en.wikinews.org/wiki/Special:Export](https://en.wikinews.org/wiki/Special:Export "Wikinews Export pages"). By default \texttt{readWikinews} reads all XML-files in the working directory. The function creates a \texttt{textmeta} object. For this Vignette we used two categories: *Politics_and_conflicts* and *Economy_and_business*. The pages were downloaded on 2018-03-05 in a file for each category. We can use \texttt{readWikinews} for reading both files, if they are in the same folder.
+A read-function which is part of the package \texttt{tmT} is the function \texttt{readWikinews}. \texttt{readWikinews} reads XML-files created by the wikinews export page: [https://en.wikinews.org/wiki/Special:Export](https://en.wikinews.org/wiki/Special:Export "Wikinews Export pages"). By default \texttt{readWikinews} reads all XML-files in the working directory. The function creates a \texttt{textmeta} object. For this vignette we used two categories: *Politics_and_conflicts* and *Economy_and_business*. The pages were downloaded on 2018-03-05 in a file for each category. We can use \texttt{readWikinews} for reading both files, if they are in the same folder.
 
 ```{r, eval = FALSE}
 corpus <- readWikinews()
@@ -63,8 +63,10 @@ We get a note about duplicated texts (texts that appear in both categories). We 
 After reading the raw data the texts need to be preprocessed.
 
 ## Remove Umlauts and XML/HTML Tags - \texttt{removeXML removeHTML removeUmlauts}
-You can use \texttt{removeXML} to delete XML-tags (\texttt{<...>}) in character strings or a \texttt{list} of \texttt{character} vectors. The value you receive back will be a \texttt{character} vector or a list, if the input was a list.  
-If your texts contain html entities use \texttt{removeHTML}. If you want to transform the entities in UTF-8 characters you can choose between the entity-type (\texttt{dec=TRUE}: \&#248;, \texttt{hex=TRUE}: \&#xf8; or \texttt{entity=TRUE}: \&oslash;). To choose which character should be replaced you can choose from all 16 ISO-8859 lists, e.g. \texttt{symbolList=c(1,15)} for ISO-8859-1 (latin1) and ISO-8859-15 (latin9). If \texttt{delete=TRUE} all remaining entities will be deleted.
+\colorbox{red}{TODO:[Strenggenommen ist sind removeHTML und removeUmlauts eigentlich replaceHTML und replaceUmlauts, oder?]}
+You can use \texttt{removeXML} to delete XML-tags (\texttt{<...>}) in character strings or a \texttt{list} of \texttt{character} vectors. The value you receive back will be a \texttt{character} vector or a list, if the input was a list.   
+If your texts contain html entities use \texttt{removeHTML}. If you want to transform the entities in UTF-8 characters you can choose between the entity-type (\texttt{dec=TRUE}: \&#248;, \texttt{hex=TRUE}: \&#xf8; or \texttt{entity=TRUE}: \&oslash;). \colorbox{red}{TODO:[Könnten wir hier noch einen Erklärsatz machen, was der Unterschied zwischen den entity-types ist?]}
+To choose which character should be replaced you can choose from all 16 ISO-8859 lists, e.g. \texttt{symbolList=c(1,15)} for ISO-8859-1 (latin1) and ISO-8859-15 (latin9). If \texttt{delete=TRUE} all remaining entities will be deleted.
 To replace german umlauts (ä ö ü ß -> ae oe ue ss) use \texttt{removeUmlauts}.
 
 We remove XML-tags and HTML-entities from our Wikinews corpus. Since we have only punctuation as HTML-entities in the Corpus we remove it completely.
@@ -149,24 +151,25 @@ The black curve is the exact one and the red curve represents the smoothed value
 ```{r, fig.width=5, fig.height=2.8, fig.align=2}
 plotScot(corpus, id = dups$notDuplicatedTexts, rel = TRUE)
 ```
-Most zeros in the plot result from no articles in the whole corpus during these time periods. It is possible to get these values as \texttt{NAs} by setting \texttt{natozero = FALSE} in \texttt{plotScot}. This option works if \texttt{rel = TRUE} and is offered by many other functions in the package. Usually all plot functions in the package return the data belonging to the plot as invisible output. These plot functions offer a lot more functionality, which is described in the corresponding help functions.
+\colorbox{red}{TODO:[1 weiterer Satz Grafikinterpretation, z.B. das hier (falls das so stimmt): The plot shows that between 2006 and 2011 more than 80 per cent of the corpus are not duplicated texts.]} Most zeros in the plot result from no articles in the whole corpus during these time periods. It is possible to get these values as \texttt{NAs} by setting \texttt{natozero = FALSE} in \texttt{plotScot}. This option works if \texttt{rel = TRUE} and is offered by many other functions in the package. Usually all plot functions in the package return the data belonging to the plot as invisible output. These plot functions offer a lot more functionality, which is described in the corresponding help functions.
 
 ## Frequency Analysis - \texttt{plotFreq}
 The other descriptive plotting function is \texttt{plotFreq} which performs a frequency analysis. Most of the arguments does not differ from \texttt{plotScot}. But the options \texttt{wordlist} and \texttt{link = c("and", "or")} are added for specifying the words of the frequency analysis and their link within one vector. In detail \texttt{wordlist} could either be a \texttt{list} of \texttt{character} vectors or a single \texttt{character} vector, which will be coerced to a \texttt{list} of the vector's length. Each \texttt{list} entry represents a set of words which all (default \texttt{link = "and"}) or one of them (\texttt{link = "or"}) should appear in an article to be counted. The function uses \texttt{filterWord} with \texttt{out = "count"}, which is explained later on, for counting.
 
-The example corpus contains Wikinews articles concerning the categories *Politics_and_conflicts* and *Economy_and_business*. Therefore some typical words out of these categories were taken to perform a frequency analysis. First of all the words \textit{dow}, \textit{economy} and \textit{bank} were taken.
+The example corpus contains Wikinews articles concerning the categories *Politics_and_conflicts* and *Economy_and_business*. Therefore some typical words out of these categories were taken to perform a frequency analysis. First of all the words \textit{unemployment}, \textit{growth} and \textit{trade} were taken. \colorbox{red}{The function identifies words not patterns. ODER?} 
+\colorbox{red}{TODO:[Grafiken: Link-Beschreibung in Grafiküberschrift immer noch nicht perfekt zu sehen. Vorschlag: "over time. Link:" statt "over time - link:" evtl. reicht das schon ]}
 ```{r, fig.width=5, fig.height=3.5, fig.align=2, fig.show="hold"}
-wordsEconomy <- list("dow", "economy", "bank", c("dow", "economy", "bank"))
+wordsEconomy <- list("unemployment", "growth", "trade", c("unemployment", "growth", "trade"))
 plotFreq(corpusClear, wordlist = wordsEconomy, curves = "smooth",
-  ylim = c(0, 30), legend = "topright")
+  ylim = c(0, 25), legend = "topright")
 plotFreq(corpusClear, wordlist = wordsEconomy, link = "or", curves = "smooth",
-  ylim = c(0, 30), legend = "topright")
+  ylim = c(0, 25), legend = "topright")
 ```
-In the figures above you can see the difference between the \textit{and} link and \textit{or} link. In the first figure the three curves indicate the single words. The fourth curve shows the number of texts in which all three words appear. For most dates no texts meets this requirements. In the second figure the same single curves are shown. The fourth curve represents all three words again, but setting \texttt{link = "or"}. The curve lies above the three others in every point. Due to smoothing it is possible that the line falls under one of the single word lines. This can be avoided by choosing \texttt{curves = "exact"}. 
+In the figures above you can see the difference between the \textit{and} link and \textit{or} link. In the first figure the three curves indicate the single words. The fourth curve shows the number of texts in which all three words appear. For most dates no texts meets this requirement. In the second figure the same single curves are shown. The fourth curve represents all three words again, but setting \texttt{link = "or"}. The curve lies above the three others in every point. Due to smoothing it is possible that the line falls under one of the single word lines. This can be avoided by choosing \texttt{curves = "exact"}. 
 
-In another figure the counts of pages in which the words \textit{usa}, \textit{germany} and \textit{america} appear, are analysed. You can see that it is often useful to compare smoothed and exact curves to visualize the variance and a trend in the data.
+In another figure the counts of pages in which the words \textit{crisis}, \textit{war} and \textit{conflict} appear, are analysed. You can see that it is often useful to compare smoothed and exact curves to visualize the variance and a trend in the data.
 ```{r, fig.width=5, fig.height=3, fig.align=2}
-plotFreq(corpusClear, wordlist = list(c("usa", "germany", "america")), link = "or",
+plotFreq(corpusClear, wordlist = list(c("crisis", "war", "conflict")), link = "or",
   curves = "both", both.lwd = 2, legend = "topright")
 ```
 
@@ -220,7 +223,7 @@ filterWord(text = toyCorpus, search = searchterm, out = "bin")
 ```
 The returned values are \texttt{TRUE} twice. There is at least one pattern in the \texttt{searchterm} vector which appears at least once in each of the strings \textit{dataset} and \textit{anything}.
 
-In the case of a \texttt{list} of \texttt{data.frames} handed over each \texttt{data.frame} is linked by an \textit{or} and should contain columns \texttt{pattern}, \texttt{word} and \texttt{count}. The parameter \texttt{pattern} includes the search terms, the column \texttt{word} is a logical variable which controls whether words (\texttt{TRUE}) or patterns are searched. Alternatively \texttt{word} can be a \texttt{character} string containing the keyword \texttt{left} or \texttt{right} for left- or right-truncated search. You must set the argument \texttt{count} to an \texttt{integer}. This argument controls how often a word or pattern must appear in a document for it to be returned. Rows in each \texttt{data.frame} are linked by an \textit{and}. An example is given by the following code.
+In the case of a \texttt{list} of \texttt{data.frames} handed over each \texttt{data.frame} is linked by an \textit{or} and should contain columns \texttt{pattern}, \texttt{word} and \texttt{count}. The parameter \texttt{pattern} includes the search terms, the column \texttt{word} is a logical variable which controls whether words (\texttt{TRUE}) or patterns are searched. Alternatively \texttt{word} can be a \texttt{character} string containing the keyword \texttt{left} or \texttt{right} for left- or right-truncated search, \colorbox{red}{i.e. word = right searches for the exact pattern on the left of the word and all possible endings of the pattern.} You must set the argument \texttt{count} to an \texttt{integer}. This argument controls how often a word or pattern must appear in a document for it to be returned. Rows in each \texttt{data.frame} are linked by an \textit{and}. An example is given by the following code.
 ```{r}
 searchframe <- data.frame(pattern = searchterm, word = FALSE, count = 1)
 filterWord(text = toyCorpus, search = searchframe, out = "bin")
@@ -231,7 +234,7 @@ For another sample case, we will delete the word \textit{anything} from the sear
 ```{r}
 filterWord(text = toyCorpus, search = searchframe[1:3,], out = "bin")
 ```
-If you omit the word \textit{anything} from \texttt{words} you receive a \texttt{TRUE} for text1 (\textit{dataset}) - all three patterns appear in it - and a \texttt{FALSE} for text2 (\textit{anything}), because not all patterns appear in it, not even one of them.
+If you omit the word \textit{anything} from \texttt{words} \colorbox{red}{Muss es nicht searchterm sein statt words?} you receive a \texttt{TRUE} for text1 (\textit{dataset}) - all three patterns appear in it - and a \texttt{FALSE} for text2 (\textit{anything}), because not all patterns appear in it, not even one of them.
 
 An example of \texttt{out = count} to receive a count for each text and search term combination is given by the following.
 ```{r}
@@ -255,7 +258,7 @@ After understanding the functionality of the function, finally it is used for fi
 ```{r}
 searchterm <- list(
   data.frame(pattern = "economy", word = FALSE, count = 1),
-  data.frame(pattern = c("big", "data"), word = FALSE, count = 1),
+  data.frame(pattern = c("world", "economy"), word = FALSE, count = 1),
   data.frame(pattern = "politics", word = FALSE, count = 1))
 corpusFiltered = filterWord(corpusDate, search = searchterm)
 print(corpusDate)
@@ -302,22 +305,22 @@ For validation of the LDA result and further analysis, the result is loaded back
 For validation of LDA results there are two functions in the package. These functions expect user input, the user works like a text labeller. The LDA result is handed over by setting \texttt{beta = result\$topics}. During the function \texttt{intruderWords} the labeler gets a set of words. The number of words can be set by \texttt{numOutwords} (default: 5). This set represents one topic. It includes a number of intruders (default: \texttt{numIntruder = 1}), which can also be zero. In general, if the user identifies the intruder(s) correctly this is an identifier for a good topic allocation. You can set options \texttt{numTopwords} (default: 30) to control which top words of each topic are considered for this validation. In addition it is possible to enable or disable the possibility for the user to mark nonsense topics. By default this option is enabled (\texttt{noTopic = TRUE}). The true intruder can be printed to the console after each step with \texttt{printSolution = TRUE} (default: \texttt{FALSE}).
 \colorbox{red}{TODO:[non-preprocessed corpus nach removexml, ..]}
 
-The LDA result of the example corpus is checked by \texttt{intruderWords} with a number of intruders of zero or one.
+The LDA result of the example corpus is checked by \texttt{intruderWords} with a number of intruders of zero or one.\colorbox{red}{TODO:[Noch besseres Beispiel finden! Hab Seed 123 bis 203 getestet]}
 ```{r, eval = FALSE}
-set.seed(101)
+set.seed(173)
 intWords <- intruderWords(beta = result$topics, numIntruder = 0:1)
 ```
 ```{r, include = FALSE}
-set.seed(101)
+set.seed(173)
 intWords <- intruderWords(beta = result$topics, numIntruder = 0:1,
   test = TRUE, testinput = as.character(c(5,0,0,5,1,2,0,5,3,5)))
 ```
 ```{r, echo = FALSE}
-set.seed(101)
+set.seed(173)
 toDelete <- intruderWords(beta = result$topics, numIntruder = 0:1,
   test = TRUE, testinput = "q", printSolution = TRUE)
 ```
-As an illustration the first set is shown. \colorbox{red}{Obviously the word \textit{newspaper}} does not fit into the set with the words \textit{computational}, \textit{cell}, \textit{cells} and \textit{engineering}. Therefore the user would type \texttt{5} and press enter. If the user wants to mark nonsense topics he would type an \texttt{x} (in the summary the number of meaningful topics is shown) and \texttt{0} if he thinks there is no intruder word. Actually \textit{newspaper} is the true intruder in the set above. As an example user input \texttt{c(5, 0, 0, 5, 1, 2, 0, 5, 3, 5)} is considered.
+As an illustration the first set is shown. \colorbox{red}{Beispiel evtl. ändern! The word \textit{will}} does not fit into the set with the words \textit{budget}, \textit{government}, \textit{tax} and \textit{billion}. Therefore the user would type \texttt{5} and press enter. If the user wants to mark nonsense topics he would type an \texttt{x} (in the summary the number of meaningful topics is shown) and \texttt{0} if he thinks there is no intruder word. Actually \textit{will} is the true intruder in the set above. As an example user input \texttt{c(5, 0, 0, 5, 1, 2, 0, 5, 3, 5)} is considered.
 ```{r}
 print(intWords)
 ```
@@ -330,7 +333,7 @@ Applying \texttt{summary} to an object of type \texttt{intruderWords} will resul
 intWords <- intruderWords(oldResult = intWords)
 ```
 
-Analogously to \texttt{intruderWords} you can use \texttt{intruderTopics} for validation the other way around. This function is used for validation of topics associated to a specific document instead of validation of words associated to one topic. Therefore the document is displayed in another window and a sample of topics - represented by the ten \texttt{top.topic.words} - is shown in the console. You should hand over in \texttt{text} the text component of the original untokenized corpus before manipulation by \texttt{cleanTexts}, so that the document is kind of readable. The user then names the intruder(s). There are options for different numbers of topics and intruders as in \texttt{intruderWords} as well. The parameter \texttt{theta} should be set to \texttt{result\$document\_expects} given \texttt{result} is the LDA result. An example call is given below.
+Analogously to \texttt{intruderWords} you can use \texttt{intruderTopics} for validation the other way around. This function is used for validation of topics associated to a specific document instead of validation of words associated to one topic. Therefore the document is displayed in another window and a sample of topics - represented by the ten \texttt{top.topic.words} - is shown in the console. You should hand over in \texttt{text} the text component of the original untokenized corpus before manipulation by \texttt{cleanTexts}, so that the document is readable. The user then names the intruder(s). There are options for different numbers of topics and intruders as in \texttt{intruderWords} as well. The parameter \texttt{theta} should be set to \texttt{result\$document\_expects} given \texttt{result} is the LDA result. An example call is given below.
 ```{r, eval = FALSE}
 intruderTopics(text = corpus$text, id = ldaID,
   beta = result$topics, theta = result$document_expects)
@@ -343,7 +346,7 @@ For analysing topic similarities it is useful to cluster the topics. The functio
 clustRes <- clusterTopics(ldaresult = result, xlab = "Topic", ylab = "Distance")
 names(clustRes)
 ```
-The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. 
+The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. For example the plot hints to the similarity with regards to content between topic 2 and topic 9, which both contain economic terms with topic 9 focussing more on economic policy. Topic 7 and 10 both include words on Canadian politics.   
 
 It is possible to merge different results of LDAs by calling \texttt{mergeLDA(list(result1, result2, ..., resultN))}. The function \texttt{mergeLDA} binds the \texttt{topics} elements of the results by row and only consider words which appears in all results. As result you receive the \texttt{topics} matrix including all topics from the given results.
 
@@ -353,39 +356,39 @@ As extension of the highly flexible functions \texttt{plotScot} and \texttt{plot
 Often it is useful to choose \texttt{curves = "smooth"} if you do not select topics, because there is a massive fluctuation of exact curves. However, it is important to have a look at the exact curves, because the smoothed curves are someway manipulated by the statement \texttt{smooth}, so the user is tempted to optimise the smoothing parameter for getting the curves he or she wants.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopic(object = corpusFiltered, ldaresult = result, ldaID = ldaID,
-  rel = TRUE, curves = "smooth", smooth = 0.1, legend = "none", ylim = c(0, 0.9))
+  rel = TRUE, curves = "smooth", smooth = 0.1, legend = "none", ylim = c(0, 0.7))
 ```
 
 There is no difference of handing over an inflated corpus with documents which were not used for LDA. But the corpus must contain all documents of the LDA.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopic(object = corpusClear, ldaresult = result, ldaID = ldaID,
-  select = c(1:2, 7:8), rel = TRUE, curves = "both", smooth = 0.1)
+  select = c(2, 5, 8:9), rel = TRUE, curves = "both", smooth = 0.1)
 ```
 
 ## Visualisation of Topic Share over Time - \texttt{plotArea}
 The function \texttt{plotArea} offers possibilities to create so called area visualisations of topics over time. It requires arguments \texttt{ldaresult}, \texttt{ldaid} and \texttt{meta} as introduced before. There are options \texttt{select}, \texttt{tnames}, \texttt{unit} and others. Additionally you can set \texttt{threshold} to a \texttt{numeric} between 0 and 1, as a limit, which a topics proportion have to surpass at least once to be plotted.
 
-Because this seems to be interesting topics \colorbox{red}{\textit{T1.syndrome} (red curve), \textit{T3.health} (green) and \textit{T7.medicine} (blue)} are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"} (default is \texttt{"quarter"}).
+Because this seems to be interesting topics \colorbox{red}{Checken!} \textit{T2.economy} (blue curve), \textit{T9.economic policy} (green) and \textit{T5.US politics} (red) are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"} (default is \texttt{"quarter"}).
 ```{r, eval = FALSE}
 plotArea(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
-  select = c(7, 3, 1), unit = "bimonth", sort = FALSE)
+  select = c(2, 9, 5), unit = "bimonth", sort = FALSE)
 ```
 ```{r, echo=FALSE, fig.width=5.5, fig.height=3, fig.align=2}
 par(mar = c(3.5,3,1.5,1.5)+0.1)
 plotArea(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
-  select = c(7, 3, 1), unit = "bimonth", sort = FALSE)
+  select = c(2, 9, 5), unit = "bimonth", sort = FALSE)
 ```
-\colorbox{red}{(TODO) Interpretation.}
+\colorbox{red}{(Checken!)} Examplary interpretation: The topic \textit{T2.economy} increases over time, especially after the bank Lehman Brothers declared bankruptcy in September 2008, the starting point of the global financial crisis. \textit{T5.US politics} is considerably larger during the 2008 presidential election campaign.
 
 ## Visualisation of Words in Topic over Time - \texttt{plotTopicWord, plotWordpt}
 Another visualise topics over time is given by \texttt{plotTopicword}. It displays the counts or proportion of given topic-word combinations. If \texttt{rel = TRUE} the baseline for normalisation are the words counts, not the counts of topics. Arguments which have to specified are \texttt{object} (corpus, \texttt{textmeta} object), \texttt{docs} (corpus manipulated by \texttt{LDAprep}, the input for \texttt{LDAgen}) and the \texttt{ldaresult} with its \texttt{ldaid} (IDs of documents in \texttt{docs} or \texttt{ldaresult} respectively). The function asks for \texttt{docs} for complexity reasons. This object should be created while preparation for LDA anyway. The options \texttt{wordlist} and \texttt{select} are known from other plot functions and offer a lot of different topic word combinations which should be plotted by \texttt{plotTopicword}.
 
-In the example corpus the proportion of the word \textit{economy} in the topics one, three and seven is explored. The \texttt{top.topic.words} of the three chosen topics are \colorbox{red}{\textit{syndrome} (lightgreen curve), \textit{health} (orange) and \textit{medicine} (purple)}.
+In the example corpus the proportion of the word \textit{economy} in the topics one, three and seven is explored. The \texttt{top.topic.words} of the three chosen topics are \colorbox{red}{Checken!}\textit{percent} (T2.economy, lightgreen curve), \textit{obama} (T5.US politics, orange) and \textit{tax} (T9.economic policy, purple).
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
-  wordlist = "economy", select = c(1, 3, 7), rel = TRUE, legend = "none")
+  wordlist = "economy", select = c(2, 5, 9), rel = TRUE, legend = "topleft")
 ```
-The graphic shows that the word \textit{economy} is associated to the topic \colorbox{red}{\textit{health}} most often.
+The graphic shows that the word \textit{economy} is associated to the topic \colorbox{red}{\textit{T2.economy, lightgreen curve}} most often.
 
 For interpretating it is important to keep in mind the baseline, the word counts of \textit{economy}. To display this the sums of all topic-word proportions are calculated and are expected to be one for all dates which appear at least once, otherwise zero.
 ```{r, eval = FALSE}
@@ -404,7 +407,7 @@ This is confirmed by the call above. For some analysis maybe it could be interes
 The function \texttt{plotWordpt} works analogously like its pendant \texttt{plotTopicWord}, but with baseline topic sums instead of word sums. The difference between both functions \texttt{plotWordpt} and \texttt{plotTopicWord} is given by the fact that \texttt{plotWordpt} considers topic peaks. You will get the relative counts of the selected word(s) in the selected topic(s). All curves sum up to one if you choose any topic and the whole vocabulary list as wordlist.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotWordpt(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
-  wordlist = "economy", select = c(1, 3, 7), rel = TRUE)
+  wordlist = "economy", select = c(2, 5, 9), rel = TRUE)
 ```
 
 ## Visualisation of Words in Articles allocated to Topics - \texttt{plotWordSub}
@@ -412,7 +415,7 @@ Imagine you want to identify words which are used frequently in articles allocat
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 searcheco <- data.frame(pattern = "economy", word = TRUE, count = 3)
 plotWordSub(object = corpusFiltered, ldaresult = result, ldaID = ldaID, limit = 1/3,
-  select = c(1, 3, 7), search = searcheco, unit = "quarter", legend = "topright")
+  select = c(2, 5, 9), search = searcheco, unit = "quarter", legend = "topright")
 ```
 The plot shows subcorpora generated by the \texttt{search} argument above, which means articles must contain the word \textit{economy} at least three times. The corpora from which these subcorpora are generated have to contain one third of words which are allocated to the corresponding topic (\texttt{limit = 1/3}). 
 
@@ -421,23 +424,24 @@ The use case for \texttt{plotHeat} is given by searching for explicit peaks of c
 
 By default the  proportions are calculated on the article lengths, but it is possible to force calculation on only the LDA vocabulary by setting \texttt{object} to a \texttt{textmeta} object only including meta information. Otherwise a strictly tokenized \texttt{textmeta} object is required. The parameters \texttt{ldaresult} and \texttt{ldaID} expect a LDA result and according IDs like in functions mentioned before. Options \texttt{tnames} (topic label), \texttt{file} (if you want to save the plot in a pdf) and \texttt{unit} (default: round dates to \texttt{"year"}) are given as well. Additionally it is possible to set whether the deviations should be normalised to take different topic sizes into account (default: \texttt{norm = FALSE}). You can change the intervals of labeling on the x-axis by setting \texttt{date\_breaks}. By default (\texttt{date\_breaks = 1}) every label is drawn. If you choose \texttt{date\_breaks = 5} every fifth label will be drawn.
 
-The peak of the topic \colorbox{red}{\textit{T1.syndrome}} in January 2014 was mentioned several times before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen.
+The increase of the topic \colorbox{red}{\textit{T2.economy} after September 2008} was mentioned before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen.
 ```{r, fig.height=6, fig.width=10}
 plotHeat(object = corpusFiltered, ldaresult = result, ldaID = ldaID, unit = "quarter")
 ```
-\colorbox{red}{As expected the \textit{T1.syndrome}} topics peak is clearly identifiable. The according rectangle at the first quarter of 2014 is colored by the deepest red of this figure. On the other hand mostly all other quarters of years concerning this topic are colored lightblue. Other remarkable quarters are for example the fourth quarter of 2015 or 2016, where the topic \textit{T2.data} or \textit{T4.cells} respectively has noticeable peaks. The dendrogramm shows that none of the topics are similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This supports the findings of clustering the topics with \texttt{clusterTopics}.
+\colorbox{red}{As expected the \textit{T2.economy}} topic increase is clearly identifiable. The according rectangles are colored more and more red from the first quarter of 2009 in this figure. On the other hand mostly all other quarters of years concerning this topic are colored lightblue. Other remarkable quarters is for example the third quarter of 2007, where the topic \textit{T10.Canadian politics} has a noticeable peak. The dendrogramm shows that the topics are not very similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This supports the findings of clustering the topics with \texttt{clusterTopics}.
 
 ## Individual Cases Contemplation - \texttt{topTexts}, \texttt{topicsInText}
 Sometimes it is useful to look at some individual cases sometimes. Especially the documents with the highest counts or proportion of words belonging to one topic are of interest. These documents can be extracted by \texttt{topTexts}. By default (\texttt{rel = TRUE}) the proportion is considered. The function requires a \texttt{ldaresult} and the according \texttt{ldaid}. It offers options \texttt{select}, \texttt{limit} and \texttt{minlength}, which control how much articles per topic (default: all topics) are returned (default: \texttt{limit = 20}) and articles of which minimum length (default: \texttt{minlength = 30}) are taken into account. The output value is a matrix of the according IDs.
 
-In the example the top four pages from the topics \colorbox{red}{\textit{T1.syndrome}, \textit{T3.health} and \textit{T7.medicine}} are requested.
+In the example the top four pages from the topics \colorbox{red}{\textit{T2.economy}, \textit{T5.US politics} and \textit{T9.economic policy}} are requested.
 ```{r}
-topID <- topTexts(ldaresult = result, ldaID = ldaID, select = c(1, 3, 7), limit = 4)
+topID <- topTexts(ldaresult = result, ldaID = ldaID, select = c(2, 5, 9), limit = 4)
 dim(topID)
 ```
 Obviously the corresponding matrix has four rows and three columns.
 
 After identifying the top pages it is possible to have a deeper look at these articles. Therefore the mentioned function \texttt{showTexts} can be used. The returned value is a list with three entries with \texttt{data.frames} of four rows - the different pages - and four columns each - \textit{id}, \textit{title}, \textit{date} and \textit{text}. For displaying, the fourth column of each \texttt{data.frame} containing the pages content itself is removed.
+\colorbox{red}{TODO:Hier werden als Topic-Namen nicht die Top-Wörter aus der result-csv angezeigt.}
 ```{r}
 topArt <- showTexts(corpusFiltered, id = topID)
 lapply(topArt, function(x) x[, 1:3])
@@ -446,13 +450,13 @@ lapply(topArt, function(x) x[, 1:3])
 
 At last the function \texttt{topicsInText} offers the possibilty to analyse a single document's topic allocations. The function creates a HTML document with its words colored depending on the topic allocations of each word. It requires arguments \texttt{ldaresult} and  \texttt{ldaID} as usual. The belonging \texttt{LDAprep} object should be handed over in \texttt{text}, while the vocabulary set as \texttt{character} vector in \texttt{words}. You will set \texttt{id} to the documents ID you are interested in. It is possible to show the origing text by setting \texttt{originalText} to the belonging uncleared \texttt{text} component of your \texttt{textmeta} object. There are some more options - e.g. \texttt{wordOrder} - for modifying the output individually.
 
-The article \textit{Family medicine} with ID \textit{1656748} from topic \textit{T3.health} and category \textit{Medicine} is analysed with the function \texttt{topicsInText} in more detail.
+\colorbox{red}{TODO: Soll TopicsInText-Beispiel rein?}The article \textit{Family medicine} with ID \textit{1656748} from topic \textit{T3.health} and category \textit{Medicine} is analysed with the function \texttt{topicsInText} in more detail.
 ```{r, eval = FALSE}
 topicsInText(text = pagesLDA, ldaresult = result, ldaID = ldaID,
   id = topArt$T3.economy[4,1], vocab = words5, originaltext = corpus$text, wordOrder = "")
 ```
 <!-- \begin{center}\includegraphics[width = 0.78\textwidth]{topicText} \end{center} -->
-In the part of the HTML output above at first the different topics in the order of its absolute appearences in the given document are displayed. The topics are represented by its 20 \texttt{top.topic.words} each and are colored each in its own color. Words which were deleted by clearing the corpus are colored black. This way you are able to check plausibility of individual documents, so \texttt{topicsInText} can also be seen as individual cases validation.
+In the part of the HTML output above at first the different topics in the order of its absolute appearences in the given document are displayed. The topics are represented by its 20 \texttt{top.topic.words} each and are colored each in its own color. Words which were deleted by clearing the corpus are colored black. This way you are able to check plausibility of individual documents, so \texttt{topicsInText} can also be seen as individual case validation.
 
 # Conclusion
 (TODO)
