@@ -44,6 +44,7 @@ LDAprep <- function(text, vocab, ldacorrect = TRUE, excludeNA = TRUE,
     length(ldacorrect) == 1, length(excludeNA) == 1, length(reduce) == 1)
   text <- lapply(text, unlist)
   text <- lapply(text, table)
+  text <- lapply(text, function(x)text[vocab[vocab %in% names(text)]])
   text <- lapply(text, function(x)
     rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
   if(ldacorrect) text <- lapply(text, function(x)
