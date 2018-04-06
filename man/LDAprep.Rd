@@ -4,7 +4,7 @@
 \alias{LDAprep}
 \title{Create Lda-ready Dataset}
 \usage{
-LDAprep(text, vocab, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
+LDAprep(text, vocab, ldacorrect = TRUE, reduce = TRUE)
 }
 \arguments{
 \item{text}{A list of tokenized texts}
@@ -14,8 +14,6 @@ lda}
 
 \item{ldacorrect}{Logical: If \code{TRUE}, every word repetition gets a separate
 column.}
-
-\item{excludeNA}{Logical: Should \code{NA}s be removed?}
 
 \item{reduce}{Logical: Should empty texts be deleted?}
 }

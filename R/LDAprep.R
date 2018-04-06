@@ -9,7 +9,6 @@
 #' lda
 #' @param ldacorrect Logical: If \code{TRUE}, every word repetition gets a separate
 #' column.
-#' @param excludeNA Logical: Should \code{NA}s be removed?
 #' @param reduce Logical: Should empty texts be deleted?
 #' @return A list in which every entry contains a matrix with two rows: The
 #' first row gives the number of the entry of the word in \code{vocab} minus
@@ -36,12 +35,12 @@
 #'
 #' @export LDAprep
 
-LDAprep <- function(text, vocab, ldacorrect = TRUE, excludeNA = TRUE,
+LDAprep <- function(text, vocab, ldacorrect = TRUE,
   reduce = TRUE){
 
   stopifnot(is.textmeta(textmeta(text = text)), is.character(vocab),
-    is.logical(ldacorrect), is.logical(excludeNA), is.logical(reduce),
-    length(ldacorrect) == 1, length(excludeNA) == 1, length(reduce) == 1)
+    is.logical(ldacorrect), is.logical(reduce),
+    length(ldacorrect) == 1, length(reduce) == 1)
   text <- lapply(text, unlist)
   text <- lapply(text, table)
   text <- lapply(text, function(x)x[vocab[vocab %in% names(x)]])
@@ -49,7 +48,7 @@ LDAprep <- function(text, vocab, ldacorrect = TRUE, excludeNA = TRUE,
     rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
   if(ldacorrect) text <- lapply(text, function(x)
     rbind(as.integer(rep(x[1, ], x[2, ])), as.integer(rep(1, sum(x[2, ])))))
-  if(excludeNA) text <- lapply(text, function(x) x[, !is.na(x[1, ])])
+
   tmp <- lengths(lapply(text, dim)) == 0
   text[tmp] <- lapply(text[tmp], as.matrix)
   if(reduce){
