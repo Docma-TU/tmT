@@ -31,7 +31,7 @@
 #'
 #' corpus <- cleanTexts(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' LDAprep(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, excludeNA = TRUE, reduce = TRUE)
+#' LDAprep(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, reduce = TRUE)
 #'
 #' @export LDAprep
 
