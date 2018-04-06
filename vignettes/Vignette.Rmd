@@ -283,7 +283,7 @@ head(sort(wordtableFiltered$wordtable, decreasing = TRUE))
 
 ```{r}
 words5 <- wordtableFiltered$words[wordtableFiltered$wordtable > 5]
-pagesLDA = LDAprep(text = corpusFiltered$text, vocab = words5)
+pagesLDA <- LDAprep(text = corpusFiltered$text, vocab = words5)
 ```
 After receiving the words which appear at least six times in the whole filtered corpus, the function \texttt{LDAprep} is applied to the example corpus with \texttt{vocab = words5}. The object \texttt{pagesLDA} will be handed over to the function which performs a Latent Dirichlet Allocation.
 
@@ -292,12 +292,16 @@ The function which has to be applied first to the corpus manipulated by \texttt{
 
 In the concrete example corpus the manipulated corpus \texttt{pagesLDA} is used for \texttt{documents}, the topic number is set to \texttt{K = 10} and for reproducibility a seed is set to \texttt{seed = 123}. The filename consists of the \texttt{folder} argument followed by the options of \texttt{K}, \texttt{num.iterations}, \texttt{burnin} and the \texttt{seed} of the LDA.
 ```{r, eval = TRUE}
+length(pagesLDA)
+summary(lengths(pagesLDA))
+sum(lengths(pagesLDA))
 LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
 load("lda-result-k10i200b70s123alpha0.1eta0.1.RData")
 ```
-```{r, include = FALSE}
-load("lda-result-k10i200b70s123alpha0.1eta0.1.RData")
-```
+
+<!--  ```{r, include = FALSE} -->
+<!-- load("lda-result-k10i200b70s123alpha0.1eta0.1.RData") -->
+<!-- ``` -->
 For validation of the LDA result and further analysis, the result is loaded back to workspace.
 
 ## Validation of LDA Results - \texttt{intruderWords}, \texttt{intruderTopics}
