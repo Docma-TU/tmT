@@ -275,6 +275,7 @@ You can have a look at the documentation of the \texttt{lda.collapsed.gibbs.samp
 
 Looking at the example corpus at first a new wordlist must be generated based on the filtered corpus.
 ```{r}
+Sys.setlocale("LC_COLLATE", "C")
 wordtableFiltered <- makeWordlist(corpusFiltered$text)
 ```
 ```{r}
@@ -292,9 +293,6 @@ The function which has to be applied first to the corpus manipulated by \texttt{
 
 In the concrete example corpus the manipulated corpus \texttt{pagesLDA} is used for \texttt{documents}, the topic number is set to \texttt{K = 10} and for reproducibility a seed is set to \texttt{seed = 123}. The filename consists of the \texttt{folder} argument followed by the options of \texttt{K}, \texttt{num.iterations}, \texttt{burnin} and the \texttt{seed} of the LDA.
 ```{r, eval = TRUE}
-length(pagesLDA)
-summary(lengths(pagesLDA))
-sum(lengths(pagesLDA))
 LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
 load("lda-result-k10i200b70s123alpha0.1eta0.1.RData")
 ```
