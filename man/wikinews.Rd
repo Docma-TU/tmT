@@ -3,8 +3,8 @@
 \docType{data}
 \name{wikinews}
 \alias{wikinews}
-\alias{politics}
 \alias{economy}
+\alias{politics}
 \title{The wikinews dataset}
 \format{textmeta object}
 \usage{

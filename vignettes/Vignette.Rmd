@@ -275,8 +275,7 @@ You can have a look at the documentation of the \texttt{lda.collapsed.gibbs.samp
 
 Looking at the example corpus at first a new wordlist must be generated based on the filtered corpus.
 ```{r}
-Sys.setlocale("LC_COLLATE", "C")
-wordtableFiltered <- makeWordlist(corpusFiltered$text)
+wordtableFiltered <- makeWordlist(corpusFiltered$text, method = "radix")
 ```
 ```{r}
 head(sort(wordtableFiltered$wordtable, decreasing = TRUE))

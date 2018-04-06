@@ -7,6 +7,7 @@
 #' @param text List of texts.
 #' @param k Integer: How many texts should be processed at once (RAM
 #' usage)?
+#' @param ... further arguments for the sort function.
 #' @return \item{words}{An alphabetical list of the words in the corpus}
 #' \item{wordtable}{A frequency table of the words in the corpus}
 #' @keywords manip
@@ -21,7 +22,7 @@
 #' makeWordlist(text=texts, k = 2L)
 #'
 #' @export makeWordlist
-makeWordlist <- function(text, k = 100000L){
+makeWordlist <- function(text, k = 100000L, ...){
   stopifnot(is.textmeta(textmeta(text = text)),
     is.numeric(k), as.integer(k) == k, length(k) == 1)
   n <- length(text)
@@ -34,7 +35,7 @@ makeWordlist <- function(text, k = 100000L){
     words <- c(words, unique(unlist(text[(i*k+1):(min(n, i*k+k))])))
   }
   message("  ", n, " next step")
-  words <- sort(unique(words))
+  words <- sort(unique(words),...)
   message("calculate counts...\n done:")
   wordtable <- rep(0, length(words))
   names(wordtable) <- words

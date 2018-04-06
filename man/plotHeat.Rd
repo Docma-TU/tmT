@@ -27,7 +27,7 @@ document)}
 
 \item{file}{Character vector containing the path and name for the pdf output file.}
 
-\item{unit}{Character:  To which unit should dates be floored (default: \code{"year"})? 
+\item{unit}{Character:  To which unit should dates be floored (default: \code{"year"})?
 Other possible units are \code{"bimonth"}, \code{"quarter"}, \code{"season"},
 \code{"halfyear"}, \code{"year"}, for more units see \code{\link[lubridate]{round_date}}}
 

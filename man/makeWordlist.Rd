@@ -4,13 +4,15 @@
 \alias{makeWordlist}
 \title{Counts Words in Text Corpora}
 \usage{
-makeWordlist(text, k = 100000L)
+makeWordlist(text, k = 100000L, ...)
 }
 \arguments{
 \item{text}{List of texts.}
 
 \item{k}{Integer: How many texts should be processed at once (RAM
 usage)?}
+
+\item{...}{further arguments for the sort function.}
 }
 \value{
 \item{words}{An alphabetical list of the words in the corpus}
