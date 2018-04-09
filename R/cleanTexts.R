@@ -22,7 +22,7 @@
 #' be removed from articles.
 #' @param checkUTF8 Logical: Should be set to \code{TRUE} if articles should
 #' be tested on UTF-8 - which is package standard.
-#' @param ucp Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package.
+#' @param ucp Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package. Runs remove punctuation twice (ASCII and Unicode).
 #' @return A list containing the preprocessed articles.
 #' @keywords manip
 
@@ -81,7 +81,8 @@ cleanTexts <- function(object, text, sw = "en", paragraph = FALSE,
   else message("skip")
   message("remove punctuation: ", appendLF = FALSE)
   if(rmPunctuation){
-    text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE, ucp=ucp)
+    text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE)
+    if(ucp)text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE, ucp=TRUE)
     message("next step")
   }
   else message("skip")

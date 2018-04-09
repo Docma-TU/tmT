@@ -31,7 +31,7 @@ be removed from articles.}
 \item{checkUTF8}{Logical: Should be set to \code{TRUE} if articles should
 be tested on UTF-8 - which is package standard.}
 
-\item{ucp}{Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package.}
+\item{ucp}{Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package. Runs remove punctuation twice (ASCII and Unicode).}
 }
 \value{
 A list containing the preprocessed articles.

@@ -26,7 +26,7 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = c(1:4,
 
 \item{delete}{Logical: If \code{TRUE} all not resolved HTML-entities would bei deleted?}
 
-\item{symbols}{Logical: If \code{TRUE} most symbols from ISO-8859 would be not resolved (32:64,91:96,123:126,160:191,215,247, 818, 8194:8222, 8254, 8291, 8417, 8470).}
+\item{symbols}{Logical: If \code{TRUE} most symbols from ISO-8859 would be not resolved (32:64,91:96,123:126,160:191,215,247, 818, 8194:8222, 8254, 8291, 8364, 8417, 8470).}
 }
 \value{
 Adjusted corpus
