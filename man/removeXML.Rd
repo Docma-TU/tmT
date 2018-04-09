@@ -4,7 +4,7 @@
 \alias{removeXML}
 \alias{removeUmlauts}
 \alias{removeHTML}
-\title{Removes XML Tags and Umlauts}
+\title{Removes XML/HTML Tags and Umlauts}
 \usage{
 removeXML(x)
 
@@ -16,23 +16,23 @@ removeHTML(x, dec = TRUE, hex = TRUE, entity = TRUE, symbolList = c(1:4,
 \arguments{
 \item{x}{Character: Vector or list of character vectors.}
 
-\item{dec}{logical remove html decimal?}
+\item{dec}{Logical: If \code{TRUE} HTML-entities in decimal-style would be resolved.}
 
-\item{hex}{logical remove html hex?}
+\item{hex}{Logical: If \code{TRUE} HTML-entities in hexadecimal-style would be resolved.}
 
-\item{entity}{logical remove html name?}
+\item{entity}{Logical: If \code{TRUE} HTML-entities in text-style would be resolved.}
 
-\item{symbolList}{Which ISO-8859 Lists?}
+\item{symbolList}{numeric vector to chhose from the 16 ISO-8859 Lists (ISO-8859 12 did not exists and is empty).}
 
-\item{delete}{delete other entitys?}
+\item{delete}{Logical: If \code{TRUE} all not resolved HTML-entities would bei deleted?}
 
-\item{symbols}{check symbols?}
+\item{symbols}{Logical: If \code{TRUE} most symbols from ISO-8859 would be not resolved (32:64,91:96,123:126,160:191,215,247, 818, 8194:8222, 8254, 8291, 8417, 8470).}
 }
 \value{
 Adjusted corpus
 }
 \description{
-Removes XML tags and changes umlauts in a standardized form.
+Removes XML tags (removeXML), remove or resolve HTML tags (removeHTML) and changes german umlauts in a standardized form (removeUmlauts).
 }
 \details{
 The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of a word.

@@ -5,7 +5,7 @@
 \title{Data Preprocessing}
 \usage{
 cleanTexts(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
-  rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE)
+  rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE, ucp = TRUE)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
@@ -14,7 +14,7 @@ cleanTexts(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
 \code{object\$text}: List of article texts.}
 
 \item{sw}{Character: Vector of stopwords. If the vector is of length
-one, \code{sw} is interpreted as argument for \code{\link{stopwords}}}
+one, \code{sw} is interpreted as argument for \code{\link[tm]{stopwords}} from the tm package.}
 
 \item{paragraph}{Logical: Should be set to \code{TRUE} if one article is a
 list of character strings, representing the paragraphs.}
@@ -30,6 +30,8 @@ be removed from articles.}
 
 \item{checkUTF8}{Logical: Should be set to \code{TRUE} if articles should
 be tested on UTF-8 - which is package standard.}
+
+\item{ucp}{Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package.}
 }
 \value{
 A list containing the preprocessed articles.

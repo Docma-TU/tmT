@@ -10,6 +10,7 @@ library(roxygen2)
 roxygenize(package.dir = ".")
 
 
+setwd("C:/Users/koppers/Desktop")
 system("Rcmd Rd2pdf C:/Users/koppers/Desktop/tmT")
 
 ##############

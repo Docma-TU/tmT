@@ -1,6 +1,6 @@
-#' Removes XML Tags and Umlauts
+#' Removes XML/HTML Tags and Umlauts
 #'
-#' Removes XML tags and changes umlauts in a standardized form.
+#' Removes XML tags (removeXML), remove or resolve HTML tags (removeHTML) and changes german umlauts in a standardized form (removeUmlauts).
 #'
 #'
 #' @param x Character: Vector or list of character vectors.
@@ -54,19 +54,20 @@ removeUmlauts <- function(x){
 }
 
 #' @rdname removeXML
-#' @param dec logical remove html decimal?
-#' @param hex logical remove html hex?
-#' @param entity logical remove html name?
-#' @param symbolList Which ISO-8859 Lists?
-#' @param delete delete other entitys?
-#' @param symbols check symbols?
+#' @param dec Logical: If \code{TRUE} HTML-entities in decimal-style would be resolved.
+#' @param hex Logical: If \code{TRUE} HTML-entities in hexadecimal-style would be resolved.
+#' @param entity Logical: If \code{TRUE} HTML-entities in text-style would be resolved.
+#' @param symbolList numeric vector to chhose from the 16 ISO-8859 Lists (ISO-8859 12 did not exists and is empty).
+#' @param delete Logical: If \code{TRUE} all not resolved HTML-entities would bei deleted?
+#' @param symbols Logical: If \code{TRUE} most symbols from ISO-8859 would be not resolved (32:64,91:96,123:126,160:191,215,247, 818, 8194:8222, 8254, 8291, 8417, 8470).
 #' @export
 
 removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13,15,16), delete=TRUE, symbols=FALSE){
     entityList <- sort(unique(as.vector(ISO8859()[,symbolList])))
 
     if(!symbols){ # remove symbols from entityList
-        symbolList <- toupper(paste0(as.hexmode(c(32:64,91:96,123:126,160:191,215,247))))
+        symbolList <- toupper(paste0(as.hexmode(c(32:64,91:96,123:126,160:191,215,247, 818, 8194:8222, 8254, 8291, 8417, 8470))))
+        symbolList <- gsub(pattern="^0*", replacement="", symbolList)
         entityList <- entityList[!entityList %in% symbolList]
     }
 

@@ -11,7 +11,7 @@
 #' @param text Bot necassary if \code{object} is specified, else should be
 #' \code{object\$text}: List of article texts.
 #' @param sw Character: Vector of stopwords. If the vector is of length
-#' one, \code{sw} is interpreted as argument for \code{\link{stopwords}}
+#' one, \code{sw} is interpreted as argument for \code{\link[tm]{stopwords}} from the tm package.
 #' @param paragraph Logical: Should be set to \code{TRUE} if one article is a
 #' list of character strings, representing the paragraphs.
 #' @param lowercase Logical: Should be set to \code{TRUE} if all letters should
@@ -22,6 +22,7 @@
 #' be removed from articles.
 #' @param checkUTF8 Logical: Should be set to \code{TRUE} if articles should
 #' be tested on UTF-8 - which is package standard.
+#' @param ucp Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package.
 #' @return A list containing the preprocessed articles.
 #' @keywords manip
 
@@ -49,7 +50,7 @@
 #'
 #' @export cleanTexts
 cleanTexts <- function(object, text, sw = "en", paragraph = FALSE,
-  lowercase = TRUE, rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE){
+  lowercase = TRUE, rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE, ucp=TRUE){
 
   if(length(sw) == 1){
     if(sw %in% c("de", "ge", "german"))
@@ -65,7 +66,7 @@ cleanTexts <- function(object, text, sw = "en", paragraph = FALSE,
   }
   stopifnot(is.textmeta(textmeta(text = text)), is.character(sw),
     is.logical(paragraph), length(paragraph) == 1,
-    all(is.logical(c(lowercase, rmPunctuation, rmNumbers))))
+    all(is.logical(c(lowercase, rmPunctuation, rmNumbers, ucp))))
   message("check articles on UTF8: ", appendLF = FALSE)
   if(checkUTF8){
     stopifnot(all(unlist(lapply(text, function(x) lapply(x, validUTF8)))))
@@ -80,7 +81,7 @@ cleanTexts <- function(object, text, sw = "en", paragraph = FALSE,
   else message("skip")
   message("remove punctuation: ", appendLF = FALSE)
   if(rmPunctuation){
-    text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE)
+    text <- lapply(text, tm::removePunctuation, preserve_intra_word_dashes = FALSE, ucp=ucp)
     message("next step")
   }
   else message("skip")
