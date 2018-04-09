@@ -208,7 +208,16 @@ print(corpusDate)
 The filtered corpus contains only the 3909 texts from the period 2006 till 2009. 
 
 ## Filter Corpus by Wordcount - \texttt{filterCount}
-\colorbox{red}{TODO:(folgt...)}
+After cleaning the example corpus and restricting it to the given dates it consists of texts with the distribution of wordcounts (including symbols) given below.
+```{r}
+textCounts <- lengths(corpusDate$text)
+quantile(textCounts, probs = c(0, 0.05, 0.1, 0.2, 0.5, 0.8, 0.9, 0.95, 1))
+```
+Maybe you want to exclude very sparse texts from your analysis. Therefore you can use the function \texttt{filterCount}. The function regards words which only consist of letters and which are seperated by any word seperating symbol like whitespace or punctuation. Tokenized texts can also be processed. The function call \texttt{filterCount(corpus, count = 5)} for example deletes all texts from \texttt{corpus} which consist of four or less words. 
+```{r}
+mean(textCounts != filterCount(corpusDate, out = "count"))
+```
+The counts returned by \texttt{filterCount} need not to match the lengths of the tokenized texts exactly, because based on the way of preprocessing the corpus may contain symbols - which leads to smaller counts - or multiple words in one token. These multiple words could be unaffected by tokenization in \texttt{cleanTexts} if they are seperated by remaining symbols instead of whitespace and lead to higher counts.
 
 ## Filter Corpus by Words - \texttt{filterWord}
 The use of \texttt{filterWord} works analogously. It filters the \texttt{text} component of a \texttt{textmeta} object by appearances of specific words. The function uses regular expressions. It filters the given documents in the \texttt{text} component by words handed over by \texttt{search}, which could be a simple \texttt{character} vector or a \texttt{list} of \texttt{data.frames}. In the case of a character vector handed over the entries of the vector are linked by an \textit{or}, so if \textit{any} of the words appears in one specific document, it is returned.
