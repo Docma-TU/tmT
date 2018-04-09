@@ -156,7 +156,7 @@ The plot shows that between 2006 and 2011 around 80 per cent of the corpus are n
 ## Frequency Analysis - \texttt{plotFreq}
 The other descriptive plotting function is \texttt{plotFreq} which performs a frequency analysis. Most of the arguments does not differ from \texttt{plotScot}. But the options \texttt{wordlist} and \texttt{link = c("and", "or")} are added for specifying the words of the frequency analysis and their link within one vector. In detail \texttt{wordlist} could either be a \texttt{list} of \texttt{character} vectors or a single \texttt{character} vector, which will be coerced to a \texttt{list} of the vector's length. Each \texttt{list} entry represents a set of words which all (default \texttt{link = "and"}) or one of them (\texttt{link = "or"}) should appear in an article to be counted. The function uses \texttt{filterWord} with \texttt{out = "count"}, which is explained later on, for counting.
 
-The example corpus contains Wikinews articles concerning the categories *Politics_and_conflicts* and *Economy_and_business*. Therefore some typical words out of these categories were taken to perform a frequency analysis. First of all the words \textit{unemployment}, \textit{growth} and \textit{trade} were taken. \colorbox{red}{The function identifies patterns. Geht auch word? Trunkierung wie bei filterWord? ... Nein geht nicht!} 
+The example corpus contains Wikinews articles concerning the categories *Politics_and_conflicts* and *Economy_and_business*. Therefore some typical words out of these categories were taken to perform a frequency analysis. First of all the words \textit{unemployment}, \textit{growth} and \textit{trade} were taken. The function identifies patterns. 
 \colorbox{red}{TODO:[Grafiken: Link-Beschreibung in Grafiküberschrift immer noch nicht perfekt zu sehen. Vorschlag: "over time. Link:" statt "over time - link:" evtl. reicht das schon ]}
 ```{r, fig.width=5, fig.height=3.5, fig.align=2, fig.show="hold"}
 wordsEconomy <- list("unemployment", "growth", "trade", c("unemployment", "growth", "trade"))
@@ -308,16 +308,16 @@ For validation of LDA results there are two functions in the package. These func
 
 The LDA result of the example corpus is checked by \texttt{intruderWords} with a number of intruders of zero or one.
 ```{r, eval = FALSE}
-set.seed(174)
+set.seed(124)
 intWords <- intruderWords(beta = result$topics, numIntruder = 0:1)
 ```
 ```{r, include = FALSE}
-set.seed(174)
+set.seed(124)
 intWords <- intruderWords(beta = result$topics, numIntruder = 0:1,
   test = TRUE, testinput = as.character(c(5,0,0,5,1,2,0,5,3,5)))
 ```
 ```{r, echo = FALSE}
-set.seed(174)
+set.seed(124)
 toDelete <- intruderWords(beta = result$topics, numIntruder = 0:1,
   test = TRUE, testinput = "q", printSolution = TRUE)
 ```
@@ -347,7 +347,7 @@ For analysing topic similarities it is useful to cluster the topics. The functio
 clustRes <- clusterTopics(ldaresult = result, xlab = "Topic", ylab = "Distance")
 names(clustRes)
 ```
-The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. \colorbox{yellow}{(Inhaltlich checken!)}For example the plot hints to the similarity with regards to content between topic 4 and topic 9, which both contain economic terms with topic 9 focussing more on economic policy. Topic 5 and 8 both include words on international politics with topic 5 mentioning climate and trade and topic 8 concentrating on conflicts.   
+The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. \colorbox{yellow}{(Inhaltlich checken!)}For example the plot hints to the similarity with regards to content between topic 6, 3 and 5 which all contain economic terms with topic 6 focussing more on economic policy and topic 5 concentrating on international politics and trade. Topic 2 and 8 both include words on national politics with topic 2 mentioning Australia, Ireland and the UK and topic 8 concentrating on U.S. politics. Topic 4 on war and conflict is close to topic 2 and 8.   
 
 It is possible to merge different results of LDAs by calling \texttt{mergeLDA(list(result1, result2, ..., resultN))}. The function \texttt{mergeLDA} binds the \texttt{topics} elements of the results by row and only consider words which appears in all results. As result you receive the \texttt{topics} matrix including all topics from the given results.
 
@@ -363,33 +363,33 @@ plotTopic(object = corpusFiltered, ldaresult = result, ldaID = ldaID,
 There is no difference of handing over an inflated corpus with documents which were not used for LDA. But the corpus must contain all documents of the LDA.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopic(object = corpusClean, ldaresult = result, ldaID = ldaID,
-  select = c(1, 4, 8:9), rel = TRUE, curves = "both", smooth = 0.1, legend = "topleft")
+  select = c(3:4, 6, 8), rel = TRUE, curves = "both", smooth = 0.1, legend = "topleft")
 ```
 
 ## Visualisation of Topic Share over Time - \texttt{plotArea}
 The function \texttt{plotArea} offers possibilities to create so called area visualisations of topics over time. It requires arguments \texttt{ldaresult}, \texttt{ldaid} and \texttt{meta} as introduced before. There are options \texttt{select}, \texttt{tnames}, \texttt{unit} and others. Additionally you can set \texttt{threshold} to a \texttt{numeric} between 0 and 1, as a limit, which a topics proportion have to surpass at least once to be plotted.
 
-Because this seems to be interesting topics \colorbox{yellow}{Inhaltlich checken!} \textit{T4.economy} (blue curve), \textit{T9.economic policy} (green) and \textit{T1.US politics} (red) are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"} (default is \texttt{"quarter"}).
+Because this seems to be interesting topics \colorbox{yellow}{Inhaltlich checken!} \textit{T3.economy} (blue curve), \textit{T6.economic policy} (green) and \textit{T8.US politics} (red) are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"} (default is \texttt{"quarter"}).
 ```{r, eval = FALSE}
 plotArea(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
-  select = c(4, 9, 1), unit = "bimonth", sort = FALSE)
+  select = c(3, 6, 8), unit = "bimonth", sort = FALSE)
 ```
 ```{r, echo=FALSE, fig.width=5.5, fig.height=3, fig.align=2}
 par(mar = c(3.5,3,1.5,1.5)+0.1)
 plotArea(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
-  select = c(4, 9, 1), unit = "bimonth", sort = FALSE)
+  select = c(3, 6, 8), unit = "bimonth", sort = FALSE)
 ```
-\colorbox{yellow}{(Inhaltlich checken!)} Examplary interpretation: The topic \textit{T4.economy} increases over time, especially after the bank Lehman Brothers declared bankruptcy in September 2008, the starting point of the global financial crisis. \textit{T1.US politics} is considerably larger during the 2008 presidential election campaign.
+\colorbox{yellow}{(Inhaltlich checken!)} Examplary interpretation: The topic \textit{T3.economy} increases over time, especially after the bank Lehman Brothers declared bankruptcy in September 2008, the starting point of the global financial crisis. \textit{T8.US politics} is considerably larger during the 2008 presidential election campaign.
 
 ## Visualisation of Words in Topic over Time - \texttt{plotTopicWord, plotWordpt}
 Another visualise topics over time is given by \texttt{plotTopicword}. It displays the counts or proportion of given topic-word combinations. If \texttt{rel = TRUE} the baseline for normalisation are the words counts, not the counts of topics. Arguments which have to specified are \texttt{object} (corpus, \texttt{textmeta} object), \texttt{docs} (corpus manipulated by \texttt{LDAprep}, the input for \texttt{LDAgen}) and the \texttt{ldaresult} with its \texttt{ldaid} (IDs of documents in \texttt{docs} or \texttt{ldaresult} respectively). The function asks for \texttt{docs} for complexity reasons. This object should be created while preparation for LDA anyway. The options \texttt{wordlist} and \texttt{select} are known from other plot functions and offer a lot of different topic word combinations which should be plotted by \texttt{plotTopicword}.
 
-In the example corpus the proportion of the word \textit{economy} in the topics one, three and seven is explored. The \texttt{top.topic.words} of the three chosen topics are \colorbox{yellow}{Inhaltlich checken!}\textit{tax} (T9.economic policy, lightgreen curve), \textit{loss} (T4.economy, orange) and \textit{obama} (T1.US politics, purple).
+In the example corpus the proportion of the word \textit{economy} in the topics one, three and seven is explored. The \texttt{top.topic.words} of the three chosen topics are \colorbox{yellow}{Inhaltlich checken!}\textit{economy} (T3.economy, lightgreen curve), \textit{million} (T6.economic policy, orange) and \textit{obama} (T8.US politics, purple).
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
-  wordlist = "economy", select = c(9, 4, 1), rel = TRUE, legend = "topleft")
+  wordlist = "economy", select = c(3, 6, 8), rel = TRUE, legend = "topleft")
 ```
-The graphic shows that the word \textit{economy} is associated to the topic \colorbox{yellow}{\textit{T9.economic policy, lightgreen curve}} and \colorbox{yellow}{\textit{T4.economy, orange curve}} much more often than with \colorbox{yellow}{\textit{T1.US politics, purple curve}} .
+The graphic shows that the word \textit{economy} is associated to the topic \colorbox{yellow}{\textit{T3.economy, lightgreen curve}} more often than with \colorbox{yellow}{\textit{T6.economic policy, orange curve}} and \colorbox{yellow}{\textit{T8.US politics, purple curve}} .
 
 For interpretating it is important to keep in mind the baseline, the word counts of \textit{economy}. To display this the sums of all topic-word proportions are calculated and are expected to be one for all dates which appear at least once, otherwise zero.
 ```{r, eval = FALSE}
@@ -408,7 +408,7 @@ This is confirmed by the call above. For some analysis maybe it could be interes
 The function \texttt{plotWordpt} works analogously like its pendant \texttt{plotTopicWord}, but with baseline topic sums instead of word sums. The difference between both functions \texttt{plotWordpt} and \texttt{plotTopicWord} is given by the fact that \texttt{plotWordpt} considers topic peaks. You will get the relative counts of the selected word(s) in the selected topic(s). All curves sum up to one if you choose any topic and the whole vocabulary list as wordlist.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotWordpt(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
-  wordlist = "economy", select = c(9, 4, 1), rel = TRUE)
+  wordlist = "economy", select = c(3, 6, 8), rel = TRUE)
 ```
 
 ## Visualisation of Words in Articles allocated to Topics - \texttt{plotWordSub}
@@ -416,7 +416,7 @@ Imagine you want to identify words which are used frequently in articles allocat
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 searcheco <- data.frame(pattern = "economy", word = TRUE, count = 3)
 plotWordSub(object = corpusFiltered, ldaresult = result, ldaID = ldaID, limit = 1/3,
-  select = c(4, 9, 1), search = searcheco, unit = "quarter", legend = "topright")
+  select = c(3, 6, 8), search = searcheco, unit = "quarter", legend = "topright")
 ```
 The plot shows subcorpora generated by the \texttt{search} argument above, which means articles must contain the word \textit{economy} at least three times. The corpora from which these subcorpora are generated have to contain one third of words which are allocated to the corresponding topic (\texttt{limit = 1/3}). 
 
@@ -425,19 +425,19 @@ The use case for \texttt{plotHeat} is given by searching for explicit peaks of c
 
 By default the  proportions are calculated on the article lengths, but it is possible to force calculation on only the LDA vocabulary by setting \texttt{object} to a \texttt{textmeta} object only including meta information. Otherwise a strictly tokenized \texttt{textmeta} object is required. The parameters \texttt{ldaresult} and \texttt{ldaID} expect a LDA result and according IDs like in functions mentioned before. Options \texttt{tnames} (topic label), \texttt{file} (if you want to save the plot in a pdf) and \texttt{unit} (default: round dates to \texttt{"year"}) are given as well. Additionally it is possible to set whether the deviations should be normalised to take different topic sizes into account (default: \texttt{norm = FALSE}). You can change the intervals of labeling on the x-axis by setting \texttt{date\_breaks}. By default (\texttt{date\_breaks = 1}) every label is drawn. If you choose \texttt{date\_breaks = 5} every fifth label will be drawn.
 
-The increase of the topic \colorbox{yellow}{\textit{T4.economy} after September 2008} was mentioned before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen.
+The increase of the topic \colorbox{yellow}{\textit{T3.economy} after September 2008} was mentioned before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen.
 ```{r, fig.height=6, fig.width=10}
 plotHeat(object = corpusFiltered, ldaresult = result, ldaID = ldaID, unit = "quarter")
 ```
 
-\colorbox{yellow}{As expected the \textit{T4.economy}} topic increase is clearly identifiable. The according rectangles are colored more and more red from the first quarter of 2009 in this figure. On the other hand mostly all other quarters of years concerning this topic are colored lightblue. \colorbox{yellow}{Other remarkable quarters} are for example the third and fourth quarter of 2007, where the \colorbox{yellow}{topic \textit{T6.Canadian politics} and topic \textit{T2.stopwords}} have noticeable peaks. The dendrogramm shows that the topics are not very similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This supports the findings of clustering the topics with \texttt{clusterTopics}.
+\colorbox{yellow}{As expected the \textit{T3.economy}} topic increase is clearly identifiable. The according rectangles are colored more and more red from the first quarter of 2009 in this figure. On the other hand mostly all other quarters of years concerning this topic are colored lightblue. \colorbox{yellow}{Other remarkable quarters} are for example the third and fourth quarter of 2007, where the \colorbox{yellow}{topic \textit{T10.Canadian politics} and topic \textit{T1.stopwords}} have noticeable peaks. The dendrogramm shows that the topics are not very similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This supports the findings of clustering the topics with \texttt{clusterTopics}.
 
 ## Individual Cases Contemplation - \texttt{topTexts}, \texttt{topicsInText}
-Sometimes it is useful to look at some individual cases sometimes. Especially the documents with the highest counts or proportion of words belonging to one topic are of interest. These documents can be extracted by \texttt{topTexts}. By default (\texttt{rel = TRUE}) the proportion is considered. The function requires a \texttt{ldaresult} and the according \texttt{ldaid}. It offers options \texttt{select}, \texttt{limit} and \texttt{minlength}, which control how much articles per topic (default: all topics) are returned (default: \texttt{limit = 20}) and articles of which minimum length (default: \texttt{minlength = 30}) are taken into account. The output value is a matrix of the according IDs.\colorbox{red}{TODO: Hier ist die Sortierung der TopWords im Output wieder anders bei T4 und T9.}
+Sometimes it is useful to look at some individual cases sometimes. Especially the documents with the highest counts or proportion of words belonging to one topic are of interest. These documents can be extracted by \texttt{topTexts}. By default (\texttt{rel = TRUE}) the proportion is considered. The function requires a \texttt{ldaresult} and the according \texttt{ldaid}. It offers options \texttt{select}, \texttt{limit} and \texttt{minlength}, which control how much articles per topic (default: all topics) are returned (default: \texttt{limit = 20}) and articles of which minimum length (default: \texttt{minlength = 30}) are taken into account. The output value is a matrix of the according IDs.
 
-In the example the top four pages from the topics \colorbox{yellow}{\textit{T1.US politics}, {\textit{T4.economy} and \textit{T9.economic policy}} are requested. 
+In the example the top four pages from the topics \colorbox{yellow}{\textit{T8.US politics}, {\textit{T3.economy} and \textit{T6.economic policy}} are requested. 
 ```{r}
-topID <- topTexts(ldaresult = result, ldaID = ldaID, select = c(1, 4, 9), limit = 4)
+topID <- topTexts(ldaresult = result, ldaID = ldaID, select = c(8, 3, 6), limit = 4)
 dim(topID)
 ```
 Obviously the corresponding matrix has four rows and three columns.
