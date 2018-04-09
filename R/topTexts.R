@@ -37,7 +37,7 @@ topTexts <- function(ldaresult, ldaID, limit = 20L, rel = TRUE,
   select = 1:nrow(ldaresult$document_sums), tnames, minlength = 30L){
 
   if(missing(tnames)) tnames <- paste0("T", select, ".",
-    lda::top.topic.words(ldaresult$topics, 1)[select])
+    lda::top.topic.words(ldaresult$topics, 1, by.score = TRUE)[select])
   stopifnot(is.character(ldaID), as.integer(limit) == limit, length(limit) == 1,
     is.logical(rel), length(rel) == 1,
     as.integer(minlength) == minlength,

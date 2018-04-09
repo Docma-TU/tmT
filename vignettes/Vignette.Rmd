@@ -109,8 +109,8 @@ The function \texttt{cleanTexts} deletes all \texttt{meta} entries which did not
 To create a \texttt{textmeta} object including this data the corresponding function is used.
 
 ```{r}
-textClean2 = cleanTexts(text = corpus$text)
-corpusClean2 = textmeta(text = textClean2, meta = corpus$meta)
+textClean2 <- cleanTexts(text = corpus$text)
+corpusClean2 <- textmeta(text = textClean2, meta = corpus$meta)
 ```
 
 
@@ -119,7 +119,7 @@ After cleaning the corpus with the function \texttt{cleanTexts} we are able to c
 
 For calculating wordlists a tokenized corpus must be used. In the given example \texttt{corpusClean\$text} is handed over to the function accordingly.
 ```{r}
-wordtable = makeWordlist(corpusClean$text)
+wordtable <- makeWordlist(corpusClean$text)
 ```
 
 # Descriptive Analysis
