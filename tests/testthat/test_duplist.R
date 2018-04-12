@@ -1,23 +1,34 @@
 context("creating duplists")
-
 test_that("duplist", {
-  load("data/SP_compare.RData")
-  load("data/SZ_compare.RData")
-  load("data/Nexis_compare.RData")
 
-  SPduplist2 <- duplist(SPIEGEL, paragraph = TRUE)
-  SZduplist2 <- duplist(SZ, paragraph = TRUE)
-  Nexisduplist2 <- duplist(Nexis)
+corpus <- textmeta(meta=data.frame(id=c("a","a", "b", "c", "c", "d", "d", "d", "e1", "e2"),
+                         title=c("a","a", "b", "c", "c", "d1", "d2", "d3", "e", "e"),
+                         date="2018-01-01", stringsAsFactors=FALSE),
+                   text=list(a="A",a="A", b="B", c="C1", c="C2", d="D", d="D", d="D", e="E", e="E"))
 
-  load("data/duplist_compare.RData")
 
-  expect_equal(SPduplist2, SPduplist)
-  expect_equal(SZduplist2, SZduplist)
-  expect_equal(Nexisduplist2, Nexisduplist)
+corpus <- deleteAndRenameDuplicates(corpus)
 
-  expect_true(is.duplist(SPduplist2))
-  expect_true(is.duplist(SZduplist2))
-  expect_true(is.duplist(Nexisduplist2))
+dl <- duplist(corpus, paragraph = FALSE)
+
+str(dl)
+
+DL <- list(
+    uniqueTexts = c("a", "b", "c_IDFakeDup1", "c_IDFakeDup2", "d_IDRealDup1", "e_IDRealDup1"),
+    notDuplicatedTexts = c("a", "b", "c_IDFakeDup1", "c_IDFakeDup2"),
+    idFakeDups = list(c = c("c_IDFakeDup1", "c_IDFakeDup2")),
+    idRealDups = list(d = c("d_IDRealDup1", "d_IDRealDup2", "d_IDRealDup3"),
+        e = c("e_IDRealDup1", "e_IDRealDup2")),
+    allTextDups = list(c("d_IDRealDup1", "d_IDRealDup2", "d_IDRealDup3"), c("e_IDRealDup1", "e_IDRealDup2")),
+    textOnlyDups = list(c("d_IDRealDup1", "d_IDRealDup2", "d_IDRealDup3")),
+    textMetaDups = list(c("e_IDRealDup1", "e_IDRealDup2")),
+    textOthersDups = character()
+)
+class(DL) <- "duplist"
+
+  expect_equal(dl,DL)
+
+  expect_true(is.duplist(dl))
 
   expect_false(is.duplist(pi))
   a <- pi
