@@ -317,20 +317,20 @@ For validation of LDA results there are two functions in the package. These func
 
 The LDA result of the example corpus is checked by \texttt{intruderWords} with a number of intruders of zero or one.
 ```{r, eval = FALSE}
-set.seed(124)
+set.seed(155)
 intWords <- intruderWords(beta = result$topics, numIntruder = 0:1)
 ```
 ```{r, include = FALSE}
-set.seed(124)
+set.seed(155)
 intWords <- intruderWords(beta = result$topics, numIntruder = 0:1,
-  test = TRUE, testinput = as.character(c(5,0,0,5,1,2,0,5,3,5)))
+  test = TRUE, testinput = as.character(c(1,2,5,1,4,0,0,5,1,2)))
 ```
 ```{r, echo = FALSE}
-set.seed(124)
+set.seed(155)
 toDelete <- intruderWords(beta = result$topics, numIntruder = 0:1,
   test = TRUE, testinput = "q", printSolution = TRUE)
 ```
-\colorbox{yellow}{(Beispiel austauschen!)}As an illustration the first set is shown. The word \textit{will} does not fit into the set with the words \textit{bill}, \textit{tax}, \textit{billion} and \textit{budget}. Therefore the user would type \texttt{5} and press enter. If the user wants to mark nonsense topics he would type an \texttt{x} (in the summary the number of meaningful topics is shown) and \texttt{0} if he thinks there is no intruder word. Actually \textit{will} is the true intruder in the set above. As an example user input \texttt{c(5, 0, 0, 5, 1, 2, 0, 5, 3, 5)} is considered.
+As an illustration the first set is shown. The word \textit{parliament} does not fit into the set with the words \textit{obama}, \textit{bush}, \textit{presidential} and \textit{mccain}. Therefore the user would type \texttt{1} and press enter. If the user wants to mark nonsense topics he would type an \texttt{x} (in the summary the number of meaningful topics is shown) and \texttt{0} if he thinks there is no intruder word. Actually \textit{will} is the true intruder in the set above. As an example user input \texttt{c(1, 2, 5, 1, 4, 0, 0, 5, 1, 2)} is considered.
 ```{r}
 print(intWords)
 ```
