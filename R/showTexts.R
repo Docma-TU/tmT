@@ -42,9 +42,9 @@ showTexts <- function(object, id = names(object$text), file){
     mtch2 <- match(id[,i],object$meta$id)
     out <- lapply(object$text[mtch1],paste,collapse=" ")
     out <- unlist(out)
-    out2 <- cbind(object$meta$id[mtch2],object$meta$title[mtch2],as.character(object$meta$date[mtch2]),out)
+    out2 <- cbind(object$meta$id[mtch2],as.character(object$meta$date[mtch2],object$meta$title[mtch2]),out)
     out2 <- data.frame(out2, stringsAsFactors = FALSE, row.names = 1:length(out))
-    colnames(out2) <- c("id","title","date","text")
+    colnames(out2) <- c("id","date","title","text")
     if(!missing(file)) write.csv(out2, file = paste0(file, nameArg[i], ".csv"))
     outlist <- c(outlist, list(out2))
   }
