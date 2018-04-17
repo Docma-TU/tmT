@@ -10,7 +10,7 @@
 #'  "complete duplicates" = same ID, same information in text, same information in meta
 #'  "real duplicates" = same ID, same information in text, different information in meta
 #'  "fake duplicates" = same ID, different information in text
-#' @return tba
+#' @return A filtered \code{textmeta} object with updated IDs.
 #' @examples
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
 #' Teach a Man To Fish, and You Feed Him for a Lifetime",

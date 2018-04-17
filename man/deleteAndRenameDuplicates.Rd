@@ -13,7 +13,7 @@ deleteAndRenameDuplicates(object, paragraph = FALSE)
 list of character strings, representing the paragraphs.}
 }
 \value{
-tba
+A filtered \code{textmeta} object with updated IDs.
 }
 \description{
 Deletes articles with the same ID and same text. Renames the ID of articles
