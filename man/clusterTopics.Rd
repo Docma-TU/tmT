@@ -4,7 +4,7 @@
 \alias{clusterTopics}
 \title{Cluster Analysis}
 \usage{
-clusterTopics(ldaresult, file, topicnames = NULL, method = "average",
+clusterTopics(ldaresult, file, tnames = NULL, method = "average",
   width = 30, height = 15, ...)
 }
 \arguments{
@@ -13,7 +13,7 @@ alternatively the corresponding matrix \code{result$topics}}
 
 \item{file}{File for the dendogram pdf.}
 
-\item{topicnames}{Character vector as label for the topics.}
+\item{tnames}{Character vector as label for the topics.}
 
 \item{method}{Method statement from \code{\link[stats]{hclust}}}
 

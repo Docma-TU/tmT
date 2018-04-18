@@ -5,7 +5,7 @@
 #' @param ldaresult The result of a function call \code{\link{LDAgen}} -
 #' alternatively the corresponding matrix \code{result$topics}
 #' @param file File for the dendogram pdf.
-#' @param topicnames Character vector as label for the topics.
+#' @param tnames Character vector as label for the topics.
 #' @param method Method statement from \code{\link[stats]{hclust}}
 #' @param width Grafical parameter for pdf output. See \code{\link[grDevices]{pdf}}
 #' @param height Grafical parameter for pdf output. See \code{\link[grDevices]{pdf}}
@@ -35,10 +35,10 @@
 #' \donttest{clusterTopics(ldaresult=LDA)}
 #'
 #' @export clusterTopics
-clusterTopics <- function(ldaresult, file, topicnames = NULL,
+clusterTopics <- function(ldaresult, file, tnames = NULL,
   method = "average", width = 30, height = 15, ...){
   if(is.matrix(ldaresult)) ldaresult <- list(topics = ldaresult)
-  if(is.null(topicnames)) topicnames <- 1:nrow(ldaresult$topics)
+  if(is.null(tnames)) tnames <- 1:nrow(ldaresult$topics)
   stopifnot(is.list(ldaresult), is.matrix(ldaresult$topics))
   topics <- ldaresult$topics/rowSums(ldaresult$topics)
   topics <- sqrt(topics)
@@ -47,9 +47,9 @@ clusterTopics <- function(ldaresult, file, topicnames = NULL,
   clust <- hclust(d=Dist, method)
   if(!missing(file)){
     pdf(file, width, height)
-    plot(clust, label=topicnames, ...)
+    plot(clust, label=tnames, ...)
     dev.off()
   }
-  else plot(clust, label=topicnames, ...)
+  else plot(clust, label=tnames, ...)
   invisible(list(dist=Dist, cluster=clust))
 }
