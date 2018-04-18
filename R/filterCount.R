@@ -2,15 +2,14 @@
 #'
 #' Creates a subcorpus including specific articles.
 #'
-#' @param object \code{\link{textmeta}} object
-#' @param text not necassary if \code{object} is specified, else should be
+#' @param object A \code{\link{textmeta}} object
+#' @param text Not necassary if \code{object} is specified, else should be
 #' \code{object\$text}: list of article texts
-#' @param count an integer marking how many words must at least be found in the text.
+#' @param count An integer marking how many words must at least be found in the text.
 #' @param out Type of output: \code{text} filtered corpus,
 #' \code{bin} logical vector for all texts,
 #' \code{count} the counts.
 #' @return Filtered list of texts.
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
 #' Teach a Man To Fish, and You Feed Him for a Lifetime",

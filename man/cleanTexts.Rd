@@ -2,7 +2,8 @@
 % Please edit documentation in R/cleanTexts.R
 \name{cleanTexts}
 \alias{cleanTexts}
-\title{Data Preprocessing}
+\title{Removes punctuation, numbers and stopwords, changes letters into lowercase
+and tokenizes.}
 \usage{
 cleanTexts(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
   rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE, ucp = TRUE)
@@ -10,7 +11,7 @@ cleanTexts(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
 \arguments{
 \item{object}{\code{\link{textmeta}} object}
 
-\item{text}{Bot necassary if \code{object} is specified, else should be
+\item{text}{Not necassary if \code{object} is specified, else should be
 \code{object\$text}: List of article texts.}
 
 \item{sw}{Character: Vector of stopwords. If the vector is of length
@@ -34,13 +35,9 @@ be tested on UTF-8 - which is package standard.}
 \item{ucp}{Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package. Runs remove punctuation twice (ASCII and Unicode).}
 }
 \value{
-A list containing the preprocessed articles.
+A \code{\link{textmeta}} object or a list (if \code{object} is not specified) containing the preprocessed articles.
 }
 \description{
-Removes punctuation, numbers and stopwords, changes letters into lowercase
-and tokenizes.
-}
-\details{
 Removes punctuation, numbers and stopwords, change into lowercase letters
 and tokenization. Additional some cleaning steps: remove empty words /
 paragraphs / article.

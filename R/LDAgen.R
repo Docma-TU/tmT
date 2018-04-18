@@ -1,6 +1,6 @@
 #' Function to fit LDA model
 #'
-#' This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link{lda}}-
+#' This function uses the \code{\link[lda]{lda.collapsed.gibbs.sampler}} from the lda-
 #' package and additionally saves topword lists and a R workspace.
 #'
 #'
@@ -17,7 +17,7 @@
 #' @param LDA logical: Should a new model be fitted or an existing R workspace?
 #' @param count logical: Should article counts calculated
 #' per top topic words be used for output as csv
-#' (default: \code{TRUE})?
+#' (default: \code{FALSE})?
 #' @return A .csv file containing the topword list and a R workspace containing the
 #' result data.
 #' @seealso Documentation for the lda package.

@@ -6,11 +6,11 @@
 #' alternatively the corresponding matrix \code{result$topics}
 #' @param file File for the dendogram pdf.
 #' @param topicnames Character vector as label for the topics.
-#' @param method Method statement from \code{\link{hclust}}
-#' @param width Grafical parameter for pdf output. See \code{\link{pdf}}
-#' @param height Grafical parameter for pdf output. See \code{\link{pdf}}
-#' @param ... Additional parameter for \code{\link{plot}}
-#' @return A dendogram as pdf and a list \item{dist}{A distance matrix}
+#' @param method Method statement from \code{\link[stats]{hclust}}
+#' @param width Grafical parameter for pdf output. See \code{\link[grDevices]{pdf}}
+#' @param height Grafical parameter for pdf output. See \code{\link[grDevices]{pdf}}
+#' @param ... Additional parameter for \code{\link[graphics]{plot}}
+#' @return A dendogram as pdf and a list containing \item{dist}{A distance matrix}
 #' \item{clust}{The result from \code{hclust}}
 #' @details This function is useful to analyze
 #' topic similarities and while evaluating the right number of topics of LDAs.

@@ -151,7 +151,7 @@ duplist <- function(object, paragraph = FALSE){
 }
 
 #' @rdname duplist
-#' @param x an R Object.
+#' @param x An R Object.
 #' @export
 is.duplist <- function(x){
   if(class(x) != "duplist"){
@@ -177,7 +177,7 @@ is.duplist <- function(x){
 }
 
 #' @rdname duplist
-#' @param ... further arguments for print and summary. Not implemented.
+#' @param ... Further arguments for print and summary. Not implemented.
 #' @export
 print.duplist <- function(x, ...){
   if(!is.duplist(x)){

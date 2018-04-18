@@ -2,7 +2,7 @@
 #'
 #' Generates a subcorpus by restricting it to texts containing specific filter Words
 #'
-#' @param object \code{\link{textmeta}} object
+#' @param object A \code{\link{textmeta}} object
 #' @param text Not necessary if \code{object} is specified, else should be
 #' \code{object\$text}: list of article texts.
 #' @param search List of data frames. Every List element is an 'or'
@@ -11,7 +11,6 @@
 #' @param ignore.case Logical: Lower and upper case will be ignored.
 #' @param out Type of output: \code{text} filtered corpus, \code{bin} logical vector for all texts, \code{count} the number of matches (max one match per character string).
 #' @return Filtered list of texts.
-#' @keywords ~kwd1 ~kwd2
 #' @examples
 #' texts <- list(A="Give a Man a Fish, and You Feed Him for a Day.
 #' Teach a Man To Fish, and You Feed Him for a Lifetime",

@@ -21,4 +21,4 @@ The politics dataset contains 5000 articles between 2004-11-13 and 2009-11-19 th
 \references{
 \url{https://en.wikinews.org/wiki/Special:Export}
 }
-\keyword{manip}
+\keyword{datasets}

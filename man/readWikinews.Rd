@@ -2,7 +2,7 @@
 % Please edit documentation in R/readWikinews.R
 \name{readWikinews}
 \alias{readWikinews}
-\title{Read the SZ corpus}
+\title{Read files from Wikinews}
 \usage{
 readWikinews(path = getwd(), file = list.files(path = path, pattern =
   "*.xml$", full.names = FALSE, recursive = TRUE))
@@ -16,9 +16,5 @@ readWikinews(path = getwd(), file = list.files(path = path, pattern =
 textmeta-object
 }
 \description{
-Reads the XML-files from the Wikinews Export page \url{https://en.wikinews.org/wiki/Special:Export}.
-}
-\examples{
-
-##---- Should be DIRECTLY executable !! ----
+Reads the XML-files from the Wikinews export page \url{https://en.wikinews.org/wiki/Special:Export}.
 }

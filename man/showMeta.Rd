@@ -20,7 +20,7 @@ A list of the requested meta data. If file is set, writes a csv including the me
 requested meta data.
 }
 \description{
-Exports requested meta-data of articles for given ids.
+Exports requested meta-data of articles for given id's.
 }
 \examples{
 meta <- data.frame(id=c("A", "B", "C", "D"),

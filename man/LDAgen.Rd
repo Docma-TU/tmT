@@ -33,14 +33,14 @@ LDAgen(documents, K = 100L, vocab, num.iterations = 200L, burnin = 70L,
 
 \item{count}{logical: Should article counts calculated
 per top topic words be used for output as csv
-(default: \code{TRUE})?}
+(default: \code{FALSE})?}
 }
 \value{
 A .csv file containing the topword list and a R workspace containing the
 result data.
 }
 \description{
-This function uses the \code{lda.collapsed.gibbs.sampler} from the \code{\link{lda}}-
+This function uses the \code{\link[lda]{lda.collapsed.gibbs.sampler}} from the lda-
 package and additionally saves topword lists and a R workspace.
 }
 \examples{

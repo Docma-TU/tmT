@@ -1,24 +1,34 @@
 #' Function to validate the fit of the LDA model
 #'
-#' This function validates a LDA result by presenting a mix of topics and intruder topics to a human user, who has to identity them. 
+#' This function validates a LDA result by presenting a mix of topics and intruder topics to a human user, who has to identity them.
 #'
-#' @param text tba
-#' @param beta A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.
-#' @param theta tba
-#' @param id tba
+#' @param text A list of texts (e.g. the text element of a \code{\link{textmeta}} object).
+#' @param beta A matrix of word-probabilities or frequency table for the topics (e.g. the \code{topics} matrix from the \code{\link{LDAgen}} result). Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.
+#' @param theta A matrix of wordcounts per text and topic (e.g. the \code{document_sums} matrix from the \code{\link{LDAgen}} result). Each row is a topic, each column a text. In each cell stands the number of words in text j belonging to topic i.
+#' @param id Optional: character vector of text IDs that should be used for the function. Useful to start a inchoate coding task.
 #' @param numIntruder Intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.
 #' @param numOuttopics tba Integer: Number of words per topic, including the intruder words
 #' @param byScore Logical: Should the score of \code{top.topic.words} from the \code{lda} package be used?
-#' @param minWords tba
-#' @param minOuttopics tba
-#' @param stopTopics tba
-#' @param printSolution tba
+#' @param minWords Integer: Minimum number of words for a choosen text.
+#' @param minOuttopics Integer: Minimal number of words a topic needs to be classified as a possible correct Topic.
+#' @param stopTopics Optional: Integer vector to deselect stopword topics for the coding task.
+#' @param printSolution Logical: If \code{TRUE} the coder gets a feedback after his/her vote.
 #' @param oldResult Result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
 #' @param test Logical: Enables test mode
 #' @param testinput Input for function tests
-#' @return tba
-#' @seealso tba
-#' @references tba
+#' @return Object of class \code{IntruderTopics}. List of 11
+#' \item{result} Matrix of 3 columns. Each row represents one labeled text. \code{numIntruder} (1. column) gives the number of intruder topics inputated in this text, \code{missIntruder} (2. column) the number of the intruder topics which were not found by the coder and \code{falseIntruder} (3. column) the number of the topics choosen by the coder which were no intruder.
+#' \item{beta} Parameter of the function call
+#' \item{theta} Parameter of the function call
+#' \item{id} Charater Vector of IDs at the beginning
+#' \item{byScore} Parameter of the function call
+#' \item{numIntruder} Parameter of the function call
+#' \item{numOuttopics} Parameter of the function call
+#' \item{minWords} Parameter of the function call
+#' \item{minOuttopics} Parameter of the function call
+#' \item{unusedID} Character vector of unused text IDs for the next run
+#' \item{stopTopics} Parameter of the function call
+#' @references Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
 #' @export intruderTopics
 
 intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL, test=FALSE, testinput=NULL){

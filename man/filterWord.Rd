@@ -8,7 +8,7 @@ filterWord(object, text, search, ignore.case = FALSE, out = c("text", "bin",
   "count"))
 }
 \arguments{
-\item{object}{\code{\link{textmeta}} object}
+\item{object}{A \code{\link{textmeta}} object}
 
 \item{text}{Not necessary if \code{object} is specified, else should be
 \code{object\$text}: list of article texts.}
@@ -55,5 +55,3 @@ data.frame(pattern="integrals", word="word", count=1)))
 
 
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

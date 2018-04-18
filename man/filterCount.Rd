@@ -7,12 +7,12 @@
 filterCount(object, text, count = 1L, out = c("text", "bin", "count"))
 }
 \arguments{
-\item{object}{\code{\link{textmeta}} object}
+\item{object}{A \code{\link{textmeta}} object}
 
-\item{text}{not necassary if \code{object} is specified, else should be
+\item{text}{Not necassary if \code{object} is specified, else should be
 \code{object\$text}: list of article texts}
 
-\item{count}{an integer marking how many words must at least be found in the text.}
+\item{count}{An integer marking how many words must at least be found in the text.}
 
 \item{out}{Type of output: \code{text} filtered corpus,
 \code{bin} logical vector for all texts,
@@ -37,5 +37,3 @@ filterCount(text=texts, count=10L, out="bin")
 
 filterCount(text=texts, count=10L, out="count")
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

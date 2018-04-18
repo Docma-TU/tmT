@@ -16,8 +16,6 @@
 #' @param unclearTopicAssignment Logical: If TRUE all words which are assigned to more than one topic will not be colored. Otherwise the words will be colored in order of topic apperance in the \code{ldaresult}.
 #' @param htmlreturn Logical: HTML output for tests
 #' @return A HTML document
-#' @seealso tba
-#' @references tba
 #' @export topicsInText
 
 

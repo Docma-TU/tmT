@@ -21,9 +21,9 @@ is.duplist(x)
 \item{paragraph}{Logical: Should be set to \code{TRUE} if the article is a
 list of character strings, representing the paragraphs.}
 
-\item{x}{an R Object.}
+\item{x}{An R Object.}
 
-\item{...}{further arguments for print and summary. Not implemented.}
+\item{...}{Further arguments for print and summary. Not implemented.}
 }
 \value{
 Named List:

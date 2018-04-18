@@ -1,6 +1,6 @@
 #' Export Readable Meta-Data of Articles.
 #'
-#' Exports requested meta-data of articles for given ids.
+#' Exports requested meta-data of articles for given id's.
 #'
 #'
 #' @param meta A data.frame of meta-data as a result of a read-function.

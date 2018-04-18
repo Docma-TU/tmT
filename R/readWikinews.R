@@ -1,6 +1,6 @@
-#' Read the SZ corpus
+#' Read files from Wikinews
 #'
-#' Reads the XML-files from the Wikinews Export page \url{https://en.wikinews.org/wiki/Special:Export}.
+#' Reads the XML-files from the Wikinews export page \url{https://en.wikinews.org/wiki/Special:Export}.
 #'
 #'
 #' @param path Path where the data files are.
@@ -8,9 +8,7 @@
 # #' @param do.meta Logical: Should the algorithm collect meta data?
 # #' @param do.text Logical: Should the algorithm collect text data?
 #' @return textmeta-object
-#' @examples
 #'
-#' ##---- Should be DIRECTLY executable !! ----
 #' @export readWikinews
 
 readWikinews <- function(path = getwd(), file = list.files(path = path, pattern = "*.xml$",

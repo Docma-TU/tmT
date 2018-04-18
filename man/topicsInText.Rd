@@ -42,9 +42,3 @@ A HTML document
 \description{
 The function creates a HTML document with the words of texts colored depending on the topic allocation of each word.
 }
-\references{
-tba
-}
-\seealso{
-tba
-}

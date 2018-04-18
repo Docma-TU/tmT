@@ -15,16 +15,16 @@ alternatively the corresponding matrix \code{result$topics}}
 
 \item{topicnames}{Character vector as label for the topics.}
 
-\item{method}{Method statement from \code{\link{hclust}}}
+\item{method}{Method statement from \code{\link[stats]{hclust}}}
 
-\item{width}{Grafical parameter for pdf output. See \code{\link{pdf}}}
+\item{width}{Grafical parameter for pdf output. See \code{\link[grDevices]{pdf}}}
 
-\item{height}{Grafical parameter for pdf output. See \code{\link{pdf}}}
+\item{height}{Grafical parameter for pdf output. See \code{\link[grDevices]{pdf}}}
 
-\item{...}{Additional parameter for \code{\link{plot}}}
+\item{...}{Additional parameter for \code{\link[graphics]{plot}}}
 }
 \value{
-A dendogram as pdf and a list \item{dist}{A distance matrix}
+A dendogram as pdf and a list containing \item{dist}{A distance matrix}
 \item{clust}{The result from \code{hclust}}
 }
 \description{

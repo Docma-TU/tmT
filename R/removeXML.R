@@ -6,7 +6,7 @@
 #' @param x Character: Vector or list of character vectors.
 #' @details The decision which u.type is used should consider the language of the corpus, because in some languages the replacement of umlauts can change the meaning of a word.
 #' To change which columns are used by removeXML use argument xmlAction in \code{\link{readTextmeta}}.
-#' @return Adjusted corpus
+#' @return Adjusted character string or list, depending on input.
 #' @keywords manip
 #' @examples
 #' xml <- "<text>Some <b>important</b> text</text>"
@@ -59,7 +59,7 @@ removeUmlauts <- function(x){
 #' @param entity Logical: If \code{TRUE} HTML-entities in text-style would be resolved.
 #' @param symbolList numeric vector to chhose from the 16 ISO-8859 Lists (ISO-8859 12 did not exists and is empty).
 #' @param delete Logical: If \code{TRUE} all not resolved HTML-entities would bei deleted?
-#' @param symbols Logical: If \code{TRUE} most symbols from ISO-8859 would be not resolved (32:64,91:96,123:126,160:191,215,247, 818, 8194:8222, 8254, 8291, 8364, 8417, 8470).
+#' @param symbols Logical: If \code{TRUE} most symbols from ISO-8859 would be not resolved (DEC: 32:64, 91:96, 123:126, 160:191, 215, 247, 818, 8194:8222, 8254, 8291, 8364, 8417, 8470).
 #' @export
 
 removeHTML <- function(x, dec=TRUE, hex=TRUE, entity=TRUE, symbolList=c(1:4,9,13,15,16), delete=TRUE, symbols=FALSE){

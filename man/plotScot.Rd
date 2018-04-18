@@ -70,5 +70,3 @@ which could be specified by \code{id}.
 (character vectors) if you use \code{type = "words"}.
 If you use \code{type = "docs"} you can use a tokenized or a non-tokenized text component.
 }
-\keyword{~kwd1}
-\keyword{~kwd2}

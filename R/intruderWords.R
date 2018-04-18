@@ -1,8 +1,8 @@
 #' Function to validate the fit of the LDA model
 #'
-#' This function validates a LDA result by presenting a mix of words from a topic and intruder words to a human user, who has to identity them. 
+#' This function validates a LDA result by presenting a mix of words from a topic and intruder words to a human user, who has to identity them.
 #'
-#' @param beta A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.
+#' @param beta A matrix of word-probabilities or frequency table for the topics (e.g. the \code{topics} matrix from the \code{\link{LDAgen}} result). Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.
 #' @param byScore Logical: Should the score of \code{top.topic.words} from the \code{lda} package be used?
 #' @param numTopwords The number of topwords to be used for the intruder words
 #' @param numIntruder Intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.
@@ -12,9 +12,15 @@
 #' @param oldResult Result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.
 #' @param test Logical: Enables test mode
 #' @param testinput Input for function tests
-#' @return tba
-#' @seealso tba
-#' @references tba
+#' @return Object of class \code{IntruderWords}. List of 7
+#' \item{result} Matrix of 3 columns. Each row represents one topic. All values are 0 if the topic did not run before. \code{numIntruder} (1. column) gives the number of intruder words inputated in this topic, \code{missIntruder} (2. column) the number of the intruder words which were not found by the coder and \code{falseIntruder} (3. column) the number of the words choosen by the coder which were no intruder.
+#' \item{beta} Parameter of the function call
+#' \item{byScore} Parameter of the function call
+#' \item{numTopwords} Parameter of the function call
+#' \item{numIntruder} Parameter of the function call
+#' \item{numOutwords} Parameter of the function call
+#' \item{noTopic} Parameter of the function call
+#' @references Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
 #' @export intruderWords
 
 intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=FALSE, testinput=NULL){

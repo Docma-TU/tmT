@@ -10,13 +10,13 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
   oldResult = NULL, test = FALSE, testinput = NULL)
 }
 \arguments{
-\item{text}{tba}
+\item{text}{A list of texts (e.g. the text element of a \code{\link{textmeta}} object).}
 
-\item{beta}{A matrix of word-probabilities or frequency table for the topics. Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.}
+\item{beta}{A matrix of word-probabilities or frequency table for the topics (e.g. the \code{topics} matrix from the \code{\link{LDAgen}} result). Each row is a topic, each column a word. The rows will be divided by the row sums, if they are not 1.}
 
-\item{theta}{tba}
+\item{theta}{A matrix of wordcounts per text and topic (e.g. the \code{document_sums} matrix from the \code{\link{LDAgen}} result). Each row is a topic, each column a text. In each cell stands the number of words in text j belonging to topic i.}
 
-\item{id}{tba}
+\item{id}{Optional: character vector of text IDs that should be used for the function. Useful to start a inchoate coding task.}
 
 \item{numIntruder}{Intended number of intruder words. If \code{numIntruder} is a integer vector, the number would be sampled for each topic.}
 
@@ -24,13 +24,13 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
 
 \item{byScore}{Logical: Should the score of \code{top.topic.words} from the \code{lda} package be used?}
 
-\item{minWords}{tba}
+\item{minWords}{Integer: Minimum number of words for a choosen text.}
 
-\item{minOuttopics}{tba}
+\item{minOuttopics}{Integer: Minimal number of words a topic needs to be classified as a possible correct Topic.}
 
-\item{stopTopics}{tba}
+\item{stopTopics}{Optional: Integer vector to deselect stopword topics for the coding task.}
 
-\item{printSolution}{tba}
+\item{printSolution}{Logical: If \code{TRUE} the coder gets a feedback after his/her vote.}
 
 \item{oldResult}{Result object from an unfinished run of \code{intruderWords}. If oldResult is used, all other parameter will be ignored.}
 
@@ -39,14 +39,22 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
 \item{testinput}{Input for function tests}
 }
 \value{
-tba
+Object of class \code{IntruderTopics}. List of 11
+\item{result} Matrix of 3 columns. Each row represents one labeled text. \code{numIntruder} (1. column) gives the number of intruder topics inputated in this text, \code{missIntruder} (2. column) the number of the intruder topics which were not found by the coder and \code{falseIntruder} (3. column) the number of the topics choosen by the coder which were no intruder.
+\item{beta} Parameter of the function call
+\item{theta} Parameter of the function call
+\item{id} Charater Vector of IDs at the beginning
+\item{byScore} Parameter of the function call
+\item{numIntruder} Parameter of the function call
+\item{numOuttopics} Parameter of the function call
+\item{minWords} Parameter of the function call
+\item{minOuttopics} Parameter of the function call
+\item{unusedID} Character vector of unused text IDs for the next run
+\item{stopTopics} Parameter of the function call
 }
 \description{
 This function validates a LDA result by presenting a mix of topics and intruder topics to a human user, who has to identity them.
 }
 \references{
-tba
-}
-\seealso{
-tba
+Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
 }

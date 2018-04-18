@@ -1,4 +1,4 @@
-#' Data Preprocessing
+' Data Preprocessing
 #'
 #' Removes punctuation, numbers and stopwords, changes letters into lowercase
 #' and tokenizes.
@@ -8,7 +8,7 @@
 #' paragraphs / article.
 #'
 #' @param object \code{\link{textmeta}} object
-#' @param text Bot necassary if \code{object} is specified, else should be
+#' @param text Not necassary if \code{object} is specified, else should be
 #' \code{object\$text}: List of article texts.
 #' @param sw Character: Vector of stopwords. If the vector is of length
 #' one, \code{sw} is interpreted as argument for \code{\link[tm]{stopwords}} from the tm package.
@@ -23,7 +23,7 @@
 #' @param checkUTF8 Logical: Should be set to \code{TRUE} if articles should
 #' be tested on UTF-8 - which is package standard.
 #' @param ucp Logical: ucp option for \code{\link[tm]{removePunctuation}} from the tm package. Runs remove punctuation twice (ASCII and Unicode).
-#' @return A list containing the preprocessed articles.
+#' @return A \code{\link{textmeta}} object or a list (if \code{object} is not specified) containing the preprocessed articles.
 #' @keywords manip
 
 #' @examples
