@@ -13,13 +13,13 @@
 #' @param test Logical: Enables test mode
 #' @param testinput Input for function tests
 #' @return Object of class \code{IntruderWords}. List of 7
-#' \item{result} Matrix of 3 columns. Each row represents one topic. All values are 0 if the topic did not run before. \code{numIntruder} (1. column) gives the number of intruder words inputated in this topic, \code{missIntruder} (2. column) the number of the intruder words which were not found by the coder and \code{falseIntruder} (3. column) the number of the words choosen by the coder which were no intruder.
-#' \item{beta} Parameter of the function call
-#' \item{byScore} Parameter of the function call
-#' \item{numTopwords} Parameter of the function call
-#' \item{numIntruder} Parameter of the function call
-#' \item{numOutwords} Parameter of the function call
-#' \item{noTopic} Parameter of the function call
+#' \item{result}{Matrix of 3 columns. Each row represents one topic. All values are 0 if the topic did not run before. \code{numIntruder} (1. column) gives the number of intruder words inputated in this topic, \code{missIntruder} (2. column) the number of the intruder words which were not found by the coder and \code{falseIntruder} (3. column) the number of the words choosen by the coder which were no intruder.}
+#' \item{beta}{Parameter of the function call}
+#' \item{byScore}{Parameter of the function call}
+#' \item{numTopwords}{Parameter of the function call}
+#' \item{numIntruder}{Parameter of the function call}
+#' \item{numOutwords}{Parameter of the function call}
+#' \item{noTopic}{Parameter of the function call}
 #' @references Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
 #' @export intruderWords
 

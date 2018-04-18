@@ -40,17 +40,17 @@ intruderTopics(text = NULL, beta = NULL, theta = NULL, id = NULL,
 }
 \value{
 Object of class \code{IntruderTopics}. List of 11
-\item{result} Matrix of 3 columns. Each row represents one labeled text. \code{numIntruder} (1. column) gives the number of intruder topics inputated in this text, \code{missIntruder} (2. column) the number of the intruder topics which were not found by the coder and \code{falseIntruder} (3. column) the number of the topics choosen by the coder which were no intruder.
-\item{beta} Parameter of the function call
-\item{theta} Parameter of the function call
-\item{id} Charater Vector of IDs at the beginning
-\item{byScore} Parameter of the function call
-\item{numIntruder} Parameter of the function call
-\item{numOuttopics} Parameter of the function call
-\item{minWords} Parameter of the function call
-\item{minOuttopics} Parameter of the function call
-\item{unusedID} Character vector of unused text IDs for the next run
-\item{stopTopics} Parameter of the function call
+\item{result}{Matrix of 3 columns. Each row represents one labeled text. \code{numIntruder} (1. column) gives the number of intruder topics inputated in this text, \code{missIntruder} (2. column) the number of the intruder topics which were not found by the coder and \code{falseIntruder} (3. column) the number of the topics choosen by the coder which were no intruder.}
+\item{beta}{Parameter of the function call}
+\item{theta}{Parameter of the function call}
+\item{id}{Charater Vector of IDs at the beginning}
+\item{byScore}{Parameter of the function call}
+\item{numIntruder}{Parameter of the function call}
+\item{numOuttopics}{Parameter of the function call}
+\item{minWords}{Parameter of the function call}
+\item{minOuttopics}{Parameter of the function call}
+\item{unusedID}{Character vector of unused text IDs for the next run}
+\item{stopTopics}{Parameter of the function call}
 }
 \description{
 This function validates a LDA result by presenting a mix of topics and intruder topics to a human user, who has to identity them.

@@ -17,17 +17,17 @@
 #' @param test Logical: Enables test mode
 #' @param testinput Input for function tests
 #' @return Object of class \code{IntruderTopics}. List of 11
-#' \item{result} Matrix of 3 columns. Each row represents one labeled text. \code{numIntruder} (1. column) gives the number of intruder topics inputated in this text, \code{missIntruder} (2. column) the number of the intruder topics which were not found by the coder and \code{falseIntruder} (3. column) the number of the topics choosen by the coder which were no intruder.
-#' \item{beta} Parameter of the function call
-#' \item{theta} Parameter of the function call
-#' \item{id} Charater Vector of IDs at the beginning
-#' \item{byScore} Parameter of the function call
-#' \item{numIntruder} Parameter of the function call
-#' \item{numOuttopics} Parameter of the function call
-#' \item{minWords} Parameter of the function call
-#' \item{minOuttopics} Parameter of the function call
-#' \item{unusedID} Character vector of unused text IDs for the next run
-#' \item{stopTopics} Parameter of the function call
+#' \item{result}{Matrix of 3 columns. Each row represents one labeled text. \code{numIntruder} (1. column) gives the number of intruder topics inputated in this text, \code{missIntruder} (2. column) the number of the intruder topics which were not found by the coder and \code{falseIntruder} (3. column) the number of the topics choosen by the coder which were no intruder.}
+#' \item{beta}{Parameter of the function call}
+#' \item{theta}{Parameter of the function call}
+#' \item{id}{Charater Vector of IDs at the beginning}
+#' \item{byScore}{Parameter of the function call}
+#' \item{numIntruder}{Parameter of the function call}
+#' \item{numOuttopics}{Parameter of the function call}
+#' \item{minWords}{Parameter of the function call}
+#' \item{minOuttopics}{Parameter of the function call}
+#' \item{unusedID}{Character vector of unused text IDs for the next run}
+#' \item{stopTopics}{Parameter of the function call}
 #' @references Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
 #' @export intruderTopics
 
