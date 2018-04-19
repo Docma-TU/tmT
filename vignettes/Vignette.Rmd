@@ -346,7 +346,7 @@ intWords <- intruderWords(oldResult = intWords)
 Analogously to \texttt{intruderWords} you can use \texttt{intruderTopics} for validation the other way around. This function is used for validation of topics associated to a specific document instead of validation of words associated to one topic. Therefore the document is displayed in another window and a sample of topics - represented by the ten \texttt{top.topic.words} - is shown in the console. You should hand over in \texttt{text} the text component of the original untokenized corpus before manipulation by \texttt{cleanTexts}, so that the document is readable. The user then names the intruder(s). There are options for different numbers of topics and intruders as in \texttt{intruderWords} as well. The parameter \texttt{theta} should be set to \texttt{result\$document\_expects} given \texttt{result} is the LDA result. An example call is given below.
 ```{r, eval = FALSE}
 intruderTopics(text = corpus$text, id = ldaID,
-  beta = result$topics, theta = result$document_expects)
+  beta = result$topics, theta = result$document_sums)
 ```
 
 ## Clustering of Topics - \texttt{clusterTopics}, \texttt{mergeLDA}
