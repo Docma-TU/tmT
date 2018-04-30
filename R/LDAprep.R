@@ -35,9 +35,7 @@
 LDAprep <- function(text, vocab,
   reduce = TRUE){
   stopifnot(is.textmeta(textmeta(text = text)), is.character(vocab),
-    is.logical(ldacorrect), is.logical(reduce),
-    length(ldacorrect) == 1, length(reduce) == 1)
-  
+    is.logical(reduce), length(reduce) == 1)
   text <- lapply(text, unlist)
   
 #  profvis::profvis({
