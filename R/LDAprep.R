@@ -7,13 +7,10 @@
 #' @param text A list of tokenized texts
 #' @param vocab A character vector containing all words which should beused for
 #' lda
-#' @param ldacorrect Logical: If \code{TRUE}, every word repetition gets a separate
-#' column.
 #' @param reduce Logical: Should empty texts be deleted?
 #' @return A list in which every entry contains a matrix with two rows: The
 #' first row gives the number of the entry of the word in \code{vocab} minus
-#' one, the second row the number of the occurrence of the word in the article.
-#' If \code{ldacorrect=TRUE} the second row is 1 and the number of the
+#' one, the second row is 1 and the number of the
 #' occurrence of the word will be shown by the number of columns belonging to
 #' this word.
 #' @keywords manip
@@ -31,26 +28,48 @@
 #'
 #' corpus <- cleanTexts(corpus)
 #' wordlist <- makeWordlist(corpus$text)
-#' LDAprep(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, reduce = TRUE)
+#' LDAprep(text=corpus$text, vocab=wordlist$words, reduce = TRUE)
 #'
 #' @export LDAprep
 
-LDAprep <- function(text, vocab, ldacorrect = TRUE,
+LDAprep <- function(text, vocab,
   reduce = TRUE){
-
   stopifnot(is.textmeta(textmeta(text = text)), is.character(vocab),
     is.logical(ldacorrect), is.logical(reduce),
     length(ldacorrect) == 1, length(reduce) == 1)
+  
   text <- lapply(text, unlist)
-  text <- lapply(text, table)
-  text <- lapply(text, function(x)x[vocab[vocab %in% names(x)]])
-  text <- lapply(text, function(x)
-    rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
-  if(ldacorrect) text <- lapply(text, function(x)
-    rbind(as.integer(rep(x[1, ], x[2, ])), as.integer(rep(1, sum(x[2, ])))))
-
-  tmp <- lengths(lapply(text, dim)) == 0
-  text[tmp] <- lapply(text[tmp], as.matrix)
+  
+#  profvis::profvis({
+  library(data.table)
+  vtable <- data.table(word = vocab, id = seq_along(vocab) - 1L, key = "word") 
+  text <- mapply(
+    function(article, words) {
+      rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1L)
+    }, article = names(text), words = text, SIMPLIFY = FALSE)
+#  })
+  # ltable = rbindlist(mapply(
+  #   function(article, words) {
+  #   data.table(word = words, article = article)[, list(article = article, N = .N), by = "word"]
+  # }, article = names(text), words = text, SIMPLIFY = FALSE))
+  # 
+  # ltable = merge(ltable, vtable, all.x = FALSE, all.y = FALSE, on = "word")
+  # rm(vtable)
+  # res = ltable[, list(x = list(rbind(id, 1))), by = article]
+  # res = setNames(x$x, x$article)
+  #})
+  # x(split(tmp$id, tmp$article)
+  # 
+  # text <- lapply(text, function(x)x[vocab[vocab %in% names(x)]])
+  # text <- lapply(text, function(x)
+  #   rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
+  # 
+  # 
+  # if(ldacorrect) text <- lapply(text, function(x)
+  #   rbind(as.integer(rep(x[1, ], x[2, ])), as.integer(rep(1, sum(x[2, ])))))
+  # 
+  # tmp <- lengths(lapply(text, dim)) == 0
+  # text[tmp] <- lapply(text[tmp], as.matrix)
   if(reduce){
     # delete entries where dimension is not computable
     tmp <- lengths(lapply(text, dim)) == 0

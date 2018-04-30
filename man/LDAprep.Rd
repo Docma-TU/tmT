@@ -4,7 +4,7 @@
 \alias{LDAprep}
 \title{Create Lda-ready Dataset}
 \usage{
-LDAprep(text, vocab, ldacorrect = TRUE, reduce = TRUE)
+LDAprep(text, vocab, reduce = TRUE)
 }
 \arguments{
 \item{text}{A list of tokenized texts}
@@ -12,16 +12,12 @@ LDAprep(text, vocab, ldacorrect = TRUE, reduce = TRUE)
 \item{vocab}{A character vector containing all words which should beused for
 lda}
 
-\item{ldacorrect}{Logical: If \code{TRUE}, every word repetition gets a separate
-column.}
-
 \item{reduce}{Logical: Should empty texts be deleted?}
 }
 \value{
 A list in which every entry contains a matrix with two rows: The
 first row gives the number of the entry of the word in \code{vocab} minus
-one, the second row the number of the occurrence of the word in the article.
-If \code{ldacorrect=TRUE} the second row is 1 and the number of the
+one, the second row is 1 and the number of the
 occurrence of the word will be shown by the number of columns belonging to
 this word.
 }
@@ -43,7 +39,7 @@ additionalVariable=1:4, stringsAsFactors=FALSE), text=texts)
 
 corpus <- cleanTexts(corpus)
 wordlist <- makeWordlist(corpus$text)
-LDAprep(text=corpus$text, vocab=wordlist$words, ldacorrect = TRUE, reduce = TRUE)
+LDAprep(text=corpus$text, vocab=wordlist$words, reduce = TRUE)
 
 }
 \keyword{manip}

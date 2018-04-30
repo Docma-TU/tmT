@@ -13,5 +13,4 @@ test_that("LDAprep", {
   C2 <- matrix(c(1,1,1,1,1,1,1,1,3,1,4,1,6,1),2,7)
 
   expect_equal(LDAprep(text=c(D="",text, E=NULL), vocab=sort(unique(unlist(text))), ldacorrect=TRUE),list(A=A, B=B2,C=C2))
-  expect_equal(LDAprep(text=c(D="",text), vocab=sort(unique(unlist(text))), ldacorrect=FALSE),list(A=A, B=B1,C=C1))
 })
