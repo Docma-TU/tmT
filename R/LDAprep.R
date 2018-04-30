@@ -40,11 +40,11 @@ LDAprep <- function(text, vocab,
   text <- lapply(text, unlist)
 
 #  profvis::profvis({
-  library(data.table)
+#  library(data.table)
   vtable <- data.table::data.table(word = vocab, id = seq_along(vocab) - 1L, key = "word")
   text <- mapply(
     function(article, words) {
-      rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1L)
+      rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1) # 1L for integer output
     }, article = names(text), words = text, SIMPLIFY = FALSE)
 #  })
   # ltable = rbindlist(mapply(
@@ -74,7 +74,9 @@ LDAprep <- function(text, vocab,
     tmp <- lengths(lapply(text, dim)) == 0
     if (length(tmp) > 0) text <- text[!tmp]
     # reducing
-    text <- text[sapply(text, dim)[2,] != 0]
+    Dim <- sapply(text, dim)
+    text <- text[Dim[2,] != 0]
+    text <- text[Dim[1,] != 1]
   }
   return(text)
 }
