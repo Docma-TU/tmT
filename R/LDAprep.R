@@ -44,7 +44,7 @@ LDAprep <- function(text, vocab,
   vtable <- data.table::data.table(word = vocab, id = seq_along(vocab) - 1L, key = "word")
   text <- mapply(
     function(article, words) {
-      rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1) # 1L for integer output
+      rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1L) 
     }, article = names(text), words = text, SIMPLIFY = FALSE)
 #  })
   # ltable = rbindlist(mapply(
