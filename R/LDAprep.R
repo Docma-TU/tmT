@@ -34,49 +34,36 @@
 #' @import data.table
 
 LDAprep <- function(text, vocab,
-  reduce = TRUE){
-  stopifnot(is.textmeta(textmeta(text = text)), is.character(vocab),
-    is.logical(reduce), length(reduce) == 1)
-  text <- lapply(text, unlist)
+                    reduce = TRUE){
+    stopifnot(is.textmeta(textmeta(text = text)), is.character(vocab),
+              is.logical(reduce), length(reduce) == 1)
+    text <- lapply(text, unlist)
+    . <- NULL # for cran check
+    id <- NULL # for cran check
 
-#  profvis::profvis({
-#  library(data.table)
-  vtable <- data.table::data.table(word = vocab, id = seq_along(vocab) - 1L, key = "word")
-  text <- mapply(
-    function(article, words) {
-      rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1L) 
-    }, article = names(text), words = text, SIMPLIFY = FALSE)
-#  })
-  # ltable = rbindlist(mapply(
-  #   function(article, words) {
-  #   data.table(word = words, article = article)[, list(article = article, N = .N), by = "word"]
-  # }, article = names(text), words = text, SIMPLIFY = FALSE))
-  #
-  # ltable = merge(ltable, vtable, all.x = FALSE, all.y = FALSE, on = "word")
-  # rm(vtable)
-  # res = ltable[, list(x = list(rbind(id, 1))), by = article]
-  # res = setNames(x$x, x$article)
-  #})
-  # x(split(tmp$id, tmp$article)
-  #
-  # text <- lapply(text, function(x)x[vocab[vocab %in% names(x)]])
-  # text <- lapply(text, function(x)
-  #   rbind(as.integer(match(names(x), vocab) - 1), as.integer(x)))
-  #
-  #
-  # if(ldacorrect) text <- lapply(text, function(x)
-  #   rbind(as.integer(rep(x[1, ], x[2, ])), as.integer(rep(1, sum(x[2, ])))))
-  #
-  # tmp <- lengths(lapply(text, dim)) == 0
-  # text[tmp] <- lapply(text[tmp], as.matrix)
-  if(reduce){
-    # delete entries where dimension is not computable
-    tmp <- lengths(lapply(text, dim)) == 0
-    if (length(tmp) > 0) text <- text[!tmp]
-    # reducing
-    Dim <- sapply(text, dim)
-    text <- text[Dim[2,] != 0]
-    text <- text[Dim[1,] != 1]
-  }
-  return(text)
+    vtable <- data.table::data.table(word = vocab, id = seq_along(vocab) - 1L, key = "word")
+    text <- mapply(
+        function(article, words) {
+            rbind(vtable[.(words), "id", nomatch = 0L][order(id)]$id, 1L)
+        }, article = names(text), words = text, SIMPLIFY = FALSE)
+                                        # ltable = rbindlist(mapply(
+                                        #   function(article, words) {
+                                        #   data.table(word = words, article = article)[, list(article = article, N = .N), by = "word"]
+                                        # }, article = names(text), words = text, SIMPLIFY = FALSE))
+                                        #
+                                        # ltable = merge(ltable, vtable, all.x = FALSE, all.y = FALSE, on = "word")
+                                        # rm(vtable)
+                                        # res = ltable[, list(x = list(rbind(id, 1))), by = article]
+                                        # res = setNames(x$x, x$article)
+                                        #})
+                                        # x(split(tmp$id, tmp$article)
+                                        #
+    if(reduce){                         # delete entries where dimension is not computable
+        tmp <- lengths(lapply(text, dim)) == 0
+        if (length(tmp) > 0) text <- text[!tmp]
+        Dim <- sapply(text, dim)
+        text <- text[Dim[2,] != 0]
+        text <- text[Dim[1,] != 1]
+    }
+    return(text)
 }
