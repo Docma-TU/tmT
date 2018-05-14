@@ -18,13 +18,13 @@
 #' @param legendLimit Numeric between 0 (default) and 1. Only Topics with proportions above this limit appear in the legend.
 #' @param peak Numeric between 0 (default) and 1. Label peaks above \code{peak}. For each Topic every area which are at least once above \code{peak} will e labeled. An area ends if the topic proportion is under 1 percent.
 #' @param file Character: File path if a pdf should be created
-#' @details This function is useful to visualize the volume of topics and to show trends over time. 
+#' @details This function is useful to visualize the volume of topics and to show trends over time.
 #' @return List of two matrices. \code{rel} contains the topic proportions over time, \code{relcum} contains the cumulated topic proportions
 #' @export plotArea
 #'
 plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,
   threshold = NULL, meta, unit = "quarter", xunit = "year", color = NULL,
-  sort = TRUE, legend = "topleft", legendLimit = 0, peak = 0, file){
+  sort = TRUE, legend = NULL, legendLimit = 0, peak = 0, file){
 
   if(!missing(file)) pdf(file, width = 15, height = 8)
   if(is.null(color)) color <- RColorBrewer::brewer.pal(n=12, name="Paired")[c(2*(1:6),2*(1:6)-1)]

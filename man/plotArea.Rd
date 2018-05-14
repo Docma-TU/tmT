@@ -6,7 +6,7 @@
 \usage{
 plotArea(ldaresult, ldaID, select = NULL, tnames = NULL, threshold = NULL,
   meta, unit = "quarter", xunit = "year", color = NULL, sort = TRUE,
-  legend = "topleft", legendLimit = 0, peak = 0, file)
+  legend = NULL, legendLimit = 0, peak = 0, file)
 }
 \arguments{
 \item{ldaresult}{LDA result object}
