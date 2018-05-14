@@ -84,7 +84,7 @@ plotTopic <- function(object, ldaresult, ldaID,
         unit = unit, curves = curves, smooth = smooth,
         main = ifelse(missing(main), mainP[i], main), col = colP,
         legend = legend, both.lwd = both.lwd, both.lty = both.lty,
-        xlab = xlab, ylab = ylab, pages = FALSE, ...)
+        xlab = xlab, ylab = ylab, ylim = ylim , pages = FALSE, ...)
   }
 
   stopifnot(is.textmeta(object), is.list(ldaresult),

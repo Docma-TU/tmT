@@ -124,7 +124,7 @@ plotTopicWord <- function(object, docs, ldaresult, ldaID,
         unit = unit, curves = curves, smooth = smooth,
         main = ifelse(missing(main), mainP[i], main), col = colP,
         legend = legend, both.lwd = both.lwd, both.lty = both.lty,
-        xlab = xlab, ylab = ylab, pages = FALSE, natozero = natozero, ...)
+        xlab = xlab, ylab = ylab, ylim = ylim, pages = FALSE, natozero = natozero, ...)
   }
 
   stopifnot(is.textmeta(object), is.list(ldaresult),
