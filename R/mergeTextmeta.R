@@ -47,17 +47,14 @@ mergeTextmeta <- function(x, all = TRUE){
   meta = NULL
   if (length(cols) > 0){
     ind <- which(sapply(x, function(y) is.data.frame(y$meta)))
-    mymerge <- function(t1, t2)
-      merge(t1$meta, t2$meta, all = TRUE, sort = FALSE)[, cols]
-    # does not work: if (length(ind) > 1) meta <- Reduce(mymerge, x[ind])
     if (length(ind) > 1){
       meta <- (x[[ind[1]]])$meta
       for (i in 2:length(ind))
-        meta <- merge(meta, (x[[ind[i]]])$meta, all = TRUE, sort = FALSE)[, cols]
+        meta <- merge(meta, (x[[ind[i]]])$meta, all = TRUE, sort = FALSE)
     }
     else meta <- (x[[ind]])$meta # only one data.frame
   }
-  object <- textmeta(meta = meta, text = Reduce(c, lapply(x, function(y) y$text)),
+  object <- textmeta(meta = meta[, cols], text = Reduce(c, lapply(x, function(y) y$text)),
     metamult = Reduce(c, lapply(x, function(y) y$metamult)))
   return(object)
 }
