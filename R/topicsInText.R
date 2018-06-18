@@ -55,7 +55,7 @@ topicsInText <- function(text, ldaID, id, ldaresult, label=NULL, vocab, wordOrde
         htmlOutput <- c("<h2>Document: ", meta$title[meta$id==id], "</h2><p>", paste0(names(meta), ": ", meta[meta$id==id,], "</br>"), collapse="", "</br>")}
 
     ## print topwords of topics
-    ttw <- apply(lda::top.topic.words(ldaresult$topics[as.numeric(names(topictable))+1,], num.words = 20, by.score = TRUE), 2, paste, collapse=" ")
+    ttw <- apply(lda::top.topic.words(ldaresult$topics, num.words = 20, by.score = TRUE), 2, paste, collapse=" ")[as.numeric(names(topictable))+1]
     htmlOutput <- c(htmlOutput, paste0("<font color=", colors, "> ", label, ":",ttw ,"</font> </br>"))
 
     ## print words in alphabetical order
