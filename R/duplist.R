@@ -117,11 +117,14 @@ duplist <- function(object, paragraph = FALSE){
         #cand <- apply(object$meta[meta_ind[meta_same], doNotTestID], 1,
         #  function(y) all(y == vgl | (is.na(y) & is.na(vgl))))
         ## apply gibt unlogische ergebnisse aus!!
-        totest = object$meta[meta_ind[meta_same], doNotTestID]
-        cand <- logical(nrow(totest))
-        for(i in 1:nrow(totest)){
-          cand[i] <- all(totest[i,] == vgl | (is.na(totest[i,]) & is.na(vgl)))
-        }
+        ## langsame for-Schleife
+        #totest <- object$meta[meta_ind[meta_same], doNotTestID]
+        #cand <- logical(nrow(totest))
+        #for(i in 1:nrow(totest)){
+        #  cand[i] <- all(totest[i,] == vgl | (is.na(totest[i,]) & is.na(vgl)))
+        #}
+        cand <- sapply(split(object$meta[meta_ind[meta_same], doNotTestID], seq_len(sum(meta_same))),
+          function(y) all(y == vgl | (is.na(y) & is.na(vgl))))
 
         candnames <- object$meta$id[(meta_ind[meta_same])[cand]]
         tmp <- textvek[candnames] == textvek[x]
