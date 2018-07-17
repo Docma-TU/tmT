@@ -1,4 +1,4 @@
-' Data Preprocessing
+#' Data Preprocessing
 #'
 #' Removes punctuation, numbers and stopwords, changes letters into lowercase
 #' and tokenizes.

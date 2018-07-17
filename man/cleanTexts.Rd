@@ -2,8 +2,7 @@
 % Please edit documentation in R/cleanTexts.R
 \name{cleanTexts}
 \alias{cleanTexts}
-\title{Removes punctuation, numbers and stopwords, changes letters into lowercase
-and tokenizes.}
+\title{Data Preprocessing}
 \usage{
 cleanTexts(object, text, sw = "en", paragraph = FALSE, lowercase = TRUE,
   rmPunctuation = TRUE, rmNumbers = TRUE, checkUTF8 = TRUE, ucp = TRUE)
@@ -38,6 +37,10 @@ be tested on UTF-8 - which is package standard.}
 A \code{\link{textmeta}} object or a list (if \code{object} is not specified) containing the preprocessed articles.
 }
 \description{
+Removes punctuation, numbers and stopwords, changes letters into lowercase
+and tokenizes.
+}
+\details{
 Removes punctuation, numbers and stopwords, change into lowercase letters
 and tokenization. Additional some cleaning steps: remove empty words /
 paragraphs / article.
