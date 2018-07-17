@@ -14,9 +14,7 @@
 #' \item{idFakeDups}{ List of character vectors: IDs of texts which originally has the same ID but belongs to different texts grouped by their original ID}
 #' \item{idRealDups}{ List of character vectors: IDs of texts which originally has the same ID and text but different meta information grouped by their original ID}
 #' \item{allTextDups}{ List of character vectors: IDs of texts which occur twice or more often grouped by text equality}
-#' \item{textOnlyDups}{ List of character vectors: IDs of texts which occur twice or more often but do not have a pendant with the same meta information grouped by text equality}
 #' \item{textMetaDups}{ List of character vectors: IDs of texts which occur twice or more often and have the same meta information grouped by text and meta equality}
-#' \item{textOthersDups}{ Character vector of IDs of texts which occur twice or more often, but do not meet the requirements of textOnlyDups or textMetaDups. For example this happens if there are three equal texts with two of them sharing their meta information: the third text's ID is associated to textOthersDups}
 #'
 #' @keywords manip
 #' @examples
@@ -40,7 +38,7 @@
 #' @export duplist
 
 # Es existieren keine doppelten IDs durch deleteAndRenameDuplicates in read!
-# Ausgabe soll (disjunkte!) Liste sein mit
+# Ausgabe soll Liste sein mit
 # 1. uniqueTexts: Jeder vorkommende Text genau einmal
 #    a) notDuplicatedTexts: Texte, fuer die keine identischen IDs oder Texte
 #                       im Korpus vorkommen
@@ -103,74 +101,29 @@ duplist <- function(object, paragraph = FALSE){
     allTextDups_names <- names(object$text)[ind]
     allTextDups <- lapply(na.omit(unique(textvek[ind])),
       function(x) allTextDups_names[textvek[ind] == x])
+
     # b) textMetaDups:
     doNotTestID <- colnames(object$meta)[colnames(object$meta) != "id"]
-    meta_ind <- which(object$meta$id %in% names(textvek)[ind])
-    meta_same <- duplicated(object$meta[meta_ind,doNotTestID])|
-      duplicated(object$meta[meta_ind,doNotTestID], fromLast = TRUE)
-    if (any(meta_same)){
-      textMetaDups_names <- object$meta$id[meta_ind[meta_same]]
+    ids <- unlist(allTextDups)
+    metaind <- match(ids, object$meta$id)
+    splitind <- rep(seq_len(length(allTextDups)), times = lengths(allTextDups))
+    splitted <- apply(object$meta[metaind, doNotTestID], 1, paste, collapse = " ")
+    names(splitted) <- ids
+    splitted <- split(splitted, splitind)
+    textMetaDups <- lapply(splitted, function(y) lapply(unique(y), function(x) names(y)[x == y]))
 
-      returnMetaDups <- function(x){
-        vgl <- object$meta[object$meta$id == x, doNotTestID]
-
-        #cand <- apply(object$meta[meta_ind[meta_same], doNotTestID], 1,
-        #  function(y) all(y == vgl | (is.na(y) & is.na(vgl))))
-        ## apply gibt unlogische ergebnisse aus!!
-        ## langsame for-Schleife
-        #totest <- object$meta[meta_ind[meta_same], doNotTestID]
-        #cand <- logical(nrow(totest))
-        #for(i in 1:nrow(totest)){
-        #  cand[i] <- all(totest[i,] == vgl | (is.na(totest[i,]) & is.na(vgl)))
-        #}
-        cand <- sapply(split(object$meta[meta_ind[meta_same], doNotTestID], seq_len(sum(meta_same))),
-          function(y) all(y == vgl | (is.na(y) & is.na(vgl))))
-
-        candnames <- object$meta$id[(meta_ind[meta_same])[cand]]
-        tmp <- textvek[candnames] == textvek[x]
-        res <- names(textvek[candnames])[tmp]
-        if(length(res) < 1) return(NULL)
-        return(res)
-      }
-      textMetaDups <- unique(lapply(textMetaDups_names, returnMetaDups))
-    }
-    else{
-      textMetaDups <- list()
-      textMetaDups_names <- character(0)
-    }
-    if (any(!meta_same)){
-      meta_same <- names(textvek)[ind] %in% textMetaDups_names
-      # remaining Indices for a) and c):
-      ind <- ind[!meta_same]
-      allTextDups_names <- allTextDups_names[!meta_same]
-      # a) textOnlyDups:
-      text_same <- duplicated(textvek[ind]) | duplicated(textvek[ind], fromLast = TRUE)
-      if (any(text_same)){
-        textOnlyDups_names <- allTextDups_names[text_same]
-        textOnlyDups <- lapply(na.omit(unique(textvek[ind[text_same]])),
-          function(x) textOnlyDups_names[which(textvek[ind[text_same]] == x)])
-      }
-      else textOnlyDups <- list()
-      # c) textOthersDups:
-      if (any(!text_same)) textOthersDups <- allTextDups_names[!text_same]
-      else textOthersDups <- character(0)
-    }
-    else {
-      textOnlyDups <- list()
-      textOthersDups <- character(0)
-    }
+    # reduziere die textMetaDups-Liste:
+    textMetaDups <- do.call(c, textMetaDups)
+    textMetaDups <- unname(textMetaDups[lengths(textMetaDups) > 1])
   }
   else {
     allTextDups <- list()
-    textOnlyDups <- list()
     textMetaDups <- list()
-    textOthersDups <- character(0)
   }
   message("success")
   res <- list(uniqueTexts = uniqueTexts, notDuplicatedTexts = allUniqueTexts,
     idFakeDups = idFakeDups, idRealDups = idRealDups,
-    allTextDups = allTextDups, textOnlyDups = textOnlyDups,
-    textMetaDups = textMetaDups, textOthersDups = textOthersDups)
+    allTextDups = allTextDups, textMetaDups = textMetaDups)
   class(res) <- "duplist"
   summary(res)
   return(res)
@@ -189,13 +142,13 @@ is.duplist <- function(x){
     return(FALSE)
   }
   if(!all(c("uniqueTexts", "notDuplicatedTexts", "idFakeDups", "idRealDups",
-    "allTextDups", "textOnlyDups", "textMetaDups", "textOthersDups") %in% names(x))){
+    "allTextDups", "textMetaDups") %in% names(x))){
     message("Listnames incorrect.")
     return(FALSE)
   }
   if(!all(is.character(x$uniqueTexts), is.character(x$notDuplicatedTexts),
     is.list(x$idFakeDups), is.list(x$idRealDups), is.list(x$allTextDups),
-    is.list(x$textOnlyDups), is.list(x$textMetaDups), is.character(x$textOthersDups))){
+    is.list(x$textMetaDups))){
     message("Structure of List incorrect.")
     return(FALSE)
   }
@@ -212,7 +165,7 @@ print.duplist <- function(x, ...){
   else{
     cat("duplist, list of (lists of) IDs with names:
  \"uniqueTexts\", \"notDuplicatedTexts\", \"idFakeDups\", \"idRealDups\",
- \"allTextDups\", \"textOnlyDups\", \"textMetaDups\", \"textOthersDups\".\n")
+ \"allTextDups\", \"textMetaDups\".\n")
     invisible(x)
   }
 }
@@ -230,10 +183,7 @@ summary.duplist <- function(object, ...){
     length(object$idRealDups), "different Real-Dup IDs (ID and text equals, meta differs)\n")
   cat(sum(lengths(object$allTextDups)), "text-duplicates with",
     length(object$allTextDups), "different texts\n")
-  cat(sum(lengths(object$textOnlyDups)), "textOnly-duplicates (text equals, meta differs) with",
-    length(object$textOnlyDups), "different texts\n")
   cat(sum(lengths(object$textMetaDups)), "(text and meta)-duplicates with",
     length(object$textMetaDups), "different (text and meta) combinations, excluding ID\n")
-  cat(length(object$textOthersDups), "other text-duplicates\n")
   invisible(object)
 }

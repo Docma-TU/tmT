@@ -32,9 +32,7 @@ Named List:
 \item{idFakeDups}{ List of character vectors: IDs of texts which originally has the same ID but belongs to different texts grouped by their original ID}
 \item{idRealDups}{ List of character vectors: IDs of texts which originally has the same ID and text but different meta information grouped by their original ID}
 \item{allTextDups}{ List of character vectors: IDs of texts which occur twice or more often grouped by text equality}
-\item{textOnlyDups}{ List of character vectors: IDs of texts which occur twice or more often but do not have a pendant with the same meta information grouped by text equality}
 \item{textMetaDups}{ List of character vectors: IDs of texts which occur twice or more often and have the same meta information grouped by text and meta equality}
-\item{textOthersDups}{ Character vector of IDs of texts which occur twice or more often, but do not meet the requirements of textOnlyDups or textMetaDups. For example this happens if there are three equal texts with two of them sharing their meta information: the third text's ID is associated to textOthersDups}
 }
 \description{
 Creates a List of different types of Duplicates in a textmeta-object.

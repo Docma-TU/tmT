@@ -8,9 +8,7 @@ test_that("duplist", {
         idRealDups = list(d = c("d_IDRealDup1", "d_IDRealDup2", "d_IDRealDup3"),
             e = c("e_IDRealDup1", "e_IDRealDup2")),
         allTextDups = list(c("d_IDRealDup1", "d_IDRealDup2", "d_IDRealDup3"), c("e_IDRealDup1", "e_IDRealDup2")),
-        textOnlyDups = list(c("d_IDRealDup1", "d_IDRealDup2", "d_IDRealDup3")),
-        textMetaDups = list(c("e_IDRealDup1", "e_IDRealDup2")),
-        textOthersDups = character()
+        textMetaDups = list(c("e_IDRealDup1", "e_IDRealDup2"))
     )
     class(DL) <- "duplist"
 
@@ -47,9 +45,7 @@ test_that("duplist", {
         idFakeDups = list(),
         idRealDups = list(),
         allTextDups = list(),
-        textOnlyDups = list(),
-        textMetaDups = list(),
-        textOthersDups = character()
+        textMetaDups = list()
     )
     class(DL) <- "duplist"
     expect_equal(dl,DL)
@@ -66,9 +62,7 @@ test_that("duplist", {
         idFakeDups = list(a = c("a_IDFakeDup1", "a_IDFakeDup2")),
         idRealDups = list(),
         allTextDups = list(),
-        textOnlyDups = list(),
-        textMetaDups = list(),
-        textOthersDups = character()
+        textMetaDups = list()
     )
     class(DL) <- "duplist"
     expect_equal(dl,DL)
@@ -81,7 +75,7 @@ test_that("duplist", {
     class(a) <- "duplist"
     expect_false(is.duplist(a))
     a <- list(uniqueTexts=NULL, notDuplicatedTexts=NULL, idFakeDups=NULL, idRealDups=NULL,
-              allTextDups=NULL, textOnlyDups=NULL, textMetaDups=NULL, textOthersDups=NULL)
+              allTextDups=NULL, textMetaDups=NULL)
     expect_false(is.duplist(a))
 
     print.duplist("a")
