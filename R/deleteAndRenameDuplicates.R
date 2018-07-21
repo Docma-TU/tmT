@@ -94,7 +94,7 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
     message(paste("delete \"complete duplicates\":", length(to_del)), appendLF = FALSE)
     object$text <- object$text[-to_del]
     object$meta <- object$meta[-to_del,]
-    object$metamult <- object$metamult[-to_del]
+    #object$metamult <- object$metamult[-to_del]
     message("  next step")
     ind <- which(duplicated(names(object$text)) | duplicated(names(object$text),
                                                              fromLast = TRUE))
@@ -122,8 +122,8 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
                         1:sum(to_rename_loop))
       names(object$text)[to_rename_loop] <- new_ids
       object$meta$id[to_rename_loop] <- new_ids
-      if (!is.null(object$metamult))
-        names(object$metamult)[to_rename_loop] <- new_ids
+      #if (!is.null(object$metamult))
+      #  names(object$metamult)[to_rename_loop] <- new_ids
     }
     message("  next step")
   }
@@ -144,8 +144,8 @@ deleteAndRenameDuplicates <- function(object, paragraph = FALSE){
                       1:sum(to_rename_loop))
     names(object$text)[to_rename_loop] <- new_ids
     object$meta$id[to_rename_loop] <- new_ids
-    if (!is.null(object$metamult))
-      names(object$metamult)[to_rename_loop] <- new_ids
+    #if (!is.null(object$metamult))
+    #  names(object$metamult)[to_rename_loop] <- new_ids
   }
   message("  success")
   return(object)
