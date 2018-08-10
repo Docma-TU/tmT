@@ -33,7 +33,7 @@
 #' filterWord(text=texts, search=data.frame(pattern=c("fish", "day"), word="word", count=1),
 #' ignore.case=TRUE)
 #'
-#' # search for "fish" OR "day"
+#' # search for "Thanks" OR "integrals"
 #' filterWord(text=texts, search=list(data.frame(pattern="Thanks", word="word", count=1),
 #' data.frame(pattern="integrals", word="word", count=1)))
 #'
