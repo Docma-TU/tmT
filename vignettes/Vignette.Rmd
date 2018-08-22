@@ -237,13 +237,13 @@ In the case of a \texttt{list} of \texttt{data.frames} committed each \texttt{da
 searchframe <- data.frame(pattern = searchterm, word = FALSE, count = 1)
 filterWord(text = toyCorpus, search = searchframe, out = "bin")
 ```
-In the case that \texttt{word} is committed as \texttt{data.frame}, the \textit{and} link is active. The function checks whether all of the patterns appear as part of words in the two entries of \texttt{texts}. Therefore the function returns \texttt{FALSE} twice.
+In the case that \texttt{search} is committed as \texttt{data.frame}, the \textit{and} link is active. The function checks whether all of the patterns appear as part of words in the two entries of \texttt{texts}. Therefore the function returns \texttt{FALSE} twice.
 
 For another emeplary case, we will delete the word \textit{anything} from the search terms.
 ```{r}
 filterWord(text = toyCorpus, search = searchframe[1:3,], out = "bin")
 ```
-By omitting the word \textit{anything} from \texttt{searchterm} you receive a \texttt{TRUE} for text1 (\textit{dataset}) - all three patterns appear in it - and a \texttt{FALSE} for text2 (\textit{anything}), because not all patterns appear in it, not even one of them.
+By omitting the word \textit{anything} from \texttt{searchframe} you receive a \texttt{TRUE} for text1 (\textit{dataset}) - all three patterns appear in it - and a \texttt{FALSE} for text2 (\textit{anything}), because not all patterns appear in it, not even one of them.
 
 An example with \texttt{out = count} to receive a count for each document and search term combination is the following.
 ```{r}
