@@ -5,6 +5,6 @@ Sys.setenv("R_TESTS" = "")
 Sys.setlocale('LC_ALL','C')
 
 library(testthat)
-library(tmT)
+library(tosca)
 
-test_check("tmT")
+test_check("tosca")
