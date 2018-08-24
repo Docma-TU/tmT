@@ -5,8 +5,8 @@
 \title{Subcorpus With Date Filter}
 \usage{
 filterDate(object, text = object$text, meta = object$meta,
-  s.date = min(meta$date, na.rm = TRUE), e.date = max(meta$date, na.rm =
-  TRUE))
+  s.date = min(meta$date, na.rm = TRUE), e.date = max(meta$date, na.rm
+  = TRUE))
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object}

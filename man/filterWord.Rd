@@ -4,8 +4,8 @@
 \alias{filterWord}
 \title{Subcorpus With Word Filter}
 \usage{
-filterWord(object, text, search, ignore.case = FALSE, out = c("text", "bin",
-  "count"))
+filterWord(object, text, search, ignore.case = FALSE, out = c("text",
+  "bin", "count"))
 }
 \arguments{
 \item{object}{A \code{\link{textmeta}} object}

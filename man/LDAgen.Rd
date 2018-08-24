@@ -4,9 +4,10 @@
 \alias{LDAgen}
 \title{Function to fit LDA model}
 \usage{
-LDAgen(documents, K = 100L, vocab, num.iterations = 200L, burnin = 70L,
-  alpha = NULL, eta = NULL, seed = NULL, folder = paste0(getwd(),
-  "/lda-result"), num.words = 50L, LDA = TRUE, count = FALSE)
+LDAgen(documents, K = 100L, vocab, num.iterations = 200L,
+  burnin = 70L, alpha = NULL, eta = NULL, seed = NULL,
+  folder = paste0(tempdir(), "/lda-result"), num.words = 50L,
+  LDA = TRUE, count = FALSE)
 }
 \arguments{
 \item{documents}{A list prepared by \code{\link{LDAprep}}.}
@@ -25,7 +26,7 @@ LDAgen(documents, K = 100L, vocab, num.iterations = 200L, burnin = 70L,
 
 \item{seed}{A seed for reproducability.}
 
-\item{folder}{File for the results}
+\item{folder}{File for the results. Saves in the temporary directionary by default.}
 
 \item{num.words}{Number of words in the top topic words list}
 

@@ -9,8 +9,8 @@ plotTopicWord(object, docs, ldaresult, ldaID,
   "or"), select = 1:nrow(ldaresult$document_sums), tnames, wnames,
   rel = FALSE, mark = TRUE, unit = "month", curves = c("exact",
   "smooth", "both"), smooth = 0.05, legend = ifelse(pages,
-  "onlyLast:topright", "topright"), pages = FALSE, natozero = TRUE, file,
-  main, xlab, ylab, ylim, both.lwd, both.lty, col, ...)
+  "onlyLast:topright", "topright"), pages = FALSE, natozero = TRUE,
+  file, main, xlab, ylab, ylim, both.lwd, both.lty, col, ...)
 }
 \arguments{
 \item{object}{\code{\link{textmeta}} object with strictly tokenized
