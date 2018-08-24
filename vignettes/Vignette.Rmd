@@ -1,5 +1,5 @@
 ---
-title: "Package 'tmT'"
+title: "Package 'tosca'"
 author: "Lars Koppers, Jonas Rieger, Karin Boczek, Gerret von Nordheim"
 date: \today
 output:
@@ -12,7 +12,7 @@ editor_options:
   chunk_output_type: console
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Vignette tmT}
+  %\VignetteIndexEntry{Vignette tosca}
 ---
 \newpage
 # Introduction
@@ -23,13 +23,13 @@ Most visualisations aim at the presentation of measures for corpora, subcorpora 
 The current version of the package can be installed with the \texttt{devtools} package.
 ```{r, include = FALSE}
 devtools::install_github("DoCMA-TU/tmT")
-library(tmT)
+library(tosca)
 ```
 This vignette gives an overview over the functionality of the package. For a detailed description of the functions see the help pages.
 
 ```{r, eval = FALSE}
-install.packages("tmT")
-library("tmT")
+install.packages("tosca")
+library("tosca")
 ```
 
 # Data Preprocessing
@@ -39,7 +39,7 @@ A basic functionality of the package is data preprocessing. Therefore several fu
 Read the corpus data through one of your self-implemented read-functions and create a \texttt{textmeta} object with the function of the same name and the arguments \texttt{text}, \texttt{meta} and \texttt{metamult}. The \texttt{text} component should be a \texttt{list} of \texttt{character} vectors or a \texttt{list} of \texttt{lists} of \texttt{character} vectors, whereas \texttt{meta} is a \texttt{data.frame} and \texttt{metamult} is intended for mainly unstructured meta-information as a \texttt{list}. Furthermore \texttt{meta} must contain the columns \texttt{id}, \texttt{date} and \texttt{title}.
 You can test whether your object meets the requirements of a \texttt{textmeta} object with the function \texttt{is.textmeta}.
 
-A read-function which is part of the package \texttt{tmT} is the function \texttt{readWikinews}. \texttt{readWikinews} reads XML-files created by the wikinews export page: [https://en.wikinews.org/wiki/Special:Export](https://en.wikinews.org/wiki/Special:Export "Wikinews Export pages"). By default \texttt{readWikinews} reads all XML-files in the working directory. The function creates a \texttt{textmeta} object. For this vignette we used two categories: *Politics_and_conflicts* and *Economy_and_business*. The pages were downloaded on 2018-03-05 in a file for each category. We can use \texttt{readWikinews} for reading both files, if they are in the same folder.
+A read-function which is part of the package \texttt{tosca} is the function \texttt{readWikinews}. \texttt{readWikinews} reads XML-files created by the wikinews export page: [https://en.wikinews.org/wiki/Special:Export](https://en.wikinews.org/wiki/Special:Export "Wikinews Export pages"). By default \texttt{readWikinews} reads all XML-files in the working directory. The function creates a \texttt{textmeta} object. For this vignette we used two categories: *Politics_and_conflicts* and *Economy_and_business*. The pages were downloaded on 2018-03-05 in a file for each category. We can use \texttt{readWikinews} for reading both files, if they are in the same folder.
 
 ```{r, eval = FALSE}
 corpus <- readWikinews()
@@ -361,7 +361,7 @@ The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluste
 It is possible to merge different results of LDAs by calling \texttt{mergeLDA(list(result1, result2, ..., resultN))}. The function \texttt{mergeLDA} binds the \texttt{topics} elements of the results by row and only considers words which appear in all results. As result you receive the \texttt{topics} matrix including all topics from the results.
 
 ## Visualisation of Topics over Time - \texttt{plotTopic}
-As extension of the highly flexible functions \texttt{plotScot} and \texttt{plotFreq} the package \texttt{tmT} offers another plotting function of the same type. The function \texttt{plotTopic} does something very similar to these two functions. It plots the counts or proportion of words allocated to different topics of a LDA result over time. The result object is committed in \texttt{ldaresult}, and the corresponding IDs of documents as a \texttt{character} vector in \texttt{ldaid}. In \texttt{object} the function expects a strictly tokenized \texttt{textmeta} object. You could set \texttt{select} for selecting topics by an \texttt{integer} vector. By default all topics are selected. Analoguously to \texttt{wnames} in \texttt{plotFreq} it is possible to set topic names with \texttt{tnames}. By default the index and the most representative word (\texttt{top.topic.words}) per topic are chosen as names. For further individualisation the function offers mostly the same options as \texttt{plotScot} and \texttt{plotFreq}.
+As extension of the highly flexible functions \texttt{plotScot} and \texttt{plotFreq} the package \texttt{tosca} offers another plotting function of the same type. The function \texttt{plotTopic} does something very similar to these two functions. It plots the counts or proportion of words allocated to different topics of a LDA result over time. The result object is committed in \texttt{ldaresult}, and the corresponding IDs of documents as a \texttt{character} vector in \texttt{ldaid}. In \texttt{object} the function expects a strictly tokenized \texttt{textmeta} object. You could set \texttt{select} for selecting topics by an \texttt{integer} vector. By default all topics are selected. Analoguously to \texttt{wnames} in \texttt{plotFreq} it is possible to set topic names with \texttt{tnames}. By default the index and the most representative word (\texttt{top.topic.words}) per topic are chosen as names. For further individualisation the function offers mostly the same options as \texttt{plotScot} and \texttt{plotFreq}.
 
 Often it is useful to choose \texttt{curves = "smooth"} if you do not select topics, because there is a massive fluctuation of exact curves. However, it is important to have a look at the exact curves, because the smoothed curves are someway manipulated by the statement \texttt{smooth}, so the user is tempted to optimise the smoothing parameter for getting the curves he or she wants.
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
