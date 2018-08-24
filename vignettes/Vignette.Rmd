@@ -302,7 +302,7 @@ The function that has to be applied first to the corpus prepared by \texttt{LDAp
 
 In the concrete example corpus the manipulated corpus \texttt{pagesLDA} is used for \texttt{documents}, the topic number is set to \texttt{K = 10} and for reproducibility a seed is set to \texttt{seed = 123}. The filename consists of the \texttt{folder} argument followed by the options of \texttt{K}, \texttt{num.iterations}, \texttt{burnin} and the \texttt{seed} of the LDA. The hyperparameter \texttt{alpha} and \texttt{eta} are set to $1/K$ by default.
 ```{r, eval = TRUE}
-LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
+result <- LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
 #load(paste0(tempdir(),"/lda-result-k10i200b70s123alpha0.1eta0.1.RData"))
 ```
 
