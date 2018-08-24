@@ -304,6 +304,7 @@ In the concrete example corpus the manipulated corpus \texttt{pagesLDA} is used 
 ```{r, eval = TRUE}
 result <- LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
 #load(paste0(tempdir(),"/lda-result-k10i200b70s123alpha0.1eta0.1.RData"))
+load("lda-result-k10i200b70s123alpha0.1eta0.1.RData")
 ```
 
 <!--  ```{r, include = FALSE} -->
