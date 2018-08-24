@@ -12,7 +12,7 @@
 #' @param alpha Hyperparameter for the topic proportions
 #' @param eta Hyperparameter for the word distributions
 #' @param seed A seed for reproducability.
-#' @param folder File for the results
+#' @param folder File for the results. Saves in the temporary directionary by default.
 #' @param num.words Number of words in the top topic words list
 #' @param LDA logical: Should a new model be fitted or an existing R workspace?
 #' @param count logical: Should article counts calculated
@@ -47,7 +47,7 @@
 #' @export LDAgen
 LDAgen <- function(documents, K = 100L, vocab, num.iterations = 200L,
   burnin = 70L, alpha = NULL, eta = NULL, seed = NULL,
-  folder = paste0(getwd(),"/lda-result"), num.words = 50L, LDA = TRUE, count = FALSE){
+  folder = paste0(tempdir(),"/lda-result"), num.words = 50L, LDA = TRUE, count = FALSE){
     if(is.null(alpha)) alpha <- 1/K
     if(is.null(eta)) eta <- 1/K
     if(is.null(seed)) seed <- sample(1:10^8,1)
