@@ -55,6 +55,16 @@ Object of class \code{IntruderTopics}. List of 11
 \description{
 This function validates a LDA result by presenting a mix of topics and intruder topics to a human user, who has to identity them.
 }
+\examples{
+\donttest{
+data(politics)
+poliClean <- cleanTexts(politics)
+words10 <- makeWordlist(text=poliClean$text)
+words10 <- words10$words[words10$wordtable > 10]
+poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+intruder <- intruderTopics(text=politics$text, beta=LDAresult$topics, theta=LDAresult$document_sums, id=names(poliLDA))}
+}
 \references{
 Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
 }

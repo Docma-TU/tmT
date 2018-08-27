@@ -21,6 +21,15 @@
 #' \item{numOutwords}{Parameter of the function call}
 #' \item{noTopic}{Parameter of the function call}
 #' @references Chang, Jonathan and Sean Gerrish and Wang, Chong and Jordan L. Boyd-graber and David M. Blei. Reading Tea Leaves: How Humans Interpret Topic Models. Advances in Neural Information Processing Systems, 2009.
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' words10 <- makeWordlist(text=poliClean$text)
+#' words10 <- words10$words[words10$wordtable > 10]
+#' poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+#' LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+#' intruder <- intruderWords(beta=LDAresult$topics)}
 #' @export intruderWords
 
 intruderWords <- function(beta=NULL, byScore = TRUE, numTopwords = 30L, numIntruder = 1L, numOutwords = 5L, noTopic=TRUE, printSolution = FALSE, oldResult=NULL, test=FALSE, testinput=NULL){
