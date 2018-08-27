@@ -28,8 +28,11 @@ test_check("tmT")
 ## build install ##
 ###################
 setwd("C:/Users/koppers/Desktop")
-system("Rcmd check tmT --as-cran")
+Sys.time()
 system("Rcmd build tmT --resave-data")
+Sys.time()
+system("Rcmd check tosca_0.0-1.tar.gz --as-cran")
+Sys.time()
 
 
 system("Rcmd INSTALL tmT_0.1.tar.gz")

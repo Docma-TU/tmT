@@ -87,7 +87,7 @@ intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntrud
     toptopics2 <- apply(toptopics2,2,paste, collapse=" ")
 
     repeat{
-      htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
+      if(!test)htmltools::html_print(htmltools::HTML(c("<h2>Document: ", sID, "</h2><p>", paste(text[[sID]], "<p>"))))
       cat(c(paste(toptopics2, collapse= "\n"), "\n"))
       if(!test[1]){input <- readline(prompt = "Input:")}else{input <- testinput[1]; testinput <- testinput[-1]}
       if(input=="q"){break}#exit
