@@ -16,6 +16,15 @@
 #' @param unclearTopicAssignment Logical: If TRUE all words which are assigned to more than one topic will not be colored. Otherwise the words will be colored in order of topic apperance in the \code{ldaresult}.
 #' @param htmlreturn Logical: HTML output for tests
 #' @return A HTML document
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' words10 <- makeWordlist(text=poliClean$text)
+#' words10 <- words10$words[words10$wordtable > 10]
+#' poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+#' LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+#' topicsInText(text=politics$text, ldaID=names(poliLDA), id="ID2756", ldaresult=LDAresult, vocab=words10)}
 #' @export topicsInText
 
 
