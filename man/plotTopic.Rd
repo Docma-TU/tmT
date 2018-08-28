@@ -90,3 +90,19 @@ Creates a plot of the counts/proportion of specified topics of a result of
 or to create one plot for every curve (see \code{pages}).
 In addition the plots can be written to a pdf by setting \code{file}.
 }
+\examples{
+\donttest{
+data(politics)
+poliClean <- cleanTexts(politics)
+words10 <- makeWordlist(text=poliClean$text)
+words10 <- words10$words[words10$wordtable > 10]
+poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+
+# plot all topics
+plotTopic(object=poliClean, ldaresult=LDAresult, ldaID=names(poliLDA))
+
+# plot special topics
+plotTopic(object=poliClean, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,4))
+}
+}

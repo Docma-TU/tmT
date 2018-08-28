@@ -102,3 +102,15 @@ Additionally the corpora are reduced by \code{\link{filterWord}} and a
 \code{search}-argument. The plot shows counts of subcorpora or if
 \code{rel = TRUE} proportion of subcorpora to its corresponding whole corpus.
 }
+\examples{
+\donttest{
+data(politics)
+poliClean <- cleanTexts(politics)
+poliPraesidents <- filterWord(object=poliClean, search=c("bush", "obama"))
+words10 <- makeWordlist(text=poliPraesidents$text)
+words10 <- words10$words[words10$wordtable > 10]
+poliLDA <- LDAprep(text=poliPraesidents$text, vocab=words10)
+LDAresult <- LDAgen(documents=poliLDA, K=5, vocab=words10)
+plotWordSub(object=poliClean, ldaresult=LDAresult, ldaID=names(poliLDA), search="obama")
+}
+}

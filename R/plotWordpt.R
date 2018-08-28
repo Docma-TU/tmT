@@ -71,6 +71,24 @@
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{tnames: wnames}
 #' with the counts/proportion of the selected combination of topics and words.
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' words10 <- makeWordlist(text=poliClean$text)
+#' words10 <- words10$words[words10$wordtable > 10]
+#' poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+#' LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA))
+#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), rel=TRUE)
+#'
+#' # Differences between plotTopicWord and plotWordpt
+#' par(mfrow=c(2,2))
+#' plotTopicWord(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=FALSE)
+#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=FALSE)
+#' plotTopicWord(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=TRUE)
+#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=TRUE)
+#' }
 #' @export plotWordpt
 #'
 
@@ -204,8 +222,8 @@ plotWordpt <- function(object, docs, ldaresult, ldaID,
   tmpdate <- meta[match(rownames(topiccount), names(meta))]
   tmpdate <- lubridate::floor_date(tmpdate, unit = unit)
   if (mark) markYears <- seq(from = lubridate::floor_date(
-    min(tmpdate), unit = "year"), to = lubridate::ceiling_date(
-      max(tmpdate), unit = "year"), by = "year")
+    min(tmpdate, na.rm = TRUE), unit = "year"), to = lubridate::ceiling_date(
+      max(tmpdate, na.rm = TRUE), unit = "year"), by = "year")
   else markYears <- NA
   splt2 <- apply(topicwordcount, 2, function(x) sapply(split(x, tmpdate), sum))
 

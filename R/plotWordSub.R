@@ -61,11 +61,22 @@
 #' @return A plot.
 #' Invisible: A dataframe with columns \code{date} and \code{tnames} with the
 #' counts/proportion of the selected topics.
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' poliPraesidents <- filterWord(object=poliClean, search=c("bush", "obama"))
+#' words10 <- makeWordlist(text=poliPraesidents$text)
+#' words10 <- words10$words[words10$wordtable > 10]
+#' poliLDA <- LDAprep(text=poliPraesidents$text, vocab=words10)
+#' LDAresult <- LDAgen(documents=poliLDA, K=5, vocab=words10)
+#' plotWordSub(object=poliClean, ldaresult=LDAresult, ldaID=names(poliLDA), search="obama")
+#' }
 #' @export plotWordSub
 
 # AUSBLICK:
 # select: auch liste zulassen + link-argument (schwierige Implementierung...)
-# bei "or"-link im prinzip für rel = TRUE mean und bei rel = FALSE sum
+# bei "or"-link im prinzip fuer rel = TRUE mean und bei rel = FALSE sum
 
 plotWordSub = function(object, ldaresult, ldaID, limit = 10,
   alloc = c("multi", "unique", "best"), select = 1:nrow(ldaresult$document_sums),
@@ -113,8 +124,8 @@ plotWordSub = function(object, ldaresult, ldaID, limit = 10,
       search = search, ignore.case = ignore.case, out = "bin")])
 
   ### help-function (simplifier of plotScot):
-  levs <- unique(lubridate::floor_date(seq(from = min(object$meta$date),
-    to = max(object$meta$date), by = "day"), unit = unit))
+  levs <- unique(lubridate::floor_date(seq(from = min(object$meta$date, na.rm = TRUE),
+    to = max(object$meta$date, na.rm = TRUE), by = "day"), unit = unit))
   foo <- function(subobject, id, type. = type, rel. = rel, unit. = unit,
     natozero. = natozero){
     dates <- lubridate::floor_date(

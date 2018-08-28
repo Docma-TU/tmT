@@ -49,3 +49,14 @@ Creates a pdf showing a heat map. For each topic, the heat map shows the deviati
 its current share from its mean share. Shares can be calculated on corpus level or on subcorpus level concerning LDA vocabulary.
 Shares can be calculated in absolute deviation from the mean or relative to the mean of the topic to account for different topic strengths.
 }
+\examples{
+\donttest{
+data(politics)
+poliClean <- cleanTexts(politics)
+words10 <- makeWordlist(text=poliClean$text)
+words10 <- words10$words[words10$wordtable > 10]
+poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+plotHeat(object=poliClean, ldaresult=LDAresult, ldaID=names(poliLDA))
+}
+}

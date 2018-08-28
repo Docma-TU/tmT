@@ -94,3 +94,10 @@ in the subcorpus. The counts/proportion can be calculated on document or word
 level - with an 'and' or 'or' link - and additionally can be normalised by
 a subcorporus, which could be specified by \code{id}.
 }
+\examples{
+\donttest{
+data(politics)
+poliClean <- cleanTexts(politics)
+plotFreq(poliClean, wordlist=c("obama", "bush"))
+}
+}

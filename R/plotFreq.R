@@ -57,6 +57,12 @@
 #' Invisible: A dataframe with columns \code{date} and \code{wnames} - and
 #' additionally columns \code{wnames_rel} for \code{rel = TRUE} - with the
 #' counts (and proportion) of the given wordgroups.
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' plotFreq(poliClean, wordlist=c("obama", "bush"))
+#' }
 #' @export plotFreq
 
 plotFreq <- function(object, id = names(object$text),

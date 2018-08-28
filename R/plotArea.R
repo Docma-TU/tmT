@@ -20,6 +20,18 @@
 #' @param file Character: File path if a pdf should be created
 #' @details This function is useful to visualize the volume of topics and to show trends over time.
 #' @return List of two matrices. \code{rel} contains the topic proportions over time, \code{relcum} contains the cumulated topic proportions
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' words10 <- makeWordlist(text=poliClean$text)
+#' words10 <- words10$words[words10$wordtable > 10]
+#' poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+#' LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+#' plotArea(ldaresult=LDAresult, ldaID=names(poliLDA), meta=politics$meta)
+#'
+#' plotArea(ldaresult=LDAresult, ldaID=names(poliLDA), meta=politics$meta, select=c(1,3,5))
+#' }
 #' @export plotArea
 #'
 plotArea <- function(ldaresult, ldaID, select = NULL, tnames = NULL,

@@ -26,6 +26,17 @@
 #' details The function is useful to search for peaks in the coverage of topics.
 #' @return A pdf.
 #' Invisible: A dataframe.
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#' words10 <- makeWordlist(text=poliClean$text)
+#' words10 <- words10$words[words10$wordtable > 10]
+#' poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
+#' LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
+#' plotHeat(object=poliClean, ldaresult=LDAresult, ldaID=names(poliLDA))
+#' }
+
 #' @export plotHeat
 
 plotHeat <- function(object, ldaresult, ldaID,

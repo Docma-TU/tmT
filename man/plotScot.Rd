@@ -70,3 +70,16 @@ which could be specified by \code{id}.
 (character vectors) if you use \code{type = "words"}.
 If you use \code{type = "docs"} you can use a tokenized or a non-tokenized text component.
 }
+\examples{
+\donttest{
+data(politics)
+poliClean <- cleanTexts(politics)
+
+# complete corpus
+plotScot(object=poliClean)
+
+# subcorpus
+subID <- filterWord(poliClean, search=c("bush", "obama"), out="bin")
+plotScot(object=poliClean, id=names(subID)[subID], curves="both", smooth=0.3)
+}
+}

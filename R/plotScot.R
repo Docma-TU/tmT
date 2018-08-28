@@ -37,6 +37,19 @@
 #' @return A plot
 #' Invisible: A dataframe with columns \code{date} and \code{counts},
 #' respectively \code{proportion}
+#' @examples
+#' \donttest{
+#' data(politics)
+#' poliClean <- cleanTexts(politics)
+#'
+#' # complete corpus
+#' plotScot(object=poliClean)
+#'
+#' # subcorpus
+#' subID <- filterWord(poliClean, search=c("bush", "obama"), out="bin")
+#' plotScot(object=poliClean, id=names(subID)[subID], curves="both", smooth=0.3)
+#' }
+
 #' @export plotScot
 
 plotScot <- function(object, id = object$meta$id, type = c("docs", "words"),
