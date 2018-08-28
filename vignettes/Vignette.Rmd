@@ -18,7 +18,45 @@ vignette: >
 # Introduction
 
 This package provides different functions to explore text corpora with topic models. The package focuses on the visualisation and validation of content analysis. Therefore it provides some filters for preprocessing and a wrapper for the latent dirichlet allocation (lda) from the lda-package to include a topic model.
-Most visualisations aim at the presentation of measures for corpora, subcorpora or topics from lda over time. To use this functionality every document needs a date specification as metadata. To harmonize different text sources we use a S3 \texttt{textmeta} object.
+Most visualisations aim at the presentation of measures for corpora, subcorpora or topics from lda over time. To use this functionality every document needs a date specification as metadata. To harmonize different text sources we provide the S3 object \texttt{textmeta}.
+
+|Function                  | Description|
+|--------------------------|------------|
+|LDAgen                    | Test|
+|LDAprep                   | TEst2|
+<!-- |cleanTexts                | -->
+<!-- |clusterTopics             | -->
+<!-- ||deleteAndRenameDuplicates| -->
+<!-- |duplist                    -->
+<!-- |filterCount -->
+<!-- |filterDate -->
+<!-- |filterWord -->
+<!-- |intruderTopics -->
+<!-- |intruderWords -->
+<!-- |is.duplist -->
+<!-- |is.textmeta -->
+<!-- |makeWordlist -->
+<!-- |mergeLDA -->
+<!-- ||mergeTextmeta -->
+<!-- |plotArea -->
+<!-- |plotFreq -->
+<!-- |plotHeat -->
+<!-- |plotScot -->
+<!-- |plotTopic -->
+<!-- |plotTopicWord -->
+<!-- |plotWordSub -->
+<!-- |plotWordpt -->
+<!-- |readTextmeta -->
+<!-- |readWiki -->
+<!-- |readWikinews -->
+<!-- |removeHTML -->
+<!-- |removeUmlauts -->
+<!-- |removeXML -->
+<!-- |showMeta -->
+<!-- |showTexts -->
+<!-- |textmeta -->
+<!-- |topTexts -->
+<!-- |topicsInText -->
 
 The current version of the package can be installed with the \texttt{devtools} package.
 ```{r, include = FALSE}
