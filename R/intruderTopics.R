@@ -37,7 +37,9 @@
 #' words10 <- words10$words[words10$wordtable > 10]
 #' poliLDA <- LDAprep(text=poliClean$text, vocab=words10)
 #' LDAresult <- LDAgen(documents=poliLDA, K=10, vocab=words10)
-#' intruder <- intruderTopics(text=politics$text, beta=LDAresult$topics, theta=LDAresult$document_sums, id=names(poliLDA))}
+#' intruder <- intruderTopics(text=politics$text, beta=LDAresult$topics,
+#'                            theta=LDAresult$document_sums, id=names(poliLDA))
+#' }
 #' @export intruderTopics
 
 intruderTopics <- function(text= NULL, beta=NULL, theta=NULL, id=NULL, numIntruder=1, numOuttopics=4, byScore=TRUE, minWords=0L, minOuttopics=0L, stopTopics=NULL, printSolution=FALSE, oldResult=NULL, test=FALSE, testinput=NULL){

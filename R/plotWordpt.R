@@ -84,10 +84,14 @@
 #'
 #' # Differences between plotTopicWord and plotWordpt
 #' par(mfrow=c(2,2))
-#' plotTopicWord(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=FALSE)
-#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=FALSE)
-#' plotTopicWord(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=TRUE)
-#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA), select=c(1,3,8), wordlist=c("bush"), rel=TRUE)
+#' plotTopicWord(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA),
+#'               select=c(1,3,8), wordlist=c("bush"), rel=FALSE)
+#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA),
+#'            select=c(1,3,8), wordlist=c("bush"), rel=FALSE)
+#' plotTopicWord(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA),
+#'               select=c(1,3,8), wordlist=c("bush"), rel=TRUE)
+#' plotWordpt(object=poliClean, docs=poliLDA, ldaresult=LDAresult, ldaID=names(poliLDA),
+#'            select=c(1,3,8), wordlist=c("bush"), rel=TRUE)
 #' }
 #' @export plotWordpt
 #'
