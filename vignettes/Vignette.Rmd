@@ -20,55 +20,70 @@ vignette: >
 This package provides different functions to explore text corpora with topic models. The package focuses on the visualisation and validation of content analysis. Therefore it provides some filters for preprocessing and a wrapper for the latent dirichlet allocation (lda) from the lda-package to include a topic model.
 Most visualisations aim at the presentation of measures for corpora, subcorpora or topics from lda over time. To use this functionality every document needs a date specification as metadata. To harmonize different text sources we provide the S3 object \texttt{textmeta}.
 
-|Function                  | Description|
-|--------------------------|------------|
-|LDAgen                    | Test|
-|LDAprep                   | TEst2|
-<!-- |cleanTexts                | -->
-<!-- |clusterTopics             | -->
-<!-- ||deleteAndRenameDuplicates| -->
-<!-- |duplist                    -->
-<!-- |filterCount -->
-<!-- |filterDate -->
-<!-- |filterWord -->
-<!-- |intruderTopics -->
-<!-- |intruderWords -->
-<!-- |is.duplist -->
-<!-- |is.textmeta -->
-<!-- |makeWordlist -->
-<!-- |mergeLDA -->
-<!-- ||mergeTextmeta -->
-<!-- |plotArea -->
-<!-- |plotFreq -->
-<!-- |plotHeat -->
-<!-- |plotScot -->
-<!-- |plotTopic -->
-<!-- |plotTopicWord -->
-<!-- |plotWordSub -->
-<!-- |plotWordpt -->
-<!-- |readTextmeta -->
-<!-- |readWiki -->
-<!-- |readWikinews -->
-<!-- |removeHTML -->
-<!-- |removeUmlauts -->
-<!-- |removeXML -->
-<!-- |showMeta -->
-<!-- |showTexts -->
-<!-- |textmeta -->
-<!-- |topTexts -->
-<!-- |topicsInText -->
+The following table shows an overview over the functions in the package.
+
+|Function                        | Description|
+|--------------------------------|-----------------------------------------------------------|
+|**Preprocessing**               |
+|cleanTexts                      |tokenization, stopwords, removal of numbers, punctuation|
+|deleteAndRenameDuplicates       |deletion of duplicates, correction of not unique id's
+|duplist                         |list of different duplication types
+|filterCount                     |filter texts with few words
+|filterDate                      |filter texts depending on date
+|filterWord                      |filter texts depending on word lists
+|is.duplist                      |generic function for S3 object duplist
+|is.textmeta                     |generic function for S3 object textmeta
+|makeWordlist                    |wordlists and wordtables
+|mergeTextmeta                   |combining corpora
+|readTextmeta                    |create textmeta objects from csv files
+|readWiki                        |create textmeta objects from Wikipedia
+|readWikinews                    |create textmeta objects from Wikinews
+|removeHTML                      |converts html entities in UTF-8
+|removeUmlauts                   |converts german umlauts
+|removeXML                       |remove xml (html) tags
+|textmeta                        |S3 object textmeta
+||
+|**Topic Models**                |
+|LDAgen                          |wrapper for the lda in the lda-package
+|LDAprep                         |converts a tokenized textmeta object for the lda-package
+|clusterTopics                   |cluster analysis for topics
+|mergeLDA                        |combining lda-topics (for cluster analysis)
+||
+|**Descriptive Analysis: Corpus**|
+|plotFreq                        |plotting wordcounts over time
+|showMeta                        |export of meta data in csv
+|showTexts                       |export of text data in csv
+||
+|**Descriptive Analysis: Topics**|
+|plotArea                        |area plot for topics over time
+|plotHeat                        |heatmaps for topics over time
+|plotScot                        |plotting document counts of subcorpora over time
+|plotTopic                       |plotting topic counts over time
+|plotTopicWord                   |plotting wordcounts/proportion in topics over time
+|plotWordSub                     |plotting wordcounts/proportion in supcorpora relative to the original corpus
+|plotWordpt                      |plotting wordcounts/proportion relative to the topics
+|topTexts                        |filter representative texts for topics
+|topicsInText                    |visualisation of topics in a text
+||
+|**Validation**                  |
+|intruderTopics                  |intruder topics for topic validation
+|intruderWords                   |intruder words for topic validation
+
 
 The current version of the package can be installed with the \texttt{devtools} package.
-```{r, include = FALSE}
+```{r, include = TRUE, message=FALSE}
 devtools::install_github("DoCMA-TU/tmT")
 library(tosca)
 ```
-This vignette gives an overview over the functionality of the package. For a detailed description of the functions see the help pages.
-
+The actual version on CRAN can be installed with \texttt{instal.packages}.
 ```{r, eval = FALSE}
 install.packages("tosca")
-library("tosca")
+library(tosca)
 ```
+
+
+This vignette gives an overview over the functionality of the package. For a detailed description of the functions see the help pages.
+
 
 # Data Preprocessing
 A basic functionality of the package is data preprocessing. Therefore several functions are provided for reading text data, creating text objects, manipulating these objects and especially handling duplicates of different forms in the text data.
@@ -195,20 +210,24 @@ The plot shows that between 2006 and 2011 around 80 per cent of the corpus are n
 The other descriptive plotting function is \texttt{plotFreq} which performs a frequency analysis. Most of the arguments are the same as in  \texttt{plotScot}. The options \texttt{wordlist} and \texttt{link = c("and", "or")} are added for specifying the words of the frequency analysis and their link within one vector. In detail \texttt{wordlist} could either be a \texttt{list} of \texttt{character} vectors or a single \texttt{character} vector, which will be coerced to a \texttt{list} of the vector's length. Each \texttt{list} entry represents a set of words which all (default \texttt{link = "and"}) or one of them (\texttt{link = "or"}) should appear in an article to be counted. The function uses \texttt{filterWord} with \texttt{out = "count"} for counting, which is explained later on.
 
 The example corpus contains Wikinews articles concerning the categories *Politics_and_conflicts* and *Economy_and_business*. Therefore some typical words out of these categories are selected to perform a frequency analysis. As a first example the words \textit{unemployment}, \textit{growth} and \textit{trade} were used. The function identifies patterns. 
-\colorbox{red}{TODO:[Grafiken: Link-Beschreibung in Grafiküberschrift immer noch nicht perfekt zu sehen. Vorschlag: "over time. Link:" statt "over time - link:" evtl. reicht das schon ]}
+
 ```{r, fig.width=5, fig.height=3.5, fig.align=2, fig.show="hold"}
-wordsEconomy <- list("unemployment", "growth", "trade", c("unemployment", "growth", "trade"))
+wordsEconomy <- list("unemployment", "growth", "trade", 
+                     c("unemployment", "growth", "trade"))
 plotFreq(corpusClean, wordlist = wordsEconomy, curves = "smooth",
-  ylim = c(0, 25), legend = "topright")
+  ylim = c(0, 25), legend = "topright", 
+  main = "Wordlist-filtered texts over time. link: and")
 plotFreq(corpusClean, wordlist = wordsEconomy, link = "or", curves = "smooth",
-  ylim = c(0, 25), legend = "topright")
+  ylim = c(0, 25), legend = "topright", 
+  main = "Wordlist-filtered texts over time. link: or")
 ```
 In the figures above you can see the difference between the \textit{and} link and the \textit{or} link. In the first figure three curves indicate the single words. The fourth curve shows the number of texts in which all three words appear. For most dates no texts meets this requirement. In the second figure the same three curves representing single words are shown. The fourth curve represents all three words again, but setting \texttt{link = "or"}. The curve lies above the three others in every point. Due to smoothing it is possible that the line falls under one of the single word lines. This can be avoided by choosing \texttt{curves = "exact"}. 
 
 In another figure the counts of pages in which the words \textit{crisis}, \textit{war} and \textit{conflict} appear, are analysed. You can see that it is often useful to compare smoothed and exact curves to visualize the variance and a trend in the data.
 ```{r, fig.width=5, fig.height=3, fig.align=2}
 plotFreq(corpusClean, wordlist = list(c("crisis", "war", "conflict")), link = "or",
-  curves = "both", both.lwd = 2, legend = "topright")
+  curves = "both", both.lwd = 2, legend = "topright", 
+  main = "Wordlist-filtered texts over time. link: or")
 ```
 
 ## Write CSV Files - \texttt{showTexts}, \texttt{showMeta}
@@ -301,13 +320,14 @@ filterWord(text = searchterm, search = searchframe, out = "count")
 ```
 The function returns counts \texttt{c(3, 4)} for the simple pattern search and \texttt{c(2, 3)} for the word search, because the word \textit{and} appears once in every document of \texttt{searchterm} only as pattern and not as single word.
 
-After understanding the functionality of the function, now it is used for filtering the Wikipedia corpus. The example corpus is filtered to those pages which include the names of the categories as a pattern at least once. It is not necessary to set \texttt{ignore.case} because the Wikipedia corpus was cleaned before. This step includes that all words are lowercase now. \colorbox{red}{TODO:[AND OR, OR Logik] ... wurde ja vorher schon beschrieben}
+After understanding the functionality of the function, now it is used for filtering the Wikipedia corpus. The example corpus is filtered to those pages which include the names of the categories as a pattern at least once. It is not necessary to set \texttt{ignore.case} because the Wikipedia corpus was cleaned before. This step includes that all words are lowercase now. 
+
 ```{r}
 searchterm <- list(
   data.frame(pattern = "economy", word = FALSE, count = 1),
   data.frame(pattern = c("world", "economy"), word = FALSE, count = 1),
   data.frame(pattern = "politics", word = FALSE, count = 1))
-corpusFiltered = filterWord(corpusDate, search = searchterm)
+corpusFiltered <- filterWord(corpusDate, search = searchterm)
 print(corpusDate)
 print(corpusFiltered)
 ```
@@ -339,20 +359,20 @@ After receiving the words which appear at least six times in the whole filtered 
 The function that has to be applied first to the corpus prepared by \texttt{LDAprep} is \texttt{LDAgen}. The function offers the options \texttt{K} (\texttt{integer}, default: \texttt{K = 100L}) to set the number of topics, \texttt{vocab} (\texttt{character} vector) for specifying the words which are considered in the preparation of the corpus and several more e.g. number of iterations for the burnin (default: \texttt{burnin = 70}) and the number of iterations for the Gibbs sampler (default: \texttt{num.iterations = 200}). The result is saved in a \texttt{R} workspace, the first part of the results name can be specified by setting the option \texttt{folder} (default: \texttt{folder = paste0(tempdir(),"/lda-result")}). If you want to save your data permanent, you have to change the path in an non temporary one.
 
 In the concrete example corpus the manipulated corpus \texttt{pagesLDA} is used for \texttt{documents}, the topic number is set to \texttt{K = 10} and for reproducibility a seed is set to \texttt{seed = 123}. The filename consists of the \texttt{folder} argument followed by the options of \texttt{K}, \texttt{num.iterations}, \texttt{burnin} and the \texttt{seed} of the LDA. The hyperparameter \texttt{alpha} and \texttt{eta} are set to $1/K$ by default.
-```{r, eval = TRUE}
+```{r, eval = TRUE, include = FALSE}
 result <- LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
-#load(paste0(tempdir(),"/lda-result-k10i200b70s123alpha0.1eta0.1.RData"))
 load("lda-result-k10i200b70s123alpha0.1eta0.1.RData")
 ```
 
-<!--  ```{r, include = FALSE} -->
-<!-- load("lda-result-k10i200b70s123alpha0.1eta0.1.RData") -->
-<!-- ``` -->
+```{r, eval = FALSE}
+result <- LDAgen(documents = pagesLDA, K = 10L, vocab = words5, seed = 123)
+load(paste0(tempdir(),"/lda-result-k10i200b70s123alpha0.1eta0.1.RData"))
+```
+
 For validation of the LDA result and further analysis, the result is loaded back to the workspace.
 
 ## Validation of LDA Results - \texttt{intruderWords}, \texttt{intruderTopics}
-For validation of LDA results there are two functions in the package. These functions expect user input, the user works like a document labeller. The LDA result is committed by setting \texttt{beta = result\$topics}. From the function \texttt{intruderWords} the labeler gets a set of words. The number of words can be set by \texttt{numOutwords} (default: 5). This set represents one topic. It includes a number of intruders (default: \texttt{numIntruder = 1}), which can also be zero. In general, if the user identifies the intruder(s) correctly this is an identifier for a good topic allocation. You can set options \texttt{numTopwords} (default: 30) to control how many top words of each topic are considered for this validation. In addition it is possible to enable or disable the possibility for the user to mark nonsense topics. By default this option is enabled (\texttt{noTopic = TRUE}). The true intruder can be printed to the console after each step with \texttt{printSolution = TRUE} (default: \texttt{FALSE}).
-\colorbox{red}{TODO:[non-preprocessed corpus nach removexml ... verstehe den Punkt nicht.]}
+For validation of LDA results there are two functions in the package. \texttt{intruderWords} and \texttt{intruderTopics} are extended version of the method Chang et al. present in their paper "Reading Tea Leaves: How Humans Interpret Topic Models". These functions expect user input, the user works like a document labeler. The LDA result is committed by setting \texttt{beta = result\$topics}. From the function \texttt{intruderWords} the labeler gets a set of words. The number of words can be set by \texttt{numOutwords} (default: 5). This set represents one topic. It includes a number of intruders (default: \texttt{numIntruder = 1}), which can also be zero. In general, if the user identifies the intruder(s) correctly this is an identifier for a good topic allocation. You can set options \texttt{numTopwords} (default: 30) to control how many top words of each topic are considered for this validation. In addition it is possible to enable or disable the possibility for the user to mark nonsense topics. By default this option is enabled (\texttt{noTopic = TRUE}). The true intruder can be printed to the console after each step with \texttt{printSolution = TRUE} (default: \texttt{FALSE}).
 
 The LDA result of the example corpus is checked by \texttt{intruderWords} with the number of intruders being either 0 or 1.
 ```{r, eval = FALSE}
@@ -395,7 +415,7 @@ For analysing topic similarities it is useful to cluster the topics. The functio
 clustRes <- clusterTopics(ldaresult = result, xlab = "Topic", ylab = "Distance")
 names(clustRes)
 ```
-The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. \colorbox{yellow}{(Inhaltlich checken!)}For example the plot hints at a similarity between topic 6, 3 and 5 which all contain economic terms with topic 6 focussing more on economic policy and topic 5 concentrating on international politics and trade. Topic 2 and 8 both include words on national politics with topic 2 mentioning Australia, Ireland and the UK and topic 8 concentrating on U.S. politics. Topic 4 on war and conflict is close to topics 2 and 8.   
+The same plot as above can be recreated by calling \texttt{plot(clustRes\$cluster)}. In the plot you can see the similarities concerning the hellinger distance of the topics. For example the plot hints at a similarity between topic 6, 3 and 5 which all contain economic terms with topic 6 focussing more on economic policy and topic 5 concentrating on international politics and trade. Topic 2 and 8 both include words on national politics with topic 2 mentioning Australia, Ireland and the UK and topic 8 concentrating on U.S. politics. Topic 4 on war and conflict is close to topics 2 and 8.   
 
 It is possible to merge different results of LDAs by calling \texttt{mergeLDA(list(result1, result2, ..., resultN))}. The function \texttt{mergeLDA} binds the \texttt{topics} elements of the results by row and only considers words which appear in all results. As result you receive the \texttt{topics} matrix including all topics from the results.
 
@@ -417,7 +437,7 @@ plotTopic(object = corpusClean, ldaresult = result, ldaID = ldaID,
 ## Visualisation of Topic Share over Time - \texttt{plotArea}
 The function \texttt{plotArea} offers possibilities to create so called area visualisation of topics over time. It requires the arguments \texttt{ldaresult}, \texttt{ldaid} and \texttt{meta} as introduced before. There are options \texttt{select}, \texttt{tnames}, \texttt{unit} and others. Additionally you can set \texttt{threshold} to a \texttt{numeric} value between 0 and 1, as a limit that a topics proportion has to surpass at least once to be plotted.
 
-Because this seems to be interesting topics \colorbox{yellow}{Inhaltlich checken!} \textit{T3.economy} (blue curve), \textit{T6.economic policy} (green) and \textit{T8.US politics} (red) are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"} (default is \texttt{"quarter"}).
+Because this seems to be interesting topics \textit{T3.economy} (blue curve), \textit{T6.economic policy} (green) and \textit{T8.US politics} (red) are plotted in a sediment plot. The chosen \texttt{unit} is \texttt{"bimonth"} (default is \texttt{"quarter"}).
 ```{r, eval = FALSE}
 plotArea(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
   select = c(3, 6, 8), unit = "bimonth", sort = FALSE)
@@ -427,17 +447,17 @@ par(mar = c(3.5,3,1.5,1.5)+0.1)
 plotArea(ldaresult = result, ldaID = ldaID, meta = corpusFiltered$meta,
   select = c(3, 6, 8), unit = "bimonth", sort = FALSE)
 ```
-\colorbox{yellow}{(Inhaltlich checken!)} Examplary interpretation: The topic \textit{T3.economy} increases over time, especially after the bank Lehman Brothers declared bankruptcy in September 2008, the starting point of the global financial crisis. \textit{T8.US politics} is considerably larger during the 2008 presidential election campaign.
+Examplary interpretation: The topic \textit{T3.economy} increases over time, especially after the bank Lehman Brothers declared bankruptcy in September 2008, the starting point of the global financial crisis. \textit{T8.US politics} is considerably larger during the 2008 presidential election campaign.
 
 ## Visualisation of Words in Topic over Time - \texttt{plotTopicWord, plotWordpt}
 Another visualisation of topics over time is given by \texttt{plotTopicword}. It displays the counts or proportions of given topic-word combinations. If \texttt{rel = TRUE} the baseline for normalisation are the words counts, not the counts of topics. Arguments which have to specified are \texttt{object} (corpus, \texttt{textmeta} object), \texttt{docs} (corpus manipulated by \texttt{LDAprep}, the input for \texttt{LDAgen}) and the \texttt{ldaresult} with its \texttt{ldaid} (IDs of documents in \texttt{docs} or \texttt{ldaresult} respectively). The function asks for \texttt{docs} for complexity reasons. This object was created by \texttt{LDAprep} anyway. The options \texttt{wordlist} and \texttt{select} are known from other plot functions and offer a lot of different topic word combinations which should be plotted by \texttt{plotTopicword}.
 
-In the example corpus the proportion of the word \textit{economy} in the topics one, three and seven is explored. The \texttt{top.topic.words} of the three chosen topics are \colorbox{yellow}{Inhaltlich checken!}\textit{economy} (T3.economy, lightgreen curve), \textit{million} (T6.economic policy, orange) and \textit{obama} (T8.US politics, purple).
+In the example corpus the proportion of the word \textit{economy} in the topics one, three and seven is explored. The \texttt{top.topic.words} of the three chosen topics are \textit{economy} (T3.economy, lightgreen curve), \textit{million} (T6.economic policy, orange) and \textit{obama} (T8.US politics, purple).
 ```{r, fig.width=5.5, fig.height=3.5, fig.align=2}
 plotTopicWord(object = corpusFiltered, docs = pagesLDA, ldaresult = result, ldaID = ldaID,
   wordlist = "economy", select = c(3, 6, 8), rel = TRUE, legend = "topleft")
 ```
-The graphic shows that the word \textit{economy} is associated to the topic \colorbox{yellow}{\textit{T3.economy, lightgreen curve}} more often than with \colorbox{yellow}{\textit{T6.economic policy, orange curve}} and \colorbox{yellow}{\textit{T8.US politics, purple curve}} .
+The graphic shows that the word \textit{economy} is associated to the topic \textit{T3.economy, lightgreen curve} more often than with \textit{T6.economic policy, orange curve} and \textit{T8.US politics, purple curve}.
 
 For interpretation it is important to keep in mind the baseline, the word counts of \textit{economy}. To display this the sums of all topic-word proportions are calculated and are expected to be one for all dates which appear at least once, otherwise zero.
 ```{r, eval = FALSE}
@@ -473,17 +493,17 @@ The use case for \texttt{plotHeat} is given by searching for explicit peaks of c
 
 By default the  proportions are calculated on the article lengths, but it is possible to force calculation on only the LDA vocabulary by setting \texttt{object} to a \texttt{textmeta} object only including meta information. Otherwise a strictly tokenized \texttt{textmeta} object is required. The parameters \texttt{ldaresult} and \texttt{ldaID} expect a LDA result and according IDs like in functions mentioned before. Options \texttt{tnames} (topic label), \texttt{file} (if you want to save the plot in a pdf) and \texttt{unit} (default: round dates to \texttt{"year"}) are given as well. Additionally it is possible to specify whether the deviations should be normalised to take different topic sizes into account (default: \texttt{norm = FALSE}). You can change the intervals of labeling on the x-axis by setting \texttt{date\_breaks}. By default (\texttt{date\_breaks = 1}) every label is drawn. If you choose \texttt{date\_breaks = 5} every fifth label will be drawn.
 
-The increase of the topic \colorbox{yellow}{\textit{T3.economy} after September 2008} was mentioned before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen.
+The increase of the topic \textit{T3.economy} after September 2008 was mentioned before. This should be visible in the following heatmap as well. As compromise between clarity and interpretability \texttt{unit = "quarter"} is chosen.
 ```{r, fig.height=6, fig.width=10}
 plotHeat(object = corpusFiltered, ldaresult = result, ldaID = ldaID, unit = "quarter")
 ```
 
-\colorbox{yellow}{In this figure, as expected the \textit{T3.economy}} topic increase is clearly identifiable. The according rectangles are colored more and more red, starting from the first quarter of 2009. Almost all other quarters of years concerning this topic are colored lightblue. \colorbox{yellow}{Other remarkable quarters} are for example the third and fourth quarter of 2007, where the \colorbox{yellow}{topic \textit{T10.Canadian politics} and topic \textit{T1.stopwords}} have noticeable peaks. The dendrogramm shows that the topics are not very similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This supports the findings of clustering the topics with \texttt{clusterTopics}.
+In this figure, as expected the \textit{T3.economy} topic increase is clearly identifiable. The according rectangles are colored more and more red, starting from the first quarter of 2009. Almost all other quarters of years concerning this topic are colored lightblue. Other remarkable quarters are for example the third and fourth quarter of 2007, where the topic \textit{T10.Canadian politics} and topic \textit{T1.stopwords} have noticeable peaks. The dendrogramm shows that the topics are not very similar to another concerning the absolute deviations of topic proportion from the mean topic proportion per quarter. This supports the findings of clustering the topics with \texttt{clusterTopics}.
 
 ## Individual Cases Contemplation - \texttt{topTexts}, \texttt{topicsInText}
 Sometimes it is useful to look at individual cases. Especially the documents with the highest counts or proportion of words belonging to one topic are of interest. These documents can be extracted by \texttt{topTexts}. By default (\texttt{rel = TRUE}) the proportion is considered. The function requires a \texttt{ldaresult} and the according object \texttt{ldaid}. It offers options \texttt{select}, \texttt{limit} and \texttt{minlength}, which control how much articles per topic (default: all topics) are returned (default: \texttt{limit = 20}) and articles of which minimum length (default: \texttt{minlength = 30}) are taken into account. The output value is a matrix of the corresponding IDs.
 
-In the example the top four pages from the topics \colorbox{yellow}{\textit{T8.US politics}, {\textit{T3.economy} and \textit{T6.economic policy}} are requested. 
+In the example the top four pages from the topics \textit{T8.US politics}, \textit{T3.economy} and \textit{T6.economic policy} are requested. 
 ```{r}
 topID <- topTexts(ldaresult = result, ldaID = ldaID, select = c(8, 3, 6), limit = 4)
 dim(topID)
@@ -498,19 +518,62 @@ lapply(topArt, function(x) x[, 1:3])
 
 At last the function \texttt{topicsInText} offers the possibilty to analyse a single document's topic allocations. The function creates a HTML document with its words colored depending on the topic allocations of each word. It requires arguments \texttt{ldaresult} and  \texttt{ldaID} as usual. The corresponding \texttt{LDAprep} object should be committed in \texttt{text}, and the vocabulary set as \texttt{character} vector in \texttt{words}. You will set \texttt{id} to the documents ID you are interested in. It is possible to show the original text by setting \texttt{originalText} to the corresponding uncleaned \texttt{text} component of your \texttt{textmeta} object. There are some more options - e.g. \texttt{wordOrder} - for modifying the output individually.
 
-\colorbox{red}{TODO: Soll TopicsInText-Beispiel rein?}The article \textit{Family medicine} with ID \textit{1656748} from topic \textit{T3.health} and category \textit{Medicine} is analysed with the function \texttt{topicsInText} in more detail.
+The article \textit{Central banks worldwide cut interest rates} with ID \textit{ID114652} from the top article list of topic \textit{T3.economy} is analysed with the function \texttt{topicsInText} in more detail.
 ```{r, eval = FALSE}
 topicsInText(text = pagesLDA, ldaresult = result, ldaID = ldaID,
   id = topArt$T3.economy[4,1], vocab = words5, originaltext = corpus$text, wordOrder = "")
 ```
-<!-- \begin{center}\includegraphics[width = 0.78\textwidth]{topicText} \end{center} -->
+\begin{center}\includegraphics[width = \textwidth]{TopicsInText_example} \end{center}
 In the part of the HTML output above at first the different topics in the order of its absolute appearences in the given document are displayed. The topics are represented by its 20 \texttt{top.topic.words} each and are colored each in its own color. Words which were deleted by cleaning the corpus are colored black. This way you are able to check plausibility of individual documents, so \texttt{topicsInText} can also be seen as individual case validation.
+
+# Example pipeline
+
+In this section we summarize the presented functions to a standard pipelines for datasets. 
+```{r, eval = FALSE}
+library(tosca)
+## load data
+data(politics)
+data(economy)
+corpus <- mergeTextmeta(list(politics, economy))
+
+## Remove XML-tags and HTML-entities in title and text
+corpus$text <- removeXML(corpus$text)
+corpus$text <- removeHTML(corpus$text, dec=FALSE, hex=FALSE, entity=FALSE)
+corpus$meta$title <- removeXML(corpus$meta$title)
+corpus$meta$title <- removeHTML(corpus$meta$title, dec=FALSE, hex=FALSE, entity=FALSE)
+
+##looking for duplicates and first summaries
+corpus <- deleteAndRenameDuplicates(corpus)
+dups <- duplist(corpus)
+plotScot(corpus, id = dups$notDuplicatedTexts, rel = TRUE)
+print(corpus)
+summary(corpus)
+plotScot(corpus, curves = "both")
+
+## corpus preprocessing / wordlists
+corpusClean <- cleanTexts(object = corpus)
+wordtable <- makeWordlist(corpusClean$text)
+corpusDate <- filterDate(corpusClean, s.date = "2006-01-01", e.date = "2009-12-31")
+searchterm <- list(
+  data.frame(pattern = "economy", word = FALSE, count = 1),
+  data.frame(pattern = c("world", "economy"), word = FALSE, count = 1),
+  data.frame(pattern = "politics", word = FALSE, count = 1))
+corpusFiltered <- filterWord(corpusDate, search = searchterm)
+
+## prepare for LDA
+wordtableFiltered <- makeWordlist(corpusFiltered$text, method = "radix")
+words5 <- wordtableFiltered$words[wordtableFiltered$wordtable > 5]
+pagesLDA <- LDAprep(text = corpusFiltered$text, vocab = words5)
+LDAresult <- LDAgen(documents = pagesLDA, K = 10L, vocab = words5)
+```
+
+After generating the lda model further analysis depends on the specific aims of the project.
 
 # Conclusion
 (TODO)
 Wichtigste Punkte des Workflows zusammenfassen, allgemeine Fallstricke (Duplikate ...), Diskussion des Anwendungsbeispiels (viele stopwords nicht geloescht ...), Ausblick? (weitere Funktionen ...)
 
-```{r, include = FALSE}
+```{r, include = FALSE, eval = FALSE}
 library(knitr)
 purl("Vignette.Rmd", documentation = 2, quiet = TRUE)
 # get R-Code of the RMD
