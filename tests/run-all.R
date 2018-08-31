@@ -6,5 +6,5 @@ Sys.setlocale('LC_ALL','C')
 
 library(testthat)
 library(tosca)
-
-test_check("tosca")
+library(tmT)
+test_check("tmT")
