@@ -36,7 +36,7 @@ setwd("C:/Users/koppers/Desktop")
 Sys.time()
 system("Rcmd build tmT --resave-data")
 Sys.time()
-system("Rcmd check tmT_0.0-1.tar.gz --as-cran")
+system("Rcmd check tmT_0.1-4.tar.gz --as-cran")
 Sys.time()
 
 
