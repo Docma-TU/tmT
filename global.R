@@ -84,10 +84,11 @@ test_check("tosca")
 ## build install ##
 ###################
 setwd("C:/Users/koppers/Desktop")
+setwd("/home/lars/Github")
 Sys.time()
-system("Rcmd build tosca --resave-data")
+system("R CMD build tosca --resave-data")
 Sys.time()
-system("Rcmd check tosca_0.1-0.tar.gz --as-cran")
+system("R CMD check tosca_0.1-2.tar.gz --as-cran")
 Sys.time()
 
 
