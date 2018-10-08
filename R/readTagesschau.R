@@ -14,7 +14,7 @@
 #'
 #' @export readTagesschau
 #'
-readTagessschau <- function(path = getwd(),
+readTagesschau <- function(path = getwd(),
   file = list.files(path = path, pattern = "*.xml$",
     full.names = FALSE, recursive = TRUE), encoding = "utf-8",
   type = c("condensed", "detail")){
