@@ -9,18 +9,18 @@ as.corpus.textmeta(object, docnames = "id",
   metadoc = character(), ...)
 }
 \arguments{
-\item{object}{object of class \code{\link{textmeta}}}
+\item{object}{\code{\link{textmeta}} object}
 
-\item{docnames}{\code{character} column of object$meta which should be kept
-as \code{\link[quanteda]{docnames}}}
+\item{docnames}{Character: string with the column of object$meta
+which should be kept as \code{\link[quanteda]{docnames}}.}
 
-\item{docvars}{\code{character} vector with columns of object$meta which
-should be kept as \code{\link[quanteda]{docvars}}}
+\item{docvars}{Character: vector with columns of object$meta which
+should be kept as \code{\link[quanteda]{docvars}}.}
 
-\item{metadoc}{\code{character} vector with columns of object$meta which
-should be kept as \code{\link[quanteda]{metadoc}}}
+\item{metadoc}{Character: vector with columns of object$meta which
+should be kept as \code{\link[quanteda]{metadoc}}.}
 
-\item{...}{additional parameters like \code{compress} for \code{\link[quanteda]{corpus}}}
+\item{...}{Additional parameters like \code{compress} for \code{\link[quanteda]{corpus}}.}
 }
 \value{
 \code{\link[quanteda]{corpus}} object

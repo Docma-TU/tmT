@@ -4,26 +4,26 @@
 #' data is stored in the package \code{\link[quanteda]{quanteda}} - to a
 #' \code{\link{textmeta}} object.
 #'
-#' @param corpus object of class \code{\link[quanteda]{corpus}},
-#' package \code{\link[quanteda]{quanteda}}
-#' @param cols \code{character} vector with columns which should be kept
-#' @param dateFormat \code{character} string with the date format in the
-#' date column for \code{\link{as.Date}}
-#' @param idCol \code{character} string with column name of the IDs in corpus
-#' - named "id" in the resulting data.frame
-#' @param dateCol \code{character} string with column name of the Dates in corpus
-#' - named "date" in the resulting data.frame
-#' @param titleCol \code{character} string with column name of the Titles in corpus
-#' - named "title" in the resulting data.frame
-#' @param textCol \code{character} string with column name of the Texts in corpus
-#' - results in a named list ("id") of the Texts
-#' @param duplicateAction \code{logical}
-#' whether \code{\link{deleteAndRenameDuplicates}} should be applied to the
-#' created \code{\link{textmeta}} object
-#' @param addMetadata \code{logical} whether the metadata flag of corpus should
-#' be added to the meta flag of the \code{\link{textmeta}} object - if there are
+#' @param corpus Object of class \code{\link[quanteda]{corpus}},
+#' package \code{\link[quanteda]{quanteda}}.
+#' @param cols Character: vector with columns which should be kept.
+#' @param dateFormat Character: string with the date format in the
+#' date column for \code{\link{as.Date}}.
+#' @param idCol Character: string with column name of the IDs in corpus
+#' - named "id" in the resulting data.frame.
+#' @param dateCol Character: string with column name of the Dates in corpus
+#' - named "date" in the resulting data.frame.
+#' @param titleCol Character: string with column name of the Titles in corpus
+#' - named "title" in the resulting data.frame.
+#' @param textCol Character: string with column name of the Texts in corpus
+#' - results in a named list ("id") of the Texts.
+#' @param duplicateAction Logical:
+#' Should \code{\link{deleteAndRenameDuplicates}} be applied to the
+#' created \code{\link{textmeta}} object?
+#' @param addMetadata Logical: Should the metadata flag of corpus
+#' be added to the meta flag of the \code{\link{textmeta}} object? If there are
 #' conflicts regarding the naming of columns, the metadata columns would be
-#' overwritten by the document specific columns
+#' overwritten by the document specific columns.
 #' @return \code{\link{textmeta}} object
 #' @keywords manip
 #' @export as.textmeta.corpus

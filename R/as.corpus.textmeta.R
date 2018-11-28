@@ -4,14 +4,14 @@
 #' \code{\link[quanteda]{corpus}} object -  the way text data is stored in the
 #' package \code{\link[quanteda]{quanteda}}.
 #'
-#' @param object object of class \code{\link{textmeta}}
-#' @param docnames \code{character} column of object$meta which should be kept
-#' as \code{\link[quanteda]{docnames}}
-#' @param docvars \code{character} vector with columns of object$meta which
-#' should be kept as \code{\link[quanteda]{docvars}}
-#' @param metadoc \code{character} vector with columns of object$meta which
-#' should be kept as \code{\link[quanteda]{metadoc}}
-#' @param ... additional parameters like \code{compress} for \code{\link[quanteda]{corpus}}
+#' @param object \code{\link{textmeta}} object
+#' @param docnames Character: string with the column of object$meta
+#' which should be kept as \code{\link[quanteda]{docnames}}.
+#' @param docvars Character: vector with columns of object$meta which
+#' should be kept as \code{\link[quanteda]{docvars}}.
+#' @param metadoc Character: vector with columns of object$meta which
+#' should be kept as \code{\link[quanteda]{metadoc}}.
+#' @param ... Additional parameters like \code{compress} for \code{\link[quanteda]{corpus}}.
 #' @return \code{\link[quanteda]{corpus}} object
 #' @keywords manip
 #' @export as.corpus.textmeta

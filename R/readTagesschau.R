@@ -1,14 +1,13 @@
 #' Read Tagesschau files
 #'
-#' Reads the XML-files from Tagesschau and separates the text and meta data.
+#' Reads XML-files from Tagesschau and separates the text and meta data.
 #'
-#'
-#' @param path Character string with path where the data files are.
-#' @param file Character string with names of the XML files.
+#' @param path Character: string with path where the data files are.
+#' @param file Character: string with names of the XML files.
 #' @param encoding encoding of the input files.
-#' @param type Character string whether to get one text with paragraphs
-#' per show (condensed) or one text per comment/message/report (detail)
-#' @return textmeta-object
+#' @param type Character: string whether to get one text with paragraphs
+#' per show (condensed) or one text per comment/message/report (detail).
+#' @return \code{\link{textmeta}} object
 #' @author Jonas Rieger (<jonas.rieger@@tu-dortmund.de>)
 #' @keywords manip
 #'
@@ -18,12 +17,14 @@ readTagesschau <- function(path = getwd(),
   file = list.files(path = path, pattern = "*.xml$",
     full.names = FALSE, recursive = TRUE), encoding = "utf-8",
   type = c("condensed", "detail")){
+
   stopifnot(is.character(file), is.character(path), is.character(encoding),
     length(path) == 1, length(encoding) == 1, is.character(type),
     all(type %in% c("condensed", "detail")))
   if(type[1] == "condensed"){
     return(readTagessschau.condensed(path = path, file = file, encoding = encoding))
   }
+
   text <- NULL
   meta <- NULL
   metamult <- NULL
