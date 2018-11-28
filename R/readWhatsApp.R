@@ -41,7 +41,7 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     mData$systemSecurity = grepl(pattern = "<div class=\"_3_7SH _14b5J Zq3Mc tail\">", obs)
 
     systemMessage = mData$systemActivity | mData$systemDate | mData$systemSecurity
-    newtext[systemMessage] = tosca::removeXML(stringr::str_extract(obs[systemMessage],
+    newtext[systemMessage] = removeXML(stringr::str_extract(obs[systemMessage],
       "<div class=\"_3_7SH( _14b5J)? Zq3Mc( tail)?\">(.*?)</div>"))
 
     mData$userMessage = !systemMessage
@@ -71,24 +71,24 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
       pattern = "data-plain-text=\"(.*?)\">")
     tmp = stringr::str_extract(string = tmp, pattern = "data-plain-text=\"(.*?)\"")
     textandemojis[indemoji] = paste(substr(tmp, 18, nchar(tmp)-1),
-      tosca::removeXML(paste("<", textandemojis[indemoji])))
+      removeXML(paste("<", textandemojis[indemoji])))
     textandemojis = sapply(seq_len(ncol(indsplit)), function(x)
       paste(textandemojis[indsplit[1,x]:indsplit[2,x]], collapse = " "))
 
-    newtext[mData$userMessage] = tosca::removeXML(textandemojis)
+    newtext[mData$userMessage] = removeXML(textandemojis)
 
     mData$forward[mData$userMessage] = grepl(
       pattern = "<span data-icon=\"forward-indicator\" class=\"ySrGA\">",
       x = obs[mData$userMessage])
     mData$cited[mData$userMessage] = grepl(pattern = "<span dir=\"auto\" class=\"quoted-mention\">",
       x = obs[mData$userMessage])
-    mData$citedAuthor[mData$userMessage] = tosca::removeXML(stringr::str_extract(obs[mData$userMessage],
+    mData$citedAuthor[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
       "<span dir=\"auto\" class=\"((_3Ye_R _1wjpf)|(_2a1Yw))\">(.*?)</div>"))
-    mData$citedText[mData$userMessage] = tosca::removeXML(stringr::str_extract(obs[mData$userMessage],
+    mData$citedText[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
       "<span dir=\"auto\" class=\"quoted-mention\">(.*?)</div>"))
     # Zitat koennte Emojis enthalten?!
 
-    mData$time[mData$userMessage] = tosca::removeXML(stringr::str_extract(obs[mData$userMessage],
+    mData$time[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
       "<span class=\"_3EFt_\">(.*?)</span>"))
 
     meta = rbind(meta, mData)
@@ -96,7 +96,7 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     names(newtext) = mData$id
     text = c(text, newtext)
   }
-  res = tosca::textmeta(meta = meta, text = as.list(text))
+  res = textmeta(meta = meta, text = as.list(text))
   readTime = difftime(Sys.time(), readTime)
   cat("Time for Reading Data:", round(as.numeric(readTime), 2), attributes(readTime)$units,
     "\n----------------------------------------------------------------------\n")

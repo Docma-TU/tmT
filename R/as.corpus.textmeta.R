@@ -20,7 +20,7 @@ as.corpus.textmeta <- function(object, docnames = "id",
   docvars = setdiff(colnames(object$meta), "id"), metadoc = character(), ...){
 
   # stop if parameters set wrong
-  stopifnot(tosca::is.textmeta(object), is.character(docnames), length(docnames) == 1,
+  stopifnot(is.textmeta(object), is.character(docnames), length(docnames) == 1,
     is.character(docvars), is.character(metadoc),
     all(union(union(docnames, docvars), metadoc) %in% colnames(object$meta)))
 
@@ -31,8 +31,8 @@ as.corpus.textmeta <- function(object, docnames = "id",
   meta <- as.data.frame(object$meta[,metadoc], stringsAsFactors = FALSE)
   colnames(meta) <- metadoc
 
-  corp <- corpus(x = texts, docnames = id, docvars = vars, ...)
-  metadoc(corp) <- meta
+  corp <- quanteda::corpus(x = texts, docnames = id, docvars = vars, ...)
+  quanteda::metadoc(corp) <- meta
 
   return(corp)
 }
