@@ -13,41 +13,44 @@
 #'
 readWhatsApp = function(path = getwd(), file = list.files(path = path,
   pattern = "*.html$", full.names = FALSE, recursive = TRUE)){
-
+  
   text = NULL
   meta = NULL
   filenames = substr(file, 1, nchar(file)-5)
   readTime = Sys.time()
-
+  
   for (i in seq_along(file)) {
     #message("read WhatsApp-Chat \"", filenames[i], "\" ...")
     article = readLines(con = paste(path, file[i], sep="/"), encoding = "UTF-8")
     lines = grep(pattern = "<div class=\"vW7d1((.){7})?\">", x = article)
-
+    
     articlespan = article[min(lines):length(article)]
     obs = tail(
       unlist(strsplit(paste(articlespan, collapse = " "),
         "<div class=\"vW7d1((.){7})?\">")), n = -1)
     # jeweils erster Wert des Splits keine Beobachtung!
-
+    
     mData = data.frame(id = paste0(filenames[i], seq_along(obs)), title = NA_character_,
       stringsAsFactors = FALSE)
     # IDs noch genauer setzen. Iwie den Namen des Chats einbringen,
     # siehe dafuer article[lines] vor obs
     newtext = character(length(obs))
-
+    
     mData$systemActivity = grepl(pattern = "<div class=\"_3_7SH Zq3Mc tail\">", obs)
     mData$systemDate = grepl(pattern = "<div class=\"_3_7SH Zq3Mc\">", obs)
     mData$systemSecurity = grepl(pattern = "<div class=\"_3_7SH _14b5J Zq3Mc tail\">", obs)
-
+    
     systemMessage = mData$systemActivity | mData$systemDate | mData$systemSecurity
     newtext[systemMessage] = removeXML(stringr::str_extract(obs[systemMessage],
       "<div class=\"_3_7SH( _14b5J)? Zq3Mc( tail)?\">(.*?)</div>"))
-
+    
     mData$userMessage = !systemMessage
     mData$textMessage = grepl(pattern = "<div class=\"_3_7SH _3DFk6( message-(in|out))?( tail)?\">", obs)
     mData$imageMessage = grepl(pattern = "<div class=\"_3_7SH _3qMSo( message-(in|out))?( tail)?\">", obs)
     mData$audioMessage = grepl(pattern = "<div class=\"_3_7SH _1gqYh( message-(in|out))?( tail)?\">", obs)
+    mData$videoMessage = grepl(pattern = "<div class=\"_3_7SH _3In2e( message-(in|out))?( tail)?\">", obs)
+    mData$stickerMessage = grepl(pattern = "<div class=\"_3_7SH _1rK-b( message-(in|out))?( tail)?\">", obs)
+    mData$gifMessage = grepl(pattern = "<div class=\"_3_7SH _2hOiI( message-(in|out))?( tail)?\">", obs)
     header = stringr::str_extract(obs[mData$userMessage],
       "<div class=\"(.*?)copyable-text\" data-pre-plain-text=\"(.*?)\"><div")
     header = stringr::str_extract(header,
@@ -58,7 +61,7 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     mData$date = as.Date(mData$posix)
     mData$author[mData$userMessage] = substr(header, 55, nchar(header) - 8)
     mData$author = trimws(gsub(pattern = "\\]", x = mData$author, replacement = ""))
-
+    
     textandemojis = stringr::str_extract(obs[mData$userMessage],
       "<((span dir=\"ltr\" class=\")|(div class=\"_2x9bY ))selectable-text invisible-space copyable-text\">(.*?)</div>")
     # emojji detection and extraction
@@ -74,9 +77,9 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
       removeXML(paste("<", textandemojis[indemoji])))
     textandemojis = sapply(seq_len(ncol(indsplit)), function(x)
       paste(textandemojis[indsplit[1,x]:indsplit[2,x]], collapse = " "))
-
+    
     newtext[mData$userMessage] = removeXML(textandemojis)
-
+    
     mData$forward[mData$userMessage] = grepl(
       pattern = "<span data-icon=\"forward-indicator\" class=\"ySrGA\">",
       x = obs[mData$userMessage])
@@ -87,12 +90,12 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     mData$citedText[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
       "<span dir=\"auto\" class=\"quoted-mention\">(.*?)</div>"))
     # Zitat koennte Emojis enthalten?!
-
+    
     mData$time[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
       "<span class=\"_3EFt_\">(.*?)</span>"))
-
+    
     meta = rbind(meta, mData)
-
+    
     names(newtext) = mData$id
     text = c(text, newtext)
   }
