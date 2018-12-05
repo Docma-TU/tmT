@@ -39,8 +39,10 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     mData$systemActivity = grepl(pattern = "<div class=\"_3_7SH Zq3Mc tail\">", obs)
     mData$systemDate = grepl(pattern = "<div class=\"_3_7SH Zq3Mc\">", obs)
     mData$systemSecurity = grepl(pattern = "<div class=\"_3_7SH _14b5J Zq3Mc tail\">", obs)
+    mData$systemInfo = grepl(pattern = "<div class=\"_3_7SH _3DFk6 _2pwyf( message-(in|out))?( tail)?\">", obs)
+    mData$systemAccount = grepl(pattern = "<div class=\"_3_7SH _3T8jk Zq3Mc tail\">", obs)
     
-    systemMessage = mData$systemActivity | mData$systemDate | mData$systemSecurity
+    systemMessage = mData$systemActivity | mData$systemDate | mData$systemSecurity | mData$systemInfo | mData$systemAccount
     newtext[systemMessage] = removeXML(stringr::str_extract(obs[systemMessage],
       "<div class=\"_3_7SH( _14b5J)? Zq3Mc( tail)?\">(.*?)</div>"))
     
