@@ -47,7 +47,8 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     mData$userMessage = !systemMessage
     mData$textMessage = grepl(pattern = "<div class=\"_3_7SH _3DFk6( message-(in|out))?( tail)?\">", obs)
     mData$imageMessage = grepl(pattern = "<div class=\"_3_7SH _3qMSo( message-(in|out))?( tail)?\">", obs)
-    mData$audioMessage = grepl(pattern = "<div class=\"_3_7SH _1gqYh( message-(in|out))?( tail)?\">", obs)
+    mData$audioMessage = grepl(pattern = "<div class=\"_3_7SH _1gqYh( message-(in|out))?( tail)?\">", obs) |
+      grepl(pattern = "<div class=\"_3_7SH _17oKL( message-(in|out))?( tail)?\">", obs)
     mData$videoMessage = grepl(pattern = "<div class=\"_3_7SH _3In2e( message-(in|out))?( tail)?\">", obs)
     mData$stickerMessage = grepl(pattern = "<div class=\"_3_7SH _1rK-b( message-(in|out))?( tail)?\">", obs)
     mData$gifMessage = grepl(pattern = "<div class=\"_3_7SH _2hOiI( message-(in|out))?( tail)?\">", obs)
