@@ -11,6 +11,9 @@
 #'
 #' @export readWhatsApp
 #'
+
+# bei Links kann man evtl noch verlinkten Inhalt auslesen
+
 readWhatsApp = function(path = getwd(), file = list.files(path = path,
   pattern = "*.html$", full.names = FALSE, recursive = TRUE)){
   
@@ -30,7 +33,7 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
         "<div class=\"vW7d1((.){7})?\">")), n = -1)
     # jeweils erster Wert des Splits keine Beobachtung!
     
-    mData = data.frame(id = paste0(filenames[i], seq_along(obs)), title = NA_character_,
+    mData = data.frame(id = paste(filenames[i], seq_along(obs), sep = "."), title = NA_character_,
       stringsAsFactors = FALSE)
     # IDs noch genauer setzen. Iwie den Namen des Chats einbringen,
     # siehe dafuer article[lines] vor obs
@@ -67,31 +70,21 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
     
     textandemojis = stringr::str_extract(obs[mData$userMessage],
       "<((span dir=\"ltr\" class=\")|(div class=\"_2x9bY ))selectable-text invisible-space copyable-text\">(.*?)</div>")
-    # emojji detection and extraction
-    textandemojis = strsplit(textandemojis, "<img crossorigin")
-    tmp = cumsum(lengths(textandemojis))
-    indsplit = rbind(c(1, head(tmp, -1)+1), tmp)
-    textandemojis = unlist(textandemojis)
-    indemoji = grepl(x = textandemojis, pattern = "data-plain-text=\"(.*?)\">")
-    tmp = stringr::str_extract(string = textandemojis[indemoji],
-      pattern = "data-plain-text=\"(.*?)\">")
-    tmp = stringr::str_extract(string = tmp, pattern = "data-plain-text=\"(.*?)\"")
-    textandemojis[indemoji] = paste(substr(tmp, 18, nchar(tmp)-1),
-      removeXML(paste("<", textandemojis[indemoji])))
-    textandemojis = sapply(seq_len(ncol(indsplit)), function(x)
-      paste(textandemojis[indsplit[1,x]:indsplit[2,x]], collapse = " "))
     
-    newtext[mData$userMessage] = removeXML(textandemojis)
+    # emojji detection and extraction
+    newtext[mData$userMessage] = removeXML(.extractEmojis(textandemojis))
     
     mData$forward[mData$userMessage] = grepl(
       pattern = "<span data-icon=\"forward-indicator\" class=\"ySrGA\">",
       x = obs[mData$userMessage])
     mData$cited[mData$userMessage] = grepl(pattern = "<span dir=\"auto\" class=\"quoted-mention\">",
       x = obs[mData$userMessage])
-    mData$citedAuthor[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
+    citedtmp = mData$cited
+    citedtmp[is.na(citedtmp)] = FALSE
+    mData$citedAuthor[citedtmp] = removeXML(stringr::str_extract(obs[citedtmp],
       "<span dir=\"auto\" class=\"((_3Ye_R _1wjpf)|(_2a1Yw))\">(.*?)</div>"))
-    mData$citedText[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
-      "<span dir=\"auto\" class=\"quoted-mention\">(.*?)</div>"))
+    mData$citedText[citedtmp] = removeXML(.extractEmojis2(stringr::str_extract(obs[citedtmp],
+      "<span dir=\"auto\" class=\"quoted-mention\">(.*?)</div>")))
     # Zitat koennte Emojis enthalten?!
     
     mData$time[mData$userMessage] = removeXML(stringr::str_extract(obs[mData$userMessage],
@@ -107,4 +100,38 @@ readWhatsApp = function(path = getwd(), file = list.files(path = path,
   cat("Time for Reading Data:", round(as.numeric(readTime), 2), attributes(readTime)$units,
     "\n----------------------------------------------------------------------\n")
   summary(res)
+}
+
+.extractEmojis = function(textandemojis){
+  # emojji detection and extraction with "data-plain-text" Flag
+  textandemojis = strsplit(textandemojis, "<img crossorigin")
+  tmp = cumsum(lengths(textandemojis))
+  indsplit = rbind(c(1, head(tmp, -1)+1), tmp)
+  textandemojis = unlist(textandemojis)
+  indemoji = grepl(x = textandemojis, pattern = "data-plain-text=\"(.*?)\">")
+  tmp = stringr::str_extract(string = textandemojis[indemoji],
+    pattern = "data-plain-text=\"(.*?)\">")
+  tmp = stringr::str_extract(string = tmp, pattern = "data-plain-text=\"(.*?)\"")
+  textandemojis[indemoji] = paste(substr(tmp, 18, nchar(tmp)-1),
+    removeXML(paste("<", textandemojis[indemoji])))
+  textandemojis = sapply(seq_len(ncol(indsplit)), function(x)
+    paste(textandemojis[indsplit[1,x]:indsplit[2,x]], collapse = " "))
+  return(textandemojis)
+}
+
+.extractEmojis2 = function(textandemojis){
+  # emojji detection and extraction with "alt" Flag
+  textandemojis = strsplit(textandemojis, "<img crossorigin")
+  tmp = cumsum(lengths(textandemojis))
+  indsplit = rbind(c(1, head(tmp, -1)+1), tmp)
+  textandemojis = unlist(textandemojis)
+  indemoji = grepl(x = textandemojis, pattern = "alt=\"(.*?)\">")
+  tmp = stringr::str_extract(string = textandemojis[indemoji],
+    pattern = "alt=\"(.*?)\">")
+  tmp = stringr::str_extract(string = tmp, pattern = "alt=\"(.*?)\"")
+  textandemojis[indemoji] = paste(substr(tmp, 6, nchar(tmp)-1),
+    removeXML(paste("<", textandemojis[indemoji])))
+  textandemojis = sapply(seq_len(ncol(indsplit)), function(x)
+    paste(textandemojis[indsplit[1,x]:indsplit[2,x]], collapse = " "))
+  return(textandemojis)
 }
