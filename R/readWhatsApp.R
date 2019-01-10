@@ -4,7 +4,6 @@
 #'
 #' @param path Character: string with path where the data files are.
 #' @param file Character: string with names of the HTML files.
-#' @param encoding encoding of the input files.
 #' @return \code{\link{textmeta}} object.
 #' @author Jonas Rieger (<jonas.rieger@@tu-dortmund.de>)
 #' @keywords manip
