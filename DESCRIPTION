@@ -21,5 +21,5 @@ Suggests:
 	knitr (>= 1.20),
 	devtools (>= 1.13),
 	rmarkdown (>= 1.9)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 LazyData: true
