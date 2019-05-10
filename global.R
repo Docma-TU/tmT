@@ -7,7 +7,7 @@
 ##############
 ## Roxygen2 ##
 ##############
-setwd("//STORE/koppers/Textmining/tmT/")
+setwd("C:/Users/lkoppers/Documents/repos/tmT/")
 setwd("/home/lars/Github/tmT")
 ## setwd("D:/DoCMA/tmT")
 # setwd(rprojroot::find_root("README.md"))
@@ -58,7 +58,7 @@ library(tmT)
 ##############
 ## Roxygen2 ##
 ##############
-setwd("//STORE/koppers/Textmining/tosca/")
+setwd("C:/Users/lkoppers/Documents/repos/tosca/")
 setwd("/home/lars/Github/tosca")
 ## setwd("D:/DoCMA/tosca")
 # setwd(rprojroot::find_root("README.md"))
