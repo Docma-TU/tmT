@@ -72,23 +72,23 @@ system("Rcmd Rd2pdf C:/Users/koppers/Desktop/tosca")
 ##############
 ## testthat ##
 ##############
-setwd("//STORE/koppers/Textmining/tosca/tests/testthat")
+setwd("C:/Users/lkoppers/Documents/repos/tosca/tests/testthat")
 setwd("D:/DoCMA/tosca/tests/testthat")
 setwd("/home/lars/Github/tosca/tests/testthat")
 library(testthat)
-setwd("//STORE/koppers/Textmining/tosca/tests")
+setwd("C:/Users/lkoppers/Documents/repos/tosca/tests")
 setwd("/home/lars/Github/tosca/tests")
 test_check("tosca")
 
 ###################
 ## build install ##
 ###################
-setwd("C:/Users/koppers/Desktop")
+setwd("C:/Users/lkoppers/Documents/repos")
 setwd("/home/lars/Github")
 Sys.time()
 system("R CMD build tosca --resave-data")
 Sys.time()
-system("R CMD check tosca_0.1-2.tar.gz --as-cran")
+system("R CMD check tosca_0.1-5.tar.gz --as-cran")
 Sys.time()
 
 
