@@ -4,9 +4,9 @@
 \alias{readNexis}
 \title{Read preprocessed files from Lexis Nexis}
 \usage{
-readNexis(path = getwd(), file = list.files(path = path, pattern =
-  "*.xml$", full.names = FALSE, recursive = TRUE), do.meta = TRUE,
-  do.text = TRUE, encoding = "utf-8")
+readNexis(path = getwd(), file = list.files(path = path, pattern = "*.xml$",
+  full.names = FALSE, recursive = TRUE), do.meta = TRUE, do.text = TRUE,
+  encoding = "utf-8")
 }
 \arguments{
 \item{path}{Character string with Path where the data files are.}
