@@ -66,8 +66,8 @@ library(roxygen2)
 roxygenize(package.dir = ".")
 
 
-setwd("C:/Users/koppers/Desktop")
-system("Rcmd Rd2pdf C:/Users/koppers/Desktop/tosca")
+setwd("C:/Users/lkoppers/Desktop")
+system("Rcmd Rd2pdf C:/Users/lkoppers/Documents/repos/tosca/")
 
 ##############
 ## testthat ##
