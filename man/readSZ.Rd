@@ -4,8 +4,9 @@
 \alias{readSZ}
 \title{Read the SZ corpus}
 \usage{
-readSZ(path = getwd(), file = list.files(path = path, pattern = "*.xml$",
-  full.names = FALSE, recursive = TRUE), do.meta = TRUE, do.text = TRUE)
+readSZ(path = getwd(), file = list.files(path = path, pattern =
+  "*.xml$", full.names = FALSE, recursive = TRUE, ignore.case = TRUE),
+  do.meta = TRUE, do.text = TRUE)
 }
 \arguments{
 \item{path}{Path where the data files are.}

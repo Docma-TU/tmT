@@ -16,7 +16,7 @@
 #' @export readSZ
 readSZ <- function(path = getwd(),
                    file = list.files(path = path, pattern = "*.xml$",
-                       full.names = FALSE, recursive = TRUE),
+                       full.names = FALSE, recursive = TRUE, ignore.case = TRUE),
                    do.meta = TRUE, do.text = TRUE){
     stopifnot(is.character(file), is.character(path),
               is.logical(do.meta), is.logical(do.text),
