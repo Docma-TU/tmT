@@ -32,10 +32,11 @@ readNexis <- function(path = getwd(),
     cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path,file[i], sep="/"), encoding = encoding)
     downloadDate <- as.character(na.omit(stringr::str_extract(article,"timestamp=(.*?)>")))
+    if (length(downloadDate) < 1) downloadDate = ""
     lines <- grep(pattern = "</record>", article)
     lines <- cbind(c(1,lines[-length(lines)]),lines)
     article <- apply(lines, 1, function(x)paste(article[x[1]:x[2]], collapse = " "))
-    article <-  stringr::str_extract(article, "<record>(.*?)</record>")
+    article <-  stringr::str_extract(article, "<record(.*?)</record>")
 
     id <- stringr::str_extract(article, "<record_id>(.*?)</record_id>")
     id <- removeXML(id)
