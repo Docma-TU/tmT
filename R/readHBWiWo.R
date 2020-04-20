@@ -26,6 +26,9 @@ readHBWiWo <- function(path = getwd(), file = list.files(path = path, pattern = 
     for(i in 1:length(file)){
         cat(paste(file[i]), "\n")
         article <- readLines(con = paste(path,file[i], sep="/"), encoding = "latin1")
+        if(grepl("utf(-){0,1}8", ignore.case = TRUE, article[1])){
+          article <- readLines(con = paste(path,file[i], sep="/"), encoding = "utf8")
+        }
         article <- gsub(pattern = "&quot;", replacement = "\"",article)
         article <- gsub(pattern = "&amp;", replacement = "&",article)
         article <- gsub(pattern = "&apos;", replacement = "\'",article)
