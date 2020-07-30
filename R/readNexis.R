@@ -31,8 +31,8 @@ readNexis <- function(path = getwd(),
   for (i in seq_along(file)) {
     cat(paste(file[i]), "\n")
     article <- readLines(con = paste(path,file[i], sep="/"), encoding = encoding)
-    downloadDate <- as.character(na.omit(stringr::str_extract(article,"timestamp=(.*?)>")))
-    if (length(downloadDate) < 1) downloadDate = ""
+    downloadDate <- as.character(na.omit(stringr::str_extract(article,"timestamp=(.*?)>")))[1]
+    #if (length(downloadDate) < 1) downloadDate = ""
     lines <- grep(pattern = "</record>", article)
     lines <- cbind(c(1,lines[-length(lines)]),lines)
     article <- apply(lines, 1, function(x)paste(article[x[1]:x[2]], collapse = " "))
