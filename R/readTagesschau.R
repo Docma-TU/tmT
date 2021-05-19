@@ -155,7 +155,7 @@ readTagessschau.condensed <- function(path, file, encoding){
   }
   res <- list("meta" = meta, "text" = text, "metamult" = metamult)
   class(res) <- "textmeta"
-  res <- deleteAndRenameDuplicates(res, paragraph = FALSE)
+  res <- deleteAndRenameDuplicates(res)
   summary(res)
 }
 

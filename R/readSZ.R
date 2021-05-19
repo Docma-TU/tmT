@@ -86,6 +86,6 @@ readSZ <- function(path = getwd(),
     }
     res <- list("meta" = meta, "text" = text, metamult = NULL)
     class(res) <- "textmeta"
-    if (do.text) res <- deleteAndRenameDuplicates(res, paragraph = TRUE)
+    if (do.text) res <- deleteAndRenameDuplicates(res)
     summary(res)
 }
