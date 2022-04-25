@@ -37,39 +37,39 @@ readNexis <- function(path = getwd(),
     lines <- cbind(c(1,lines[-length(lines)]),lines)
     article <- apply(lines, 1, function(x)paste(article[x[1]:x[2]], collapse = " "))
     article <-  stringr::str_extract(article, "<record(.*?)</record>")
-
+    
     id <- stringr::str_extract(article, "<record_id>(.*?)</record_id>")
     id <- removeXML(id)
-
+    
     leadtext <-  stringr::str_extract(article, "<leadtext>(.*?)</leadtext>")
     leadtext <- removeXML(leadtext)
     leadtext <- gsub(pattern = "^\\s+|\\s+$|Original Gesamtseiten-PDF",
                      replacement = "", leadtext, perl = TRUE)
-
+    
     if (do.meta) {
       url <- stringr::str_extract(article, "<source_id>(.*?)</source_id>")
       url <- removeXML(url)
-
+      
       date <- stringr::str_extract(article, "<publishDate>(.*?)</publishDate>")
       date <- removeXML(date)
       date <- as.Date(date, format = "%Y%m%d")
-
+      
       title <-  stringr::str_extract(article, "<title>(.*?)</title>")
       title <- removeXML(title)
-
+      
       page <-  stringr::str_extract(article, "<series2>(.*?)</series2>")
       page <- removeXML(page)
-
+      
       resource <-  stringr::str_extract(article, "<series>(.*?)</series>")
       resource <- removeXML(resource)
-
+      
       author <-  stringr::str_extract(article, "<author>(.*?)</author>")
       author <- removeXML(author)
-
+      
       downloadDate <- stringr::str_extract(downloadDate, "[0-9-]+")
       downloadDate <- as.Date(downloadDate, format = "%Y-%m-%d")
       downloadDate <- rep(downloadDate, times = length(id))
-
+      
       mData <- data.frame(id, url, date, title, page, resource, author, leadtext,
                           downloadDate, stringsAsFactors = FALSE)
       meta <- rbind(meta, mData)
@@ -88,6 +88,14 @@ readNexis <- function(path = getwd(),
   }
   res <- list("meta" = meta, "text" = text, "metamult" = metamult)
   class(res) <- "textmeta"
-  if (do.text) res <- deleteAndRenameDuplicates(res)
+  if (do.text){
+    if (any(is.na(names(res$text)))){
+      if (!all(names(res$text) == res$meta$id, na.rm = TRUE)) stop("names(text) do not equal IDs!")
+      if (!all(is.na(names(res$text)) == is.na(res$meta$id))) stop("NAs in names(text) do not equal NAs in IDs!")
+      res$text = res$text[!is.na(res$text)]
+      res$meta$id = res$meta$id[!is.na(res$meta$id)]
+    }
+    res <- deleteAndRenameDuplicates(res)
+  }
   summary(res)
 }
