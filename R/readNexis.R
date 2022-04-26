@@ -93,7 +93,7 @@ readNexis <- function(path = getwd(),
       if (!all(names(res$text) == res$meta$id, na.rm = TRUE)) stop("names(text) do not equal IDs!")
       if (!all(is.na(names(res$text)) == is.na(res$meta$id))) stop("NAs in names(text) do not equal NAs in IDs!")
       res$text = res$text[!is.na(res$text)]
-      res$meta$id = res$meta$id[!is.na(res$meta$id)]
+      res$meta = res$meta[!is.na(res$meta$id),]
     }
     res <- deleteAndRenameDuplicates(res)
   }
